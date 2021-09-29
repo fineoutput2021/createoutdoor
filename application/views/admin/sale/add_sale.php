@@ -1,7 +1,7 @@
 <div class="content-wrapper">
                <section class="content-header">
                   <h1>
-                 Add New Products
+                 Add New Sale
                  </h1>
 
                </section>
@@ -11,7 +11,7 @@
 
                                <div class="panel panel-default">
                                    <div class="panel-heading">
-                                       <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Add New Products</h3>
+                                       <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Add New Sale</h3>
                                    </div>
 
                                             <? if(!empty($this->session->flashdata('smessage'))){  ?>
@@ -32,28 +32,24 @@
 
                                    <div class="panel-body">
                                        <div class="col-lg-10">
-                                          <form action=" <?php echo base_url()  ?>dcadmin/products/add_products_data/<? echo base64_encode(1);  ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                                          <form action=" <?php echo base_url()  ?>dcadmin/sale/add_sale_data/<? echo base64_encode(1);  ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                        <div class="table-responsive">
                                            <table class="table table-hover">
   <tr>
-<td> <strong>Product Image</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>Title</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="title"  class="form-control" placeholder="" required value="" />  </td>
+</tr>
+  <tr>
+<td> <strong>Description</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="description"  class="form-control" placeholder="" required value="" />  </td>
+</tr>
+  <tr>
+<td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
-<td> <strong>MRP </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="mrp"  class="form-control" placeholder="" required value="" />  </td>
-</tr>
-  <tr>
-<td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td>
-</tr>
-  <tr>
-<td> <strong>Colours</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="color" name="colours"  class="form-control" placeholder="" required value="" />  </td>
-</tr>
-  <tr>
-<td> <strong>Inventory </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="inventry"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>image1</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="image1"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 
 
@@ -83,3 +79,5 @@
 
 <script type="text/javascript" src=" <?php echo base_url()  ?>assets/slider/ajaxupload.3.5.js"></script>
      <link href=" <? echo base_url()  ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
+
+       

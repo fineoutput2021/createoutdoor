@@ -128,7 +128,6 @@
 
            $data_insert = array(
                   'inventry'=>$inventry,
-
                      'ip' =>$ip,
                      'added_by' =>$addedby,
                      'is_active' =>1,

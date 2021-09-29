@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class Products extends CI_finecontrol{
+       class Sale extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
@@ -11,7 +11,7 @@
              $this->load->library('upload');
            }
 
-         public function view_products(){
+         public function view_sale(){
 
             if(!empty($this->session->userdata('admin_data'))){
 
@@ -24,12 +24,12 @@
               // exit;
 
                            $this->db->select('*');
-               $this->db->from('tbl_products');
+               $this->db->from('tbl_sale');
                //$this->db->where('id',$usr);
-               $data['products_data']= $this->db->get();
+               $data['sale_data']= $this->db->get();
 
               $this->load->view('admin/common/header_view',$data);
-              $this->load->view('admin/products/view_products');
+              $this->load->view('admin/sale/view_sale');
               $this->load->view('admin/common/footer_view');
 
           }
@@ -40,12 +40,12 @@
 
           }
 
-              public function add_products(){
+              public function add_sale(){
 
                  if(!empty($this->session->userdata('admin_data'))){
 
                    $this->load->view('admin/common/header_view');
-                   $this->load->view('admin/products/add_products');
+                   $this->load->view('admin/sale/add_sale');
                    $this->load->view('admin/common/footer_view');
 
                }
@@ -56,7 +56,7 @@
 
                }
 
-               public function update_products($idd){
+               public function update_sale($idd){
 
                    if(!empty($this->session->userdata('admin_data'))){
 
@@ -72,13 +72,13 @@
                      $data['id']=$idd;
 
                             $this->db->select('*');
-                            $this->db->from('tbl_products');
+                            $this->db->from('tbl_sale');
                             $this->db->where('id',$id);
-                            $data['products_data']= $this->db->get()->row();
+                            $data['sale_data']= $this->db->get()->row();
 
 
                      $this->load->view('admin/common/header_view',$data);
-                     $this->load->view('admin/products/update_products');
+                     $this->load->view('admin/sale/update_sale');
                      $this->load->view('admin/common/footer_view');
 
                  }
@@ -89,14 +89,13 @@
 
                  }
 
-             public function add_products_data($t,$iw="")
+             public function add_sale_data($t,$iw="")
 
                {
 
                  if(!empty($this->session->userdata('admin_data'))){
 
-// echo "hii";
-// exit;
+
              $this->load->helper(array('form', 'url'));
              $this->load->library('form_validation');
              $this->load->helper('security');
@@ -104,10 +103,8 @@
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('mrp', 'mrp', 'required|trim');
-  $this->form_validation->set_rules('productdescription', 'productdescription', 'required|trim');
-  $this->form_validation->set_rules('colours', 'colours', 'required');
-  $this->form_validation->set_rules('inventry', 'inventry', 'required|trim');
+  $this->form_validation->set_rules('title', 'title', 'required');
+  $this->form_validation->set_rules('description', 'description', 'required');
 
 
 
@@ -115,10 +112,8 @@
 
                if($this->form_validation->run()== TRUE)
                {
-  $mrp=$this->input->post('mrp');
-  $productdescription=$this->input->post('productdescription');
-  $colours=$this->input->post('colours');
-  $inventry=$this->input->post('inventry');
+  $title=$this->input->post('title');
+  $description=$this->input->post('description');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -131,17 +126,17 @@
 
 
 
-$img0='image';
+$img2='image';
 
 
 
 
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
+         $image_upload_folder = FCPATH . "assets/uploads/sale/";
                      if (!file_exists($image_upload_folder))
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="products".date("Ymdhms");
+                     $new_file_name="sale".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -149,7 +144,7 @@ $img0='image';
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
+                     if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
@@ -162,11 +157,54 @@ $img0='image';
 
                          $file_info = $this->upload->data();
 
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $videoNAmePath = "assets/uploads/sale/".$new_file_name.$file_info['file_ext'];
                          $file_info['new_name']=$videoNAmePath;
                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
                          $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
+                         $nnnn2=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img3='image1';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/sale/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="sale1".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img3))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/sale/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn3=$videoNAmePath;
 
                          // echo json_encode($file_info);
                      }
@@ -175,11 +213,10 @@ $img0='image';
 
 
            $data_insert = array(
-                  'image'=>$nnnn0,
-  'mrp'=>$mrp,
-  'productdescription'=>$productdescription,
-  'colours'=>$colours,
-  'inventry '=>$inventry ,
+                  'title'=>$title,
+  'description'=>$description,
+  'image'=>$nnnn2,
+  'image1'=>$nnnn3,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -188,7 +225,7 @@ $img0='image';
                      );
 
 
-           $last_id=$this->base_model->insert_table("tbl_products",$data_insert,1) ;
+           $last_id=$this->base_model->insert_table("tbl_sale",$data_insert,1) ;
 
            }
            if($typ==2){
@@ -197,24 +234,24 @@ $img0='image';
 
 
  $this->db->select('*');
- $this->db->from('tbl_products');
+ $this->db->from('tbl_sale');
  $this->db->where('id',$idw);
  $dsa=$this->db->get();
  $da=$dsa->row();
 
 
 
-$img0='image';
+$img2='image';
 
 
 
 
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
+         $image_upload_folder = FCPATH . "assets/uploads/sale/";
                      if (!file_exists($image_upload_folder))
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="products".date("Ymdhms");
+                     $new_file_name="sale".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -222,7 +259,7 @@ $img0='image';
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
+                     if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
@@ -235,11 +272,54 @@ $img0='image';
 
                          $file_info = $this->upload->data();
 
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $videoNAmePath = "assets/uploads/sale/".$new_file_name.$file_info['file_ext'];
                          $file_info['new_name']=$videoNAmePath;
                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
                          $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
+                         $nnnn2=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img3='image1';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/sale/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="sale2".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img3))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/sale/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn3=$videoNAmePath;
 
                          // echo json_encode($file_info);
                      }
@@ -248,22 +328,22 @@ $img0='image';
 
 
  if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){ $nnnn0= ""; } } }
+if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }if(!empty($da)){ $img = $da ->image1;
+if(!empty($img)) { if(empty($nnnn3)){ $nnnn3 = $img; } }else{ if(empty($nnnn3)){ $nnnn3= ""; } } }
 
            $data_insert = array(
-                  'image'=>$nnnn0,
-  'mrp'=>$mrp,
-  'productdescription'=>$productdescription,
-  'colours'=>$colours,
-  'inventry '=>$inventry ,
+                  'title'=>$title,
+  'description'=>$description,
+  'image'=>$nnnn2,
+  'image1'=>$nnnn3,
 
                      );
              $this->db->where('id', $idw);
-             $last_id=$this->db->update('tbl_products', $data_insert);
+             $last_id=$this->db->update('tbl_sale', $data_insert);
            }
                        if($last_id!=0){
                                $this->session->set_flashdata('smessage','Data inserted successfully');
-                               redirect("dcadmin/products/view_products","refresh");
+                               redirect("dcadmin/sale/view_sale","refresh");
                               }
                                else
                                    {
@@ -296,7 +376,7 @@ if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){
 
            }
 
-               public function updateproductsStatus($idd,$t){
+               public function updatesaleStatus($idd,$t){
 
                         if(!empty($this->session->userdata('admin_data'))){
 
@@ -317,10 +397,10 @@ if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){
                         );
 
                         $this->db->where('id', $id);
-                       $zapak=$this->db->update('tbl_products', $data_update);
+                       $zapak=$this->db->update('tbl_sale', $data_update);
 
                             if($zapak!=0){
-                            redirect("dcadmin/products/view_products","refresh");
+                            redirect("dcadmin/sale/view_sale","refresh");
                                     }
                                     else
                                     {
@@ -335,10 +415,10 @@ if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){
                          );
 
                          $this->db->where('id', $id);
-                         $zapak=$this->db->update('tbl_products', $data_update);
+                         $zapak=$this->db->update('tbl_sale', $data_update);
 
                              if($zapak!=0){
-                             redirect("dcadmin/products/view_products","refresh");
+                             redirect("dcadmin/sale/view_sale","refresh");
                                      }
                                      else
                                      {
@@ -361,7 +441,7 @@ if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){
 
 
 
-               public function delete_products($idd){
+               public function delete_sale($idd){
 
                       if(!empty($this->session->userdata('admin_data'))){
 
@@ -376,17 +456,17 @@ if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){
                        if($this->load->get_var('position')=="Super Admin"){
 
                      $this->db->select('image');
-                     $this->db->from('tbl_products');
+                     $this->db->from('tbl_sale');
                      $this->db->where('id',$id);
                      $dsa= $this->db->get();
                      $da=$dsa->row();
                      $img=$da->image;
 
- $zapak=$this->db->delete('tbl_products', array('id' => $id));
+ $zapak=$this->db->delete('tbl_sale', array('id' => $id));
  if($zapak!=0){
         $path = FCPATH .$img;
           unlink($path);
-        redirect("dcadmin/products/view_products","refresh");
+        redirect("dcadmin/sale/view_sale","refresh");
                 }
                 else
                 {
