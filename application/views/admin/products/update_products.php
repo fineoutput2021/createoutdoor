@@ -36,25 +36,29 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>Product Image</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>productname</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="name"  class="form-control" placeholder=""  value="<?=$products_data->name;?>" />  </td>
+</tr>
+<tr>
+<td> <strong>productimage</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image"  class="form-control" placeholder="" />
 <?php if($products_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
-<td> <strong>MRP </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="mrp"  class="form-control" placeholder="" required value="<?=$products_data->mrp;?>" />  </td>
+<td> <strong>mrp</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="mrp"  class="form-control" placeholder=""  value="<?=$products_data->mrp;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="<?=$products_data->productdescription;?>" />  </td>
+<td> <strong>productdescription</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="productdescription"  class="form-control" placeholder=""  value="<?=$products_data->productdescription;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Colours</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="color" name="colours"  class="form-control" placeholder="" required value="<?=$products_data->colours;?>" />  </td>
+<td> <strong>colours</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="color" name="colours"  class="form-control" placeholder=""  value="<?=$products_data->colours;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Inventry </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="inventry "  class="form-control" placeholder="" required value="<?=$products_data->inventry ;?>" />  </td>
+<td> <strong>inventory</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="inventory"  class="form-control" placeholder=""  value="<?=$products_data->inventory;?>" />  </td>
 </tr>
 
 

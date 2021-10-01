@@ -22,7 +22,7 @@ public function get_slider(){
   $sliderdata= $this->db->get();
   $slider=[];
 foreach($sliderdata->result() as $data) {
-$slider = array(
+$slider[] = array(
       'name'=> $data->name,
       'image'=> base_url().$data->image
 );
@@ -197,15 +197,15 @@ $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
 $products[] = array(
-	  'producname'=> $data->name,
+	  'productname'=> $data->name,
     'productimage'=> base_url().$data->image,
     'mrp'=> $data->mrp,
     'productdescription'=> $data->productdescription,
     'colours'=> $data->colours,
-    'inventory'=> $data->inventory
-
+    // 'inventory'=> $data->inventory
 );
 }
+
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,

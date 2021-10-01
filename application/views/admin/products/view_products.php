@@ -39,11 +39,12 @@
         <tr>
         <th>#</th>
 
- 	 <th>Product Image</th>
- 	 <th>MRP </th>
- 	 <th>Product Description</th>
- 	 <th>Colours</th>
- 	 <th>Inventry </th>
+ 	 <th>productname</th>
+ 	 <th>productimage</th>
+ 	 <th>mrp</th>
+ 	 <th>productdescription</th>
+ 	 <th>colours</th>
+ 	 <th>inventory</th>
 
 
         <th>Status</th>
@@ -55,6 +56,7 @@
         <tr>
         <td><?php echo $i ?> </td>
 
+ 	 <td><?php echo $data->name ?></td>
 
         <td>
         <?php if($data->image!=""){ ?>
@@ -68,7 +70,7 @@
 	 <td><?php echo $data->mrp ?></td>
  	 <td><?php echo $data->productdescription ?></td>
  	 <td><?php echo $data->colours ?></td>
- 	 <td><?php echo $data->inventry  ?></td>
+ 	 <td><?php echo $data->inventory ?></td>
 
 
 

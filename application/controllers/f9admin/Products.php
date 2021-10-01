@@ -95,8 +95,7 @@
 
                  if(!empty($this->session->userdata('admin_data'))){
 
-// echo "hii";
-// exit;
+
              $this->load->helper(array('form', 'url'));
              $this->load->library('form_validation');
              $this->load->helper('security');
@@ -104,10 +103,11 @@
              {
                // print_r($this->input->post());
                // exit;
+  $this->form_validation->set_rules('name', 'name', 'required|trim');
   $this->form_validation->set_rules('mrp', 'mrp', 'required|trim');
   $this->form_validation->set_rules('productdescription', 'productdescription', 'required|trim');
-  $this->form_validation->set_rules('colours', 'colours', 'required');
-  $this->form_validation->set_rules('inventry', 'inventry', 'required|trim');
+  $this->form_validation->set_rules('colours', 'colours', 'required|trim');
+  $this->form_validation->set_rules('inventory', 'inventory', 'required|trim');
 
 
 
@@ -115,10 +115,11 @@
 
                if($this->form_validation->run()== TRUE)
                {
+  $name=$this->input->post('name');
   $mrp=$this->input->post('mrp');
   $productdescription=$this->input->post('productdescription');
   $colours=$this->input->post('colours');
-  $inventry=$this->input->post('inventry');
+  $inventory=$this->input->post('inventory');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -131,10 +132,11 @@
 
 
 
-$img0='image';
+$img1='image';
 
 
-
+           $file_check=($_FILES['image']['error']);
+if($file_check!=4){
 
          $image_upload_folder = FCPATH . "assets/uploads/products/";
                      if (!file_exists($image_upload_folder))
@@ -149,7 +151,7 @@ $img0='image';
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
+                     if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
@@ -166,20 +168,21 @@ $img0='image';
                          $file_info['new_name']=$videoNAmePath;
                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
                          $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
+                         $nnnn1=$videoNAmePath;
 
                          // echo json_encode($file_info);
                      }
-
+        }
 
 
 
            $data_insert = array(
-                  'image'=>$nnnn0,
+                  'name'=>$name,
+  'image'=>$nnnn1,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
   'colours'=>$colours,
-  'inventry '=>$inventry ,
+  'inventory'=>$inventory,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -204,10 +207,11 @@ $img0='image';
 
 
 
-$img0='image';
+$img1='image';
 
 
-
+           $file_check=($_FILES['image']['error']);
+if($file_check!=4){
 
          $image_upload_folder = FCPATH . "assets/uploads/products/";
                      if (!file_exists($image_upload_folder))
@@ -222,7 +226,7 @@ $img0='image';
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
+                     if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
@@ -239,23 +243,24 @@ $img0='image';
                          $file_info['new_name']=$videoNAmePath;
                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
                          $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
+                         $nnnn1=$videoNAmePath;
 
                          // echo json_encode($file_info);
                      }
-
+        }
 
 
 
  if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){ $nnnn0= ""; } } }
+if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){ $nnnn1= ""; } } }
 
            $data_insert = array(
-                  'image'=>$nnnn0,
+                  'name'=>$name,
+  'image'=>$nnnn1,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
   'colours'=>$colours,
-  'inventry '=>$inventry ,
+  'inventory'=>$inventory,
 
                      );
              $this->db->where('id', $idw);
