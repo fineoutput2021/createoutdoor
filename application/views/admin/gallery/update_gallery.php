@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 <section class="content-header">
    <h1>
-  Update Bannerimages
+  Update Gallery
   </h1>
 
 </section>
@@ -11,7 +11,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Bannerimages </h3>
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Gallery </h3>
                     </div>
 
                              <? if(!empty($this->session->flashdata('smessage'))){  ?>
@@ -32,32 +32,17 @@
 
                     <div class="panel-body">
                         <div class="col-lg-10">
-                           <form action=" <?php echo base_url(); ?>dcadmin/bannerimages/add_bannerimages_data/<? echo base64_encode(2); ?>/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                           <form action=" <?php echo base_url(); ?>dcadmin/gallery/add_gallery_data/<? echo base64_encode(2); ?>/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                         <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>Image Name</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="imagename"  class="form-control" placeholder=""  value="<?=$bannerimages_data->imagename;?>" />  </td>
-</tr>
-<tr>
-<td> <strong>Image </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image1"  class="form-control" placeholder="" />
-<?php if($bannerimages_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$bannerimages_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
-</tr>
-<tr>
-<td> <strong>Image </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image2"  class="form-control" placeholder="" />
-<?php if($bannerimages_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$bannerimages_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
-</tr>
-<tr>
-<td> <strong>Image </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image3"  class="form-control" placeholder="" />
-<?php if($bannerimages_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$bannerimages_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="name"  class="form-control" placeholder="" required value="<?=$gallery_data->name;?>" />  </td>
 </tr>
 <tr>
 <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image4"  class="form-control" placeholder="" />
-<?php if($bannerimages_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$bannerimages_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<td> <input type="file" name="image"  class="form-control" placeholder="" />
+<?php if($gallery_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$gallery_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 
 

@@ -43,20 +43,19 @@ $res = array('message'=>"success",
 public function get_gallery(){
 
               $this->db->select('*');
-  $this->db->from('tbl_bannerimages');
-  $bannerdata= $this->db->get();
-  $banner=[];
-foreach($bannerdata->result() as $data) {
-$banner = array(
-      'image'=> base_url().$data->image1,
-      'image1'=> base_url().$data->image2,
-      'image2'=> base_url().$data->image3,
-      'image3'=> base_url().$data->image4
+  $this->db->from('tbl_gallery');
+  $gallerydata= $this->db->get();
+  $gallery=[];
+foreach($gallerydata->result() as $data) {
+$gallery[] = array(
+			'name'=> $data->name,
+      'image'=> base_url().$data->image
+
 );
 }
 $res = array('message'=>"success",
 			'status'=>200,
-      'data'=>$banner
+      'data'=>$gallery
 			);
 
 			echo json_encode($res);

@@ -2,17 +2,17 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Bannerimages
+          View Gallery
         </h1>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/bannerimages/add_bannerimages"
-        role="button" style="margin-bottom:12px;"> Add bannerimages</a>
+        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/gallery/add_gallery"
+        role="button" style="margin-bottom:12px;"> Add gallery</a>
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View bannerimages</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View gallery</h3>
         </div>
         <div class="panel panel-default">
 
@@ -39,10 +39,7 @@
         <tr>
         <th>#</th>
 
- 	 <th>Image Name</th>
- 	 <th>Image </th>
- 	 <th>Image </th>
- 	 <th>Image </th>
+ 	 <th>Name</th>
  	 <th>Image</th>
 
 
@@ -51,45 +48,15 @@
         </tr>
         </thead>
         <tbody>
-        <?php $i=1; foreach($bannerimages_data->result() as $data) { ?>
+        <?php $i=1; foreach($gallery_data->result() as $data) { ?>
         <tr>
         <td><?php echo $i ?> </td>
 
- 	 <td><?php echo $data->imagename ?></td>
+ 	 <td><?php echo $data->name ?></td>
 
         <td>
-        <?php if($data->image1!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image1
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image2!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image2
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image3!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image3
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image4!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image4
+        <?php if($data->image!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
         ?>" >
         <?php }else { ?>
         Sorry No File Found
@@ -118,13 +85,13 @@
         <ul class="dropdown-menu" role="menu">
 
         <?php if($data->is_active==1){ ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/bannerimages/updatebannerimagesStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/gallery/updategalleryStatus/<?php echo
         base64_encode($data->id) ?>/inactive">Inactive</a></li>
         <?php } else { ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/bannerimages/updatebannerimagesStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/gallery/updategalleryStatus/<?php echo
         base64_encode($data->id) ?>/active">Active</a></li>
         <?php } ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/bannerimages/update_bannerimages/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/gallery/update_gallery/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
@@ -133,7 +100,7 @@
 
         <div style="display:none" id="cnfbox<?php echo $i ?>">
         <p> Are you sure delete this </p>
-        <a href="<?php echo base_url() ?>dcadmin/bannerimages/delete_bannerimages/<?php echo
+        <a href="<?php echo base_url() ?>dcadmin/gallery/delete_gallery/<?php echo
         base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
         <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
         </div>
