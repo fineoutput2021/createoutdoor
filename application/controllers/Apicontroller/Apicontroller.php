@@ -195,11 +195,12 @@ $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
 $products[] = array(
+	  'producname'=> $data->name,
     'productimage'=> base_url().$data->image,
     'mrp'=> $data->mrp,
     'productdescription'=> $data->productdescription,
     'colours'=> $data->colours,
-    'inventry'=> $data->inventry
+    'inventory'=> $data->inventory
 
 );
 }
@@ -239,9 +240,151 @@ $res = array('message'=>"success",
 
 }
 
+// ========= Get Stock =============
+public function get_stock(){
+
+            $this->db->select('*');
+$this->db->from('tbl_stock');
+$stockdata= $this->db->get();
+$stock=[];
+foreach($stockdata->result() as $data) {
+$stock[] = array(
+	'image'=> base_url().$data->image,
+    'title'=> $data->title,
+		'description'=> $data->description,
+
+
+);
+}
+$res = array('message'=>"success",
+			'status'=>200,
+      'data'=>$stock
+			);
+
+			echo json_encode($res);
+
+
+}
+// ========= Get chair =============
+public function get_chair(){
+
+            $this->db->select('*');
+$this->db->from('tbl_chair');
+$chairdata= $this->db->get();
+$chair=[];
+foreach($chairdata->result() as $data) {
+$chair[] = array(
+		'image1'=> base_url().$data->image1,
+		'image2'=> base_url().$data->image2,
 
 
 
+);
+}
+$res = array('message'=>"success",
+			'status'=>200,
+      'data'=>$chair
+			);
+
+			echo json_encode($res);
+
+
+}
+// ========= Register User ================
+
+
+public function register_user(){
+
+
+              $this->load->helper(array('form', 'url'));
+              $this->load->library('form_validation');
+              $this->load->helper('security');
+              if($this->input->post())
+              {
+                // print_r($this->input->post());
+                // exit;
+                $this->form_validation->set_rules('fullname', 'fullname', 'required|xss_clean|trim');
+                $this->form_validation->set_rules('phone', 'phone', 'required|xss_clean|trim');
+                $this->form_validation->set_rules('agentcode', 'agentcode', 'required|xss_clean|trim');
+
+                if($this->form_validation->run()== TRUE)
+                {
+                  $fullname=$this->input->post('fullname');
+                  $phone=$this->input->post('phone');
+                  $agentcode=$this->input->post('agentcode');
+
+
+                    $ip = $this->input->ip_address();
+            date_default_timezone_set("Asia/Calcutta");
+                    $cur_date=date("Y-m-d H:i:s");
+
+
+            $data_insert = array('fullname'=>$fullname,
+                      'phone'=>$phone,
+                      'agentcode'=>$agentcode,
+                      'ip' =>$ip,
+                      'is_active' =>1,
+                      'date'=>$cur_date
+
+                      );
+
+
+
+
+
+            $last_id=$this->base_model->insert_table("tbl_tempuser",$data_insert,1) ;
+
+            if($last_id!=0){
+
+              $res = array('message'=>"success",
+'status'=>200
+);
+
+echo json_encode($res);
+
+                                        }
+
+                                        else
+
+                                        {
+
+                                          $res = array('message'=>"Sorry error occured",
+                                          			'status'=>201
+                                          			);
+
+                                          			echo json_encode($res);
+
+
+
+
+                                        }
+
+
+                }
+              else{
+                $res = array('message'=>validation_errors(),
+                			'status'=>201
+                			);
+
+                			echo json_encode($res);
+
+
+              }
+
+              }
+            else{
+
+              $res = array('message'=>"Please insert some data, No data available",
+              			'status'=>201
+              			);
+
+              			echo json_encode($res);
+
+            }
+
+
+
+}
 
 
 
