@@ -273,10 +273,8 @@ $chairdata= $this->db->get();
 $chair=[];
 foreach($chairdata->result() as $data) {
 $chair[] = array(
-		'image1'=> base_url().$data->image1,
-		'image2'=> base_url().$data->image2,
-
-
+		'image'=> base_url().$data->image1,
+		// 'image2'=> base_url().$data->Image2
 
 );
 }
