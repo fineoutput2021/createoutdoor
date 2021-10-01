@@ -27,6 +27,7 @@ $slider = array(
       'image'=> base_url().$data->image
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$slider
@@ -53,6 +54,7 @@ $gallery[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$gallery
@@ -175,6 +177,7 @@ $category[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$category
@@ -203,6 +206,7 @@ $products[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$products
@@ -229,6 +233,7 @@ $sales[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$sales
@@ -255,6 +260,7 @@ $stock[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$stock
@@ -278,6 +284,7 @@ $chair[] = array(
 
 );
 }
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 			'status'=>200,
       'data'=>$chair
@@ -287,6 +294,9 @@ $res = array('message'=>"success",
 
 
 }
+
+
+
 // ========= Register User ================
 
 
