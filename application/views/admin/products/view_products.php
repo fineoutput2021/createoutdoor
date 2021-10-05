@@ -39,7 +39,10 @@
         <tr>
         <th>#</th>
 
- 	 <th>productname</th>
+ 	 <th>Productname</th>
+ 	 <th>Categoryname</th>
+ 	 <th>Subcategoryname</th>
+
  	 <th>productimage</th>
  	 <th>mrp</th>
  	 <th>productdescription</th>
@@ -57,6 +60,31 @@
         <td><?php echo $i ?> </td>
 
  	 <td><?php echo $data->name ?></td>
+ 	 <td><?php $ff=$data->category_id;
+                  $this->db->select('*');
+      $this->db->from('tbl_category');
+      $this->db->where('id',$ff);
+      $da= $this->db->get();
+      $fa=$da->row();
+      if(!empty($fa)){
+        echo $fa->categoryname;
+      }
+
+
+   ?></td>
+ 	 <td><?php $ff=$data->subcategory_id;
+
+   $this->db->select('*');
+ $this->db->from('tbl_subcategory');
+ $this->db->where('id',$ff);
+ $da= $this->db->get();
+ $fa=$da->row();
+ if(!empty($fa)){
+ echo $fa->name;
+ }
+
+
+   ?></td>
 
         <td>
         <?php if($data->image!=""){ ?>
@@ -70,7 +98,7 @@
 	 <td><?php echo $data->mrp ?></td>
  	 <td><?php echo $data->productdescription ?></td>
  	 <td><?php echo $data->colours ?></td>
- 	 <td><?php echo $data->inventory ?></td>
+ 	 <td><?php echo $data->inventry ?></td>
 
 
 
@@ -164,7 +192,3 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-        

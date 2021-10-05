@@ -41,7 +41,7 @@
     <select class="form-control" name="categoryname">
       <?
        foreach($category_data->result() as $value) {?>
-         <option value="<?=$value->categoryname;?>"><?=$value->categoryname;?></option>
+         <option value="<?=$value->id;?>"><?=$value->categoryname;?></option>
        <? }?>
     </select>
 

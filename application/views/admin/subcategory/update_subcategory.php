@@ -41,7 +41,7 @@
     <select class="form-control" name="categoryname">
       <?
        foreach($category_data->result() as $value) {?>
-         <option value="<?=$value->categoryname;?>"><?=$value->categoryname;?></option>
+         <option value="<?=$value-> id;?>"><?=$value->categoryname;?></option>
        <? }?>
     </select>
 
@@ -49,7 +49,7 @@
 </tr>
 <tr>
 <td> <strong>Sub-Category</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="subcategoryname"  class="form-control" placeholder="" required value="<?=$subcategory_data->subcategoryname;?>" />  </td>
+<td> <input type="text" name="subcategoryname"  class="form-control" placeholder="" required value="<?=$subcategory_data->name;?>" />  </td>
 </tr>
 
 

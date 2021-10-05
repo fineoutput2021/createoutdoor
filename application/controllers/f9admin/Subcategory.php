@@ -134,8 +134,8 @@ $data['category_data']= $this->db->get();
 
 
 					 $data_insert = array(
-									'categoryname'=>$categoryname,
-	'subcategoryname'=>$subcategoryname,
+									'category_id'=>$categoryname,
+	'name'=>$subcategoryname,
 
 										 'ip' =>$ip,
 										 'added_by' =>$addedby,
@@ -163,8 +163,8 @@ $data['category_data']= $this->db->get();
 
 
 					 $data_insert = array(
-									'categoryname'=>$categoryname,
-	'subcategoryname'=>$subcategoryname,
+									'category_id'=>$categoryname,
+	'name'=>$subcategoryname,
 
 										 );
 						 $this->db->where('id', $idw);

@@ -40,7 +40,7 @@
         <th>#</th>
 
  	 <th>Category Name</th>
- 	 <th>Sub-Category</th>
+ 	 <th>Sub-Category Name</th>
 
 
         <th>Status</th>
@@ -52,8 +52,19 @@
         <tr>
         <td><?php echo $i ?> </td>
 
- 	 <td><?php echo $data->categoryname ?></td>
- 	 <td><?php echo $data->subcategoryname ?></td>
+ 	 <td><?php $ff= $data->category_id;
+               $this->db->select('*');
+   $this->db->from('tbl_category');
+   $this->db->where('id',$ff);
+   $da= $this->db->get();
+   $af=$da->row();
+   if(!empty($af)){
+     echo $af->categoryname;
+   }
+
+
+   ?></td>
+ 	 <td><?php echo $data->name ?></td>
 
 
 

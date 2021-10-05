@@ -388,33 +388,113 @@ echo json_encode($res);
               			echo json_encode($res);
 
             }
+}
+//get subcategory
 
+public function get_subcategory($id){
+
+
+            $this->db->select('*');
+$this->db->from('tbl_subcategory');
+$this->db->where('category_id',$id);
+$subcategorydata= $this->db->get();
+$subcategory=[];
+foreach($subcategorydata->result() as $data1) {
+$subcategory[] = array(
+    'name'=> $data1->name,
+
+
+);
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+			'status'=>200,
+      'data'=>$subcategory
+			);
+
+			echo json_encode($res);
 
 
 }
 
+//get product detail
+
+// public function get_product() {
+//
+// 	$this->db->select('*');
+// 	$this->db->from('tbl_products');
+// 	//$this->db->where('$id',$id);
+// 	$product= $this->db->get();
+// 	$product=[];
+// 	foreach($product->result() as $data3) {
+// 	$product[] = array(
+// 	    'name'=> $data3->name,
+// 	    'image'=> $data3->image,
+// 	    'mrp'=> $data3->mrp,
+// 	    'productdescription'=> $data3->productdescription	,
+// 	    'colours'=> $data3->colours	,
+// 	    'inventry'=> $data3->inventry	,
+// 	    'category_id'=> $data3->category_id	,
+// 	    'subcategory_id'=> $data3->subcategory_id	,
+//
+//
+// 	);
+// 	}
+// 	header('Access-Control-Allow-Origin: *');
+// 	$res = array('message'=>"success",
+// 				'status'=>200,
+// 	      'data'=>$product
+// 				);
+//
+// 				echo json_encode($res);
+//
+//
+//
+// }
+public function get_allcategory(){
+
+            $this->db->select('*');
+$this->db->from('tbl_category');
+$categorydata= $this->db->get();
+$category=[];
+foreach($categorydata->result() as $data) {
+
+	$this->db->select('*');
+	$this->db->from('tbl_subcategory');
+	$this->db->where('category_id',$data->id);
+	$sub= $this->db->get();
+	$subcategory=[];
+	foreach($sub->result() as $sub2) {
+
+	$subcategory[] = array(
+		'sub_id' => $sub2->id,
+	    'name'=> $sub2->name
 
 
 
+	);
+}
+// $catt=array('name'=> $data->categoryname,'sub_name'=>$subcategory);
+
+	$cat[] = array(
+		'id' =>$data->id,
+		'name' =>$data->categoryname,
+		'sub_category' =>$subcategory
+
+);
 
 
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+			'status'=>200,
+      'data'=>$cat,
+			);
+
+			echo json_encode($res);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 }

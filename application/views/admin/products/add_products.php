@@ -39,6 +39,32 @@ Add New Products
 <td> <strong>productname</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="name"  class="form-control" placeholder=""  value="" />  </td>
 </tr>
+
+
+
+
+<tr>
+<td> <strong>Category</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="categoryname">
+  <option value="" selected>Select category</option>
+  <?php $i=1; foreach($pro->result() as $data) { ?>
+<option value="<?=$data->id;?>"><?=$data->categoryname;?></option>
+<?php $i++; } ?>
+</select> </td>
+</tr>
+<tr>
+<td> <strong>Subcategory</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="subcategoryname">
+  <option value="" selected>Select Subcategory</option>
+  <?php $i=1; foreach($s_data->result() as $data) { ?>
+<option value="<?=$data->id;?>"><?=$data->name;?></option>
+<?php $i++; } ?>
+</select> </td>
+</tr>
+
+
+
+
 <tr>
 <td> <strong>productimage</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image"  class="form-control" placeholder=""  value="" />  </td>
