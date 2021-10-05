@@ -129,6 +129,9 @@
         <?php } ?>
         <li><a href="<?php echo base_url() ?>dcadmin/products/update_products/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
+        <li><a href="<?php echo base_url() ?>dcadmin/product_type/view_type/<?php echo
+        base64_encode($data->id) ?>">Type</a></li>
+
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
         </div>

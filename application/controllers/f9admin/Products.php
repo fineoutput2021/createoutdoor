@@ -138,7 +138,7 @@ $data['s_data']= $this->db->get();
    $mrp=$this->input->post('mrp');
    $productdescription=$this->input->post('productdescription');
    $colours=$this->input->post('colours');
-   $inventory=$this->input->post('inventory');
+   $inventory=$this->input->post;
 
                     $ip = $this->input->ip_address();
                     date_default_timezone_set("Asia/Calcutta");
