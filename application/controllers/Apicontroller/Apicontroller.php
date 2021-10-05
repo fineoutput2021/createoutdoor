@@ -417,40 +417,9 @@ $res = array('message'=>"success",
 
 }
 
-//get product detail
 
-// public function get_product() {
-//
-// 	$this->db->select('*');
-// 	$this->db->from('tbl_products');
-// 	//$this->db->where('$id',$id);
-// 	$product= $this->db->get();
-// 	$product=[];
-// 	foreach($product->result() as $data3) {
-// 	$product[] = array(
-// 	    'name'=> $data3->name,
-// 	    'image'=> $data3->image,
-// 	    'mrp'=> $data3->mrp,
-// 	    'productdescription'=> $data3->productdescription	,
-// 	    'colours'=> $data3->colours	,
-// 	    'inventry'=> $data3->inventry	,
-// 	    'category_id'=> $data3->category_id	,
-// 	    'subcategory_id'=> $data3->subcategory_id	,
-//
-//
-// 	);
-// 	}
-// 	header('Access-Control-Allow-Origin: *');
-// 	$res = array('message'=>"success",
-// 				'status'=>200,
-// 	      'data'=>$product
-// 				);
-//
-// 				echo json_encode($res);
-//
-//
-//
-// }
+
+//get all category
 public function get_allcategory(){
 
             $this->db->select('*');
@@ -495,6 +464,75 @@ $res = array('message'=>"success",
 
 
 }
+
+
+//all product detail
+public function get_allproducts(){
+
+            $this->db->select('*');
+$this->db->from('tbl_products');
+$productsdata= $this->db->get();
+$products=[];
+foreach($productsdata->result() as $data) {
+
+	//category
+      			$this->db->select('*');
+$this->db->from('tbl_category');
+$this->db->where('id',$data->category_id);
+$cat= $this->db->get();
+$category=[];
+foreach($cat->result() as $cat1){
+
+$category[]=array(
+	   'c_id'=>$cat1->id,
+	   'c_name'=>$cat1->categoryname
+);
+
+}
+
+
+//subcategory
+$this->db->select('*');
+	$this->db->from('tbl_subcategory');
+$this->db->where('id',$data->subcategory_id);
+$sub= $this->db->get();
+$subcategory=[];
+foreach($sub->result() as $sub3){
+
+$subcategory[]=array(
+'sub_id'=>$sub3->id,
+'sub_name'=>$sub3->name,
+
+);
+
+}
+
+
+
+$products[] = array(
+	  'productname'=> $data->name,
+	  'category'=> $category,
+	  'sucategory'=> $subcategory,
+		'productimage'=> base_url().$data->image,
+    'mrp'=> $data->mrp,
+    'productdescription'=> $data->productdescription,
+    'colours'=> $data->colours,
+    // 'inventory'=> $data->inventory
+);
+}
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+			'status'=>200,
+      'data'=>$products
+			);
+
+			echo json_encode($res);
+
+
+}
+
+
 
 
 }
