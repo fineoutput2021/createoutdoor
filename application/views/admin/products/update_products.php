@@ -45,6 +45,26 @@
 <?php if($products_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
+<td> <strong>productimage 1</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="fileToUpload2"  class="form-control" placeholder="" />
+<?php if($products_data->image1!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image1; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+</tr>
+<tr>
+<td> <strong>productimage2</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="fileToUpload2"  class="form-control" placeholder="" />
+<?php if($products_data->image2!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image2; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+</tr>
+<tr>
+<td> <strong>productimage3</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="fileToUpload3"  class="form-control" placeholder="" />
+<?php if($products_data->image3!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image3; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+</tr>
+<tr>
+<td> <strong>productimage4</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="fileToUpload4"  class="form-control" placeholder="" />
+<?php if($products_data->image4!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$products_data->image4; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+</tr>
+<tr>
 <td> <strong>mrp</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="mrp"  class="form-control" placeholder=""  value="<?=$products_data->mrp;?>" />  </td>
 </tr>

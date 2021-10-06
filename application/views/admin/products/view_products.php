@@ -44,6 +44,11 @@
  	 <th>Subcategoryname</th>
 
  	 <th>productimage</th>
+ 	 <th>productimage1</th>
+ 	 <th>productimage2</th>
+ 	 <th>productimage3</th>
+ 	 <th>productimage4</th>
+
  	 <th>mrp</th>
  	 <th>productdescription</th>
  	 <th>colours</th>
@@ -89,6 +94,38 @@
         <td>
         <?php if($data->image!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+        <td>
+        <?php if($data->image1!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image1
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+        <td>
+        <?php if($data->image2!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image2
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+        <td>
+        <?php if($data->image3!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image3
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+        <td>
+        <?php if($data->image4!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image4
         ?>" >
         <?php }else { ?>
         Sorry No File Found

@@ -8,15 +8,13 @@
                                           <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Type </a></li>
                                           <li class="active">View Type</li>
                                         </ol>
-                                     <div class="">
-                                       <h2>welcome</h2>
-                                     </div>
+
 
                                       </section>
                                     		<section class="content">
                                     		<div class="row">
                                            <div class="col-lg-12">
-                                    				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>admin/home/add_team" role="button" style="margin-bottom:12px;"> Add Type</a>
+                                    				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/product_type/add_type/<?=$id?>" role="button" style="margin-bottom:12px;"> Add Type</a>
                                                             <div class="panel panel-default">
                                                                 <div class="panel-heading">
                                                                     <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Type</h3>
@@ -63,19 +61,26 @@
                                                       <tr>
                                                           <td><?php echo $i ?> </td>
                                                           <td><?php echo $data->name ?></td>
-                                                          <td><?php echo $data->product_id ?></td>
+                                                          <td><?php $fh= $data->product_id;
+                                                                              $this->db->select('*');
+                                                                  $this->db->from('tbl_products');
+                                                                  $this->db->where('id',$fh);
+                                                                  $da= $this->db->get();
+                                                                   $fa=$da->row();
+                                                                 if(!empty($fa)){
+                                                                      echo $fa->name;
+
+                                                                 }
+
+                                                          ?></td>
                                                           <td><?php echo $data->mrp ?></td>
+                                                          <td><?php echo $data->gst ?></td>
+
                                                           <td><?php echo $data->sp ?></td>
                                                           <td><?php echo $data->gstprice ?></td>
                                                           <td><?php echo $data->spgst ?></td>
                                                           <td><?php echo $data->weight ?></td>
-                                                          <td>
-                                                              <?php if($data->image!=""){  ?>
-                                        <img id="slide_img_path" height=50 width=100  src="<?php echo base_url()."assets/admin/team/".$data->image ?>" >
-                                                          <?php }else {  ?>
-                                                          Sorry No image Found
-                                                          <?php } ?>
-                                                            </td>
+
                                                             <td><?php if($data->is_active==1){ ?>
             													<p class="label bg-green" >Active</p>
 
@@ -92,11 +97,11 @@
   												  <ul class="dropdown-menu" role="menu">
 
   													<?php if($data->is_active==1){ ?>
-  													<li><a href="<?php echo base_url() ?>admin/home/updateteamStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
+  													<li><a href="<?php echo base_url() ?>dcadmin/product_type/updatetypeStatus/<?php echo base64_encode($data->id); ?>/inactive/<?=$id?>/">Inactive</a></li>
   													<?php } else { ?>
-  													<li><a href="<?php echo base_url() ?>admin/course/updateteamStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
+  													<li><a href="<?php echo base_url() ?>dcadmin/product_type/updatetypeStatus/<?php echo base64_encode($data->id); ?>/active/<?=$id?>/">Active</a></li>
   													<?php		}   ?>
-  <li><a href="<?php echo base_url() ?>admin/home/update_team/<?php echo base64_encode($data->id) ?>">Edit</a></li>
+  <li><a href="<?php echo base_url() ?>dcadmin/product_type/update_type/<?php echo base64_encode($data->id) ?>">Edit</a></li>
   													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
   												  </ul>
   												</div>
@@ -104,7 +109,7 @@
 
   												  <div style="display:none" id="cnfbox<?php echo $i ?>">
   														<p> Are you sure delete this </p>
-  														<a href="<?php echo base_url() ?>admin/home/delete_team/<?php echo base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
+  														<a href="<?php echo base_url() ?>dcadmin/product_type/delete_type/<?php echo base64_encode($data->id); ?>/<?=$id?>" class="btn btn-danger" >Yes</a>
   														<a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
   												  </div>
   											</td>
