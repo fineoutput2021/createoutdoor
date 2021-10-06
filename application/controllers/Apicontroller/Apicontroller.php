@@ -706,8 +706,169 @@ if(!empty($sub)){
 
 						}
 
+//add to cart api insert data
+			public function addtocart(){
+
+				$this->load->helper(array('form', 'url'));
+				$this->load->library('form_validation');
+				$this->load->helper('security');
+				if($this->input->post())
+				{
+					// print_r($this->input->post());
+					// exit;
+					$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+					$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+					$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
+					$this->form_validation->set_rules('user_id', 'user_id', 'required|xss_clean|trim');
+					$this->form_validation->set_rules('device_id', 'device_id', 'xss_clean|trim');
+
+					if($this->form_validation->run()== TRUE)
+					{
+						$product_id=$this->input->post('product_id');
+						$type_id=$this->input->post('type_id');
+						$quantity=$this->input->post('quantity');
+						$user_id=$this->input->post('user_id');
+						$device_id=$this->input->post('device_id');
+
+$this->db->select('*');
+            $this->db->from('tbl_cart');
+            $this->db->where('product_id',$product_id);
+            $this->db->where('type_id',$type_id);
+            $dsa= $this->db->get();
+            $da=$dsa->row();
+if(!empty($da)){
+	$res = array('message'=>"Already added cart",
+				'status'=>201
+				);
+
+				echo json_encode($res);
+  exit();
+}else{
+
+
+
+			$data_insert = array('product_id'=>$product_id,
+								'type_id'=>$type_id,
+								'quantity'=>$quantity,
+								'user_id'=>$user_id,
+								'quantity'=>$quantity,
+								'device_id'=>$device_id,
+
+
+								);
+
+
+}
+
+
+			$last_id=$this->base_model->insert_table("tbl_cart",$data_insert,1) ;
 
 
 
 
-						}
+
+			if($last_id!=0){
+
+				$res = array('message'=>"success",
+	'status'=>200
+	);
+
+	echo json_encode($res);
+
+																	}
+
+																	else
+
+																	{
+
+																		$res = array('message'=>"Sorry error occured",
+																					'status'=>201
+																					);
+
+																					echo json_encode($res);
+
+
+
+
+																	}
+
+
+
+					}
+				else{
+					$res = array('message'=>validation_errors(),
+								'status'=>201
+								);
+
+								echo json_encode($res);
+
+
+				}
+
+				}
+			else{
+
+				$res = array('message'=>"Please insert some data, No data available",
+							'status'=>201
+							);
+
+							echo json_encode($res);
+
+			}
+	}
+
+
+
+//add to cart get api
+
+// public function get_addcart(){
+//
+//       			$this->db->select('*');
+// $this->db->from('tbl_cart');
+// //$this->db->where('id',$usr);
+// $data= $this->db->get();
+// $addcart=[];
+// foreach ($data as $value) {
+// 	//product
+// $this->db->select('*');
+//             $this->db->from('tbl_product');
+//             $this->db->where('id',$value->$product_id);
+//             $dsa= $this->db->get();
+//             $da=$dsa->row();
+// 						if(!empty($da)){
+// 							$d1=$da->name;
+// 						}else{
+// 							$d1="";
+// 						}
+//
+// //type
+// $this->db->select('*');
+//             $this->db->from('tbl_type');
+//             $this->db->where('id',$value->$type_id);
+//             $ds= $this->db->get();
+//             $ty=$ds->row();
+// 						if(!empty($ty)){
+// 							$t1=$ty->name;
+// 							$t2=$ty->gstprice;
+// 						}else{
+// 							$t1="";
+// 						}
+//
+//
+// 	//quantity
+//
+//
+// 	$addcart[]=array(
+// 		'product_name'=>$d1,
+// 		'type_Name'=>$t1,
+// 		'Price'=>$t2,
+// 		'Quantity'=>
+// 		'total_cost'=>
+// 	);
+// }
+
+
+}
+
+
+						
