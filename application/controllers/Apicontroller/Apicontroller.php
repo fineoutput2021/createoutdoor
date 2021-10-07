@@ -1249,8 +1249,98 @@ $this->db->delete('tbl_cart');
              }
 
 
+public function addressadd(){
 
 
+
+          	$this->load->helper(array('form', 'url'));
+            $this->load->library('form_validation');
+            $this->load->helper('security');
+            if($this->input->post())
+            {
+              // print_r($this->input->post());
+              // exit;
+              $this->form_validation->set_rules('address', 'address', 'required|customTextbox|xss_clean');
+              $this->form_validation->set_rules('pincode', 'pincode', 'required|xss_clean');
+              $this->form_validation->set_rules('state', 'state', 'required|xss_clean');
+              $this->form_validation->set_rules('city', 'city', 'required|xss_clean');
+              $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean');
+
+              if($this->form_validation->run()== TRUE)
+              {
+                $address=$this->input->post('address');
+                $pincode=$this->input->post('pincode');
+                $state=$this->input->post('state');
+                $city=$this->input->post('city');
+                $token_id=$this->input->post('token_id');
+
+                  $ip = $this->input->ip_address();
+          date_default_timezone_set("Asia/Calcutta");
+                  $cur_date=date("Y-m-d H:i:s");
+
+                  $addedby=$this->session->userdata('admin_id');
+
+              			$this->db->select('*');
+        $this->db->from('tbl_users');
+        $this->db->where('token',$token_id);
+        $data= $this->db->get();
+        $da=$data->row();
+          $data_insert = array('address'=>$address,
+                    'pincode'=>$pincode,
+                    'state'=>$state,
+                    'city'=>$city,
+										'user_id'=>$da->id,
+                    'ip' =>$ip
+
+
+                    );
+
+
+
+
+
+          $last_id=$this->base_model->insert_table("tbl_address",$data_insert,1) ;
+
+					if($last_id!=0){
+						$res = array('message'=>"success",
+					'status'=>200
+					);
+
+					echo json_encode($res);
+
+					}else{
+
+						$res = array('message'=>"sorry error occured",
+						'status'=>201
+						);
+
+						echo json_encode($res);
+
+
+					}
+
+
+										}
+									else{
+										$res = array('message'=>validation_errors(),
+													'status'=>201
+													);
+
+													echo json_encode($res);
+
+
+									}
+
+				}else{
+
+				$res = array('message'=>'No data are available',
+				'status'=>201
+				);
+
+				echo json_encode($res);
+			}
+
+				}
 
 
 
