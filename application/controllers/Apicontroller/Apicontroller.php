@@ -719,7 +719,7 @@ if(!empty($sub)){
 					$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
 					$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
 					$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
-					$this->form_validation->set_rules('user_id', 'user_id', 'required|xss_clean|trim');
+					$this->form_validation->set_rules('user_id', 'user_id', 'xss_clean|trim');
 					$this->form_validation->set_rules('device_id', 'device_id', 'xss_clean|trim');
 
 					if($this->form_validation->run()== TRUE)
@@ -821,54 +821,71 @@ if(!empty($da)){
 
 //add to cart get api
 
-// public function get_addcart(){
-//
-//       			$this->db->select('*');
-// $this->db->from('tbl_cart');
-// //$this->db->where('id',$usr);
-// $data= $this->db->get();
-// $addcart=[];
-// foreach ($data as $value) {
-// 	//product
-// $this->db->select('*');
-//             $this->db->from('tbl_product');
-//             $this->db->where('id',$value->$product_id);
-//             $dsa= $this->db->get();
-//             $da=$dsa->row();
-// 						if(!empty($da)){
-// 							$d1=$da->name;
-// 						}else{
-// 							$d1="";
-// 						}
-//
-// //type
-// $this->db->select('*');
-//             $this->db->from('tbl_type');
-//             $this->db->where('id',$value->$type_id);
-//             $ds= $this->db->get();
-//             $ty=$ds->row();
-// 						if(!empty($ty)){
-// 							$t1=$ty->name;
-// 							$t2=$ty->gstprice;
-// 						}else{
-// 							$t1="";
-// 						}
-//
-//
-// 	//quantity
-//
-//
-// 	$addcart[]=array(
-// 		'product_name'=>$d1,
-// 		'type_Name'=>$t1,
-// 		'Price'=>$t2,
-// 		'Quantity'=>
-// 		'total_cost'=>
-// 	);
-// }
+public function get_addcart(){
+
+      			$this->db->select('*');
+$this->db->from('tbl_cart');
+//$this->db->where('id',$usr);
+$data= $this->db->get();
+$addcart=[];
+$subtotal=0;
+foreach ($data->result() as $value) {
+	//product
+$this->db->select('*');
+            $this->db->from('tbl_products');
+            $this->db->where('id',$value->product_id);
+            $dsa= $this->db->get();
+            $da=$dsa->row();
+						if(!empty($da)){
+							$d1=$da->name;
+						}else{
+							$d1="";
+						}
+
+//type
+$this->db->select('*');
+            $this->db->from('tbl_type');
+            $this->db->where('id',$value->type_id);
+            $ds= $this->db->get();
+            $ty=$ds->row();
+						if(!empty($ty)){
+							$t1=$ty->name;
+							$t2=$ty->gstprice;
+							$quan=$value->quantity;
+							$total=$t2* $quan;
+
+						}else{
+							$t1="";
+							$t2="";
+						}
+
+
+	//quantity
+
+
+	$addcart[]=array(
+		'product_name'=>$d1,
+		'type_Name'=>$t1,
+		'Price'=>$t2,
+		'Quantity'=>$quan,
+		'total_cost'=>$total
+	);
+$subtotal= $subtotal + $total ;
+}
+
+	header('Access-Control-Allow-Origin: *');
+	$res = array('message'=>"success",
+				'status'=>200,
+				'data'=>$addcart,
+				'sub_total'=>$subtotal
+				);
+
+				echo json_encode($res);
 
 
 }
 
 
-						
+
+
+}
