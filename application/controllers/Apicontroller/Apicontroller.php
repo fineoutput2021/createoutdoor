@@ -563,7 +563,7 @@ else{
 						      			$this->db->select('*');
 						$this->db->from('tbl_category');
 						$this->db->where('id',$data->category_id);
-						$cat= $this->db->get()->row();;
+						$cat= $this->db->get()->row();
 
 
 
@@ -707,7 +707,7 @@ if(!empty($sub)){
 						}
 
 //add to cart api insert data
-			public function addtocart(){
+				public function addtocart(){
 
 				$this->load->helper(array('form', 'url'));
 				$this->load->library('form_validation');
@@ -721,6 +721,7 @@ if(!empty($sub)){
 					$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
 					$this->form_validation->set_rules('user_id', 'user_id', 'xss_clean|trim');
 					$this->form_validation->set_rules('device_id', 'device_id', 'xss_clean|trim');
+					$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 
 					if($this->form_validation->run()== TRUE)
 					{
@@ -729,15 +730,18 @@ if(!empty($sub)){
 						$quantity=$this->input->post('quantity');
 						$user_id=$this->input->post('user_id');
 						$device_id=$this->input->post('device_id');
+						$token_id=$this->input->post('token_id');
 
 $this->db->select('*');
             $this->db->from('tbl_cart');
             $this->db->where('product_id',$product_id);
             $this->db->where('type_id',$type_id);
+            $this->db->where('token_id',$token_id);
+
             $dsa= $this->db->get();
             $da=$dsa->row();
 if(!empty($da)){
-	$res = array('message'=>"Already added cart",
+	$res = array('message'=>"Already added cart data",
 				'status'=>201
 				);
 
@@ -753,6 +757,7 @@ if(!empty($da)){
 								'user_id'=>$user_id,
 								'quantity'=>$quantity,
 								'device_id'=>$device_id,
+								'token_id'=>$token_id
 
 
 								);
@@ -821,11 +826,11 @@ if(!empty($da)){
 
 //add to cart get api
 
-public function get_addcart(){
+public function get_addcart($id){
 
       			$this->db->select('*');
 $this->db->from('tbl_cart');
-//$this->db->where('id',$usr);
+$this->db->where('token_id',$id);
 $data= $this->db->get();
 $addcart=[];
 $subtotal=0;
@@ -864,6 +869,7 @@ $this->db->select('*');
 
 
 	$addcart[]=array(
+		'token_id'=>$value->token_id,
 		'product_name'=>$d1,
 		'type_Name'=>$t1,
 		'Price'=>$t2,
@@ -884,6 +890,366 @@ $subtotal= $subtotal + $total ;
 
 
 }
+
+//custom order ----
+public function customorder(){
+
+	$this->load->helper(array('form', 'url'));
+	$this->load->library('form_validation');
+	$this->load->helper('security');
+	if($this->input->post())
+	{
+		// print_r($this->input->post());
+		// exit;
+		$this->form_validation->set_rules('firstname', 'firstname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('businessname', 'businessname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email|trim');
+		$this->form_validation->set_rules('message', 'message', 'required|xss_clean|trim');
+
+
+		if($this->form_validation->run()== TRUE)
+		{
+			$firstname=$this->input->post('firstname');
+			$lastname=$this->input->post('lastname');
+			$businessname=$this->input->post('businessname');
+			$email=$this->input->post('email');
+			$message=$this->input->post('message');
+
+
+$this->load->library('upload');
+
+//image1 code
+$img1='image1';
+
+            $file_check=($_FILES['image1']['error']);
+            if($file_check!=4){
+          	$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
+  						if (!file_exists($image_upload_folder))
+  						{
+  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+  						}
+  						$new_file_name="customproduct".date("Ymdhms");
+  						$this->upload_config = array(
+  								'upload_path'   => $image_upload_folder,
+  								'file_name' => $new_file_name,
+  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+  								'max_size'      => 25000
+  						);
+  						$this->upload->initialize($this->upload_config);
+  						if (!$this->upload->do_upload($img1))
+  						{
+  							$upload_error = $this->upload->display_errors();
+  							// echo json_encode($upload_error);
+  							echo $upload_error;
+  						}
+  						else
+  						{
+
+  							$file_info = $this->upload->data();
+
+  							$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+  							$file_info['new_name']=$videoNAmePath;
+  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+  							$nnnn=$file_info['file_name'];
+  							// echo json_encode($file_info);
+  						}
+            }
+
+
+	//image2
+	$img1='image2';
+
+	            $file_check=($_FILES['image2']['error']);
+	            if($file_check!=4){
+	          	$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
+	  						if (!file_exists($image_upload_folder))
+	  						{
+	  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+	  						}
+	  						$new_file_name="customproduct".date("Ymdhms");
+	  						$this->upload_config = array(
+	  								'upload_path'   => $image_upload_folder,
+	  								'file_name' => $new_file_name,
+	  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+	  								'max_size'      => 25000
+	  						);
+	  						$this->upload->initialize($this->upload_config);
+	  						if (!$this->upload->do_upload($img1))
+	  						{
+	  							$upload_error = $this->upload->display_errors();
+	  							// echo json_encode($upload_error);
+	  							echo $upload_error;
+	  						}
+	  						else
+	  						{
+
+	  							$file_info = $this->upload->data();
+
+	  							$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+	  							$file_info['new_name']=$videoNAmePath;
+	  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+	  							$nnnn1=$file_info['file_name'];
+	  							// echo json_encode($file_info);
+	  						}
+	            }
+
+//image3
+
+$img1='image3';
+
+            $file_check=($_FILES['image3']['error']);
+            if($file_check!=4){
+          	$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
+  						if (!file_exists($image_upload_folder))
+  						{
+  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+  						}
+  						$new_file_name="customproduct".date("Ymdhms");
+  						$this->upload_config = array(
+  								'upload_path'   => $image_upload_folder,
+  								'file_name' => $new_file_name,
+  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+  								'max_size'      => 25000
+  						);
+  						$this->upload->initialize($this->upload_config);
+  						if (!$this->upload->do_upload($img1))
+  						{
+  							$upload_error = $this->upload->display_errors();
+  							// echo json_encode($upload_error);
+  							echo $upload_error;
+  						}
+  						else
+  						{
+
+  							$file_info = $this->upload->data();
+
+  							$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+  							$file_info['new_name']=$videoNAmePath;
+  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+  							$nnnn2=$file_info['file_name'];
+  							// echo json_encode($file_info);
+  						}
+            }
+
+
+	//image4
+	$img1='image4';
+
+	            $file_check=($_FILES['image4']['error']);
+	            if($file_check!=4){
+	          	$image_upload_folder = FCPATH . "assets/uploads/team/";
+	  						if (!file_exists($image_upload_folder))
+	  						{
+	  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+	  						}
+	  						$new_file_name="customproduct".date("Ymdhms");
+	  						$this->upload_config = array(
+	  								'upload_path'   => $image_upload_folder,
+	  								'file_name' => $new_file_name,
+	  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+	  								'max_size'      => 25000
+	  						);
+	  						$this->upload->initialize($this->upload_config);
+	  						if (!$this->upload->do_upload($img1))
+	  						{
+	  							$upload_error = $this->upload->display_errors();
+	  							// echo json_encode($upload_error);
+	  							echo $upload_error;
+	  						}
+	  						else
+	  						{
+
+	  							$file_info = $this->upload->data();
+
+	  							$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+	  							$file_info['new_name']=$videoNAmePath;
+	  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+	  							$nnnn3=$file_info['file_name'];
+	  							// echo json_encode($file_info);
+	  						}
+	            }
+
+				$ip = $this->input->ip_address();
+date_default_timezone_set("Asia/Calcutta");
+				$cur_date=date("Y-m-d H:i:s");
+
+				$addedby=$this->session->userdata('admin_id');
+
+
+
+$data_insert = array('firstname'=>$firstname,
+					'lastname'=>$lastname,
+					'businessname'=>$businessname,
+					'email'=>$email,
+					'message'=>$message,
+					'image1'=>$nnnn,
+					'image2'=>$nnnn1,
+					 'image3'=>$nnnn2,
+					 'image4'=>$nnnn3
+
+
+
+					);
+
+
+
+
+
+$last_id=$this->base_model->insert_table("tbl_customorder",$data_insert,1) ;
+
+
+												if($last_id!=0){
+													$res = array('message'=>"success",
+												'status'=>200
+												);
+
+												echo json_encode($res);
+
+												}else{
+
+													$res = array('message'=>"sorry error occured",
+													'status'=>201
+													);
+
+													echo json_encode($res);
+
+
+												}
+
+
+																	}
+																else{
+																	$res = array('message'=>validation_errors(),
+																				'status'=>201
+																				);
+
+																				echo json_encode($res);
+
+
+																}
+
+}
+
+}
+//corporate ----
+
+public function corporate(){
+
+	$this->load->helper(array('form', 'url'));
+	$this->load->library('form_validation');
+	$this->load->helper('security');
+	if($this->input->post())
+	{
+		// print_r($this->input->post());
+		// exit;
+		$this->form_validation->set_rules('firstname', 'firstname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('lastname', 'lastname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('businessname', 'businessname', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('email', 'email', 'required|valid_email|trim');
+		$this->form_validation->set_rules('message', 'message', 'required|xss_clean|trim');
+
+
+		if($this->form_validation->run()== TRUE)
+		{
+			$firstname=$this->input->post('firstname');
+			$lastname=$this->input->post('lastname');
+			$businessname=$this->input->post('businessname');
+			$email=$this->input->post('email');
+			$message=$this->input->post('message');
+
+				$ip = $this->input->ip_address();
+date_default_timezone_set("Asia/Calcutta");
+				$cur_date=date("Y-m-d H:i:s");
+
+				$addedby=$this->session->userdata('admin_id');
+
+
+
+$data_insert = array('firstname'=>$firstname,
+					'lastname'=>$lastname,
+					'businessname'=>$businessname,
+					'email'=>$email,
+					'message'=>$message,
+
+
+
+					);
+
+
+
+
+
+$last_id=$this->base_model->insert_table("tbl_corporate",$data_insert,1) ;
+
+
+												if($last_id!=0){
+													$res = array('message'=>"success",
+												'status'=>200
+												);
+
+												echo json_encode($res);
+
+												}else{
+
+													$res = array('message'=>"sorry error occured",
+													'status'=>201
+													);
+
+													echo json_encode($res);
+
+
+												}
+
+
+																	}
+																else{
+																	$res = array('message'=>validation_errors(),
+																				'status'=>201
+																				);
+
+																				echo json_encode($res);
+
+
+																}
+
+}else{
+
+	$res = array('message'=>'No data are available',
+				'status'=>201
+				);
+
+				echo json_encode($res);
+
+
+}
+
+}
+
+//delete to cat api
+public function deletecart($id,$idd){
+
+
+
+
+$this->db->where("id",$id);
+$this->db->where("type_id",$idd);
+$this->db->delete('tbl_cart');
+
+
+
+																						 $res = array('message'=>"success",
+ 																					'status'=>200
+ 																					);
+
+ 																					echo json_encode($res);
+
+
+
+             }
+
+
+
 
 
 
