@@ -35,7 +35,7 @@ public function login(){
                     if($this->form_validation->run()== TRUE)
                     {
                       $email=$this->input->post('email');
-                      $password=$this->input->post('password');
+                      $password=md5($this->input->post('password'));
 
                       $this->db->select('*');
                                   $this->db->from('tbl_users');
@@ -155,7 +155,7 @@ public function register(){
                 $data_insert = array(
                           'name'=>$name,
                           'email'=>$email,
-                          'password'=>$password,
+                          'password'=>md5($password),
                           'agent_code'=>$agent_code,
                           'ip' =>$ip,
                           'is_active' =>1,
