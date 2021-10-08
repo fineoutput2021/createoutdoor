@@ -199,7 +199,8 @@ public function register(){
 
             $res = array('message'=>"success",
                           'status'=>200,
-                          'token'=>$token,
+                          'email'=>$email,
+                          'password'=>md5($password)
                           );
 
                   echo json_encode($res);
