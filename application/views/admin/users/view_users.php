@@ -41,6 +41,8 @@
 
   <th>Name</th>
   <th>address</th>
+  <th>Email</th>
+
   <th>pincode</th>
   <th>password</th>
   <th>image</th>
@@ -57,6 +59,7 @@
 
   <td><?php echo $data->name ?></td>
   <td><?php echo $data->address ?></td>
+  <td><?php echo $data->email ?></td>
   <td><?php echo $data->pincode ?></td>
   <td><?php echo $data->password ?></td>
 
@@ -162,7 +165,3 @@
        <!-- <script type="text/javascript" src="<?php echo base_url()
        ?>assets/slider/ajaxupload.3.5.js"></script>
        <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-       

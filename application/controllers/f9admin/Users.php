@@ -105,6 +105,8 @@
                // exit;
   $this->form_validation->set_rules('name', 'name', '');
   $this->form_validation->set_rules('address', 'address', 'required');
+  $this->form_validation->set_rules('email', 'email', 'required|valid_email');
+
   $this->form_validation->set_rules('pincode', 'pincode', 'required');
   $this->form_validation->set_rules('password', 'password', 'required');
 
@@ -116,6 +118,8 @@
                {
   $name=$this->input->post('name');
   $address=$this->input->post('address');
+  $email=$this->input->post('email');
+
   $pincode=$this->input->post('pincode');
   $password=$this->input->post('password');
 
@@ -176,6 +180,7 @@ $img4='image';
            $data_insert = array(
                   'name'=>$name,
   'address'=>$address,
+  'email'=>$email,
   'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
@@ -252,6 +257,7 @@ if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){
            $data_insert = array(
                   'name'=>$name,
   'address'=>$address,
+  'email'=>$email,
   'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
