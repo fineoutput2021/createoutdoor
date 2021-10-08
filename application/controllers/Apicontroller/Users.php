@@ -66,7 +66,7 @@ public function login(){
                                     'code'=>200,
                                     'message'=>'success',
                                     'email'=>$email,
-                                    'password'->$p1
+                                    'password'=>$p1
                                   );
                                   echo json_encode($res);
                                   exit;
