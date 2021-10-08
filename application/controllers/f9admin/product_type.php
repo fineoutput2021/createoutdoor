@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class product_type extends CI_finecontrol{
+       class Product_type extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
