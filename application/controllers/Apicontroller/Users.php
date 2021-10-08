@@ -55,6 +55,8 @@ public function login(){
                                               $da23=$dsa->row();
                                         if(empty($da23)){
                                           $token=$txnid;
+                                          $email1=$da23->email1;
+                                          $pass=$da23->password;
                                         }
                                         else{
                                             $token= $this->random_strings(30);
@@ -64,7 +66,8 @@ public function login(){
                                   $res=array(
                                     'code'=>200,
                                     'message'=>'success',
-                                    'token'=>$token
+                                    'email'=>$email1,
+                                    'password'->$pass
                                   );
                                   echo json_encode($res);
                                   exit;

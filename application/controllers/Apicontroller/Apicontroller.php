@@ -842,7 +842,10 @@ $this->db->select('*');
             $dsa= $this->db->get();
             $da=$dsa->row();
 						if(!empty($da)){
+
+							$d3=$da->id;
 							$d1=$da->name;
+							$d2=$da->image;
 						}else{
 							$d1="";
 						}
@@ -870,7 +873,11 @@ $this->db->select('*');
 
 	$addcart[]=array(
 		'token_id'=>$value->token_id,
+
+		'product_id'=>$d3,
 		'product_name'=>$d1,
+		'product_image'=>$d2,
+
 		'type_Name'=>$t1,
 		'Price'=>$t2,
 		'Quantity'=>$quan,
@@ -1227,13 +1234,14 @@ $last_id=$this->base_model->insert_table("tbl_corporate",$data_insert,1) ;
 }
 
 //delete to cat api
-public function deletecart($id,$idd){
+public function deletecart($id,$idd,$id1){
 
 
 
+$this->db->where("user_id",$id);
+$this->db->where("product_id",$idd);
+$this->db->where("type_id",$id1);
 
-$this->db->where("id",$id);
-$this->db->where("type_id",$idd);
 $this->db->delete('tbl_cart');
 
 
@@ -1341,6 +1349,9 @@ public function addressadd(){
 			}
 
 				}
+
+
+
 
 
 
