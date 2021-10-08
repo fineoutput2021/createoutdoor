@@ -55,7 +55,7 @@ public function login(){
                                               $da23=$dsa->row();
                                         if(empty($da23)){
                                           $token=$txnid;
-                                          $email1=$da23->email1;
+                                          $email1=$da23->email;
                                           $pass=$da23->password;
                                         }
                                         else{
