@@ -1442,16 +1442,45 @@
 							echo json_encode($res);
 							}
 
-
+}
 
 							}
 
 			// order 1 api----------------------
 
-  public function
-
-
-
-
-
-							}
+//             public function view_order(){
+//
+// 						      			$this->db->select('*');
+// 						$this->db->from('tbl_order1');
+// 						//$this->db->where('id',$usr);
+// 						$data= $this->db->get();
+//   $payment="";
+//             $viewcart=[];
+// 						foreach ($data->result() as $value) {
+// //payment type
+//          $paymentstatus
+//          $payment=$value->payment_type;
+// 				 if($payment == 1  || $payment == 2){
+//            $var= echo "cash on delivery";
+//
+//
+// 				 }
+//
+//
+// 							$viewcart[]=array(
+// 	                 'order_id'=>$value->id,
+// 									 'order_date'=>$value->date,
+// 									 'total_amount'=>$value->total_amount,
+// 									 'payment_type'=> $var,
+// 									 'payment_status'=> $var,
+//
+// 									  'delevery_charge'=>$value->delivery_charge,
+// 										'promocode_id'=>$value->promocode_id,
+// 										'discount'=>
+// 							);
+//
+// 						}
+//
+//
+//
+// 						}
