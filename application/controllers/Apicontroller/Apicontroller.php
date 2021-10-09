@@ -960,7 +960,12 @@ if(empty($token_id)){
 																															$email_id=$this->input->post('email_id');
 																															$password=$this->input->post('password');
 
+                                                           if($token_id==NULL && $email_id==NULL && $password==NULL){
 
+                                                               echo "please insert data";
+																															 exit;
+
+																													 }
 
 
 
@@ -1085,7 +1090,7 @@ if(empty($token_id)){
 else{
 
 
-$this->db->select('*');
+        $this->db->select('*');
             $this->db->from('tbl_cart');
             $this->db->where('token_id',$token_id);
             $dsa44= $this->db->get();
@@ -1097,7 +1102,7 @@ $this->db->select('*');
 										);
 
 										echo json_encode($res);
-								exit;
+								die();
 
 
 						}
@@ -1129,7 +1134,7 @@ $this->db->select('*');
 																																            $da=$dsa->row();
 																																						if(!empty($da)){
 
-																																							$d3=$da->id;
+																																							$d3=$value->product_id;
 																																							$d1=$da->name;
 																																							$d2=$da->image;
 																																						}else{
@@ -1178,6 +1183,17 @@ $this->db->select('*');
 
 											                           	}
 
+
+
+																																						header('Access-Control-Allow-Origin: *');
+																																							$res = array('message'=>"success",
+																																										'status'=>200,
+																																										'data'=>$addcart,
+																																										'sub_total'=>$subtotal
+																																										);
+
+																																										echo json_encode($res);
+
 			}
 
 		}else{
@@ -1208,14 +1224,6 @@ echo json_encode($res);
 
 
 
-													header('Access-Control-Allow-Origin: *');
-														$res = array('message'=>"success",
-																	'status'=>200,
-																	'data'=>$addcart,
-																	'sub_total'=>$subtotal
-																	);
-
-																	echo json_encode($res);
 
 
 												}
