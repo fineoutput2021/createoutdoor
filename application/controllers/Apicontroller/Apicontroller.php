@@ -826,87 +826,240 @@
 
 												//add to cart get api
 
-												public function get_addcart($id){
+												public function get_addcart(){
+
+
+
+																													$this->load->helper(array('form', 'url'));
+																													$this->load->library('form_validation');
+																													$this->load->helper('security');
+																													if($this->input->post())
+																													{
+																														// print_r($this->input->post());
+																														// exit;
+																														$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+																														$this->form_validation->set_rules('email_id', 'email_id', 'valid_email|xss_clean|trim');
+																														$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+
+
+																														if($this->form_validation->run()== TRUE)
+																														{
+																															$token_id=$this->input->post('token_id');
+																															$email_id=$this->input->post('email_id');
+																															$password=$this->input->post('password');
+
+
+
+
+
+																										if(!empty($email_id) || !empty($password)){
+
+                                                        $this->db->select('*');
+                                                                    $this->db->from('tbl_users');
+                                                                    $this->db->where('email',$email_id);
+                                                                    $this->db->where('password',$password);
+                                                                    $dsa= $this->db->get();
+                                                                    $da=$dsa->row();
+                                                                     if(!empty($da)){
+																																			 $user_id=$da->id;
+																																				$password=$da->password;
+																																		 }else{
+
+																																			 $res = array('message'=>"email and password not match",
+																															 							'status'=>201
+																															 							);
+
+																															 							echo json_encode($res);
+																																						exit;
+
+
+																																		 }
+
+
+
+
+																																					$this->db->select('*');
+																															           	$this->db->from('tbl_cart');
+																																				  	$this->db->where('user_id',$user_id);
+																																					$data= $this->db->get();
+																																					//$ta=$data->row();
+																																					$addcart=[];
+																																					$subtotal=0;
+
+																																					foreach ($data->result() as $value) {
+																																						//product
+																																					$this->db->select('*');
+																																					            $this->db->from('tbl_products');
+																																					            $this->db->where('id',$value->product_id);
+																																					            $dsa= $this->db->get();
+																																					            $da=$dsa->row();
+																																											if(!empty($da)){
+
+																																												$d3=$da->id;
+																																												$d1=$da->name;
+																																												$d2=$da->image;
+																																											}else{
+																																												$d1="";
+																																											}
+
+																																					//type
+																																					$this->db->select('*');
+																																					            $this->db->from('tbl_type');
+																																					            $this->db->where('id',$value->type_id);
+																																					            $ds= $this->db->get();
+																																					            $ty=$ds->row();
+																																											if(!empty($ty)){
+																																												$t1=$ty->name;
+																																												$t2=$ty->gstprice;
+																																												$quan=$value->quantity;
+																																												$total=$t2* $quan;
+
+																																											}else{
+																																												$t1="";
+																																												$t2="";
+																																											}
+
+
+																																						//quantity
+
+
+
+																																						$addcart[]=array(
+																																							'token_id'=>$value->token_id,
+
+																																							'product_id'=>$d3,
+																																							'product_name'=>$d1,
+																																							'product_image'=>$d2,
+
+																																							'type_Name'=>$t1,
+																																							'Price'=>$t2,
+																																							'Quantity'=>$quan,
+																																							'total_cost'=>$total
+																																						);
+																																					$subtotal= $subtotal + $total ;
+
+
+
+
+
+																																				}
+
+
+
+																																			}
+
+
+
+else{
+
+
+
+
+
+
+
+
+
+
 
 												      			$this->db->select('*');
 												$this->db->from('tbl_cart');
-												$this->db->where('token_id',$id);
+												$this->db->where('token_id',$token_id);
 												$data= $this->db->get();
-												$ta=$data->row();
+												//$ta=$data->row();
 												$addcart=[];
 												$subtotal=0;
 
-	if(empty($ta)){
+
+
+
+												foreach ($data->result() as $value) {
+																										//product
+																																$this->db->select('*');
+																																            $this->db->from('tbl_products');
+																																            $this->db->where('id',$value->product_id);
+																																            $dsa= $this->db->get();
+																																            $da=$dsa->row();
+																																						if(!empty($da)){
+
+																																							$d3=$da->id;
+																																							$d1=$da->name;
+																																							$d2=$da->image;
+																																						}else{
+																																							$d1="";
+																																						}
+
+																																//type
+																																$this->db->select('*');
+																																            $this->db->from('tbl_type');
+																																            $this->db->where('id',$value->type_id);
+																																            $ds= $this->db->get();
+																																            $ty=$ds->row();
+																																						if(!empty($ty)){
+																																							$t1=$ty->name;
+																																							$t2=$ty->gstprice;
+																																							$quan=$value->quantity;
+																																							$total=$t2* $quan;
+
+																																						}else{
+																																							$t1="";
+																																							$t2="";
+																																						}
+
+
+																																	//quantity
+
+
+
+																																	$addcart[]=array(
+																																		'token_id'=>$value->token_id,
+
+																																		'product_id'=>$d3,
+																																		'product_name'=>$d1,
+																																		'product_image'=>$d2,
+
+																																		'type_Name'=>$t1,
+																																		'Price'=>$t2,
+																																		'Quantity'=>$quan,
+																																		'total_cost'=>$total
+																																	);
+																																$subtotal= $subtotal + $total ;
 
 
 
 
-		$res = array('message'=>"token_id Error",
-					'status'=>201,
 
-					);
+											                           	}
 
-					echo json_encode($res);
-					exit();
+			}
+
+		}else{
+				$res = array('message'=>validation_errors(),
+							'status'=>201
+							);
+
+							echo json_encode($res);
 
 
+			}
 
+}else{
+
+$res = array('message'=>"please insert data",
+'status'=>201
+);
+
+echo json_encode($res);
 
 
 }
 
 
-												foreach ($data->result() as $value) {
-													//product
-												$this->db->select('*');
-												            $this->db->from('tbl_products');
-												            $this->db->where('id',$value->product_id);
-												            $dsa= $this->db->get();
-												            $da=$dsa->row();
-																		if(!empty($da)){
-
-																			$d3=$da->id;
-																			$d1=$da->name;
-																			$d2=$da->image;
-																		}else{
-																			$d1="";
-																		}
-
-												//type
-												$this->db->select('*');
-												            $this->db->from('tbl_type');
-												            $this->db->where('id',$value->type_id);
-												            $ds= $this->db->get();
-												            $ty=$ds->row();
-																		if(!empty($ty)){
-																			$t1=$ty->name;
-																			$t2=$ty->gstprice;
-																			$quan=$value->quantity;
-																			$total=$t2* $quan;
-
-																		}else{
-																			$t1="";
-																			$t2="";
-																		}
 
 
-													//quantity
 
 
-													$addcart[]=array(
-														'token_id'=>$value->token_id,
 
-														'product_id'=>$d3,
-														'product_name'=>$d1,
-														'product_image'=>$d2,
-
-														'type_Name'=>$t1,
-														'Price'=>$t2,
-														'Quantity'=>$quan,
-														'total_cost'=>$total
-													);
-												$subtotal= $subtotal + $total ;
-												}
 
 													header('Access-Control-Allow-Origin: *');
 														$res = array('message'=>"success",
@@ -919,6 +1072,8 @@
 
 
 												}
+
+
 
 
 												//custom order ----
@@ -1304,7 +1459,8 @@
 												              $this->form_validation->set_rules('pincode', 'pincode', 'required|xss_clean');
 												              $this->form_validation->set_rules('state', 'state', 'required|xss_clean');
 												              $this->form_validation->set_rules('city', 'city', 'required|xss_clean');
-												              $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean');
+												              $this->form_validation->set_rules('email_id', 'email_id', 'required|xss_clean');
+												              $this->form_validation->set_rules('password', 'password', 'required|xss_clean');
 
 												              if($this->form_validation->run()== TRUE)
 												              {
@@ -1312,7 +1468,10 @@
 												                $pincode=$this->input->post('pincode');
 												                $state=$this->input->post('state');
 												                $city=$this->input->post('city');
-												                $token_id=$this->input->post('token_id');
+												                $email_id=$this->input->post('email_id');
+												                $password=$this->input->post('password');
+
+
 
 												                  $ip = $this->input->ip_address();
 												          date_default_timezone_set("Asia/Calcutta");
@@ -1322,9 +1481,22 @@
 
 												              			$this->db->select('*');
 												        $this->db->from('tbl_users');
-												        $this->db->where('token',$token_id);
+												        $this->db->where('email',$email_id);
+												        $this->db->where('password',$password);
 												        $data= $this->db->get();
 												        $da=$data->row();
+
+																if(empty($da)){
+
+																	$res = array('message'=>'email_id and password not match',
+																	'status'=>201
+																	);
+
+																	echo json_encode($res);
+																	exit;
+
+
+																}else{
 												          $data_insert = array('address'=>$address,
 												                    'pincode'=>$pincode,
 												                    'state'=>$state,
@@ -1336,7 +1508,7 @@
 												                    );
 
 
-
+}
 
 
 												          $last_id=$this->base_model->insert_table("tbl_address",$data_insert,1) ;
