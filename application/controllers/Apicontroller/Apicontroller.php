@@ -707,7 +707,7 @@
 																		}
 
 												//add to cart api insert data
-																public function addtocart(){
+																	public function addtocart(){
 
 																$this->load->helper(array('form', 'url'));
 																$this->load->library('form_validation');
@@ -719,24 +719,135 @@
 																	$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
 																	$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
 																	$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
-																	$this->form_validation->set_rules('user_id', 'user_id', 'xss_clean|trim');
-																	$this->form_validation->set_rules('device_id', 'device_id', 'xss_clean|trim');
-																	$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+																	$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
+																	$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+																	$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
 
 																	if($this->form_validation->run()== TRUE)
 																	{
 																		$product_id=$this->input->post('product_id');
 																		$type_id=$this->input->post('type_id');
 																		$quantity=$this->input->post('quantity');
-																		$user_id=$this->input->post('user_id');
-																		$device_id=$this->input->post('device_id');
+																		$email_id=$this->input->post('email_id');
+																		$password=$this->input->post('password');
 																		$token_id=$this->input->post('token_id');
+
+																		if(!empty($email_id) || !empty($password)){
+
+                                    $this->db->select('*');
+                                                $this->db->from('tbl_users');
+                                                $this->db->where('email',$email_id);
+                                                $this->db->where('password',$password);
+                                                $dsa= $this->db->get();
+                                                $da=$dsa->row();
+                                              if(!empty($da)){
+                                                $user_id=$da->id;
+																								$password=$da->password;
+
+
+
+																							}else{
+																								$res = array('message'=>"email id  or password wrong",
+																					'status'=>200
+																					);
+
+																					echo json_encode($res);
+																					exit;
+
+
+																										}
+
+
+
+																																						$this->db->select('*');
+																																						            $this->db->from('tbl_cart');
+																																						            $this->db->where('product_id',$product_id);
+																																						            $this->db->where('type_id',$type_id);
+																																						            $this->db->where('token_id',$token_id);
+																																						            $this->db->where('user_id',$user_id);
+
+																																						            $dsa= $this->db->get();
+																																						            $da=$dsa->row();
+																																						if(!empty($da)){
+																																							$res = array('message'=>"Already added cart data",
+																																										'status'=>201
+																																										);
+
+																																										echo json_encode($res);
+																																						  exit();
+																																						}else{
+
+
+
+																																									$data_insert = array('product_id'=>$product_id,
+																																														'type_id'=>$type_id,
+																																														'quantity'=>$quantity,
+																																														'user_id'=>$user_id,
+																																														'quantity'=>$quantity,
+
+																																														'token_id'=>$token_id
+
+
+																																														);
+
+
+																																						}
+
+
+																																									$last_id=$this->base_model->insert_table("tbl_cart",$data_insert,1) ;
+
+
+
+
+
+																																									if($last_id!=0){
+
+																																										$res = array('message'=>"success",
+																																							'status'=>200
+																																							);
+
+																																							echo json_encode($res);
+
+																																																							}
+
+																																																							else
+
+																																																							{
+
+																																																								$res = array('message'=>"Sorry error occured",
+																																																											'status'=>201
+																																																											);
+
+																																																											echo json_encode($res);
+
+
+
+
+																																																							}
+
+
+																		}
+																		else{
+
+
+if(empty($token_id)){
+
+	$res = array('message'=>"please enter token_id",
+				'status'=>201
+				);
+
+				echo json_encode($res);
+	exit;
+}
+
+
+
 
 												$this->db->select('*');
 												            $this->db->from('tbl_cart');
 												            $this->db->where('product_id',$product_id);
 												            $this->db->where('type_id',$type_id);
-												            $this->db->where('token_id',$token_id);
+
 
 												            $dsa= $this->db->get();
 												            $da=$dsa->row();
@@ -754,9 +865,9 @@
 															$data_insert = array('product_id'=>$product_id,
 																				'type_id'=>$type_id,
 																				'quantity'=>$quantity,
-																				'user_id'=>$user_id,
-																				'quantity'=>$quantity,
-																				'device_id'=>$device_id,
+
+
+
 																				'token_id'=>$token_id
 
 
@@ -796,6 +907,7 @@
 
 
 																													}
+																												}
 
 
 
@@ -875,6 +987,22 @@
 
 																																		 }
 
+																																		 $this->db->select('*');
+																																		             $this->db->from('tbl_cart');
+																																		             $this->db->where('user_id',$user_id);
+																																		             $dsa4= $this->db->get();
+																																		             $da=$dsa4->row();
+																																		     if(empty($da)){
+																																					 $res = array('message'=>"this email and password no data",
+																																								 'status'=>201
+																																								 );
+
+																																								 echo json_encode($res);
+																																						 exit;
+
+
+																																				 }
+
 
 
 
@@ -886,7 +1014,11 @@
 																																					$addcart=[];
 																																					$subtotal=0;
 
+
 																																					foreach ($data->result() as $value) {
+
+
+
 																																						//product
 																																					$this->db->select('*');
 																																					            $this->db->from('tbl_products');
@@ -953,7 +1085,22 @@
 else{
 
 
+$this->db->select('*');
+            $this->db->from('tbl_cart');
+            $this->db->where('token_id',$token_id);
+            $dsa44= $this->db->get();
+            $da4=$dsa44->row();
+						if(empty($da4)){
 
+							$res = array('message'=>"wrong enterd token_id please check",
+										'status'=>201
+										);
+
+										echo json_encode($res);
+								exit;
+
+
+						}
 
 
 
