@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 <section class="content-header">
    <h1>
-  Update Inventry
+  Update Inventory
   </h1>
 
 </section>
@@ -11,7 +11,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Inventry </h3>
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Inventory </h3>
                     </div>
 
                              <? if(!empty($this->session->flashdata('smessage'))){  ?>
@@ -32,12 +32,12 @@
 
                     <div class="panel-body">
                         <div class="col-lg-10">
-                           <form action=" <?php echo base_url(); ?>dcadmin/inventry/add_inventry_data/<? echo base64_encode(2); ?>/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
-                        <div class="table-responsive">
+                           <form action=" <?php echo base_url(); ?>dcadmin/inventory/add_inventory_data/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                             <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>Inventry</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="inventry"  class="form-control" placeholder="" required value="<?=$inventry_data->inventry;?>" />  </td>
+<td> <strong>Quantity</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="quantity"  class="form-control" placeholder="" required value="<?=$inventory_data->quantity;?>"/>  </td>
 </tr>
 
 

@@ -39,20 +39,16 @@
         <tr>
         <th>#</th>
 
- 	 <th>Productname</th>
- 	 <th>Categoryname</th>
- 	 <th>Subcategoryname</th>
-
- 	 <th>productimage</th>
- 	 <th>productimage1</th>
- 	 <th>productimage2</th>
- 	 <th>productimage3</th>
- 	 <th>productimage4</th>
-
+ 	 <th>Product Name</th>
+ 	 <th>Category Name</th>
+ 	 <th>Subcategory Name</th>
+ 	 <th>image</th>
+ 	 <th>image1</th>
+ 	 <th>image2</th>
+ 	 <th>image3</th>
  	 <th>mrp</th>
- 	 <th>productdescription</th>
- 	 <th>colours</th>
- 	 <th>inventory</th>
+ 	 <th>Product Description</th>
+ 	 <!-- <th>Model No.</th> -->
 
 
         <th>Status</th>
@@ -63,33 +59,25 @@
         <?php $i=1; foreach($products_data->result() as $data) { ?>
         <tr>
         <td><?php echo $i ?> </td>
-
- 	 <td><?php echo $data->name ?></td>
- 	 <td><?php $ff=$data->category_id;
-                  $this->db->select('*');
-      $this->db->from('tbl_category');
-      $this->db->where('id',$ff);
-      $da= $this->db->get();
-      $fa=$da->row();
-      if(!empty($fa)){
-        echo $fa->categoryname;
-      }
+        <td><?php echo $data->productname?></td>
 
 
-   ?></td>
- 	 <td><?php $ff=$data->subcategory_id;
-
-   $this->db->select('*');
- $this->db->from('tbl_subcategory');
- $this->db->where('id',$ff);
- $da= $this->db->get();
- $fa=$da->row();
- if(!empty($fa)){
- echo $fa->name;
- }
-
-
-   ?></td>
+ <?
+            $this->db->select('*');
+$this->db->from('tbl_category');
+$this->db->where('id',$data->category);
+$category_data= $this->db->get()->row();
+$category_name=$category_data->title;
+?>
+ <?
+            $this->db->select('*');
+$this->db->from('tbl_subcategory');
+$this->db->where('id',$data->subcategory);
+$subcategory_data= $this->db->get()->row();
+$subcategory_name=$subcategory_data->subcategory;
+?>
+ 	 <td><?php echo $category_name?></td>
+ 	 <td><?php echo $subcategory_name?></td>
 
         <td>
         <?php if($data->image!=""){ ?>
@@ -99,6 +87,8 @@
         Sorry No File Found
         <?php } ?>
         </td>
+
+
         <td>
         <?php if($data->image1!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image1
@@ -107,6 +97,8 @@
         Sorry No File Found
         <?php } ?>
         </td>
+
+
         <td>
         <?php if($data->image2!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image2
@@ -115,6 +107,8 @@
         Sorry No File Found
         <?php } ?>
         </td>
+
+
         <td>
         <?php if($data->image3!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image3
@@ -123,19 +117,10 @@
         Sorry No File Found
         <?php } ?>
         </td>
-        <td>
-        <?php if($data->image4!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image4
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
 
 	 <td><?php echo $data->mrp ?></td>
  	 <td><?php echo $data->productdescription ?></td>
- 	 <td><?php echo $data->colours ?></td>
- 	 <td><?php echo $data->inventry ?></td>
+ 	 <!-- <td><echo $data->modelno ?></td> -->
 
 
 
@@ -166,9 +151,6 @@
         <?php } ?>
         <li><a href="<?php echo base_url() ?>dcadmin/products/update_products/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
-        <li><a href="<?php echo base_url() ?>dcadmin/product_type/view_type/<?php echo
-        base64_encode($data->id) ?>">Type</a></li>
-
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
         </div>

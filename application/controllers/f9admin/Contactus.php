@@ -103,9 +103,9 @@
 						 {
 							 // print_r($this->input->post());
 							 // exit;
-	$this->form_validation->set_rules('name', 'name', 'required');
-	$this->form_validation->set_rules('contact', 'contact', '');
-	$this->form_validation->set_rules('email', 'email', 'required');
+	$this->form_validation->set_rules('name', 'name', 'required|trim');
+	$this->form_validation->set_rules('phone', 'phone', 'required|trim');
+	$this->form_validation->set_rules('email', 'email', 'required|trim');
 
 
 
@@ -114,8 +114,9 @@
 							 if($this->form_validation->run()== TRUE)
 							 {
 	$name=$this->input->post('name');
-	$contact=$this->input->post('contact');
+	$phone=$this->input->post('phone');
 	$email=$this->input->post('email');
+	$complain=$this->input->post('complain');
 
 									 $ip = $this->input->ip_address();
 									 date_default_timezone_set("Asia/Calcutta");
@@ -130,8 +131,9 @@
 
 					 $data_insert = array(
 									'name'=>$name,
-	'contact'=>$contact,
+	'phone'=>$phone,
 	'email'=>$email,
+	'complain'=>$complain,
 
 										 'ip' =>$ip,
 										 'added_by' =>$addedby,
@@ -160,8 +162,9 @@
 
 					 $data_insert = array(
 									'name'=>$name,
-	'contact'=>$contact,
+	'phone'=>$phone,
 	'email'=>$email,
+	'complain'=>$complain,
 
 										 );
 						 $this->db->where('id', $idw);
@@ -286,7 +289,7 @@
 										 $this->db->where('id',$id);
 										 $dsa= $this->db->get();
 										 $da=$dsa->row();
-										 $img=$da->image;
+										 // $img=$da->image;
 
  $zapak=$this->db->delete('tbl_contactus', array('id' => $id));
  if($zapak!=0){

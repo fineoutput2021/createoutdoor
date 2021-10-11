@@ -47,10 +47,10 @@
 <td> <strong>Email</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="email"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
-  <tr>
+  <!-- <tr>
 <td> <strong>pincode</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="pincode"  class="form-control" placeholder="" required value="" />  </td>
-</tr>
+</tr> -->
   <tr>
 <td> <strong>password</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="password" name="password"  class="form-control" placeholder="" required value="" />  </td>

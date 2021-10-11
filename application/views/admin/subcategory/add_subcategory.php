@@ -36,12 +36,13 @@
                                        <div class="table-responsive">
                                            <table class="table table-hover">
   <tr>
-<td> <strong>Category Name</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>Category</strong>  <span style="color:red;">*</span></strong> </td>
 <td>
-    <select class="form-control" name="categoryname">
+    <select class="form-control" name="category">
       <?
+
        foreach($category_data->result() as $value) {?>
-         <option value="<?=$value->id;?>"><?=$value->categoryname;?></option>
+         <option value="<?=$value->id;?>"><?=$value->title;?></option>
        <? }?>
     </select>
 
@@ -49,7 +50,7 @@
 </tr>
   <tr>
 <td> <strong>Sub-Category</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="subcategoryname"  class="form-control" placeholder="" required value="" />  </td>
+<td> <input type="" name="subcategory"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 
 

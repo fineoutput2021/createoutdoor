@@ -107,7 +107,7 @@
   $this->form_validation->set_rules('address', 'address', 'required');
   $this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
-  $this->form_validation->set_rules('pincode', 'pincode', 'required');
+  // $this->form_validation->set_rules('pincode', 'pincode', 'required');
   $this->form_validation->set_rules('password', 'password', 'required');
 
 
@@ -120,7 +120,7 @@
   $address=$this->input->post('address');
   $email=$this->input->post('email');
 
-  $pincode=$this->input->post('pincode');
+  // $pincode=$this->input->post('pincode');
   $password=$this->input->post('password');
 
                    $ip = $this->input->ip_address();
@@ -181,7 +181,7 @@ $img4='image';
                   'name'=>$name,
   'address'=>$address,
   'email'=>$email,
-  'pincode'=>$pincode,
+  // 'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
 
@@ -258,7 +258,7 @@ if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){
                   'name'=>$name,
   'address'=>$address,
   'email'=>$email,
-  'pincode'=>$pincode,
+  // 'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
 
@@ -380,17 +380,17 @@ if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('image');
+                     $this->db->select('*');
                      $this->db->from('tbl_users');
                      $this->db->where('id',$id);
                      $dsa= $this->db->get();
                      $da=$dsa->row();
-                     $img=$da->image;
+                     // $img=$da->image;
 
  $zapak=$this->db->delete('tbl_users', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
+        // $path = FCPATH .$img;
+        //   unlink($path);
         redirect("dcadmin/users/view_users","refresh");
                 }
                 else
