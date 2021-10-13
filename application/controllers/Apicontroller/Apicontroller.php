@@ -1033,8 +1033,8 @@ if(empty($token_id)){
 																																											if(!empty($da)){
 
 																																												$d3=$da->id;
-																																												$d1=$da->name;
-																																												$d2=$da->image;
+																																												$d1=$da->productname;
+																																												$d2=base_url().$da->image;
 																																											}else{
 																																												$d1="";
 																																											}
@@ -1063,8 +1063,6 @@ if(empty($token_id)){
 
 
 																																						$addcart[]=array(
-																																							'token_id'=>$value->token_id,
-
 																																							'product_id'=>$d3,
 																																							'product_name'=>$d1,
 																																							'product_image'=>$d2,
@@ -1127,6 +1125,8 @@ else{
 
 
 												foreach ($data->result() as $value) {
+													// echo $value->product_id;
+													// exit;
 																										//product
 																																$this->db->select('*');
 																																            $this->db->from('tbl_products');
@@ -1135,9 +1135,9 @@ else{
 																																            $da=$dsa->row();
 																																						if(!empty($da)){
 
-																																							$d3=$value->product_id;
-																																							$d1=$da->name;
-																																							$d2=$da->image;
+																																							$d3=$da->id;
+																																							$d1=$da->productname;
+																																							$d2=base_url().$da->image;
 																																						}else{
 																																							$d1="";
 																																						}
@@ -1166,8 +1166,6 @@ else{
 
 
 																																	$addcart[]=array(
-																																		'token_id'=>$value->token_id,
-
 																																		'product_id'=>$d3,
 																																		'product_name'=>$d1,
 																																		'product_image'=>$d2,
