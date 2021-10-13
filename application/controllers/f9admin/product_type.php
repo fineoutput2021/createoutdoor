@@ -21,8 +21,8 @@
                               // echo $this->session->userdata('image');
                               // echo $this->session->userdata('position');
                               // exit;
- $id=base64_decode($idd);
-$data['id']=$idd;
+                 $id=base64_decode($idd);
+                $data['id']=$idd;
 
                     $this->db->select('*');
         $this->db->from('tbl_type');
@@ -40,31 +40,34 @@ $data['id']=$idd;
                           }
 
                           }
-        public function add_type($idd){
+    public function add_type($idd){
 
-                         if(!empty($this->session->userdata('admin_data'))){
+                     if(!empty($this->session->userdata('admin_data'))){
 
 
-                           $data['user_name']=$this->load->get_var('user_name');
+                       $data['user_name']=$this->load->get_var('user_name');
 
-                           // echo SITE_NAME;
-                           // echo $this->session->userdata('image');
-                           // echo $this->session->userdata('position');
-                           // exit;
-                            $id=base64_decode($idd);
-                           $data['id']=$idd;
+                       // echo SITE_NAME;
+                       // echo $this->session->userdata('image');
+                       // echo $this->session->userdata('position');
+                       // exit;
 
-                      $this->load->view('admin/common/header_view',$data);
-                           $this->load->view('admin/product_type/add_type');
-                           $this->load->view('admin/common/footer_view');
+      $id=base64_decode($idd);
+     $data['id']=$idd;
 
-                       }
-                       else{
 
-                          redirect("login/admin_login","refresh");
-                       }
 
-                       }
+                       $this->load->view('admin/common/header_view',$data);
+                       $this->load->view('admin/product_type/add_type');
+                       $this->load->view('admin/common/footer_view');
+
+                   }
+                   else{
+
+                      redirect("login/admin_login","refresh");
+                   }
+
+                   }
 
                       public function add_data_type($t,$iw="")
 
@@ -80,18 +83,23 @@ $data['id']=$idd;
                       {
                         // print_r($this->input->post());
                         // exit;
+
+
+
+
+
                         $this->form_validation->set_rules('name', 'name', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('mrp', 'mrp', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('gst', 'gst', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('sellingprice', 'sellingprice', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('gstprice', 'gstprice', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('price', 'price', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('weight', 'weight', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('mrp', 'mrp', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('gst', 'gst', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('sellingprice', 'sellingprice', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('gstprice', 'gstprice', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('price', 'price', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('weight', 'weight', 'required|integer|xss_clean|trim');
 
                         if($this->form_validation->run()== TRUE)
                         {
 
-                          $type_id=$this->input->post('typ_id');
+                          $p_id=$this->input->post('p_id');
 
 
                           $name=$this->input->post('name');
@@ -118,7 +126,7 @@ $data['id']=$idd;
                               'gstprice'=>$gstprice,
                               'spgst'=>$price,
                               'weight'=>$weight,
-                              'product_id'=>base64_decode($type_id),
+                              'product_id'=>base64_decode($p_id),
                               'ip' =>$ip,
                               'added_by' =>$addedby,
                               'is_active' =>1,
@@ -159,7 +167,7 @@ $data['id']=$idd;
                     'sp'=>$sellingprice,
                     'gstprice'=>$gstprice,
                     'spgst'=>$price,
-                    'weight'=>$weight,
+                    'weight'=>$weight
 
                               );
 
@@ -176,7 +184,7 @@ $data['id']=$idd;
 
                                         $this->session->set_flashdata('smessage','Data inserted successfully');
 
-                                        redirect("dcadmin/product_type/view_type/".$type_id,"refresh");
+                                       redirect("dcadmin/product_type/view_type/".$p_id,"refresh");
 
                                                 }
 
@@ -215,7 +223,7 @@ $data['id']=$idd;
                     }
 
                     }
-                public function update_type($idd){
+                public function update_type($idd,$id1){
 
                                  if(!empty($this->session->userdata('admin_data'))){
 
@@ -228,6 +236,9 @@ $data['id']=$idd;
                                    // exit;\
    $id=base64_decode($idd);
   $data['id']=$idd;
+
+   $id1=base64_decode($id1);
+  $data['id1']=$id1;
 
 
         $this->db->select('*');
@@ -248,7 +259,7 @@ $data['id']=$idd;
                                }
 
                                }
-                      public function delete_type($idd,$idd1){
+                      public function delete_type($idd,$id1){
 
                              if(!empty($this->session->userdata('admin_data'))){
 
@@ -262,7 +273,11 @@ $data['id']=$idd;
 
 
                                        									 $id=base64_decode($idd);
-                            $id1=base64_decode($idd1);
+
+
+
+     $id1=base64_decode($id1);
+    $data['id1']=$id1;
 
 
                               if($this->load->get_var('position')=="Super Admin"){
@@ -271,7 +286,7 @@ $data['id']=$idd;
                                                									 $zapak=$this->db->delete('tbl_type', array('id' => $id));
                                                									 if($zapak!=0){
 
-                                               								 	redirect("dcadmin/product_type/view_type/".$idd1,"refresh");
+                                               								 	redirect("dcadmin/product_type/view_type/".$id1,"refresh");
                                                								 					}
                                                								 					else
                                                								 					{
@@ -293,7 +308,7 @@ $data['id']=$idd;
                                    }
 
                                    }
-                public function updatetypeStatus($idd,$t,$idd1){
+                public function updatetypeStatus($idd,$t){
 
                          if(!empty($this->session->userdata('admin_data'))){
 
@@ -321,7 +336,7 @@ $data['id']=$idd;
                         $zapak=$this->db->update('tbl_type', $data_update);
 
                              if($zapak!=0){
-                             redirect("dcadmin/product_type/view_type".$idd1,"refresh");
+                             redirect("dcadmin/product_type/view_type","refresh");
                                      }
                                      else
                                      {
@@ -339,7 +354,7 @@ $data['id']=$idd;
                           $zapak=$this->db->update('tbl_type', $data_update);
 
                               if($zapak!=0){
-                              redirect("dcadmin/product_type/view_type".$idd1,"refresh");
+                              redirect("dcadmin/product_type/view_type","refresh");
                                       }
                                       else
                                       {

@@ -721,7 +721,7 @@
 																	$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
 																	$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
 																	$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
-																	$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+																	$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 
 																	if($this->form_validation->run()== TRUE)
 																	{
@@ -732,7 +732,58 @@
 																		$password=$this->input->post('password');
 																		$token_id=$this->input->post('token_id');
 
-																		if(!empty($email_id) || !empty($password)){
+
+
+																	$this->db->select('*');
+																	            $this->db->from('tbl_products');
+																	            $this->db->where('id',$product_id);
+																	            $pro= $this->db->get();
+																	            $p_id=$pro->row();
+																	           if(empty($p_id)){
+																							 $res = array('message'=>"product not valid",
+																				 'status'=>201
+																				 );
+
+																				 echo json_encode($res);
+																				 exit;
+
+
+																						 }
+
+																						 $this->db->select('*');
+																						 						$this->db->from('tbl_type');
+																						 						$this->db->where('id',$type_id);
+																						 						$this->db->where('product_id',$product_id);
+																						 						$typ1= $this->db->get();
+																						 						$t_id=$typ1->row();
+																						 					 if(empty($t_id)){
+																						 						 $res = array('message'=>"type not valid",
+																						 			 'status'=>201
+																						 			 );
+
+																						 			 echo json_encode($res);
+																						 			 exit;
+
+
+																						 					 }
+
+
+
+
+																											 if(empty($token_id) && empty($email_id) && empty($password)){
+
+																												 $res = array('message'=>"please insert data",
+																															 'status'=>201
+																															 );
+
+																															 echo json_encode($res);
+																															 exit;
+
+																											 }
+
+
+
+																	if(!empty($email_id) && !empty($password) && !empty($token_id)){
 
                                     $this->db->select('*');
                                                 $this->db->from('tbl_users');
@@ -763,7 +814,7 @@
 																																						            $this->db->from('tbl_cart');
 																																						            $this->db->where('product_id',$product_id);
 																																						            $this->db->where('type_id',$type_id);
-
+																																						            $this->db->where('token_id',$token_id);
 																																						            $this->db->where('user_id',$user_id);
 
 																																						            $dsa= $this->db->get();
@@ -847,7 +898,7 @@ if(empty($token_id)){
 												            $this->db->from('tbl_cart');
 												            $this->db->where('product_id',$product_id);
 												            $this->db->where('type_id',$type_id);
-
+                                    $this->db->where('token_id',$token_id);
 
 												            $dsa= $this->db->get();
 												            $da=$dsa->row();
@@ -865,9 +916,6 @@ if(empty($token_id)){
 															$data_insert = array('product_id'=>$product_id,
 																				'type_id'=>$type_id,
 																				'quantity'=>$quantity,
-
-
-
 																				'token_id'=>$token_id
 
 
@@ -949,7 +997,7 @@ if(empty($token_id)){
 																													{
 																														// print_r($this->input->post());
 																														// exit;
-																														$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+																														$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 																														$this->form_validation->set_rules('email_id', 'email_id', 'valid_email|xss_clean|trim');
 																														$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 
@@ -969,7 +1017,7 @@ if(empty($token_id)){
 
 
 
-																										if(!empty($email_id) || !empty($password)){
+																										if(!empty($email_id) && !empty($password) && !empty($token_id)){
 
                                                         $this->db->select('*');
                                                                     $this->db->from('tbl_users');
@@ -995,6 +1043,8 @@ if(empty($token_id)){
 																																		 $this->db->select('*');
 																																		             $this->db->from('tbl_cart');
 																																		             $this->db->where('user_id',$user_id);
+																																		             $this->db->where('token_id',$token_id);
+
 																																		             $dsa4= $this->db->get();
 																																		             $da=$dsa4->row();
 																																		     if(empty($da)){
@@ -1063,7 +1113,6 @@ if(empty($token_id)){
 
 
 																																						$addcart[]=array(
-																																							'token_id'=>$value->token_id,
 
 																																							'product_id'=>$d3,
 																																							'product_name'=>$d1,
@@ -1090,23 +1139,21 @@ if(empty($token_id)){
 
 else{
 
-
-        $this->db->select('*');
+$this->db->select('*');
             $this->db->from('tbl_cart');
             $this->db->where('token_id',$token_id);
-            $dsa44= $this->db->get();
-            $da4=$dsa44->row();
-						if(empty($da4)){
+            $dan= $this->db->get();
+            $fd=$dan->row();
+          if(empty($fd)){
+						$res = array('message'=>"cart empty",
+ 								 'status'=>201
+ 								 );
 
-							$res = array('message'=>"wrong enterd token_id please check",
-										'status'=>201
-										);
-
-										echo json_encode($res);
-								die();
+ 								 echo json_encode($res);
+ 						 exit;
 
 
-						}
+					}
 
 
 
@@ -1166,7 +1213,7 @@ else{
 
 
 																																	$addcart[]=array(
-																																		'token_id'=>$value->token_id,
+
 
 																																		'product_id'=>$d3,
 																																		'product_name'=>$d1,
@@ -1581,23 +1628,178 @@ echo json_encode($res);
 												}
 
 												//delete to cat api
-												public function deletecart($id,$idd,$id1){
+												public function deletecart(){
+
+
+													$this->load->helper(array('form', 'url'));
+													$this->load->library('form_validation');
+													$this->load->helper('security');
+													if($this->input->post())
+													{
+														// print_r($this->input->post());
+														// exit;
+														$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+														$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
+														$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 
 
 
-												$this->db->where("user_id",$id);
-												$this->db->where("product_id",$idd);
-												$this->db->where("type_id",$id1);
+														if($this->form_validation->run()== TRUE)
+														{
+															$token_id=$this->input->post('token_id');
+															$email_id=$this->input->post('email_id');
+															$password=$this->input->post('password');
 
-												$this->db->delete('tbl_cart');
+
+				if(!empty($email_id) || !empty($password)){
+
+																					$this->db->select('*');
+																			 							 $this->db->from('tbl_users');
+																			 							 $this->db->where('email',$email_id);
+																			 							 $this->db->where('password',$password);
+																			 							 $dsa1= $this->db->get();
+																			 							 $user=$dsa1->row();
+																			 							 if(!empty($user)){
+																			 							 $user_id=$user->id;
+																			 							 $pass=$user->password;
+
+																			 						 }else{
+
+																			 							 $res = array('message'=>"email or passwod not match",
+																			 										'status'=>201,
+
+																			 										);
+
+																			 										echo json_encode($res);
+																			 										exit();
+
+																			 						 }
 
 
 
-																																		 $res = array('message'=>"success",
-												 																					'status'=>200
-												 																					);
+																			 												$this->db->select('*');
+																			 												            $this->db->from('tbl_cart');
+																			 												            $this->db->where('user_id',$user_id);
+																			 												            $dsa2= $this->db->get();
+																			 												            $cart=$dsa->row();
+																			 												           if(!empty($cart)){
 
-												 																					echo json_encode($res);
+
+																																					 $this->db->delete('tbl_cart',array('user_id' =>$user_id));
+
+
+																																				 }else{
+																																					 $res = array('message'=>"not insert user_id in table cart",
+																																				'status'=>201
+																																				);
+
+																																				echo json_encode($res);
+																																				exit;
+
+
+																																				 }
+
+
+
+
+
+
+
+															}else{
+
+
+																$this->db->select('*');
+																		$this->db->from('tbl_cart');
+																		$this->db->where('token_id',$token_id);
+																		$dsa44= $this->db->get();
+																		$da4=$dsa44->row();
+																		if(empty($da4)){
+
+																			$res = array('message'=>"wrong enterd token_id please check",
+																						'status'=>201
+																						);
+
+																						echo json_encode($res);
+																			exit;
+
+
+																		}
+
+
+
+
+
+
+
+
+																														$this->db->select('*');
+																								$this->db->from('tbl_cart');
+																								$this->db->where('token_id',$token_id);
+																								$data22=$this->db->get();
+
+																								$fa=$data22->row();
+																								if(!empty($fa)){
+
+                                                        $this->db->delete('tbl_cart',array('token_id' =>$token_id));
+
+																								}else{
+
+																									$res = array('message'=>" this token_id not inserted cart",
+																												'status'=>201
+																												);
+
+																												echo json_encode($res);
+																												exit;
+
+
+																								}
+
+
+
+
+
+
+
+															}
+															$res = array('message'=>"success",
+													 'status'=>200
+													 );
+
+													 echo json_encode($res);
+
+
+
+
+														}
+													else{
+														$res = array('message'=>validation_errors(),
+																	'status'=>201
+																	);
+
+																	echo json_encode($res);
+
+
+													}
+
+}else{
+
+$res = array('message'=>'No data are available',
+	'status'=>201
+	);
+
+	echo json_encode($res);
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1975,120 +2177,6 @@ echo json_encode($res);
 					}
 
 
-					//prmocode api
-
-     // public function promocode(){
-		 //
-		 //
-		 //
-			//  													$this->load->helper(array('form', 'url'));
-			//  													$this->load->library('form_validation');
-			//  													$this->load->helper('security');
-			//  													if($this->input->post())
-			//  													{
-		 //
-			//  														$this->form_validation->set_rules('prmocode_name', 'prmocode_name', 'required|valid_email|xss_clean');
-		 //
-			//  														if($this->form_validation->run()== TRUE)
-			//  														{
-		 //
-			//  															$prmocode_name=$this->input->post('prmocode_name');
-		 //
-			//  																$ip = $this->input->ip_address();
-			//  												date_default_timezone_set("Asia/Calcutta");
-			//  																$cur_date=date("Y-m-d H:i:s");
-		 //
-		 //
-			// 										   $addedby=$this->session->userdata('admin_id');
-		 //
-     //                           $this->db->select('*');
-     //                                       $this->db->from('tbl_promocode');
-     //                                       $this->db->where('promocode',$prmocode_name);
-     //                                       $this->db->where('is_active',1);
-     //                                       $dsa= $this->db->get();
-     //                                       $prmo=$dsa->row();
-     //                                    if(!empty($prmo)) {
-     //                                   $p_id=$prmo->id;
-			// 																 $p_name=$prmo->promocode;
-			// 																 $p_rate=$prmo->giftpercent;
-		 //
-		 //
-			// 																	}else{
-		 //
-			// 																		$res = array('message'=>'It is not valid prmocode',
-			// 																					'status'=>201
-			// 																					);
-		 //
-			// 																					echo json_encode($res);
-		 //
-			// 																	}
-		 //
-			// 															//prmocode id match of table tbl_order1
-			// 															  $this->db->select('*');
-			// 															              $this->db->from('tbl_order1');
-			// 															              $this->db->where('promocode_id',$p_name);
-			// 															              $dsa= $this->db->get();
-			// 															              $order=$dsa->row();
-			// 															           if(!empty($order)){
-		 //
-     //                                               $user_id=$order->user_id;
-		 //
-			// 																				 }else{
-		 //
-			// 																					 $res = array('message'=>'please add product cart',
-			// 																								'status'=>201
-			// 																								);
-		 //
-			// 																								echo json_encode($res);
-		 //
-			// 																				 }
-		 //
-			// 																	//cart table
-		 //
-			// 																	$this->db->select('*');
-			// 																	            $this->db->from('tbl_');
-			// 																	            $this->db->where('_id',$id);
-			// 																	            $dsa= $this->db->get();
-			// 																	            $da=$dsa->row();
-			// 																	            echo $da->name;
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-			// 										 }
-			// 										else{
-			// 											$res = array('message'=>validation_errors(),
-			// 														'status'=>201
-			// 														);
-		 //
-			// 														echo json_encode($res);
-		 //
-		 //
-			// 										}
-		 //
-			// 						}else{
-		 //
-			// 						$res = array('message'=>'No data are available',
-			// 						'status'=>201
-			// 						);
-		 //
-			// 						echo json_encode($res);
-			// 						}
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-		 //
-		 // }
-
-					//---------------------------------------------
 
 //count view cart product
 
@@ -2182,10 +2270,10 @@ public function cart_count(){
               $this->db->from('tbl_cart');
               $this->db->where('token_id',$token_id);
               $counting=$this->db->count_all_results();
-							if(!empty($check1)){
+							if(!empty($counting)){
 
 
-								 $counting= count($counting);
+								$fa= $counting;
 
 
 
@@ -2205,7 +2293,7 @@ public function cart_count(){
 
 							$res = array('message'=>"success",
 										 'status'=>200,
-										 'data'=>$counting
+										 'data'=>$fa
 										 );
 
 										 echo json_encode($res);
@@ -2241,6 +2329,123 @@ public function cart_count(){
 
 
 }
+
+
+//prmocode api
+
+// public function promocode(){
+//
+//
+//
+//  													$this->load->helper(array('form', 'url'));
+//  													$this->load->library('form_validation');
+//  													$this->load->helper('security');
+//  													if($this->input->post())
+//  													{
+//
+//  														$this->form_validation->set_rules('prmocode_name', 'prmocode_name', 'required|valid_email|xss_clean');
+//
+//  														if($this->form_validation->run()== TRUE)
+//  														{
+//
+//  															$prmocode_name=$this->input->post('prmocode_name');
+//
+//  																$ip = $this->input->ip_address();
+//  												date_default_timezone_set("Asia/Calcutta");
+//  																$cur_date=date("Y-m-d H:i:s");
+//
+//
+// 										   $addedby=$this->session->userdata('admin_id');
+//
+//                           $this->db->select('*');
+//                                       $this->db->from('tbl_promocode');
+//                                       $this->db->where('promocode',$prmocode_name);
+//                                       $this->db->where('is_active',1);
+//                                       $dsa= $this->db->get();
+//                                       $prmo=$dsa->row();
+//                                    if(!empty($prmo)) {
+//                                   $p_id=$prmo->id;
+// 																 $p_name=$prmo->promocode;
+// 																 $p_rate=$prmo->giftpercent;
+//
+//
+// 																	}else{
+//
+// 																		$res = array('message'=>'It is not valid prmocode',
+// 																					'status'=>201
+// 																					);
+//
+// 																					echo json_encode($res);
+//
+// 																	}
+//
+// 															//prmocode id match of table tbl_order1
+// 															  $this->db->select('*');
+// 															              $this->db->from('tbl_order1');
+// 															              $this->db->where('promocode_id',$p_name);
+// 															              $dsa= $this->db->get();
+// 															              $order=$dsa->row();
+// 															           if(!empty($order)){
+//
+//                                               $user_id=$order->user_id;
+//
+// 																				 }else{
+//
+// 																					 $res = array('message'=>'please add product cart',
+// 																								'status'=>201
+// 																								);
+//
+// 																								echo json_encode($res);
+//
+// 																				 }
+//
+// 																	//cart table
+//
+// 																	$this->db->select('*');
+// 																	            $this->db->from('tbl_');
+// 																	            $this->db->where('_id',$id);
+// 																	            $dsa= $this->db->get();
+// 																	            $da=$dsa->row();
+// 																	            echo $da->name;
+//
+//
+//
+//
+//
+//
+//
+//
+// 										 }
+// 										else{
+// 											$res = array('message'=>validation_errors(),
+// 														'status'=>201
+// 														);
+//
+// 														echo json_encode($res);
+//
+//
+// 										}
+//
+// 						}else{
+//
+// 						$res = array('message'=>'No data are available',
+// 						'status'=>201
+// 						);
+//
+// 						echo json_encode($res);
+// 						}
+//
+//
+//
+//
+//
+//
+//
+//
+// }
+
+//---------------------------------------------
+
 
 
 

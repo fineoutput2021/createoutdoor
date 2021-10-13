@@ -9,6 +9,7 @@
 
           </ol>
         </section>
+
     <section class="content">
     <div class="row">
        <div class="col-lg-12">
@@ -18,6 +19,11 @@
                                 <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update New Type</h3>
                             </div>
 
+
+
+
+
+                          
                                     <? if(!empty($this->session->flashdata('smessage'))){ ?>
                                           <div class="alert alert-success alert-dismissible">
                                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -40,7 +46,7 @@
                                    <form action="<?php echo base_url() ?>dcadmin/product_type/add_data_type/<? echo base64_encode(2); ?>/<?=$id?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
-                <input type="hidden" name="typ_id" value="<?=$id;?>">
+
 
                       <tr>
                                                 <td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
@@ -48,6 +54,10 @@
                           <input type="text" name="name"  class="form-control" placeholder="" required value="<?=$u_data->name?>" />
                                               </td>
                         </tr>
+
+
+
+                        <input type="hidden" name="p_id"  class="form-control" placeholder="" required value="<?=$id1?>" />
                       <tr>
                                                 <td> <strong>MRP</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>

@@ -92,6 +92,18 @@ $data['s_data']= $this->db->get();
                              $data['products_data']= $this->db->get()->row();
 
 
+
+						            $this->db->select('*');
+						$this->db->from('tbl_category');
+						//$this->db->where('id',$usr);
+						$data['category']= $this->db->get();
+
+$this->db->select('*');
+$this->db->from('tbl_subcategory');
+//$this->db->where('id',$usr);
+$data['subcategory']= $this->db->get();
+
+
                       $this->load->view('admin/common/header_view',$data);
                       $this->load->view('admin/products/update_products');
                       $this->load->view('admin/common/footer_view');
@@ -118,13 +130,14 @@ $data['s_data']= $this->db->get();
               {
                 // print_r($this->input->post());
                 // exit;
-   $this->form_validation->set_rules('name', 'name', 'required|trim');
-   $this->form_validation->set_rules('categoryname', 'categoryname', 'required|trim');
-   $this->form_validation->set_rules('subcategoryname', 'subcategoryname', 'required|trim');
-   $this->form_validation->set_rules('mrp', 'mrp', 'required|trim');
-   $this->form_validation->set_rules('productdescription', 'productdescription', 'required|trim');
-   $this->form_validation->set_rules('colours', 'colours', 'required|trim');
-   $this->form_validation->set_rules('inventory', 'inventory', 'required|trim');
+   $this->form_validation->set_rules('name', 'name', 'trim');
+   $this->form_validation->set_rules('categoryname', 'categoryname', 'trim');
+   $this->form_validation->set_rules('subcategoryname', 'subcategoryname', 'trim');
+   $this->form_validation->set_rules('mrp', 'mrp', 'integer|trim');
+   $this->form_validation->set_rules('productdescription', 'productdescription', 'trim');
+   $this->form_validation->set_rules('colours', 'colours', 'trim');
+   $this->form_validation->set_rules('inventory', 'inventory', 'integer|trim');
+
 
 
 
@@ -138,16 +151,14 @@ $data['s_data']= $this->db->get();
    $mrp=$this->input->post('mrp');
    $productdescription=$this->input->post('productdescription');
    $colours=$this->input->post('colours');
-   $inventory=$this->input->post;
+   $inventory=$this->input->post('inventory');
 
-                    $ip = $this->input->ip_address();
-                    date_default_timezone_set("Asia/Calcutta");
-                    $cur_date=date("Y-m-d H:i:s");
-                    $addedby=$this->session->userdata('admin_id');
 
-            $typ=base64_decode($t);
-            $last_id = 0;
-            if($typ==1){
+  
+
+
+
+
 $this->load->library('upload');
 
 //
@@ -343,6 +354,18 @@ $img4='fileToUpload4';
   							// echo json_encode($file_info);
   						}
             }
+
+
+                                $ip = $this->input->ip_address();
+                                date_default_timezone_set("Asia/Calcutta");
+                                $cur_date=date("Y-m-d H:i:s");
+                                $addedby=$this->session->userdata('admin_id');
+
+
+            $typ=base64_decode($t);
+            $last_id = 0;
+            if($typ==1){
+
             $data_insert = array(
                    'name'=>$name,
                    'category_id'=>$categoryname,
@@ -372,77 +395,120 @@ $img4='fileToUpload4';
 
      $idw=base64_decode($iw);
 
+  if(!empty($nnnn1)){
 
-  $this->db->select('*');
-  $this->db->from('tbl_products');
-  $this->db->where('id',$idw);
-  $dsa=$this->db->get();
-  $da=$dsa->row();
+    $n1=$nnnn1;
 
+  }else{
 
-
- $img1='image';
-
-
-            $file_check=($_FILES['image']['error']);
- if($file_check!=4){
-
-          $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                      $new_file_name="products".date("Ymdhms");
-                      $this->upload_config = array(
-                              'upload_path'   => $image_upload_folder,
-                              'file_name' => $new_file_name,
-                              'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                              'max_size'      => 25000
-                      );
-                     $this->upload->initialize($this->upload_config);
-                      if (!$this->upload->do_upload($img1))
-                      {
-                          $upload_error = $this->upload->display_errors();
-                          // echo json_encode($upload_error);
-
-            //$this->session->set_flashdata('emessage',$upload_error);
-              //redirect($_SERVER['HTTP_REFERER']);
-                      }
-                      else
-                      {
-
-                          $file_info = $this->upload->data();
-
-                          $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                          $file_info['new_name']=$videoNAmePath;
-                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                          $nnnn=$file_info['file_name'];
-                          $nnnn1=$videoNAmePath;
-
-                          // echo json_encode($file_info);
-                      }
-         }
+    $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$idw);
+                $dsa1= $this->db->get();
+                $da=$dsa1->row();
+              $n1=$da->image;
 
 
+  }
+  if(!empty($nnnn)){
 
- if(!empty($da)){ $img = $da ->image;
- if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){ $nnnn1= ""; } } }
+    $n2=$nnnn;
 
-            $data_insert = array(
-                   'name'=>$name,
-                   'category_id'=>$categoryname,
-                   'subcategory_id'=>$subcategoryname,
-   'image'=>$nnnn1,
-   'image1'=>$nnnn,
-   'image2'=>$nnnn2,
-   'image3'=>$nnnn3,
-   'image4'=>$nnnn4,
-   'mrp'=>$mrp,
-   'productdescription'=>$productdescription,
-   'colours'=>$colours,
-   'inventry'=>$inventory,
+  }else{
 
-                      );
+    $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$idw);
+                $dsa1= $this->db->get();
+                $da=$dsa1->row();
+              $n2=$da->image1;
+
+
+  }
+  if(!empty($nnnn2)){
+
+    $n3=$nnnn2;
+
+  }else{
+
+    $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$idw);
+                $dsa1= $this->db->get();
+                $da=$dsa1->row();
+              $n3=$da->image2;
+
+
+  }
+  if(!empty($nnnn3)){
+
+    $n4=$nnnn3;
+
+  }else{
+
+    $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$idw);
+                $dsa1= $this->db->get();
+                $da=$dsa1->row();
+              $n4=$da->image3;
+
+
+  }
+  if(!empty($nnnn4)){
+
+    $n5=$nnnn3;
+
+  }else{
+
+    $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$idw);
+                $dsa1= $this->db->get();
+                $da=$dsa1->row();
+              $n5=$da->image4;
+
+
+  }
+
+  $data_insert = array(
+         'name'=>$name,
+         'category_id'=>$categoryname,
+         'subcategory_id'=>$subcategoryname,
+
+'image'=>$n1,
+'image1'=>$n2,
+'image2'=>$n3,
+'image3'=>$n4,
+'image4'=>$n5,
+'mrp'=>$mrp,
+'productdescription'=>$productdescription,
+'colours'=>$colours,
+'inventry'=>$inventory,
+
+
+            );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               $this->db->where('id', $idw);
               $last_id=$this->db->update('tbl_products', $data_insert);
            }
@@ -591,4 +657,42 @@ $img4='fileToUpload4';
                              }
 
                              }
+
+                             public function getSubcategory(){
+
+
+
+                             			$id=$_GET['isl'];
+
+
+
+
+                                   			$this->db->select('*');
+                             $this->db->from('tbl_subcategory');
+                             $this->db->where('category_id',$id);
+                             $d2= $this->db->get();
+
+                             $rees=[];
+                             foreach($d2->result() as $data) {
+
+
+                             $rees[] = array('sub_id' =>$data->id ,'sub_name' =>$data->name );
+
+
+                             }
+
+                             echo json_encode($rees);
+
+
+
+
+
+
+
+
+                                            }
+
+
+
+
                       }

@@ -37,10 +37,12 @@
 
                                                       <div class="panel-body">
                                                           <div class="col-lg-10">
-                                                             <form action="<?php echo base_url() ?>dcadmin/product_type/add_data_type/<? echo base64_encode(1); ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                                                             <form action="<?php echo base_url() ?>dcadmin/product_type/add_data_type/<? echo base64_encode(1); ?>/<?=$id?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                                           <div class="table-responsive">
                                                               <table class="table table-hover">
-                                          <input type="hidden" name="typ_id" value="<?=$id;?>">
+
+
+
 
                           											<tr>
                                                                           <td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
@@ -48,6 +50,8 @@
                           													<input type="text" name="name"  class="form-control" placeholder="" required value="" />
                           	                                            </td>
                               										</tr>
+
+                                                  <input type="hidden" name="p_id"  class="form-control" placeholder="" required value="<?=$id?>" />
                           											<tr>
                                                                           <td> <strong>MRP</strong>  <span style="color:red;">*</span></strong> </td>
                                                                           <td>
@@ -83,6 +87,7 @@
                                                                           <td>
                           													<input type="text" name="weight"  class="form-control" placeholder="" required value="" />
                           	                                            </td>
+                                                                        <input type="hidden" name="product_id"  class="form-control" placeholder="" required value="" />
                               										</tr>
                                                   	<tr>
                               												<td colspan="2" >

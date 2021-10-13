@@ -273,17 +273,11 @@
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('');
-                     $this->db->from('tbl_category');
-                     $this->db->where('id',$id);
-                     $dsa= $this->db->get();
-                     $da=$dsa->row();
-                     $img=$da->image;
+                  
 
  $zapak=$this->db->delete('tbl_category', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
+
         redirect("dcadmin/category/view_category","refresh");
                 }
                 else

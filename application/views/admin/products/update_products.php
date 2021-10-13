@@ -39,6 +39,31 @@
 <td> <strong>productname</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="name"  class="form-control" placeholder=""  value="<?=$products_data->name;?>" />  </td>
 </tr>
+
+<tr>
+<td> <strong>Category</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="categoryname" id="cid">
+  <option value="" selected>Select category</option>
+  <?php $i=1; foreach($category->result() as $data) { ?>
+<option value="<?=$data->id;?>" <?php if($products_data->category_id == $data->id){ echo 'selected';} ?> ><?=$data->categoryname;?></option>
+<?php $i++; } ?>
+</select> </td>
+</tr>
+<tr>
+<td> <strong>Subcategory</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="subcategoryname" id="sid">
+  <option value="" selected>Select Subcategory</option>
+  <?php foreach ($subcategory->result() as  $value){?>
+
+              <option value="<?=$value->id?>" <?php if($products_data->subcategory_id == $value->id){ echo 'selected';} ?> ><?php echo $value->name?></option>
+
+
+                            <? } ?>
+
+</select> </td>
+</tr>
+
+
 <tr>
 <td> <strong>productimage</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image"  class="form-control" placeholder="" />
@@ -116,5 +141,50 @@
   </div>
 
 
-<script type="text/javascript" src=" <?php echo base_url()  ?>assets/slider/ajaxupload.3.5.js"></script>
-<link href=" <? echo base_url()  ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
+  <link href="<? echo base_url() ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
+  <script>
+  $(document).ready(function(){
+    	$("#cid").change(function(){
+  		var vf=$(this).val();
+      //var yr = $("#year_id option:selected").val();
+  		if(vf==""){
+  			return false;
+
+  		}else{
+  			$('#sid option').remove();
+  			  var opton="<option value=''>Please Select </option>";
+  			$.ajax({
+  				url:base_url+"dcadmin/Products/getSubcategory?isl="+vf,
+  				data : '',
+  				type: "get",
+  				success : function(html){
+  						if(html!="NA")
+  						{
+  							var s = jQuery.parseJSON(html);
+  							$.each(s, function(i) {
+  							opton +='<option value="'+s[i]['sub_id']+'">'+s[i]['sub_name']+'</option>';
+  							});
+  							$('#sid').append(opton);
+  							//$('#city').append("<option value=''>Please Select State</option>");
+
+                        //var json = $.parseJSON(html);
+                        //var ayy = json[0].name;
+                        //var ayys = json[0].pincode;
+  						}
+  						else
+  						{
+  							alert('No Branch Found');
+  							return false;
+  						}
+
+  					}
+
+  				})
+  		}
+
+
+  	})
+    });
+
+  </script>
