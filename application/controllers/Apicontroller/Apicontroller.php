@@ -430,14 +430,14 @@
 
 																			$this->db->select('*');
 																			$this->db->from('tbl_subcategory');
-																			$this->db->where('category_id',$data->id);
+																			$this->db->where('category',$data->id);
 																			$sub= $this->db->get();
 																			$subcategory=[];
 																			foreach($sub->result() as $sub2) {
 
 																			$subcategory[] = array(
 																				'sub_id' => $sub2->id,
-																			    'name'=> $sub2->name
+																			    'name'=> $sub2->subcategory
 
 
 
@@ -447,7 +447,7 @@
 
 																			$cat[] = array(
 																				'id' =>$data->id,
-																				'name' =>$data->categoryname,
+																				'name' =>$data->title,
 																				'sub_category' =>$subcategory
 
 																		);
@@ -934,7 +934,54 @@ if(empty($token_id)){
 															}
 													}
 
+//------delete product cart-----
+public function delete_cart_product(){
 
+	$this->load->helper(array('form', 'url'));
+	$this->load->library('form_validation');
+	$this->load->helper('security');
+	if($this->input->post())
+	{
+		// print_r($this->input->post());
+		// exit;
+		$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
+		$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+		$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+
+		if($this->form_validation->run()== TRUE)
+		{
+			$product_id=$this->input->post('product_id');
+			$type_id=$this->input->post('type_id');
+
+
+
+
+
+		}else{
+				$res = array('message'=>validation_errors(),
+							'status'=>201
+							);
+
+							echo json_encode($res);
+
+
+			}
+
+		}else{
+
+		$res = array('message'=>"please insert data",
+		'status'=>201
+		);
+
+		echo json_encode($res);
+
+
+		}
+
+}
 
 												//add to cart get api
 
@@ -1578,28 +1625,7 @@ echo json_encode($res);
 
 												}
 
-												//delete to cat api
-												public function deletecart($id,$idd,$id1){
 
-
-
-												$this->db->where("user_id",$id);
-												$this->db->where("product_id",$idd);
-												$this->db->where("type_id",$id1);
-
-												$this->db->delete('tbl_cart');
-
-
-
-																																		 $res = array('message'=>"success",
-												 																					'status'=>200
-												 																					);
-
-												 																					echo json_encode($res);
-
-
-
-												             }
 
 
 												public function addressadd(){
