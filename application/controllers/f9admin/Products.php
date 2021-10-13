@@ -114,7 +114,6 @@ echo json_encode($igt);
                             $data['products_data']= $this->db->get()->row();
 
 
-<<<<<<< HEAD
 
 						            $this->db->select('*');
 						$this->db->from('tbl_category');
@@ -130,12 +129,6 @@ $data['subcategory']= $this->db->get();
                       $this->load->view('admin/common/header_view',$data);
                       $this->load->view('admin/products/update_products');
                       $this->load->view('admin/common/footer_view');
-=======
-                            $this->db->select('*');
-                            $this->db->from('tbl_category');
-                            // $this->db->where('id',$id);
-                            $data['category_data']= $this->db->get();
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
                      $this->load->view('admin/common/header_view',$data);
                      $this->load->view('admin/products/update_products');
@@ -155,7 +148,6 @@ $data['subcategory']= $this->db->get();
 
                  if(!empty($this->session->userdata('admin_data'))){
 
-<<<<<<< HEAD
               $this->load->helper(array('form', 'url'));
               $this->load->library('form_validation');
               $this->load->helper('security');
@@ -171,8 +163,6 @@ $data['subcategory']= $this->db->get();
    $this->form_validation->set_rules('colours', 'colours', 'trim');
    $this->form_validation->set_rules('inventory', 'inventory', 'integer|trim');
 
-=======
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
              $this->load->helper(array('form', 'url'));
              $this->load->library('form_validation');
@@ -191,7 +181,6 @@ $data['subcategory']= $this->db->get();
 
 
 
-<<<<<<< HEAD
                 if($this->form_validation->run()== TRUE)
                 {
    $name=$this->input->post('name');
@@ -203,7 +192,7 @@ $data['subcategory']= $this->db->get();
    $inventory=$this->input->post('inventory');
 
 
-  
+
 
 
 
@@ -233,51 +222,6 @@ $this->load->library('upload');
                       if (!$this->upload->do_upload($img1))
                       {                          $upload_error = $this->upload->display_errors();
                           // echo json_encode($upload_error);
-=======
-
-               if($this->form_validation->run()== TRUE)
-               {
-  $productname=$this->input->post('productname');
-  $category=$this->input->post('category');
-  $subcategory=$this->input->post('sub_category');
-  $mrp=$this->input->post('mrp');
-  $productdescription=$this->input->post('productdescription');
-  // $modelno=$this->input->post('modelno');
-
-                   $ip = $this->input->ip_address();
-                   date_default_timezone_set("Asia/Calcutta");
-                   $cur_date=date("Y-m-d H:i:s");
-                   $addedby=$this->session->userdata('admin_id');
-
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
-
-
-
-$img2='image';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img2))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
            //$this->session->set_flashdata('emessage',$upload_error);
              //redirect($_SERVER['HTTP_REFERER']);
@@ -296,7 +240,6 @@ $img2='image';
                          // echo json_encode($file_info);
                      }
 
-<<<<<<< HEAD
 //image3 end
 
 
@@ -358,149 +301,6 @@ $img4='fileToUpload4';
   'image3'=>$nnnn3,
   'image4'=>$nnnn4,
    'mrp'=>$mrp,
-=======
-
-
-
-$img3='image1';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products1".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img3))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn3=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img4='image2';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products2".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img4))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn4=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img5='image3';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products3".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img5))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn5=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-           $data_insert = array(
-                  'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
-  'image'=>$nnnn2,
-  'image1'=>$nnnn3,
-  'image2'=>$nnnn4,
-  'image3'=>$nnnn5,
-  'mrp'=>$mrp,
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
   'productdescription'=>$productdescription,
   // 'modelno'=>$modelno,
 
@@ -627,7 +427,6 @@ $img5='image3';
 
 
 
-<<<<<<< HEAD
 
 
 
@@ -637,216 +436,14 @@ $img5='image3';
 
 
 
-=======
- $this->db->select('*');
- $this->db->from('tbl_products');
- $this->db->where('id',$idw);
- $dsa=$this->db->get();
- $da=$dsa->row();
-
-
-
-$img2='image';
 
 
 
 
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img2))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn2=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img3='image1';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products1".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img3))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn3=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img4='image2';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products2".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img4))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn4=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img5='image3';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products3".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img5))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
-
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn5=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
-
-
-
-
-<<<<<<< HEAD
 
 
               $this->db->where('id', $idw);
               $last_id=$this->db->update('tbl_products', $data_insert);
-=======
- if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }if(!empty($da)){ $img = $da ->image1;
-if(!empty($img)) { if(empty($nnnn3)){ $nnnn3 = $img; } }else{ if(empty($nnnn3)){ $nnnn3= ""; } } }if(!empty($da)){ $img = $da ->image2;
-if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){ $nnnn4= ""; } } }if(!empty($da)){ $img = $da ->image3;
-if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){ $nnnn5= ""; } } }
-
-           $data_insert = array(
-                  'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
-  'image'=>$nnnn2,
-  'image1'=>$nnnn3,
-  'image2'=>$nnnn4,
-  'image3'=>$nnnn5,
-  'mrp'=>$mrp,
-  'productdescription'=>$productdescription,
-  'modelno'=>$modelno,
-
-                     );
-             $this->db->where('id', $idw);
-             $last_id=$this->db->update('tbl_products', $data_insert);
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
            }
                        if($last_id!=0){
                                $this->session->set_flashdata('smessage','Data inserted successfully');
@@ -992,7 +589,6 @@ if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){
 
                         redirect("login/admin_login","refresh");
 
-<<<<<<< HEAD
                              }
 
                              public function getSubcategory(){
@@ -1032,11 +628,6 @@ if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){
 
 
 
-=======
-                            }
-
-                            }
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
                       }
 
       ?>

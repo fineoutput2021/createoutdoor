@@ -307,8 +307,7 @@ public function delete_category($idd){
                        	$this->load->view('errors/error500admin',$data);
                        }
 
-<<<<<<< HEAD
-                  
+
 
  $zapak=$this->db->delete('tbl_category', array('id' => $id));
  if($zapak!=0){
@@ -325,22 +324,6 @@ public function delete_category($idd){
              $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
                redirect($_SERVER['HTTP_REFERER']);
             }
-=======
-
-             }
-             else{
-
-                 $this->load->view('admin/login/index');
-             }
-
-             }
-
-
-
-public function updatecategoryStatus($idd,$t){
-
-         if(!empty($this->session->userdata('admin_data'))){
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
 
            $data['user_name']=$this->load->get_var('user_name');

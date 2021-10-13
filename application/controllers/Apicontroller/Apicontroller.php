@@ -1160,10 +1160,6 @@ public function delete_cart_product(){
 
 
 																																						$addcart[]=array(
-<<<<<<< HEAD
-
-=======
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 																																							'product_id'=>$d3,
 																																							'product_name'=>$d1,
 																																							'product_image'=>$d2,
@@ -1265,11 +1261,8 @@ $this->db->select('*');
 
 
 																																	$addcart[]=array(
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 																																		'product_id'=>$d3,
 																																		'product_name'=>$d1,
 																																		'product_image'=>$d2,
@@ -1682,7 +1675,6 @@ echo json_encode($res);
 
 												}
 
-<<<<<<< HEAD
 												//delete to cat api
 												public function deletecart(){
 
@@ -1858,8 +1850,6 @@ $res = array('message'=>'No data are available',
 
 
 
-=======
->>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
 
 
