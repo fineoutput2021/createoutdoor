@@ -430,14 +430,14 @@
 
 																			$this->db->select('*');
 																			$this->db->from('tbl_subcategory');
-																			$this->db->where('category',$data->id);
+																			$this->db->where('category_id',$data->id);
 																			$sub= $this->db->get();
 																			$subcategory=[];
 																			foreach($sub->result() as $sub2) {
 
 																			$subcategory[] = array(
 																				'sub_id' => $sub2->id,
-																			    'name'=> $sub2->subcategory
+																			    'name'=> $sub2->name
 
 
 
@@ -446,8 +446,8 @@
 																		// $catt=array('name'=> $data->categoryname,'sub_name'=>$subcategory);
 
 																			$cat[] = array(
-																				'id' =>$data->id,
-																				'name' =>$data->title,
+																				'category_id' =>$data->id,
+																				'name' =>$data->categoryname,
 																				'sub_category' =>$subcategory
 
 																		);
@@ -815,7 +815,7 @@
 																																						            $this->db->where('product_id',$product_id);
 																																						            $this->db->where('type_id',$type_id);
 																																						            $this->db->where('token_id',$token_id);
-																																						            $this->db->where('user_id',$user_id);
+																																						            $this->db->or_where('user_id',$user_id);
 
 																																						            $dsa= $this->db->get();
 																																						            $da=$dsa->row();
@@ -1090,7 +1090,7 @@ public function delete_cart_product(){
 																																		 $this->db->select('*');
 																																		             $this->db->from('tbl_cart');
 																																		             $this->db->where('user_id',$user_id);
-																																		             $this->db->where('token_id',$token_id);
+																																		             $this->db->or_where('token_id',$token_id);
 
 																																		             $dsa4= $this->db->get();
 																																		             $da=$dsa4->row();
@@ -1130,7 +1130,7 @@ public function delete_cart_product(){
 																																											if(!empty($da)){
 
 																																												$d3=$da->id;
-																																												$d1=$da->productname;
+																																												$d1=$da->name;
 																																												$d2=base_url().$da->image;
 																																											}else{
 																																												$d1="";
@@ -1231,7 +1231,7 @@ $this->db->select('*');
 																																						if(!empty($da)){
 
 																																							$d3=$da->id;
-																																							$d1=$da->productname;
+																																							$d1=$da->name;
 																																							$d2=base_url().$da->image;
 																																						}else{
 																																							$d1="";
@@ -1843,7 +1843,7 @@ $res = array('message'=>'No data are available',
 
 
 
-
+}
 
 
 

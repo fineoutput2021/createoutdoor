@@ -46,21 +46,24 @@ public function login(){
 
                                 $p1=$da->password;
                                 if($p1==$password){
-                                  $txnid= $this->random_strings(30);
 
-                                  $this->db->select('*');
-                                              $this->db->from('tbl_users');
-                                              $this->db->where('token',$txnid);
-                                              $dsa= $this->db->get();
-                                              $da23=$dsa->row();
-                                        if(empty($da23)){
-                                          $token=$txnid;
+                                  $token = $da->token;
 
-                                        }
-                                        else{
-                                            $token= $this->random_strings(30);
-                                        }
+                                              $this->db->select('*');
+                                  $this->db->from('tbl_cart');
+                                  $this->db->where('token_id',$token);
+                                  $cart_data= $this->db->get();
 
+                                   foreach($cart_data->result() as $data) {
+
+                                  $data_insert = array('user_id'=>$da->id,
+
+                                            );
+
+                                    $this->db->where('id', $data->id);
+                                    $last_id=$this->db->update('tbl_cart', $data_insert);
+
+                                  }
                           header('Access-Control-Allow-Origin: *');
                                   $res=array(
                                     'code'=>200,
@@ -141,6 +144,7 @@ public function register(){
                     $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim|valid_email');
                     $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
                     $this->form_validation->set_rules('agent_code', 'agent_code', 'xss_clean|trim');
+                    $this->form_validation->set_rules('token', 'token', 'required|xss_clean|trim');
 
                     if($this->form_validation->run()== TRUE)
                     {
@@ -148,17 +152,25 @@ public function register(){
                       $email=$this->input->post('email');
                       $password=$this->input->post('password');
                       $agent_code=$this->input->post('agent_code');
+                      $token=$this->input->post('token');
 
                         $ip = $this->input->ip_address();
                 date_default_timezone_set("Asia/Calcutta");
                         $cur_date=date("Y-m-d H:i:s");
                         $addedby=999;
+            $this->db->select('*');
+$this->db->from('tbl_users');
+$this->db->where('email',$email);
+$userdata1= $this->db->get()->row();
 
+if(empty($userdata1)){
                 $data_insert = array(
                           'name'=>$name,
                           'email'=>$email,
                           'password'=>md5($password),
                           'agent_code'=>$agent_code,
+                          'token'=>$token,
+
                           'ip' =>$ip,
                           'is_active' =>1,
                           'date'=>$cur_date
@@ -172,19 +184,29 @@ public function register(){
                 $last_id=$this->base_model->insert_table("tbl_users",$data_insert,1) ;
 
                 if($last_id!=0){
-                  $token= $this->random_strings(30);
 
-                  $this->db->select('*');
-                              $this->db->from('tbl_users');
-                              $this->db->where('token',$token);
-                              $dsa= $this->db->get();
-                              $da=$dsa->row();
-                                if(!empty($da)){
-                                      $token= $this->random_strings(30);
-                                }
-                                else{
-                                      $token= $token;
-                                }
+                              $this->db->select('*');
+                  $this->db->from('tbl_users');
+                  $this->db->where('id',$last_id);
+                  $user_data= $this->db->get()->row();
+
+                  $token = $user_data->token;
+
+                              $this->db->select('*');
+                  $this->db->from('tbl_cart');
+                  $this->db->where('token_id',$token);
+                  $cart_data= $this->db->get();
+
+                   foreach($cart_data->result() as $data) {
+
+                  $data_insert = array('user_id'=>$user_data->id,
+
+                            );
+
+                    $this->db->where('id', $data->id);
+                    $last_id=$this->db->update('tbl_cart', $data_insert);
+
+                  }
 
 
                                 $data_update = array(
@@ -222,6 +244,17 @@ public function register(){
 
 
                       }
+}else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>'User already exist',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+
+
+}
 
 
                     }
