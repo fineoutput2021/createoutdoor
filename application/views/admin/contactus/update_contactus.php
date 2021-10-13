@@ -41,11 +41,15 @@
 </tr>
 <tr>
 <td> <strong>Contact No.</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="contact"  class="form-control" placeholder=""  value="<?=$contactus_data->contact;?>" />  </td>
+<td> <input type="text" name="phone"  class="form-control" placeholder=""  value="<?=$contactus_data->phone;?>" />  </td>
 </tr>
 <tr>
 <td> <strong>Email</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="email" name="email"  class="form-control" placeholder="" required value="<?=$contactus_data->email;?>" />  </td>
+</tr>
+<tr>
+<td> <strong>Complain</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <textarea  class="form-control" name="complain" rows="5" cols="5" required><?=$contactus_data->complain;?></textarea> </td>
 </tr>
 
 

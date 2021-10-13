@@ -40,58 +40,81 @@
 
           }
 
-          public function add_products(){
+              public function add_products(){
 
-                           if(!empty($this->session->userdata('admin_data'))){
+                 if(!empty($this->session->userdata('admin_data'))){
 
-
-                             $data['user_name']=$this->load->get_var('user_name');
-
-                             // echo SITE_NAME;
-                             // echo $this->session->userdata('image');
-                             // echo $this->session->userdata('position');
-$this->db->select('*');
+            $this->db->select('*');
 $this->db->from('tbl_category');
 //$this->db->where('id',$usr);
-$data['pro']= $this->db->get();
+$data['category_data']= $this->db->get();
 
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
 //$this->db->where('id',$usr);
-$data['s_data']= $this->db->get();
-
-                             $this->load->view('admin/common/header_view',$data);
-                             $this->load->view('admin/products/add_products');
-                             $this->load->view('admin/common/footer_view');
-
-                         }
-                         else{
-
-                            redirect("login/admin_login","refresh");
-                         }
-
-                         }
-
-                public function update_products($idd){
-                    if(!empty($this->session->userdata('admin_data'))){
+$data['subcategory_data']= $this->db->get();
 
 
-                      $data['user_name']=$this->load->get_var('user_name');
+                   $this->load->view('admin/common/header_view',$data);
+                   $this->load->view('admin/products/add_products');
+                   $this->load->view('admin/common/footer_view');
 
-                      // echo SITE_NAME;
-                      // echo $this->session->userdata('image');
-                      // echo $this->session->userdata('position');
-                      // exit;
+               }
+               else{
 
-                       $id=base64_decode($idd);
+                  redirect("login/admin_login","refresh");
+               }
+
+               }
+
+public function getSubcategory(){
+
+                   // $data['user_name']=$this->load->get_var('user_name');
+
+                   // echo SITE_NAME;
+                   // echo $this->session->userdata('image');
+                   // echo $this->session->userdata('position');
+                   // exit;
+
+$id=$_GET['isl'];
+            $this->db->select('*');
+$this->db->from('tbl_subcategory');
+$this->db->where('category',$id);
+$dat= $this->db->get();
+
+$i=1; foreach($dat->result() as $data) {
+
+$igt[] = array('sub_id' =>$data->id ,'sub_name'=>$data->subcategory);
+
+}
+
+echo json_encode($igt);
+
+
+               }
+
+               public function update_products($idd){
+
+                   if(!empty($this->session->userdata('admin_data'))){
+
+
+                     $data['user_name']=$this->load->get_var('user_name');
+
+                     // echo SITE_NAME;
+                     // echo $this->session->userdata('image');
+                     // echo $this->session->userdata('position');
+                     // exit;
+
+                      $id=base64_decode($idd);
                      $data['id']=$idd;
 
                             $this->db->select('*');
-                             $this->db->from('tbl_products');
-                             $this->db->where('id',$id);
-                             $data['products_data']= $this->db->get()->row();
+                            $this->db->from('tbl_products');
+                            $this->db->where('id',$id);
+                            $data['products_data']= $this->db->get()->row();
 
 
+<<<<<<< HEAD
 
 						            $this->db->select('*');
 						$this->db->from('tbl_category');
@@ -107,22 +130,32 @@ $data['subcategory']= $this->db->get();
                       $this->load->view('admin/common/header_view',$data);
                       $this->load->view('admin/products/update_products');
                       $this->load->view('admin/common/footer_view');
+=======
+                            $this->db->select('*');
+                            $this->db->from('tbl_category');
+                            // $this->db->where('id',$id);
+                            $data['category_data']= $this->db->get();
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
-                  }
-                  else{
+                     $this->load->view('admin/common/header_view',$data);
+                     $this->load->view('admin/products/update_products');
+                     $this->load->view('admin/common/footer_view');
 
-                     redirect("login/admin_login","refresh");
-                  }
+                 }
+                 else{
 
-                  }
+                    redirect("login/admin_login","refresh");
+                 }
 
-              public function add_products_data($t,$iw="")
+                 }
 
-                {
+             public function add_products_data($t,$iw="")
 
-                  if(!empty($this->session->userdata('admin_data'))){
+               {
 
+                 if(!empty($this->session->userdata('admin_data'))){
 
+<<<<<<< HEAD
               $this->load->helper(array('form', 'url'));
               $this->load->library('form_validation');
               $this->load->helper('security');
@@ -138,11 +171,27 @@ $data['subcategory']= $this->db->get();
    $this->form_validation->set_rules('colours', 'colours', 'trim');
    $this->form_validation->set_rules('inventory', 'inventory', 'integer|trim');
 
+=======
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
+
+             $this->load->helper(array('form', 'url'));
+             $this->load->library('form_validation');
+             $this->load->helper('security');
+             if($this->input->post())
+             {
+               // print_r($this->input->post());
+               // exit;
+  $this->form_validation->set_rules('productname', 'productname', 'required');
+  $this->form_validation->set_rules('category', 'category', 'required');
+  $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
+  $this->form_validation->set_rules('mrp', 'mrp', 'required');
+  $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
+  // $this->form_validation->set_rules('modelno', 'modelno', 'required');
 
 
 
 
-
+<<<<<<< HEAD
                 if($this->form_validation->run()== TRUE)
                 {
    $name=$this->input->post('name');
@@ -184,138 +233,70 @@ $this->load->library('upload');
                       if (!$this->upload->do_upload($img1))
                       {                          $upload_error = $this->upload->display_errors();
                           // echo json_encode($upload_error);
+=======
+
+               if($this->form_validation->run()== TRUE)
+               {
+  $productname=$this->input->post('productname');
+  $category=$this->input->post('category');
+  $subcategory=$this->input->post('sub_category');
+  $mrp=$this->input->post('mrp');
+  $productdescription=$this->input->post('productdescription');
+  // $modelno=$this->input->post('modelno');
+
+                   $ip = $this->input->ip_address();
+                   date_default_timezone_set("Asia/Calcutta");
+                   $cur_date=date("Y-m-d H:i:s");
+                   $addedby=$this->session->userdata('admin_id');
+
+           $typ=base64_decode($t);
+           $last_id = 0;
+           if($typ==1){
+
+
+
+$img2='image';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img2))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
            //$this->session->set_flashdata('emessage',$upload_error);
-              //redirect($_SERVER['HTTP_REFERER']);
-                      }
-                      else
-                      {
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
 
-                          $file_info = $this->upload->data();
+                         $file_info = $this->upload->data();
 
-                          $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                          $file_info['new_name']=$videoNAmePath;
-                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);                         $nnnn=$file_info['file_name'];
-                         $nnnn1=$videoNAmePath;
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn2=$videoNAmePath;
 
-                          // echo json_encode($file_info);
-                      }
-         }
-//image end
-//image1 -----
-$img2='fileToUpload1';
+                         // echo json_encode($file_info);
+                     }
 
-            $file_check1=($_FILES['fileToUpload1']['error']);
-            if($file_check1!=4){
-          	$image_upload_folder1 = FCPATH . "assets/uploads/products/";
-  						if (!file_exists($image_upload_folder1))
-  						{
-  							mkdir($image_upload_folder1, DIR_WRITE_MODE, true);
-  						}
-  						$new_file_name1="products1".date("Ymdhms");
-  						$this->upload_config = array(
-  								'upload_path'   => $image_upload_folder1,
-  								'file_name' => $new_file_name1,
-  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-  								'max_size'      => 25000
-  						);
-  						$this->upload->initialize($this->upload_config);
-  						if (!$this->upload->do_upload($img2))
-  						{
-  							$upload_error1 = $this->upload->display_errors();
-  							// echo json_encode($upload_error);
-  							echo $upload_error1;
-  						}
-  						else
-  						{
-
-  							$file_info1 = $this->upload->data();
-
-  							$videoNAmePath1 = "assets/uploads/products/".$new_file_name1.$file_info1['file_ext'];
-  							$file_info1['new_name']=$videoNAmePath1;
-  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-  							$nnnn=$videoNAmePath1;
-  							// echo json_encode($file_info);
-  						}
-            }
-//image1 end code
-
-//image2-------
-
-$img3='fileToUpload2';
-
-            $file_check2=($_FILES['fileToUpload2']['error']);
-            if($file_check2!=4){
-          	$image_upload_folder2 = FCPATH . "assets/uploads/products/";
-  						if (!file_exists($image_upload_folder2))
-  						{
-  							mkdir($image_upload_folder2, DIR_WRITE_MODE, true);
-  						}
-  						$new_file_name2="products2".date("Ymdhms");
-  						$this->upload_config = array(
-  								'upload_path'   => $image_upload_folder2,
-  								'file_name' => $new_file_name2,
-  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-  								'max_size'      => 25000
-  						);
-  						$this->upload->initialize($this->upload_config);
-  						if (!$this->upload->do_upload($img3))
-  						{
-  							$upload_error2 = $this->upload->display_errors();
-  							// echo json_encode($upload_error);
-  							echo $upload_error2;
-  						}
-  						else
-  						{
-
-  							$file_info2 = $this->upload->data();
-
-  							$videoNAmePath2 = "assets/uploads/products/".$new_file_name2.$file_info2['file_ext'];
-  							$file_info2['new_name']=$videoNAmePath2;
-  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-  							$nnnn2=$videoNAmePath2;
-  							// echo json_encode($file_info);
-  						}
-            }
-//image2 end-----
-
-
-$img1='fileToUpload3';
-
-            $file_check3=($_FILES['fileToUpload3']['error']);
-            if($file_check3!=4){
-          	$image_upload_folder3 = FCPATH . "assets/uploads/products/";
-  						if (!file_exists($image_upload_folder3))
-  						{
-  							mkdir($image_upload_folder3, DIR_WRITE_MODE, true);
-  						}
-  						$new_file_name3="products3".date("Ymdhms");
-  						$this->upload_config = array(
-  								'upload_path'   => $image_upload_folder3,
-  								'file_name' => $new_file_name3,
-  								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-  								'max_size'      => 25000
-  						);
-  						$this->upload->initialize($this->upload_config);
-  						if (!$this->upload->do_upload($img1))
-  						{
-  							$upload_error3 = $this->upload->display_errors();
-  							// echo json_encode($upload_error);
-  							echo $upload_error3;
-  						}
-  						else
-  						{
-
-  							$file_info3 = $this->upload->data();
-
-  							$videoNAmePath3 = "assets/uploads/products/".$new_file_name3.$file_info3['file_ext'];
-  							$file_info3['new_name']=$videoNAmePath3;
-  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-  							$nnnn3=$videoNAmePath3;
-  							// echo json_encode($file_info);
-  						}
-            }
-
+<<<<<<< HEAD
 //image3 end
 
 
@@ -377,23 +358,175 @@ $img4='fileToUpload4';
   'image3'=>$nnnn3,
   'image4'=>$nnnn4,
    'mrp'=>$mrp,
+=======
+
+
+
+$img3='image1';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products1".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img3))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn3=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img4='image2';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products2".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img4))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn4=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img5='image3';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products3".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img5))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn5=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+           $data_insert = array(
+                  'productname'=>$productname,
+                  'category'=>$category,
+  'subcategory'=>$subcategory,
+  'image'=>$nnnn2,
+  'image1'=>$nnnn3,
+  'image2'=>$nnnn4,
+  'image3'=>$nnnn5,
+  'mrp'=>$mrp,
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
   'productdescription'=>$productdescription,
-   'colours'=>$colours,
-   'inventry'=>$inventory,
+  // 'modelno'=>$modelno,
 
-                      'ip' =>$ip,
+                     'ip' =>$ip,
                      'added_by' =>$addedby,
-                      'is_active' =>1,
-                      'date'=>$cur_date
-                      );
+                     'is_active' =>1,
+                     'date'=>$cur_date
+                     );
 
 
-            $last_id=$this->base_model->insert_table("tbl_products",$data_insert,1) ;
+           $last_id=$this->base_model->insert_table("tbl_products",$data_insert,1) ;
+
+          $inventory_data = array(
+            'product_id'=> $last_id,
+            'quantity'=>0,
+            'ip'=>$ip,
+            'date'=>$addedby,
+            'added_by'=>$cur_date
+
+          );
+          $last_id2=$this->base_model->insert_table("tbl_inventory",$inventory_data,1) ;
 
            }
            if($typ==2){
 
-     $idw=base64_decode($iw);
+    $idw=base64_decode($iw);
 
   if(!empty($nnnn1)){
 
@@ -494,6 +627,7 @@ $img4='fileToUpload4';
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -503,40 +637,242 @@ $img4='fileToUpload4';
 
 
 
+=======
+ $this->db->select('*');
+ $this->db->from('tbl_products');
+ $this->db->where('id',$idw);
+ $dsa=$this->db->get();
+ $da=$dsa->row();
+
+
+
+$img2='image';
 
 
 
 
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img2))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn2=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img3='image1';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products1".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img3))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn3=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img4='image2';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products2".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img4))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn4=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img5='image3';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/products/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="products3".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img5))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn5=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
+
+
+
+
+<<<<<<< HEAD
 
 
               $this->db->where('id', $idw);
               $last_id=$this->db->update('tbl_products', $data_insert);
+=======
+ if(!empty($da)){ $img = $da ->image;
+if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }if(!empty($da)){ $img = $da ->image1;
+if(!empty($img)) { if(empty($nnnn3)){ $nnnn3 = $img; } }else{ if(empty($nnnn3)){ $nnnn3= ""; } } }if(!empty($da)){ $img = $da ->image2;
+if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){ $nnnn4= ""; } } }if(!empty($da)){ $img = $da ->image3;
+if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){ $nnnn5= ""; } } }
+
+           $data_insert = array(
+                  'productname'=>$productname,
+                  'category'=>$category,
+  'subcategory'=>$subcategory,
+  'image'=>$nnnn2,
+  'image1'=>$nnnn3,
+  'image2'=>$nnnn4,
+  'image3'=>$nnnn5,
+  'mrp'=>$mrp,
+  'productdescription'=>$productdescription,
+  'modelno'=>$modelno,
+
+                     );
+             $this->db->where('id', $idw);
+             $last_id=$this->db->update('tbl_products', $data_insert);
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
            }
                        if($last_id!=0){
-                                $this->session->set_flashdata('smessage','Data inserted successfully');
-                                redirect("dcadmin/products/view_products","refresh");
-                               }
-                                else
-                                    {
+                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               redirect("dcadmin/products/view_products","refresh");
+                              }
+                               else
+                                   {
 
                                     $this->session->set_flashdata('emessage','Sorry error occured');
-                                     redirect($_SERVER['HTTP_REFERER']);
-                                   }
+                                    redirect($_SERVER['HTTP_REFERER']);
+                                  }
                }
-              else{
+             else{
 
         $this->session->set_flashdata('emessage',validation_errors());
-       redirect($_SERVER['HTTP_REFERER']);
+      redirect($_SERVER['HTTP_REFERER']);
 
-              }
+             }
 
-              }
-            else{
+             }
+           else{
 
-  $this->session->set_flashdata('emessage','Please insert some data, No data available');
-       redirect($_SERVER['HTTP_REFERER']);
+ $this->session->set_flashdata('emessage','Please insert some data, No data available');
+      redirect($_SERVER['HTTP_REFERER']);
 
-            }
+           }
            }
            else{
 
@@ -549,113 +885,114 @@ $img4='fileToUpload4';
 
                public function updateproductsStatus($idd,$t){
 
-                         if(!empty($this->session->userdata('admin_data'))){
+                        if(!empty($this->session->userdata('admin_data'))){
 
 
-                           $data['user_name']=$this->load->get_var('user_name');
+                          $data['user_name']=$this->load->get_var('user_name');
 
-                         // echo SITE_NAME;
+                          // echo SITE_NAME;
                           // echo $this->session->userdata('image');
-                           // echo $this->session->userdata('position');
-                           // exit;
-                           $id=base64_decode($idd);
+                          // echo $this->session->userdata('position');
+                          // exit;
+                          $id=base64_decode($idd);
 
-                           if($t=="active"){
-                           $data_update = array(
-                         'is_active'=>1
+                          if($t=="active"){
 
-                         );
+                            $data_update = array(
+                        'is_active'=>1
+
+                        );
 
                         $this->db->where('id', $id);
                        $zapak=$this->db->update('tbl_products', $data_update);
 
-                             if($zapak!=0){
+                            if($zapak!=0){
                             redirect("dcadmin/products/view_products","refresh");
+                                    }
+                                    else
+                                    {
+        $this->session->set_flashdata('emessage','Sorry error occured');
+          redirect($_SERVER['HTTP_REFERER']);
+                                    }
+                          }
+                          if($t=="inactive"){
+                            $data_update = array(
+                         'is_active'=>0
+
+                         );
+
+                         $this->db->where('id', $id);
+                         $zapak=$this->db->update('tbl_products', $data_update);
+
+                             if($zapak!=0){
+                             redirect("dcadmin/products/view_products","refresh");
                                      }
                                      else
                                      {
-        $this->session->set_flashdata('emessage','Sorry error occured');
-          redirect($_SERVER['HTTP_REFERER']);
+
+                $this->session->set_flashdata('emessage','Sorry error occured');
+                  redirect($_SERVER['HTTP_REFERER']);
                                      }
                           }
-                           if($t=="inactive"){
-                             $data_update = array(
-                         'is_active'=>0
-
-                          );
-
-                          $this->db->where('id', $id);
-                          $zapak=$this->db->update('tbl_products', $data_update);
-
-                            if($zapak!=0){
-                              redirect("dcadmin/products/view_products","refresh");
-                                      }
-                                      else
-                                     {
-
-                 $this->session->set_flashdata('emessage','Sorry error occured');
-                  redirect($_SERVER['HTTP_REFERER']);
-                                      }
-                           }
 
 
 
                       }
                       else{
 
-                          redirect("login/admin_login","refresh");
+                         redirect("login/admin_login","refresh");
 
-                       }
+                      }
 
-                       }
+                      }
 
 
 
-                public function delete_products($idd){
+               public function delete_products($idd){
 
                       if(!empty($this->session->userdata('admin_data'))){
 
-                         $data['user_name']=$this->load->get_var('user_name');
+                        $data['user_name']=$this->load->get_var('user_name');
 
-                         // echo SITE_NAME;
+                        // echo SITE_NAME;
                         // echo $this->session->userdata('image');
-                         // echo $this->session->userdata('position');
-                         // exit;
-                         $id=base64_decode($idd);
+                        // echo $this->session->userdata('position');
+                        // exit;
+                        $id=base64_decode($idd);
 
                        if($this->load->get_var('position')=="Super Admin"){
 
                      $this->db->select('image');
-                      $this->db->from('tbl_products');
-                      $this->db->where('id',$id);
-                      $dsa= $this->db->get();
+                     $this->db->from('tbl_products');
+                     $this->db->where('id',$id);
+                     $dsa= $this->db->get();
                      $da=$dsa->row();
-                      $img=$da->image;
+                     $img=$da->image;
 
  $zapak=$this->db->delete('tbl_products', array('id' => $id));
-  if($zapak!=0){
-         $path = FCPATH .$img;
-           unlink($path);
-         redirect("dcadmin/products/view_products","refresh");
-                 }
+ if($zapak!=0){
+        $path = FCPATH .$img;
+          unlink($path);
+        redirect("dcadmin/products/view_products","refresh");
+                }
                 else
-                 {
-                    $this->session->set_flashdata('emessage','Sorry error occured');
+                {
+                   $this->session->set_flashdata('emessage','Sorry error occured');
                    redirect($_SERVER['HTTP_REFERER']);
                 }
             }
-             else{
-            $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
+            else{
+             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
                redirect($_SERVER['HTTP_REFERER']);
-             }
+            }
 
 
                             }
-                             else{
+                            else{
 
-                         redirect("login/admin_login","refresh");
-                             }
+                        redirect("login/admin_login","refresh");
 
+<<<<<<< HEAD
                              }
 
                              public function getSubcategory(){
@@ -695,4 +1032,11 @@ $img4='fileToUpload4';
 
 
 
+=======
+                            }
+
+                            }
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
                       }
+
+      ?>

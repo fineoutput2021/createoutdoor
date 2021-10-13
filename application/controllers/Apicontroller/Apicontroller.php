@@ -430,14 +430,14 @@
 
 																			$this->db->select('*');
 																			$this->db->from('tbl_subcategory');
-																			$this->db->where('category_id',$data->id);
+																			$this->db->where('category',$data->id);
 																			$sub= $this->db->get();
 																			$subcategory=[];
 																			foreach($sub->result() as $sub2) {
 
 																			$subcategory[] = array(
 																				'sub_id' => $sub2->id,
-																			    'name'=> $sub2->name
+																			    'name'=> $sub2->subcategory
 
 
 
@@ -447,7 +447,7 @@
 
 																			$cat[] = array(
 																				'id' =>$data->id,
-																				'name' =>$data->categoryname,
+																				'name' =>$data->title,
 																				'sub_category' =>$subcategory
 
 																		);
@@ -982,7 +982,54 @@ if(empty($token_id)){
 															}
 													}
 
+//------delete product cart-----
+public function delete_cart_product(){
 
+	$this->load->helper(array('form', 'url'));
+	$this->load->library('form_validation');
+	$this->load->helper('security');
+	if($this->input->post())
+	{
+		// print_r($this->input->post());
+		// exit;
+		$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
+		$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
+		$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+		$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+
+		if($this->form_validation->run()== TRUE)
+		{
+			$product_id=$this->input->post('product_id');
+			$type_id=$this->input->post('type_id');
+
+
+
+
+
+		}else{
+				$res = array('message'=>validation_errors(),
+							'status'=>201
+							);
+
+							echo json_encode($res);
+
+
+			}
+
+		}else{
+
+		$res = array('message'=>"please insert data",
+		'status'=>201
+		);
+
+		echo json_encode($res);
+
+
+		}
+
+}
 
 												//add to cart get api
 
@@ -1083,8 +1130,8 @@ if(empty($token_id)){
 																																											if(!empty($da)){
 
 																																												$d3=$da->id;
-																																												$d1=$da->name;
-																																												$d2=$da->image;
+																																												$d1=$da->productname;
+																																												$d2=base_url().$da->image;
 																																											}else{
 																																												$d1="";
 																																											}
@@ -1113,7 +1160,10 @@ if(empty($token_id)){
 
 
 																																						$addcart[]=array(
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 																																							'product_id'=>$d3,
 																																							'product_name'=>$d1,
 																																							'product_image'=>$d2,
@@ -1174,6 +1224,8 @@ $this->db->select('*');
 
 
 												foreach ($data->result() as $value) {
+													// echo $value->product_id;
+													// exit;
 																										//product
 																																$this->db->select('*');
 																																            $this->db->from('tbl_products');
@@ -1182,9 +1234,9 @@ $this->db->select('*');
 																																            $da=$dsa->row();
 																																						if(!empty($da)){
 
-																																							$d3=$value->product_id;
-																																							$d1=$da->name;
-																																							$d2=$da->image;
+																																							$d3=$da->id;
+																																							$d1=$da->productname;
+																																							$d2=base_url().$da->image;
 																																						}else{
 																																							$d1="";
 																																						}
@@ -1213,8 +1265,11 @@ $this->db->select('*');
 
 
 																																	$addcart[]=array(
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 																																		'product_id'=>$d3,
 																																		'product_name'=>$d1,
 																																		'product_image'=>$d2,
@@ -1627,6 +1682,7 @@ echo json_encode($res);
 
 												}
 
+<<<<<<< HEAD
 												//delete to cat api
 												public function deletecart(){
 
@@ -1802,8 +1858,9 @@ $res = array('message'=>'No data are available',
 
 
 
+=======
+>>>>>>> 7ef8f71a2d869f4cc2c10b90cf40710b039175f6
 
-												             }
 
 
 												public function addressadd(){

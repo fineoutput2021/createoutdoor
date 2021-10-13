@@ -36,20 +36,19 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>Category Name</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>Category </strong>  <span style="color:red;">*</span></strong> </td>
 <td>
-    <select class="form-control" name="categoryname">
-      <?
-       foreach($category_data->result() as $value) {?>
-         <option value="<?=$value-> id;?>"><?=$value->categoryname;?></option>
-       <? }?>
-    </select>
-
+<select class="form-control" name="category">
+<?
+foreach($category_data->result() as $value) {?>
+  <option value="<?=$value->id;?>"<?php if($subcategory_data->category == $value->id){ echo "selected"; } ?>><?=$value->title;?></option>
+<?}?>
+</select>
 </td>
 </tr>
 <tr>
 <td> <strong>Sub-Category</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="subcategoryname"  class="form-control" placeholder="" required value="<?=$subcategory_data->name;?>" />  </td>
+<td> <input type="" name="subcategory"  class="form-control" placeholder="" required value="<?=$subcategory_data->subcategory;?>" />  </td>
 </tr>
 
 
