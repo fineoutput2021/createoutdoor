@@ -14,7 +14,7 @@
 
                             if(!empty($this->session->userdata('admin_data'))){
 
-
+ 
                               $data['user_name']=$this->load->get_var('user_name');
 
                               // echo SITE_NAME;
