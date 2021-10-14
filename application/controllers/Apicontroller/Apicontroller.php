@@ -469,6 +469,25 @@ echo json_encode($res);
 //all product detail
 public function get_all_products(){
 
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+    // print_r($this->input->post());
+    // exit;
+    $this->form_validation->set_rules('name', 'name', 'required|valid_email|customAlpha|xss_clean');
+    $this->form_validation->set_rules('email', 'email', 'required|valid_email|xss_clean');
+    $this->form_validation->set_rules('password', 'password Number', 'required|customPassword|xss_clean');
+    $this->form_validation->set_rules('textbox', 'textbox', 'required|customTextbox|xss_clean|min_length[8]');
+
+    if($this->form_validation->run()== TRUE)
+    {
+      $email=$this->input->post('email');
+      $passw=$this->input->post('password');
+
+
+
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('is_active',1);
@@ -547,6 +566,12 @@ $res = array('message'=>"success",
 echo json_encode($res);
 
 
+}else{
+
+}
+}else{
+
+}
 }
 //all product detail using id  single detail  product
 public function get_all_products_detail($id){
@@ -704,7 +729,7 @@ echo json_encode($res);
 }
 
 //add to cart api insert data
-public function addtocart(){
+public function add_to_cart(){
 
 $this->load->helper(array('form', 'url'));
 $this->load->library('form_validation');
@@ -991,7 +1016,6 @@ if($this->input->post())
 // exit;
 $this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
-$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
 $this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
 $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 $this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
@@ -1000,12 +1024,98 @@ if($this->form_validation->run()== TRUE)
 {
 $product_id=$this->input->post('product_id');
 $type_id=$this->input->post('type_id');
+$email_id=$this->input->post('email_id');
+$password=$this->input->post('password');
+$token_id=$this->input->post('token_id');
 
+//-------delete with email----------
 
+if(!empty($email_id)){
 
+$this->db->select('*');
+            $this->db->from('tbl_users');
+            $this->db->where('email',$email_id);
+            $dsa= $this->db->get();
+            $user_data=$dsa->row();
+if(!empty($user_data)){
+
+if($user_data->password==$password){
+
+//             $this->db->select('*');
+// $this->db->from('tbl_cart');
+// $this->db->where('user_id',$user_data->id);
+// $this->db->where('$product_id',$product_id);
+// $this->db->where('$type_id',$type_id);
+// $cart_data= $this->db->get()->row();
+
+$zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id));
+
+// echo $zapak;
+// exit;
+if(!empty($zapak)){
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200
+  );
+
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Passwod does not match',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+}
 
 
 }else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Email is not exist',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}
+//-----delete with token id------
+else{
+
+
+$zapak=$this->db->delete('tbl_cart', array('token_id' => $token_id,'product_id'=>$product_id,'type_id'=>$type_id));
+
+if(!empty($zapak)){
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200
+  );
+
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+
+}
+}else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -1017,6 +1127,160 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"please insert data",
+'status'=>201
+);
+
+echo json_encode($res);
+
+
+}
+
+}
+
+//------update product cart-----
+public function update_cart_product(){
+
+$this->load->helper(array('form', 'url'));
+$this->load->library('form_validation');
+$this->load->helper('security');
+if($this->input->post())
+{
+// print_r($this->input->post());
+// exit;
+$this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
+$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
+$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+
+if($this->form_validation->run()== TRUE)
+{
+$product_id=$this->input->post('product_id');
+$type_id=$this->input->post('type_id');
+$quantity=$this->input->post('quantity');
+$email_id=$this->input->post('email_id');
+$password=$this->input->post('password');
+$token_id=$this->input->post('token_id');
+
+//-------update with email----------
+
+if(!empty($email_id)){
+
+$this->db->select('*');
+            $this->db->from('tbl_users');
+            $this->db->where('email',$email_id);
+            $dsa= $this->db->get();
+            $user_data=$dsa->row();
+if(!empty($user_data)){
+
+if($user_data->password==$password){
+
+  $data_insert = array('product_id'=>$product_id,
+                    'type_id'=>$type_id,
+                    'quantity'=>$quantity
+
+                    );
+
+
+            $this->db->where('user_id', $user_data->id);
+            $last_id=$this->db->update('tbl_cart', $data_insert);
+
+
+if(!empty($last_id)){
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200
+  );
+
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}else{
+
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Passwod does not match',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+}
+
+
+}else{
+
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Email is not exist',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}
+//-----delete with token id------
+else{
+
+    $data_insert = array('product_id'=>$product_id,
+                      'type_id'=>$type_id,
+                      'quantity'=>$quantity
+
+                      );
+
+              $this->db->where('token_id', $token_id);
+              $last_id=$this->db->update('tbl_cart', $data_insert);
+
+
+if(!empty($last_id)){
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200
+  );
+
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+
+}
+}else{
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
+$res = array('message'=>validation_errors(),
+'status'=>201
+);
+
+echo json_encode($res);
+
+
+}
+
+}else{
+
+  header('Access-Control-Allow-Origin: *');
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"please insert data",
 'status'=>201
 );
@@ -1030,7 +1294,7 @@ echo json_encode($res);
 
 //add to cart get api
 
-public function get_addcart(){
+public function get_cart_data(){
 
 
 
@@ -1074,6 +1338,7 @@ $user_id=$da->id;
 $password=$da->password;
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"email and password not match",
 'status'=>201
 );
@@ -1092,6 +1357,7 @@ $this->db->or_where('token_id',$token_id);
 $dsa4= $this->db->get();
 $da=$dsa4->row();
 if(empty($da)){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"this email and password no data",
 'status'=>201
 );
@@ -1188,6 +1454,7 @@ $this->db->where('token_id',$token_id);
 $dan= $this->db->get();
 $fd=$dan->row();
 if(empty($fd)){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"cart empty",
 'status'=>201
 );
@@ -1294,6 +1561,7 @@ echo json_encode($res);
 
 
 }else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -1305,6 +1573,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"please insert data",
 'status'=>201
 );
@@ -1537,6 +1806,7 @@ $last_id=$this->base_model->insert_table("tbl_customorder",$data_insert,1) ;
 
 
 if($last_id!=0){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200
 );
@@ -1545,6 +1815,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"sorry error occured",
 'status'=>201
 );
@@ -1557,6 +1828,7 @@ echo json_encode($res);
 
 }
 else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -1568,6 +1840,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"please insert data",
 'status'=>201
 );
@@ -1630,6 +1903,7 @@ $last_id=$this->base_model->insert_table("tbl_corporate",$data_insert,1) ;
 
 
 if($last_id!=0){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200
 );
@@ -1638,6 +1912,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"sorry error occured",
 'status'=>201
 );
@@ -1650,6 +1925,7 @@ echo json_encode($res);
 
 }
 else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -1661,6 +1937,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'No data are available',
 'status'=>201
 );
@@ -1669,176 +1946,6 @@ echo json_encode($res);
 
 
 }
-
-}
-
-//delete to cat api
-public function deletecart(){
-
-
-$this->load->helper(array('form', 'url'));
-$this->load->library('form_validation');
-$this->load->helper('security');
-if($this->input->post())
-{
-// print_r($this->input->post());
-// exit;
-$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
-$this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
-$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
-
-
-
-if($this->form_validation->run()== TRUE)
-{
-$token_id=$this->input->post('token_id');
-$email_id=$this->input->post('email_id');
-$password=$this->input->post('password');
-
-
-if(!empty($email_id) || !empty($password)){
-
-$this->db->select('*');
-$this->db->from('tbl_users');
-$this->db->where('email',$email_id);
-$this->db->where('password',$password);
-$dsa1= $this->db->get();
-$user=$dsa1->row();
-if(!empty($user)){
-$user_id=$user->id;
-$pass=$user->password;
-
-}else{
-
-$res = array('message'=>"email or passwod not match",
-'status'=>201,
-
-);
-
-echo json_encode($res);
-exit();
-
-}
-
-
-
-$this->db->select('*');
-$this->db->from('tbl_cart');
-$this->db->where('user_id',$user_id);
-$dsa2= $this->db->get();
-$cart=$dsa->row();
-if(!empty($cart)){
-
-
-$this->db->delete('tbl_cart',array('user_id' =>$user_id));
-
-
-}else{
-$res = array('message'=>"not insert user_id in table cart",
-'status'=>201
-);
-
-echo json_encode($res);
-exit;
-
-
-}
-
-
-
-
-
-
-
-}else{
-
-
-$this->db->select('*');
-$this->db->from('tbl_cart');
-$this->db->where('token_id',$token_id);
-$dsa44= $this->db->get();
-$da4=$dsa44->row();
-if(empty($da4)){
-
-$res = array('message'=>"wrong enterd token_id please check",
-'status'=>201
-);
-
-echo json_encode($res);
-exit;
-
-
-}
-
-
-
-
-
-
-
-
-$this->db->select('*');
-$this->db->from('tbl_cart');
-$this->db->where('token_id',$token_id);
-$data22=$this->db->get();
-
-$fa=$data22->row();
-if(!empty($fa)){
-
-$this->db->delete('tbl_cart',array('token_id' =>$token_id));
-
-}else{
-
-$res = array('message'=>" this token_id not inserted cart",
-'status'=>201
-);
-
-echo json_encode($res);
-exit;
-
-
-}
-
-
-
-
-
-
-
-}
-$res = array('message'=>"success",
-'status'=>200
-);
-
-echo json_encode($res);
-
-
-
-
-}
-else{
-$res = array('message'=>validation_errors(),
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-}
-
-}else{
-
-$res = array('message'=>'No data are available',
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-}
-
-
-
 
 }
 
@@ -1894,6 +2001,7 @@ $da=$data->row();
 
 if(empty($da)){
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'email_id and password not match',
 'status'=>201
 );
@@ -1920,6 +2028,7 @@ $data_insert = array('address'=>$address,
 $last_id=$this->base_model->insert_table("tbl_address",$data_insert,1) ;
 
 if($last_id!=0){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200
 );
@@ -1928,6 +2037,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"sorry error occured",
 'status'=>201
 );
@@ -1940,6 +2050,7 @@ echo json_encode($res);
 
 }
 else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -1951,6 +2062,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'No data are available',
 'status'=>201
 );
@@ -1988,6 +2100,7 @@ $dsa= $this->db->get();
 $da=$dsa->row();
 if(!empty($da)){
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"email already exist.",
 'status'=>201
 );
@@ -2014,6 +2127,7 @@ $data_insert = array('Email_id'=>$email,
 $last_id=$this->base_model->insert_table("tbl_subscription",$data_insert,1) ;
 
 if($last_id!=0){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200
 );
@@ -2022,6 +2136,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"sorry error occured",
 'status'=>201
 );
@@ -2034,6 +2149,7 @@ echo json_encode($res);
 
 }
 else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -2045,6 +2161,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'No data are available',
 'status'=>201
 );
@@ -2211,6 +2328,7 @@ $order2[]=array(
 
 }
 
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
 'data'=>$order2
@@ -2232,7 +2350,7 @@ $this->load->helper('security');
 if($this->input->post())
 {
 
-$this->form_validation->set_rules('token_id', 'token_id', 'xss_clean|trim');
+$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('email_id', 'email_id', 'valid_email|xss_clean|trim');
 $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 
@@ -2244,6 +2362,7 @@ $email_id=$this->input->post('email_id');
 $password=$this->input->post('password');
 
 if($token_id==NULL && $email_id==NULL && $password==NULL){
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"data is not insert",
 'status'=>201,
 
@@ -2269,6 +2388,7 @@ $pass=$user->password;
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"email or passwod not match",
 'status'=>201,
 
@@ -2289,6 +2409,7 @@ if(!empty($counting)){
 
 
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
 'data'=>$counting
@@ -2297,6 +2418,7 @@ $res = array('message'=>"success",
 echo json_encode($res);
 
 }else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"no add product cart",
 'status'=>200,
 
@@ -2324,6 +2446,7 @@ $fa= $counting;
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"wrong token_id",
 'status'=>201,
 
@@ -2335,6 +2458,7 @@ exit();
 }
 
 
+header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
 'data'=>$fa
@@ -2351,6 +2475,7 @@ echo json_encode($res);
 
 }
 else{
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
 );
@@ -2362,6 +2487,7 @@ echo json_encode($res);
 
 }else{
 
+  header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'No data are available',
 'status'=>201
 );
