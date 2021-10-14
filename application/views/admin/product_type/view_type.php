@@ -67,7 +67,7 @@
                                                               $da= $this->db->get();
                                                                $fa=$da->row();
                                                              if(!empty($fa)){
-                                                                  echo $fa->name;
+                                                                  echo $fa->productname;
 
                                                              }
 
@@ -97,9 +97,9 @@
 												  <ul class="dropdown-menu" role="menu">
 
 													<?php if($data->is_active==1){ ?>
-													<li><a href="<?php echo base_url() ?>dcadmin/product_type/updatetypeStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
+													<li><a href="<?php echo base_url() ?>dcadmin/Product_type/updatetypeStatus/<?php echo base64_encode($data->id)?>/inactive">Inactive</a></li>
 													<?php } else { ?>
-													<li><a href="<?php echo base_url() ?>dcadmin/product_type/updatetypeStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
+													<li><a href="<?php echo base_url() ?>dcadmin/Product_type/updatetypeStatus/<?php echo base64_encode($data->id)?>/active">Active</a></li>
 													<?php		}   ?>
 <li><a href="<?php echo base_url() ?>dcadmin/product_type/update_type/<?php echo base64_encode($data->id) ?>/<?php echo base64_encode($id)?>">Edit</a></li>
 													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>

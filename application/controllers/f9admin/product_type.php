@@ -22,6 +22,7 @@
                               // echo $this->session->userdata('position');
                               // exit;
                  $id=base64_decode($idd);
+
                 $data['id']=$idd;
 
                     $this->db->select('*');
@@ -53,6 +54,8 @@
                        // exit;
 
       $id=base64_decode($idd);
+
+
      $data['id']=$idd;
 
 
@@ -310,6 +313,7 @@
                                    }
                 public function updatetypeStatus($idd,$t){
 
+
                          if(!empty($this->session->userdata('admin_data'))){
 
 
@@ -321,9 +325,14 @@
                            // exit;
                            $id=base64_decode($idd);
 
+$this->db->select('*');
+            $this->db->from('tbl_type');
+            $this->db->where('id',$id);
+            $dsa= $this->db->get();
+            $type_data=$dsa->row();
 
-
-
+$product_id  = $type_data->product_id;
+$pro_id= base64_encode($product_id);
 
                            if($t=="active"){
 
@@ -336,7 +345,7 @@
                         $zapak=$this->db->update('tbl_type', $data_update);
 
                              if($zapak!=0){
-                             redirect("dcadmin/product_type/view_type","refresh");
+                             redirect("dcadmin/product_type/view_type/$pro_id","refresh");
                                      }
                                      else
                                      {
@@ -354,7 +363,7 @@
                           $zapak=$this->db->update('tbl_type', $data_update);
 
                               if($zapak!=0){
-                              redirect("dcadmin/product_type/view_type","refresh");
+                              redirect("dcadmin/product_type/view_type/$pro_id","refresh");
                                       }
                                       else
                                       {

@@ -160,7 +160,7 @@ $this->db->select('*');
 
                               if($last_id!=0){
 
-                              $this->session->set_flashdata('emessage','Data inserted successfully');
+                              $this->session->set_flashdata('smessage','Data inserted successfully');
 
                               redirect("dcadmin/inventory/view_iproducts/".base64_encode($c),"refresh");
 
