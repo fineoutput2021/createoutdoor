@@ -14,7 +14,7 @@
 
                             if(!empty($this->session->userdata('admin_data'))){
 
- 
+
                               $data['user_name']=$this->load->get_var('user_name');
 
                               // echo SITE_NAME;
@@ -187,7 +187,7 @@
 
                                         $this->session->set_flashdata('smessage','Data inserted successfully');
 
-                                       redirect("dcadmin/product_type/view_type/".$p_id,"refresh");
+                                       redirect("dcadmin/product_type/view_type/$p_id",'refresh');
 
                                                 }
 
