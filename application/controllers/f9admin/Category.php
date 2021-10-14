@@ -376,7 +376,7 @@ public function delete_category($idd){
 
 
 
-       }
+
        else{
 
            $this->load->view('admin/login/index');

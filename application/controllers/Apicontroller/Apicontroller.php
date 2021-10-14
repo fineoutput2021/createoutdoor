@@ -430,14 +430,14 @@
 
 																			$this->db->select('*');
 																			$this->db->from('tbl_subcategory');
-																			$this->db->where('category_id',$data->id);
+																			$this->db->where('category',$data->id);
 																			$sub= $this->db->get();
 																			$subcategory=[];
 																			foreach($sub->result() as $sub2) {
 
 																			$subcategory[] = array(
 																				'sub_id' => $sub2->id,
-																			    'name'=> $sub2->name
+																			    'name'=> $sub2->subcategory
 
 
 
@@ -447,7 +447,7 @@
 
 																			$cat[] = array(
 																				'category_id' =>$data->id,
-																				'name' =>$data->categoryname,
+																				'name' =>$data->title,
 																				'sub_category' =>$subcategory
 
 																		);
