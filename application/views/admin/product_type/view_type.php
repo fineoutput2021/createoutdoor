@@ -10,9 +10,11 @@
                                         <li class="active">View Type</li>
                                       </ol>
                                     </section>
+
                                   		<section class="content">
                                   		<div class="row">
                                          <div class="col-lg-12">
+                                           
                                   				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/product_type/add_type/<?=$id?>" role="button" style="margin-bottom:12px;"> Add Type</a>
                                                           <div class="panel panel-default">
                                                               <div class="panel-heading">

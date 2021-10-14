@@ -9,6 +9,7 @@
 
                                     </ol>
                                   </section>
+
                           		<section class="content">
                           		<div class="row">
                                  <div class="col-lg-12">
@@ -32,7 +33,7 @@
                                                       			<? echo $this->session->flashdata('emessage'); ?>
                                                       			</div>
                                                           <? } ?>
- 
+
 
 
                                                       <div class="panel-body">
@@ -87,7 +88,7 @@
                                                                           <td>
                           													<input type="text" name="weight"  class="form-control" placeholder="" required value="" />
                           	                                            </td>
-                                                                        <input type="hidden" name="product_id"  class="form-control" placeholder="" required value="" />
+                                                        <input type="hidden" name="p_id"  class="form-control" placeholder="" required value="<?=$id?>" />
                               										</tr>
                                                   	<tr>
                               												<td colspan="2" >

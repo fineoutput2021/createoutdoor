@@ -22,7 +22,8 @@
                               // echo $this->session->userdata('position');
                               // exit;
                  $id=base64_decode($idd);
-
+// echo $id;
+// exit;
                 $data['id']=$idd;
 
                     $this->db->select('*');
@@ -53,7 +54,7 @@
                        // echo $this->session->userdata('position');
                        // exit;
 
-      $id=base64_decode($idd);
+
 
 
      $data['id']=$idd;
