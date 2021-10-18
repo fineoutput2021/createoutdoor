@@ -2397,6 +2397,8 @@ public function calculate(){
 						{
 
 							$this->form_validation->set_rules('email', 'email', 'required|valid_email|xss_clean|trim');
+							$this->form_validation->set_rules('password', 'password', 'required|valid_email|xss_clean|trim');
+							$this->form_validation->set_rules('token', 'token', 'required|valid_email|xss_clean|trim');
 							$this->form_validation->set_rules('address_email', 'address_email', 'required|valid_email|xss_clean|trim');
 							$this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
 							$this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
@@ -2410,6 +2412,7 @@ public function calculate(){
 							{
 
 								$email=$this->input->post('email');
+								$password=$this->input->post('password');
 								$address_email=$this->input->post('address_email');
 								$first_name=$this->input->post('first_name');
 								$last_name=$this->input->post('last_name');
@@ -2432,6 +2435,7 @@ $user_data= $this->db->get()->row();
 
 if(!empty($user_data)){
 
+if($user_data->password==$password){
             $this->db->select('*');
 $this->db->from('tbl_cart');
 $this->db->where('user_id',$user_data->id);
@@ -2721,6 +2725,14 @@ header('Access-Control-Allow-Origin: *');
         echo json_encode($res);
         exit;
 
+}
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Wrong Password',
+        'status'=>201
+        );
+
+        echo json_encode($res);
 }
 }else{
   header('Access-Control-Allow-Origin: *');
