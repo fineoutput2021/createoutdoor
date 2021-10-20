@@ -1161,10 +1161,10 @@ if(!empty($user_data)){
 if($user_data->password==$password){
 
 $data_insert = array('product_id'=>$product_id,
-    'type_id'=>$type_id,
-    'quantity'=>$quantity
+'type_id'=>$type_id,
+'quantity'=>$quantity
 
-    );
+);
 
 
 $this->db->where(array('user_id'=>  $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id));
@@ -1214,14 +1214,14 @@ echo json_encode($res);
 }
 
 }
-//-----delete with token id------
+//-----update with token id------
 else{
 
 $data_insert = array('product_id'=>$product_id,
-      'type_id'=>$type_id,
-      'quantity'=>$quantity
+'type_id'=>$type_id,
+'quantity'=>$quantity
 
-      );
+);
 
 $this->db->where(array('token_id'=> $token_id,'product_id'=>$product_id,'type_id'=>$type_id));
 $last_id=$this->db->update('tbl_cart', $data_insert);
@@ -1406,29 +1406,29 @@ foreach($cart_data->result() as $data) {
 
 
 $this->db->select('*');
-  $this->db->from('tbl_products');
-  $this->db->where('id',$data->product_id);
-  $dsa= $this->db->get();
-  $product_data=$dsa->row();
+$this->db->from('tbl_products');
+$this->db->where('id',$data->product_id);
+$dsa= $this->db->get();
+$product_data=$dsa->row();
 
 
 $this->db->select('*');
-  $this->db->from('tbl_type');
-  $this->db->where('id',$data->type_id);
-  $dsa= $this->db->get();
-  $type_data=$dsa->row();
+$this->db->from('tbl_type');
+$this->db->where('id',$data->type_id);
+$dsa= $this->db->get();
+$type_data=$dsa->row();
 
 
 $cart_info[] = array('product_id'=>$data->product_id,
-    'product_name'=>$product_data->productname,
-    'product_image'=>base_url().$product_data->image,
-    'type_id'=>$data->type_id,
-    'type_name'=>$type_data->name,
-    'quantity'=>$data->quantity,
-    'price'=>$type_data->gstprice,
-    'total='=>$total = $type_data->gstprice * $data->quantity
+'product_name'=>$product_data->productname,
+'product_image'=>base_url().$product_data->image,
+'type_id'=>$data->type_id,
+'type_name'=>$type_data->name,
+'quantity'=>$data->quantity,
+'price'=>$type_data->gstprice,
+'total='=>$total = $type_data->gstprice * $data->quantity
 
-    );
+);
 $sub_total= $sub_total + $total;
 }
 
@@ -2390,45 +2390,45 @@ public function calculate(){
 
 
 
-						$this->load->helper(array('form', 'url'));
-						$this->load->library('form_validation');
-						$this->load->helper('security');
-						if($this->input->post())
-						{
+$this->load->helper(array('form', 'url'));
+$this->load->library('form_validation');
+$this->load->helper('security');
+if($this->input->post())
+{
 
-							$this->form_validation->set_rules('email', 'email', 'required|valid_email|xss_clean|trim');
-							$this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('token', 'token', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('address_email', 'address_email', 'required|valid_email|xss_clean|trim');
-							$this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('post_code', 'post_code', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('street_address', 'street_address', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('city', 'city', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('state', 'state', 'required|xss_clean|trim');
-							$this->form_validation->set_rules('phone', 'phone', 'required|xss_clean|trim');
+$this->form_validation->set_rules('email', 'email', 'required|valid_email|xss_clean|trim');
+$this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+$this->form_validation->set_rules('token', 'token', 'required|xss_clean|trim');
+$this->form_validation->set_rules('address_email', 'address_email', 'required|valid_email|xss_clean|trim');
+$this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('post_code', 'post_code', 'required|xss_clean|trim');
+$this->form_validation->set_rules('street_address', 'street_address', 'required|xss_clean|trim');
+$this->form_validation->set_rules('city', 'city', 'required|xss_clean|trim');
+$this->form_validation->set_rules('state', 'state', 'required|xss_clean|trim');
+$this->form_validation->set_rules('phone', 'phone', 'required|xss_clean|trim');
 
-							if($this->form_validation->run()== TRUE)
-							{
+if($this->form_validation->run()== TRUE)
+{
 
-								$email=$this->input->post('email');
-								$password=$this->input->post('password');
-								$address_email=$this->input->post('address_email');
-								$first_name=$this->input->post('first_name');
-								$last_name=$this->input->post('last_name');
-								$post_code=$this->input->post('post_code');
-								$street_address=$this->input->post('street_address');
-								$city=$this->input->post('city');
-								$state=$this->input->post('state');
-								$phone=$this->input->post('phone');
-								$promocode=$this->input->post('promocode');
+$email=$this->input->post('email');
+$password=$this->input->post('password');
+$address_email=$this->input->post('address_email');
+$first_name=$this->input->post('first_name');
+$last_name=$this->input->post('last_name');
+$post_code=$this->input->post('post_code');
+$street_address=$this->input->post('street_address');
+$city=$this->input->post('city');
+$state=$this->input->post('state');
+$phone=$this->input->post('phone');
+$promocode=$this->input->post('promocode');
 
-									$ip = $this->input->ip_address();
-					date_default_timezone_set("Asia/Calcutta");
-									$cur_date=date("Y-m-d H:i:s");
+$ip = $this->input->ip_address();
+date_default_timezone_set("Asia/Calcutta");
+$cur_date=date("Y-m-d H:i:s");
 
 
-            $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_users');
 $this->db->where('email',$email);
 $user_data= $this->db->get()->row();
@@ -2436,7 +2436,7 @@ $user_data= $this->db->get()->row();
 if(!empty($user_data)){
 
 if($user_data->password==$password){
-            $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_cart');
 $this->db->where('user_id',$user_data->id);
 $cart_data= $this->db->get();
@@ -2449,18 +2449,18 @@ $shipping_charges= 0;
 $total_weight = 0;
 foreach($cart_data->result() as $data) {
 
-            $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$data->product_id);
 $product_data= $this->db->get()->row();
 
-            $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
 $type_data= $this->db->get()->row();
 
 
-            $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
 $inventory_data= $this->db->get()->row();
@@ -2471,23 +2471,23 @@ $inventory_data= $this->db->get()->row();
 
 if($inventory_data->quantity >= $data->quantity){
 
-  $price = $type_data->spgst * $data->quantity;
-  $total = $total + $price;
-  $total_weight = $total_weight +$type_data->weight;
-  $shipping_charges = $total_weight * SHIPPING;
+$price = $type_data->spgst * $data->quantity;
+$total = $total + $price;
+$total_weight = $total_weight +$type_data->weight;
+$shipping_charges = $total_weight * SHIPPING;
 
 
 
 
 
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=> "$product_data->productname. Product is out of stock",
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=> "$product_data->productname. Product is out of stock",
+'status'=>201
+);
 
-        echo json_encode($res);
-        exit;
+echo json_encode($res);
+exit;
 
 }
 
@@ -2504,59 +2504,59 @@ if(!empty($promocode)){
 $promocode = strtoupper($promocode);
 
 $this->db->select('*');
-            $this->db->from('tbl_promocode');
-            $this->db->like('promocode',$promocode);
-            $dsa= $this->db->get();
-            $promocode_data=$dsa->row();
+$this->db->from('tbl_promocode');
+$this->db->like('promocode',$promocode);
+$dsa= $this->db->get();
+$promocode_data=$dsa->row();
 
 if(!empty($promocode_data)){
 $promocode_id = $promocode_data->id;
 if($promocode_data->ptype==1){
 
 $this->db->select('*');
-            $this->db->from('tbl_order1');
-            $this->db->where('user_id',$user_data->id);
-            $this->db->where('promocode_id',$promocode_data->id);
-            $dsa= $this->db->get();
-            $promo_check=$dsa->row();
+$this->db->from('tbl_order1');
+$this->db->where('user_id',$user_data->id);
+$this->db->where('promocode_id',$promocode_data->id);
+$dsa= $this->db->get();
+$promo_check=$dsa->row();
 
 if(empty($promo_check)){
 
-  if($total > $promocode_data->minorder){ //----checking minorder for promocode
-      // echo "hii";
+if($total > $promocode_data->minorder){ //----checking minorder for promocode
+// echo "hii";
 
-      $discount_amt = $total * $promocode_data->giftpercent/100;
-    if($discount_amt > $promocode_data->max){
-      // will get max amount
-      $discount =  $promocode_data->max;
+$discount_amt = $total * $promocode_data->giftpercent/100;
+if($discount_amt > $promocode_data->max){
+// will get max amount
+$discount =  $promocode_data->max;
 
-    }else{
+}else{
 
-      $discount =  $discount_amt;
-    }
+$discount =  $discount_amt;
+}
 
-    }//endif of minorder
-      else{
+}//endif of minorder
+else{
 
-        header('Access-Control-Allow-Origin: *');
-        $res = array('message'=>'Please add more products for promocode',
-              'status'=>201
-              );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Please add more products for promocode',
+'status'=>201
+);
 
-              echo json_encode($res);
-              exit;
-      }
+echo json_encode($res);
+exit;
+}
 
 
 
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'Promocode is already used',
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Promocode is already used',
+'status'=>201
+);
 
-        echo json_encode($res);
-        exit;
+echo json_encode($res);
+exit;
 
 
 }
@@ -2565,30 +2565,30 @@ if(empty($promo_check)){
 }
 //-----every time promocode---
 else{
-  if($total > $promocode_data->minorder){ //----checking minorder for promocode
-      // echo "hii";
+if($total > $promocode_data->minorder){ //----checking minorder for promocode
+// echo "hii";
 
-      $discount_amt = $total * $promocode_data->giftpercent/100;
-    if($discount_amt > $promocode_data->max){
-      // will get max amount
-      $discount =  $promocode_data->max;
+$discount_amt = $total * $promocode_data->giftpercent/100;
+if($discount_amt > $promocode_data->max){
+// will get max amount
+$discount =  $promocode_data->max;
 
-    }else{
+}else{
 
-      $discount =  $discount_amt;
-    }
+$discount =  $discount_amt;
+}
 
-    }//endif of minorder
-      else{
+}//endif of minorder
+else{
 
-        header('Access-Control-Allow-Origin: *');
-        $res = array('message'=>'Please add more products for promocode',
-              'status'=>201
-              );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Please add more products for promocode',
+'status'=>201
+);
 
-              echo json_encode($res);
-              exit;
-      }
+echo json_encode($res);
+exit;
+}
 
 
 
@@ -2598,45 +2598,48 @@ else{
 
 }else{
 
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'invalid promocode',
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'invalid promocode',
+'status'=>201
+);
 
-        echo json_encode($res);
-        exit;
-
-
-  }
+echo json_encode($res);
+exit;
 
 
 }
 
 
+}
+$bytes = random_bytes(15);
+$txn_id=bin2hex($bytes);
+
+
 //-------final amount----------
-$final_amount = ($total - $discount) + $shipping_charges;
+$final_amount = $total + $shipping_charges;
 
 //-------table_order1 entry-------
 
 $order1_data = array('user_id'=>$user_data->id,
-          'promocode_id'=>$promocode_id,
-          'discount'=>$discount,
-          'total_amount'=>$total,
-          'delivery_charge'=>$shipping_charges,
-          'payment_status'=>0,
-          'order_status'=>0,
-          'ip' =>$ip,
-          'date'=>$cur_date,
-          'email'=>$address_email,
-          'first_name'=>$first_name,
-          'last_name'=>$last_name,
-          'post_code'=>$post_code,
-          'street_address'=>$street_address,
-          'city'=>$city,
-          'state'=>$state,
-          'phone'=>$phone,
+'discount'=>$discount,
+'total_amount'=>$total,
+'delivery_charge'=>$shipping_charges,
+'payment_status'=>0,
+'order_status'=>0,
+'ip' =>$ip,
+'date'=>$cur_date,
+'email'=>$address_email,
+'first_name'=>$first_name,
+'last_name'=>$last_name,
+'post_code'=>$post_code,
+'street_address'=>$street_address,
+'city'=>$city,
+'state'=>$state,
+'phone'=>$phone,
+'txnid'=>$txn_id,
+'final_amount'=>$final_amount,
 
-          );
+);
 
 
 
@@ -2648,7 +2651,7 @@ if(!empty($last_id)){
 $price2= 0 ;
 foreach($cart_data->result() as $data3) {
 
-  $this->db->select('*');
+$this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data3->type_id);
 $type_data= $this->db->get()->row();
@@ -2656,16 +2659,773 @@ $type_data= $this->db->get()->row();
 $price2= $type_data->spgst * $data3->quantity;
 
 $order2_data = array('main_id'=>$last_id,
-          'product_id'=>$data3->product_id,
-          'type_id'=>$data3->type_id,
-          'quantity'=>$data3->quantity,
-          'total_amount'=>$price2,
-          'type_amt'=>$type_data->spgst,
-          'gst'=>$type_data->gst,
-          'gst_percentage'=>$type_data->gstprice,
-          'ip' =>$ip,
-          'date'=>$cur_date,
-        );
+'product_id'=>$data3->product_id,
+'type_id'=>$data3->type_id,
+'quantity'=>$data3->quantity,
+'total_amount'=>$price2,
+'type_amt'=>$type_data->spgst,
+'gst'=>$type_data->gst,
+'gst_percentage'=>$type_data->gstprice,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
+
+$last_id2=$this->base_model->insert_table("tbl_order2",$order2_data,1) ;
+}
+$response = [];
+if(!empty($last_id2)){
+
+$response  = array(
+
+'total' => $total,
+'sub_total' => $final_amount,
+'promocode_discount' => $discount,
+'charges' => $shipping_charges,
+'txn_id' => $txn_id,
+
+);
+
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'success',
+'status'=>200,
+'data'=>$response
+);
+
+echo json_encode($res);
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured! please try again',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+
+
+}
+
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+
+}
+}else{
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'cart is empty',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+}
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Wrong Password',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'user not found',
+'status'=>201
+);
+
+echo json_encode($res);
+
+}
+
+
+
+
+
+}
+else{
+header('Access-Control-Allow-Origin: *');
+
+$res = array('message'=>validation_errors(),
+'status'=>201
+);
+
+echo json_encode($res);
+
+
+}
+
+}else{
+header('Access-Control-Allow-Origin: *');
+
+$res = array('message'=>'No data are available',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+
+
+
+
+
+
+
+
+}
+//----promocode---
+public function apply_promocode(){
+
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+
+  $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('txn_id', 'txn_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('promocode', 'promocode', 'required|xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+  $email=$this->input->post('email');
+  $password=$this->input->post('password');
+  $token_id=$this->input->post('token_id');
+  $txn_id=$this->input->post('txn_id');
+  $promocode=$this->input->post('promocode');
+
+  $this->db->select('*');
+  $this->db->from('tbl_users');
+  $this->db->where('email',$email);
+  $user_data= $this->db->get()->row();
+
+  if(!empty($user_data)){
+
+  if($user_data->password==$password){
+
+  //--------check_promocode------
+  $discount = 0;
+  $promocode_id=0;
+
+  $promocode = strtoupper($promocode);
+
+  $this->db->select('*');
+  $this->db->from('tbl_promocode');
+  $this->db->like('promocode',$promocode);
+  $dsa= $this->db->get();
+  $promocode_data=$dsa->row();
+
+  if(!empty($promocode_data)){
+
+    $this->db->select('*');
+    $this->db->from('tbl_order1');
+    $this->db->where('txnid',$txn_id);
+    $order_data= $this->db->get()->row();
+
+
+    $final_amount = 0;
+  $promocode_id = $promocode_data->id;
+  if($promocode_data->ptype==1){
+
+  $this->db->select('*');
+  $this->db->from('tbl_order1');
+  $this->db->where('user_id',$user_data->id);
+  $this->db->where('promocode_id',$promocode_data->id);
+  $dsa= $this->db->get();
+  $promo_check=$dsa->row();
+
+  if(empty($promo_check)){
+
+  if($order_data->total_amount > $promocode_data->minorder){ //----checking minorder for promocode
+  // echo "hii";
+
+  $discount_amt = $order_data->total_amount * $promocode_data->giftpercent/100;
+  if($discount_amt > $promocode_data->max){
+  // will get max amount
+  $discount =  $promocode_data->max;
+
+  }else{
+
+  $discount =  $discount_amt;
+  }
+
+  }//endif of minorder
+  else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Please add more products for promocode',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+  }
+
+
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Promocode is already used',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+
+
+  }
+
+
+  }
+  //-----every time promocode---
+  else{
+  if($order_data->total_amount > $promocode_data->minorder){ //----checking minorder for promocode
+  // echo "hii";
+
+  $discount_amt = $order_data->total_amount * $promocode_data->giftpercent/100;
+  if($discount_amt > $promocode_data->max){
+  // will get max amount
+  $discount =  $promocode_data->max;
+
+  }else{
+
+  $discount =  $discount_amt;
+  }
+
+  }//endif of minorder
+  else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Please add more products for promocode',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+  }
+
+
+
+  }
+
+
+  $final_amount = $order_data->final_amount - $discount;
+
+
+  //-------table_order1 entry-------
+
+  $update_order1_data = array(
+  'promocode_id'=>$promocode_id,
+  'discount'=>$discount,
+  );
+
+  $this->db->where('txnid', $txn_id);
+  $last_id=$this->db->update('tbl_order1', $update_order1_data);
+
+if(!empty($last_id)){
+
+
+
+  $response  = array(
+
+  'total' => $order_data->total_amount,
+  'sub_total' => $final_amount,
+  'promocode_discount' => $discount,
+  'charges' => $order_data->delivery_charge,
+  'promocode_id' => $promocode_id,
+
+  );
+
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200,
+  'data'=>$response
+  );
+
+  echo json_encode($res);
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'some eroor occured! please try again',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+
+
+
+  }
+
+
+
+  }else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'invalid promocode',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+
+
+  }
+
+
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Wrong Password',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  }
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'user not found',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+  }
+
+
+
+}else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>validation_errors(),
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+
+  }
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>'No data are available',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  }
+
+
+
+
+
+}
+
+//----promocode_remove-----
+public function promocode_remove(){
+
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+
+  $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('txn_id', 'txn_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('promocode_id', 'promocode_id', 'required|xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+  $email=$this->input->post('email');
+  $password=$this->input->post('password');
+  $token_id=$this->input->post('token_id');
+  $txn_id=$this->input->post('txn_id');
+  $promocode=$this->input->post('promocode');
+
+  $this->db->select('*');
+  $this->db->from('tbl_users');
+  $this->db->where('email',$email);
+  $user_data= $this->db->get()->row();
+
+  if(!empty($user_data)){
+
+  if($user_data->password==$password){
+
+
+              $data_insert = array('promocode_id'=>0,
+                        'discount'=>0,
+
+                        );
+
+
+                $this->db->where('txnid', $txn_id);
+                $last_id=$this->db->update('tbl_order1', $data_insert);
+  if(!empty($last_id))   {
+    $this->db->select('*');
+  $this->db->from('tbl_order1');
+  $this->db->where('txnid',$txn_id);
+  $order_data= $this->db->get()->row();
+
+$final_amount = $order_data->total_amount + $order_data->delivery_charge;
+$response  = array(
+
+'sub_total' => $final_amount,
+'promocode_discount' => $order_data->discount,
+
+);
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Wrong Password',
+'status'=>200,
+'data'=>$response,
+
+);
+
+echo json_encode($res);
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some error occured',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+
+      }else{
+      header('Access-Control-Allow-Origin: *');
+      $res = array('message'=>'Wrong Password',
+      'status'=>201
+      );
+
+      echo json_encode($res);
+      }
+      }else{
+      header('Access-Control-Allow-Origin: *');
+      $res = array('message'=>'user not found',
+      'status'=>201
+      );
+
+      echo json_encode($res);
+
+      }
+
+
+
+    }else{
+      header('Access-Control-Allow-Origin: *');
+
+      $res = array('message'=>validation_errors(),
+      'status'=>201
+      );
+
+      echo json_encode($res);
+
+
+      }
+
+      }else{
+      header('Access-Control-Allow-Origin: *');
+
+      $res = array('message'=>'No data are available',
+      'status'=>201
+      );
+
+      echo json_encode($res);
+      }
+
+
+
+
+}
+
+
+//----------checkout-------------
+public function checkout(){
+
+
+
+
+
+$this->load->helper(array('form', 'url'));
+$this->load->library('form_validation');
+$this->load->helper('security');
+if($this->input->post())
+{
+
+$this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+$this->form_validation->set_rules('passwod', 'passwod', 'required|xss_clean|trim');
+$this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('payment_type', 'payment_type', 'required|xss_clean|trim');
+
+if($this->form_validation->run()== TRUE)
+{
+
+$email=$this->input->post('email');
+$passwod=$this->input->post('passwod');
+$token_id=$this->input->post('token_id');
+$payment_type=$this->input->post('payment_type');
+
+	$ip = $this->input->ip_address();
+date_default_timezone_set("Asia/Calcutta");
+	$cur_date=date("Y-m-d H:i:s");
+
+
+$this->db->select('*');
+$this->db->from('tbl_users');
+$this->db->where('email',$email);
+$user_data= $this->db->get()->row();
+
+if(!empty($user_data)){
+
+if($user_data->password==$password){
+$this->db->select('*');
+$this->db->from('tbl_order1');
+$this->db->where('user_id',$user_data->id);
+$this->db->order_by('id','DESC');
+$order_data= $this->db->get();
+$order_check = $cart_data->row();
+
+if(!empty($cart_check)){
+$price=0;
+$total= 0;
+$shipping_charges= 0;
+$total_weight = 0;
+foreach($cart_data->result() as $data) {
+
+$this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->where('id',$data->product_id);
+$product_data= $this->db->get()->row();
+
+$this->db->select('*');
+$this->db->from('tbl_type');
+$this->db->where('id',$data->type_id);
+$type_data= $this->db->get()->row();
+
+
+$this->db->select('*');
+$this->db->from('tbl_inventory');
+$this->db->where('type_id',$data->type_id);
+$inventory_data= $this->db->get()->row();
+
+// echo $inventory_data->quantity;
+// exit;
+//----inventory_check----------
+
+if($inventory_data->quantity >= $data->quantity){
+
+$price = $type_data->spgst * $data->quantity;
+$total = $total + $price;
+$total_weight = $total_weight +$type_data->weight;
+$shipping_charges = $total_weight * SHIPPING;
+
+
+
+
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=> "$product_data->productname. Product is out of stock",
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+}
+
+
+}//--end_cart foreach
+
+
+
+//--------check_promocode------
+$discount = 0;
+$promocode_id=0;
+if(!empty($promocode)){
+
+$promocode = strtoupper($promocode);
+
+$this->db->select('*');
+$this->db->from('tbl_promocode');
+$this->db->like('promocode',$promocode);
+$dsa= $this->db->get();
+$promocode_data=$dsa->row();
+
+if(!empty($promocode_data)){
+$promocode_id = $promocode_data->id;
+if($promocode_data->ptype==1){
+
+$this->db->select('*');
+$this->db->from('tbl_order1');
+$this->db->where('user_id',$user_data->id);
+$this->db->where('promocode_id',$promocode_data->id);
+$dsa= $this->db->get();
+$promo_check=$dsa->row();
+
+if(empty($promo_check)){
+
+if($total > $promocode_data->minorder){ //----checking minorder for promocode
+// echo "hii";
+
+$discount_amt = $total * $promocode_data->giftpercent/100;
+if($discount_amt > $promocode_data->max){
+// will get max amount
+$discount =  $promocode_data->max;
+
+}else{
+
+$discount =  $discount_amt;
+}
+
+}//endif of minorder
+else{
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Please add more products for promocode',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+}
+
+
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Promocode is already used',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+
+}
+
+
+}
+//-----every time promocode---
+else{
+if($total > $promocode_data->minorder){ //----checking minorder for promocode
+// echo "hii";
+
+$discount_amt = $total * $promocode_data->giftpercent/100;
+if($discount_amt > $promocode_data->max){
+// will get max amount
+$discount =  $promocode_data->max;
+
+}else{
+
+$discount =  $discount_amt;
+}
+
+}//endif of minorder
+else{
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Please add more products for promocode',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+}
+
+
+
+}
+
+
+
+}else{
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'invalid promocode',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+
+}
+
+
+}
+
+
+//-------final amount----------
+$final_amount = ($total - $discount) + $shipping_charges;
+
+//-------table_order1 entry-------
+
+$order1_data = array('user_id'=>$user_data->id,
+'promocode_id'=>$promocode_id,
+'discount'=>$discount,
+'total_amount'=>$total,
+'delivery_charge'=>$shipping_charges,
+'payment_status'=>0,
+'order_status'=>0,
+'ip' =>$ip,
+'date'=>$cur_date,
+'email'=>$address_email,
+'first_name'=>$first_name,
+'last_name'=>$last_name,
+'post_code'=>$post_code,
+'street_address'=>$street_address,
+'city'=>$city,
+'state'=>$state,
+'phone'=>$phone,
+
+);
+
+
+
+$last_id=$this->base_model->insert_table("tbl_order1",$order1_data,1) ;
+
+
+//------table order2 entries----
+if(!empty($last_id)){
+$price2= 0 ;
+foreach($cart_data->result() as $data3) {
+
+$this->db->select('*');
+$this->db->from('tbl_type');
+$this->db->where('id',$data3->type_id);
+$type_data= $this->db->get()->row();
+
+$price2= $type_data->spgst * $data3->quantity;
+
+$order2_data = array('main_id'=>$last_id,
+'product_id'=>$data3->product_id,
+'type_id'=>$data3->type_id,
+'quantity'=>$data3->quantity,
+'total_amount'=>$price2,
+'type_amt'=>$type_data->spgst,
+'gst'=>$type_data->gst,
+'gst_percentage'=>$type_data->gstprice,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
 
 $last_id2=$this->base_model->insert_table("tbl_order2",$order2_data,1) ;
 }
@@ -2683,21 +3443,21 @@ $response  = array(
 
 
 header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'success',
-        'status'=>200,
-        'data'=>$response
-        );
+$res = array('message'=>'success',
+'status'=>200,
+'data'=>$response
+);
 
-        echo json_encode($res);
+echo json_encode($res);
 
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'some eroor occured! please try again',
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured! please try again',
+'status'=>201
+);
 
-        echo json_encode($res);
-        exit;
+echo json_encode($res);
+exit;
 
 
 
@@ -2705,64 +3465,64 @@ header('Access-Control-Allow-Origin: *');
 
 
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'some eroor occured',
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured',
+'status'=>201
+);
 
-        echo json_encode($res);
-        exit;
+echo json_encode($res);
+exit;
 
-
-  }
-}else{
-
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'cart is empty',
-        'status'=>201
-        );
-
-        echo json_encode($res);
-        exit;
 
 }
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'Wrong Password',
-        'status'=>201
-        );
 
-        echo json_encode($res);
-}
-}else{
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'user not found',
-        'status'=>201
-        );
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'cart is empty',
+'status'=>201
+);
 
-        echo json_encode($res);
+echo json_encode($res);
+exit;
 
 }
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Wrong Password',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'user not found',
+'status'=>201
+);
+
+echo json_encode($res);
+
+}
 
 
 
 
 
-		 }
-		else{
-      header('Access-Control-Allow-Origin: *');
+}
+else{
+header('Access-Control-Allow-Origin: *');
 
-			$res = array('message'=>validation_errors(),
-						'status'=>201
-						);
+$res = array('message'=>validation_errors(),
+'status'=>201
+);
 
-						echo json_encode($res);
+echo json_encode($res);
 
 
-		}
+}
 
 }else{
-  header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 
 $res = array('message'=>'No data are available',
 'status'=>201
@@ -2770,384 +3530,6 @@ $res = array('message'=>'No data are available',
 
 echo json_encode($res);
 }
-
-
-
-
-
-
-
-
-}
-
-
-//----------checkout-------------
-public function checkout(){
-
-
-
-
-
-  						$this->load->helper(array('form', 'url'));
-  						$this->load->library('form_validation');
-  						$this->load->helper('security');
-  						if($this->input->post())
-  						{
-
-  							$this->form_validation->set_rules('payment_type', 'payment_type', 'required|xss_clean|trim');
-
-  							if($this->form_validation->run()== TRUE)
-  							{
-
-  								$payment_type=$this->input->post('payment_type');
-
-  									$ip = $this->input->ip_address();
-  					date_default_timezone_set("Asia/Calcutta");
-  									$cur_date=date("Y-m-d H:i:s");
-
-
-              $this->db->select('*');
-  $this->db->from('tbl_users');
-  $this->db->where('email',$email);
-  $user_data= $this->db->get()->row();
-
-  if(!empty($user_data)){
-
-  if($user_data->password==$password){
-              $this->db->select('*');
-  $this->db->from('tbl_cart');
-  $this->db->where('user_id',$user_data->id);
-  $cart_data= $this->db->get();
-  $cart_check = $cart_data->row();
-
-  if(!empty($cart_check)){
-  $price=0;
-  $total= 0;
-  $shipping_charges= 0;
-  $total_weight = 0;
-  foreach($cart_data->result() as $data) {
-
-              $this->db->select('*');
-  $this->db->from('tbl_products');
-  $this->db->where('id',$data->product_id);
-  $product_data= $this->db->get()->row();
-
-              $this->db->select('*');
-  $this->db->from('tbl_type');
-  $this->db->where('id',$data->type_id);
-  $type_data= $this->db->get()->row();
-
-
-              $this->db->select('*');
-  $this->db->from('tbl_inventory');
-  $this->db->where('type_id',$data->type_id);
-  $inventory_data= $this->db->get()->row();
-
-  // echo $inventory_data->quantity;
-  // exit;
-  //----inventory_check----------
-
-  if($inventory_data->quantity >= $data->quantity){
-
-    $price = $type_data->spgst * $data->quantity;
-    $total = $total + $price;
-    $total_weight = $total_weight +$type_data->weight;
-    $shipping_charges = $total_weight * SHIPPING;
-
-
-
-
-
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=> "$product_data->productname. Product is out of stock",
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-  }
-
-
-  }//--end_cart foreach
-
-
-
-  //--------check_promocode------
-  $discount = 0;
-  $promocode_id=0;
-  if(!empty($promocode)){
-
-  $promocode = strtoupper($promocode);
-
-  $this->db->select('*');
-              $this->db->from('tbl_promocode');
-              $this->db->like('promocode',$promocode);
-              $dsa= $this->db->get();
-              $promocode_data=$dsa->row();
-
-  if(!empty($promocode_data)){
-  $promocode_id = $promocode_data->id;
-  if($promocode_data->ptype==1){
-
-  $this->db->select('*');
-              $this->db->from('tbl_order1');
-              $this->db->where('user_id',$user_data->id);
-              $this->db->where('promocode_id',$promocode_data->id);
-              $dsa= $this->db->get();
-              $promo_check=$dsa->row();
-
-  if(empty($promo_check)){
-
-    if($total > $promocode_data->minorder){ //----checking minorder for promocode
-        // echo "hii";
-
-        $discount_amt = $total * $promocode_data->giftpercent/100;
-      if($discount_amt > $promocode_data->max){
-        // will get max amount
-        $discount =  $promocode_data->max;
-
-      }else{
-
-        $discount =  $discount_amt;
-      }
-
-      }//endif of minorder
-        else{
-
-          header('Access-Control-Allow-Origin: *');
-          $res = array('message'=>'Please add more products for promocode',
-                'status'=>201
-                );
-
-                echo json_encode($res);
-                exit;
-        }
-
-
-
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'Promocode is already used',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-
-  }
-
-
-  }
-  //-----every time promocode---
-  else{
-    if($total > $promocode_data->minorder){ //----checking minorder for promocode
-        // echo "hii";
-
-        $discount_amt = $total * $promocode_data->giftpercent/100;
-      if($discount_amt > $promocode_data->max){
-        // will get max amount
-        $discount =  $promocode_data->max;
-
-      }else{
-
-        $discount =  $discount_amt;
-      }
-
-      }//endif of minorder
-        else{
-
-          header('Access-Control-Allow-Origin: *');
-          $res = array('message'=>'Please add more products for promocode',
-                'status'=>201
-                );
-
-                echo json_encode($res);
-                exit;
-        }
-
-
-
-  }
-
-
-
-  }else{
-
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'invalid promocode',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-
-    }
-
-
-  }
-
-
-  //-------final amount----------
-  $final_amount = ($total - $discount) + $shipping_charges;
-
-  //-------table_order1 entry-------
-
-  $order1_data = array('user_id'=>$user_data->id,
-            'promocode_id'=>$promocode_id,
-            'discount'=>$discount,
-            'total_amount'=>$total,
-            'delivery_charge'=>$shipping_charges,
-            'payment_status'=>0,
-            'order_status'=>0,
-            'ip' =>$ip,
-            'date'=>$cur_date,
-            'email'=>$address_email,
-            'first_name'=>$first_name,
-            'last_name'=>$last_name,
-            'post_code'=>$post_code,
-            'street_address'=>$street_address,
-            'city'=>$city,
-            'state'=>$state,
-            'phone'=>$phone,
-
-            );
-
-
-
-  $last_id=$this->base_model->insert_table("tbl_order1",$order1_data,1) ;
-
-
-  //------table order2 entries----
-  if(!empty($last_id)){
-  $price2= 0 ;
-  foreach($cart_data->result() as $data3) {
-
-    $this->db->select('*');
-  $this->db->from('tbl_type');
-  $this->db->where('id',$data3->type_id);
-  $type_data= $this->db->get()->row();
-
-  $price2= $type_data->spgst * $data3->quantity;
-
-  $order2_data = array('main_id'=>$last_id,
-            'product_id'=>$data3->product_id,
-            'type_id'=>$data3->type_id,
-            'quantity'=>$data3->quantity,
-            'total_amount'=>$price2,
-            'type_amt'=>$type_data->spgst,
-            'gst'=>$type_data->gst,
-            'gst_percentage'=>$type_data->gstprice,
-            'ip' =>$ip,
-            'date'=>$cur_date,
-          );
-
-  $last_id2=$this->base_model->insert_table("tbl_order2",$order2_data,1) ;
-  }
-  $response = [];
-  if(!empty($last_id2)){
-
-  $response  = array(
-
-  'total' => $total,
-  'sub_total' => $final_amount,
-  'promocode_discount' => $discount,
-  'charges' => $shipping_charges
-
-  );
-
-
-  header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'success',
-          'status'=>200,
-          'data'=>$response
-          );
-
-          echo json_encode($res);
-
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'some eroor occured! please try again',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-
-
-  }
-
-
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'some eroor occured',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-
-    }
-  }else{
-
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'cart is empty',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-          exit;
-
-  }
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'Wrong Password',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-  }
-  }else{
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'user not found',
-          'status'=>201
-          );
-
-          echo json_encode($res);
-
-  }
-
-
-
-
-
-  		 }
-  		else{
-        header('Access-Control-Allow-Origin: *');
-
-  			$res = array('message'=>validation_errors(),
-  						'status'=>201
-  						);
-
-  						echo json_encode($res);
-
-
-  		}
-
-  }else{
-    header('Access-Control-Allow-Origin: *');
-
-  $res = array('message'=>'No data are available',
-  'status'=>201
-  );
-
-  echo json_encode($res);
-  }
 
 
 
@@ -3173,107 +3555,108 @@ public function checkout(){
 public function search_product(){
 
 
-  $this->load->helper(array('form', 'url'));
-  $this->load->library('form_validation');
-  $this->load->helper('security');
-  if($this->input->post())
-  {
-  // print_r($this->input->post());
-  // exit;
+$this->load->helper(array('form', 'url'));
+$this->load->library('form_validation');
+$this->load->helper('security');
+if($this->input->post())
+{
+// print_r($this->input->post());
+// exit;
 
-  $this->form_validation->set_rules('string', 'string', 'required|xss_clean|trim');
+$this->form_validation->set_rules('string', 'string', 'required|xss_clean|trim');
 
-  if($this->form_validation->run()== TRUE)
-  {
+if($this->form_validation->run()== TRUE)
+{
 
-  $string=$this->input->post('string');
+$string=$this->input->post('string');
 
-  $this->db->select('*');
-              $this->db->from('tbl_products');
-              $this->db->like('productname',$string);
-              $search_string= $this->db->get();
-              $string_check= $search_string->row();
-              // print_r ($string_check);
-              // exit;
-              $search_data=[];
-              if(!empty($string_check)){
-              foreach($search_string->result() as $data){
-                // echo $data->id;
-                // exit;
-                $this->db->select('*');
-                            $this->db->from('tbl_type');
-                            $this->db->where('product_id',$data->id);
-                            $type_data= $this->db->get()->row();
-                          if(!empty($type_data)){
-                          $ty_id=  $type_data->id;
-                          $ty_name=  $type_data->name;
-                          $ty_price=$type_data->gstprice;
+$this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->like('productname',$string);
+$search_string= $this->db->get();
+$string_check= $search_string->row();
+// print_r ($string_check);
+// exit;
+$search_data=[];
+if(!empty($string_check)){
+foreach($search_string->result() as $data){
+// echo $data->id;
+// exit;
+$this->db->select('*');
+          $this->db->from('tbl_type');
+          $this->db->where('product_id',$data->id);
+          $type_data= $this->db->get()->row();
+        if(!empty($type_data)){
+        $ty_id=  $type_data->id;
+        $ty_name=  $type_data->name;
+        $ty_price=$type_data->gstprice;
 
-                                       $search_data[]=array(
-                                         'product_id'=>$data->id,
-                                         'product_name'=>$data->productname,
-                                         'produt_image'=>base_url().$data->image,
-                                         'productdescription'=>$data->productdescription,
-                                         'type_id'=>$ty_id,
-                                         'type_name'=>$ty_name,
-                                         'Price'=>$ty_price
-
-
-
-                     );
-
-
-              }
+                     $search_data[]=array(
+                       'product_id'=>$data->id,
+                       'product_name'=>$data->productname,
+                       'produt_image'=>base_url().$data->image,
+                       'productdescription'=>$data->productdescription,
+                       'type_id'=>$ty_id,
+                       'type_name'=>$ty_name,
+                       'Price'=>$ty_price
 
 
 
-
-            }
-            header('Access-Control-Allow-Origin: *');
-            $res = array('message'=>"success",
-            'status'=>200,
-            'data'=>$search_data
-            );
-
-            echo json_encode($res);
+   );
 
 
-          }else{
-            header('Access-Control-Allow-Origin: *');
-            $res = array('message'=>$string."no product",
-            'status'=>201
+}
 
-            );
-
-            echo json_encode($res);
-
-
-          }
-        }
-        else{
-            header('Access-Control-Allow-Origin: *');
-        $res = array('message'=>validation_errors(),
-        'status'=>201
-        );
-
-        echo json_encode($res);
-
-
-        }
-
-        }else{
-            header('Access-Control-Allow-Origin: *');
-
-        $res = array('message'=>'No data are available',
-        'status'=>201
-        );
-
-        echo json_encode($res);
-        }
 
 
 
 }
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+'status'=>200,
+'data'=>$search_data
+);
+
+echo json_encode($res);
+
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>$string."no product",
+'status'=>201
+
+);
+
+echo json_encode($res);
+
+
+}
+}
+else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>validation_errors(),
+'status'=>201
+);
+
+echo json_encode($res);
+
+
+}
+
+}else{
+header('Access-Control-Allow-Origin: *');
+
+$res = array('message'=>'No data are available',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+
+
+
+}
+
 
 
 
