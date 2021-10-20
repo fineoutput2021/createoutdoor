@@ -103,11 +103,12 @@
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('name', 'name', '');
+  $this->form_validation->set_rules('name', 'name', 'required');
   $this->form_validation->set_rules('address', 'address', 'required');
+  $this->form_validation->set_rules('pincode', 'pincode', 'integer|required');
   $this->form_validation->set_rules('email', 'email', 'required|valid_email');
 
-  // $this->form_validation->set_rules('pincode', 'pincode', 'required');
+
   $this->form_validation->set_rules('password', 'password', 'required');
 
 
@@ -118,6 +119,8 @@
                {
   $name=$this->input->post('name');
   $address=$this->input->post('address');
+  $pincode=$this->input->post('pincode');
+
   $email=$this->input->post('email');
 
   // $pincode=$this->input->post('pincode');
@@ -155,10 +158,12 @@ $img4='image';
                      if (!$this->upload->do_upload($img4))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo $upload_error;
+                         exit;
+                          echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -181,7 +186,7 @@ $img4='image';
                   'name'=>$name,
   'address'=>$address,
   'email'=>$email,
-  // 'pincode'=>$pincode,
+  'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
 
@@ -229,10 +234,10 @@ $img4='image';
                      if (!$this->upload->do_upload($img4))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -258,7 +263,7 @@ if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){
                   'name'=>$name,
   'address'=>$address,
   'email'=>$email,
-  // 'pincode'=>$pincode,
+   'pincode'=>$pincode,
   'password'=>$password,
   'image'=>$nnnn4,
 

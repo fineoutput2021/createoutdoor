@@ -1,12 +1,12 @@
 <div class="content-wrapper">
 <section class="content-header">
 <h1>
-Products
+Subcategory
 </h1>
 <ol class="breadcrumb">
 <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-<li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Products </a></li>
-<li class="active">View Products</li>
+<li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Subcategory </a></li>
+<li class="active">View Subcategory</li>
 </ol>
 </section>
 <section class="content">
@@ -14,7 +14,7 @@ Products
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Products</h3>
+<h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Subcategory</h3>
 </div>
 <div class="panel panel-default">
 
@@ -40,77 +40,34 @@ if(!empty($this->session->flashdata('emessage'))){ ?>
 <thead>
 <tr>
 <th>#</th>
-<th>Category</th>
-<th>Subcategory</th>
 
-<th>Product Name</th>
-<th>Image</th>
-<th>Inventory</th>
+<th>subcategory</th>
+<!-- <th>Image</th> -->
+<!-- <th>Inventory</th> -->
 <th>Action</th>
 </tr>
 </thead>
 <tbody>
-<?php $i=1; foreach($product_list->result() as $data) { ?>
+<?php $i=1; foreach($sub_filds->result() as $data) { ?>
 <tr>
 <td><?php echo $i ?> </td>
 
-<td><?php  $cid=$data->category;
-$this->db->select('*');
-            $this->db->from('tbl_category');
-            $this->db->where('id',$cid);
-            $dsa= $this->db->get();
-            $da=$dsa->row();
-            echo $da->title;
+<td><?php  echo $data->subcategory;
 
 ?></td>
-<td><?php  $sid=$data->subcategory;
-$this->db->select('*');
-            $this->db->from('tbl_subcategory');
-            $this->db->where('id',$sid);
-            $dsa= $this->db->get();
-            $da=$dsa->row();
-            echo $da->subcategory;
 
-?></td>
-<td>
-<?
-echo $data->productname;
 
-?>
 
-</td>
-<td>
-<?php if($data->image!=""){  ?>
-<img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image ?>" >
-<?php }else {  ?>
-Sorry No image Found
-<?php } ?>
 
-</td>
 
-<td>
-  <?
-  // echo $data->id;
-  // exit;
-              $this->db->select('*');
-  $this->db->from('tbl_inventory');
-  $this->db->where('product_id',$data->id);
-  $inventory= $this->db->get()->row();
-  if(!empty($inventory)){
-      echo $inventory->quantity;
-  }else{
-    echo "stock empty";
-  }
 
-  ?>
 
-</td>
 <td>
 <div class="btn-group" id="btns<?php echo $i ?>">
 <div class="btn-group">
 <button type="button" class="btn btn-default">
-<a href="<?=base_url()?>dcadmin/inventory/update_inventory/<?=base64_encode($data->id);?>">
-  Update Inventory </button>
+  <a href="<?=base_url()?>dcadmin/inventory/view_iproducts/<?=base64_encode($data->category);?>/<?=base64_encode($data->id)?>">
+  view product </button>
 
 </div>
 </div>
@@ -174,3 +131,4 @@ $("#cnfbox"+i).hide();
 </script>
 <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
+Subcategory

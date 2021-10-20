@@ -84,6 +84,12 @@
                           	                                            </td>
                               										</tr>
                           											<tr>
+                                                                          <td> <strong>color</strong>  <span style="color:red;">*</span></strong> </td>
+                                                                          <td>
+                          													<input type="color" name="color"  class="form-control" placeholder="" required value="" />
+                          	                                            </td>
+                              										</tr>
+                          											<tr>
                                                                           <td> <strong>weight</strong>  <span style="color:red;">*</span></strong> </td>
                                                                           <td>
                           													<input type="text" name="weight"  class="form-control" placeholder="" required value="" />

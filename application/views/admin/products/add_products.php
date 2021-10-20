@@ -92,7 +92,7 @@
 <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
-<td> <strong>Model No.</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>Model no.</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="modelno"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 

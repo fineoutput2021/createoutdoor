@@ -52,7 +52,9 @@
         <div class="btn-group" id="btns<?php echo $i ?>">
         <div class="btn-group">
         <button type="button" class="btn btn-default" >
-        <a href="<?=base_url()?>dcadmin/inventory/view_iproducts/<?=base64_encode($data->id);?>">View Products </a> </button>
+        <!-- <a href="<?=base_url()?>dcadmin/inventory/view_iproducts/<?=base64_encode($data->id);?>">View Products </a> </button>
+        <button type="button" class="btn btn-default" > -->
+        <a href="<?=base_url()?>dcadmin/inventory/view_isubcategory/<?=base64_encode($data->id);?>">View subcategory </a> </button>
         </ul>
         </div>
         </div>

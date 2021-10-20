@@ -55,7 +55,7 @@
         <td><?php echo $i ?> </td>
 
  	 <td><?php echo $data->name ?></td>
- 	 <td><?php echo $data->phone ?></td>
+ 	 <td><?php echo $data->contact ?></td>
  	 <td><?php echo $data->email ?></td>
  	 <td><?php echo $data->complain ?></td>
 

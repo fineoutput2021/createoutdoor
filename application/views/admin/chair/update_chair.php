@@ -42,12 +42,12 @@
 <tr>
 <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image1"  class="form-control" placeholder="" />
-<?php if($chair_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$chair_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<?php if($chair_data->image1!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$chair_data->image1; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
 <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="Image2"  class="form-control" placeholder="" />
-<?php if($chair_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$chair_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<?php if($chair_data->Image2!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$chair_data->Image2; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 
 

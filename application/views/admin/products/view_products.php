@@ -48,6 +48,8 @@
  	 <th>image3</th>
  	 <th>mrp</th>
  	 <th>Product Description</th>
+ 
+
  	 <!-- <th>Model No.</th> -->
 
 
@@ -61,23 +63,31 @@
         <td><?php echo $i ?> </td>
         <td><?php echo $data->productname?></td>
 
-
- <?
+ <td><?php $category_id=$data->category;
             $this->db->select('*');
 $this->db->from('tbl_category');
-$this->db->where('id',$data->category);
+$this->db->where('id',$category_id);
 $category_data= $this->db->get()->row();
-$category_name=$category_data->title;
-?>
- <?
+
+if(!empty($category_data)){
+  echo $category_name=$category_data->title;
+}
+
+?></td>
+<td><?php $subcategory_id=$data->subcategory;
+
+
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
-$this->db->where('id',$data->subcategory);
+$this->db->where('id',$subcategory_id);
 $subcategory_data= $this->db->get()->row();
-$subcategory_name=$subcategory_data->subcategory;
-?>
- 	 <td><?php echo $category_name?></td>
- 	 <td><?php echo $subcategory_name?></td>
+if(!empty($subcategory_data)){
+  echo $subcategory_name=$subcategory_data->subcategory;
+}
+
+?></td>
+
+
 
         <td>
         <?php if($data->image!=""){ ?>
@@ -120,6 +130,8 @@ $subcategory_name=$subcategory_data->subcategory;
 
 	 <td><?php echo $data->mrp ?></td>
  	 <td><?php echo $data->productdescription ?></td>
+
+
  	 <!-- <td><echo $data->modelno ?></td> -->
 
 

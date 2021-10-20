@@ -23,7 +23,7 @@
 
 
 
-                          
+
                                     <? if(!empty($this->session->flashdata('smessage'))){ ?>
                                           <div class="alert alert-success alert-dismissible">
                                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -88,6 +88,13 @@
                           <input type="text" name="price"  class="form-control" placeholder="" required value="<?=$u_data->spgst?>" />
                                               </td>
                         </tr>
+
+                        <tr>
+                                                  <td> <strong>color</strong>  <span style="color:red;">*</span></strong> </td>
+                                                  <td>
+                            <input type="color" name="color"  class="form-control" placeholder="" required value="<?=$u_data->color?>" />
+                                                </td>
+                          </tr>
                       <tr>
                                                 <td> <strong>weight</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>

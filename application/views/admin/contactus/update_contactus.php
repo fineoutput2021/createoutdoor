@@ -41,7 +41,7 @@
 </tr>
 <tr>
 <td> <strong>Contact No.</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="phone"  class="form-control" placeholder=""  value="<?=$contactus_data->phone;?>" />  </td>
+<td> <input type="text" name="phone"  class="form-control" placeholder="" required value="<?=$contactus_data->contact;?>" />  </td>
 </tr>
 <tr>
 <td> <strong>Email</strong>  <span style="color:red;">*</span></strong> </td>

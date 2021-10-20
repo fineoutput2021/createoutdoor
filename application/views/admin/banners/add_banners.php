@@ -39,17 +39,47 @@
                                    <form action="<?php echo base_url() ?>dcadmin/banners/add_banner_data/<? echo base64_encode(1); ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
+                                      <tr>
+                                                                <td> <strong>Banner Name</strong>  <span style="color:red;">*</span></strong> </td>
+                                                                <td>
+                                          <input type="text" name="name"  class="form-control" placeholder="" required value="" />
+                                                              </td>
+                                        </tr>
 
                       <tr>
                                                 <td> <strong>Redirection Link</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="redirection_link"  class="form-control" placeholder="" required value="" />
+                          <input type="text" name="url"  class="form-control" placeholder="" required value="" />
                                               </td>
                         </tr>
                             <tr>
-                                                      <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td> <strong>First Image</strong>  <span style="color:red;">*</span></strong> </td>
                                                       <td>
                                 <input type="file" name="banner_image"  class="form-control" placeholder="" required value="" />
+                                                    </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>Second Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image2"  class="form-control" placeholder="" required value="" />
+                                                    </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>Third Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image3"  class="form-control" placeholder="" required value="" />
+                                                    </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>Fourth Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image4"  class="form-control" placeholder="" required value="" />
+                                                    </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>Fifth Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image5"  class="form-control" placeholder="" required value="" />
                                                     </td>
                               </tr>
                           <tr>

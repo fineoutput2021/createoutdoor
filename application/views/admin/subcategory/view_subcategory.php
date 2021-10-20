@@ -50,15 +50,24 @@
         <tr>
         <td><?php echo $i ?> </td>
 
-        <?
-                   $this->db->select('*');
-       $this->db->from('tbl_category');
-       $this->db->where('id',$data->category);
-       $category_data= $this->db->get()->row();
-       $category_name=$category_data->title;
-       ?>
 
- 	 <td><?php echo $category_name ?></td>
+ 	 <td><?php $category_id=$data->category;
+           $this->db->select('*');
+                       $this->db->from('tbl_category');
+                       $this->db->where('id',$category_id);
+                       $res= $this->db->get();
+                       $result=$res->row();
+                    if(!empty($result)){
+                       echo $result->title;
+
+
+                    }
+
+
+
+
+   ?></td>
+
  	 <td><?php echo $data->subcategory ?></td>
 
 

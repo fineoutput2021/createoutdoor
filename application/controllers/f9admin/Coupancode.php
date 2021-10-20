@@ -106,9 +106,9 @@
   $this->form_validation->set_rules('name', 'name', 'required');
   $this->form_validation->set_rules('startdate', 'startdate', 'required');
   $this->form_validation->set_rules('enddate', 'enddate', 'required');
-  $this->form_validation->set_rules('cartamount', 'cartamount', 'required');
-  $this->form_validation->set_rules('percentageoff', 'percentageoff', 'required');
-  $this->form_validation->set_rules('maximumdiscount', 'maximumdiscount', 'required');
+  $this->form_validation->set_rules('cartamount', 'cartamount', 'integer|required');
+  $this->form_validation->set_rules('percentageoff', 'percentageoff', 'integer|required');
+  $this->form_validation->set_rules('maximumdiscount', 'maximumdiscount', 'integer|required');
 
 
 

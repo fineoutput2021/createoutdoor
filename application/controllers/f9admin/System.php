@@ -237,12 +237,12 @@ echo "hiiii";
 					$this->load->library('form_validation');
 
 					$this->load->helper('security');
-					$this->load->library('upload');
+
 					if($this->input->post())
 			 	 {
 			 		 // print_r($this->input->post());
 			 		 // exit;
-			 		 $this->form_validation->set_rules('name', 'name', 'required|customAlpha|xss_clean');
+			 		 $this->form_validation->set_rules('name', 'name', 'required|xss_clean');
 			 		 $this->form_validation->set_rules('email', 'email', 'required|valid_email|xss_clean|trim|is_unique[tbl_team.email]');
 			 		 $this->form_validation->set_rules('password', 'password Number', 'required|xss_clean');
 			 		 $this->form_validation->set_rules('phone', 'Phone', 'xss_clean|min_length[10]|max_length[10]');
@@ -272,6 +272,8 @@ else{
 
 
 					// exit;
+		$this->load->library('upload');
+					$img1='fileToUpload1';
 $file_check=($_FILES['fileToUpload1']['error']);
 if($file_check!=4){
 
@@ -351,7 +353,7 @@ else{
 
 					if($last_id!=0){
 
-					redirect("admin/system/view_team","refresh");
+					redirect("dcadmin/system/view_team","refresh");
 
 									}
 									else
@@ -420,7 +422,7 @@ public function delete_team($idd){
 		 $zapak=$this->db->delete('tbl_team', array('id' => $id));
 		 if($zapak!=0){
 	$this->session->set_flashdata('smessage','Successfully deleted');
-	 	redirect("admin/system/view_team","refresh");
+	 	redirect("dcadmin/system/view_team","refresh");
 	 					}
 	 					else
 	 					{

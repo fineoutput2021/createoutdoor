@@ -41,7 +41,14 @@
                                           <thead>
                                               <tr>
                                                   <th>#</th>
-                                                  <th>Banner Image</th>
+
+                                                  <th>Banner Name</th>
+                                                  <th>First Image</th>
+                                                  <th>Second Image</th>
+                                                  <th>third Image</th>
+                                                  <th>fourth Image</th>
+                                                  <th>fifth Image</th>
+
                                                   <th>Redirection Link</th>
                                                   <th>Status</th>
                                                   <th>Action</th>
@@ -51,14 +58,45 @@
                                                   <?php $i=1; foreach($banner_data->result() as $data) { ?>
                         <tr>
                             <td><?php echo $i ?> </td>
+                            <td><?php echo $data->imagename ?></td>
                             <td>
-                                <?php if($data->banner_image!=""){  ?>
-          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->banner_image; ?>">
+                                <?php if($data->image1!=""){  ?>
+          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->image1; ?>">
                             <?php }else {  ?>
                             Sorry No image Found
                             <?php } ?>
                               </td>
-                            <td><?php echo $data->redirection_link ?></td>
+                            <td>
+                                <?php if($data->image2!=""){  ?>
+          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->image2; ?>">
+                            <?php }else {  ?>
+                            Sorry No image Found
+                            <?php } ?>
+                              </td>
+                            <td>
+                                <?php if($data->image3!=""){  ?>
+          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->image3; ?>">
+                            <?php }else {  ?>
+                            Sorry No image Found
+                            <?php } ?>
+                              </td>
+                            <td>
+                                <?php if($data->image4!=""){  ?>
+          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->image4; ?>">
+                            <?php }else {  ?>
+                            Sorry No image Found
+                            <?php } ?>
+                              </td>
+                            <td>
+                                <?php if($data->image5!=""){  ?>
+          <img id="slide_img_path" height=100 width=100  src="<?php echo base_url() ?><?php echo $data->image5; ?>">
+                            <?php }else {  ?>
+                            Sorry No image Found
+                            <?php } ?>
+                              </td>
+
+
+                            <td><?php echo $data->url ?></td>
 
                               <td><?php if($data->is_active==1){ ?>
         <p class="label bg-green" >Active</p>

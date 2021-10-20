@@ -46,7 +46,7 @@
 
             $this->db->select('*');
 $this->db->from('tbl_category');
-//$this->db->where('id',$usr);
+$this->db->where('is_active',1);
 $data['category_data']= $this->db->get();
 
             $this->db->select('*');
@@ -80,6 +80,8 @@ $id=$_GET['isl'];
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('category',$id);
+$this->db->where('is_active',1);
+
 $dat= $this->db->get();
 
 $i=1; foreach($dat->result() as $data) {
@@ -119,6 +121,11 @@ echo json_encode($igt);
                             // $this->db->where('id',$id);
                             $data['category_data']= $this->db->get();
 
+                            $this->db->select('*');
+                                        $this->db->from('tbl_subcategory');
+                                        //$this->db->where('id',$id);
+                                        $data['subcategory_data']= $this->db->get();
+
                      $this->load->view('admin/common/header_view',$data);
                      $this->load->view('admin/products/update_products');
                      $this->load->view('admin/common/footer_view');
@@ -148,9 +155,11 @@ echo json_encode($igt);
   $this->form_validation->set_rules('productname', 'productname', 'required');
   $this->form_validation->set_rules('category', 'category', 'required');
   $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
-  $this->form_validation->set_rules('mrp', 'mrp', 'required');
+  $this->form_validation->set_rules('mrp', 'mrp', 'integer|required');
   $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
-  // $this->form_validation->set_rules('modelno', 'modelno', 'required');
+  // $this->form_validation->set_rules('inventory', 'inventory', 'integer|required');
+
+   $this->form_validation->set_rules('modelno', 'modelno', 'integer|required');
 
 
 
@@ -163,7 +172,7 @@ echo json_encode($igt);
   $subcategory=$this->input->post('sub_category');
   $mrp=$this->input->post('mrp');
   $productdescription=$this->input->post('productdescription');
-  // $modelno=$this->input->post('modelno');
+   $modelno=$this->input->post('modelno');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -197,10 +206,11 @@ $img2='image';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -240,10 +250,11 @@ $img3='image1';
                      if (!$this->upload->do_upload($img3))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -283,10 +294,11 @@ $img4='image2';
                      if (!$this->upload->do_upload($img4))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -326,10 +338,11 @@ $img5='image3';
                      if (!$this->upload->do_upload($img5))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -358,7 +371,9 @@ $img5='image3';
   'image3'=>$nnnn5,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
-  // 'modelno'=>$modelno,
+
+
+  'modelno'=>$modelno,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -414,10 +429,11 @@ $img2='image';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -456,11 +472,11 @@ $img3='image1';
                      $this->upload->initialize($this->upload_config);
                      if (!$this->upload->do_upload($img3))
                      {
-                         $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -500,10 +516,12 @@ $img4='image2';
                      if (!$this->upload->do_upload($img4))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo $upload_error;
+                         exit;
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -543,10 +561,11 @@ $img5='image3';
                      if (!$this->upload->do_upload($img5))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -735,5 +754,3 @@ if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){
 
                             }
                       }
-
-      ?>

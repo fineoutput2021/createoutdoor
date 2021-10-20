@@ -113,8 +113,9 @@ public function add_category(){
 								  						if (!$this->upload->do_upload($img2))
 								  						{
 								  							$upload_error = $this->upload->display_errors();
-								  							// echo json_encode($upload_error);
-								  							echo $upload_error;
+								  							echo json_encode($upload_error);
+																$this->session->set_flashdata('emessage',$upload_error);
+																	redirect($_SERVER['HTTP_REFERER']);
 								  						}
 								  						else
 								  						{
@@ -181,8 +182,21 @@ public function add_category(){
 //  }
 //     }
 
+if(!empty($image)){
+
+	$n1=$image;
+}else{
+	$this->db->select('*');
+	            $this->db->from('tbl_category');
+	            $this->db->where('id',$idw);
+	            $dsa1= $this->db->get();
+	            $da1=$dsa1->row();
+							$n1=$da1->image;
+
+}
+
           $data_insert = array('Title'=>$title,
-                    'image'=>$image,
+                    'image'=>$n1,
                     );
 
 
@@ -383,6 +397,70 @@ public function delete_category($idd){
        }
 
        }
+
+			public function updatecategoryStatus($idd,$t){
+
+			         if(!empty($this->session->userdata('admin_data'))){
+
+
+			           $data['user_name']=$this->load->get_var('user_name');
+
+			           // echo SITE_NAME;
+			           // echo $this->session->userdata('image');
+			           // echo $this->session->userdata('position');
+			           // exit;
+			           $id=base64_decode($idd);
+
+			           if($t=="active"){
+
+			             $data_update = array(
+			         'is_active'=>1
+
+			         );
+
+			         $this->db->where('id', $id);
+			        $zapak=$this->db->update('tbl_category', $data_update);
+
+			             if($zapak!=0){
+			             redirect("dcadmin/category/view_category","refresh");
+			                     }
+			                     else
+			                     {
+			                       echo "Error";
+			                       exit;
+			                     }
+			           }
+			           if($t=="inactive"){
+			             $data_update = array(
+			          'is_active'=>0
+
+			          );
+
+			          $this->db->where('id', $id);
+			          $zapak=$this->db->update('tbl_category', $data_update);
+
+			              if($zapak!=0){
+			              redirect("dcadmin/category/view_category","refresh");
+			                      }
+			                      else
+			                      {
+
+			          $data['e']="Error Occured";
+			                          	// exit;
+			        	$this->load->view('errors/error500admin',$data);
+			                      }
+			           }
+
+
+
+			       }
+			       else{
+
+			           $this->load->view('admin/login/index');
+			       }
+
+			       }
+
 
 
 

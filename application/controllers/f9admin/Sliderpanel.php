@@ -103,7 +103,7 @@
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('name', 'name', 'trim');
+  $this->form_validation->set_rules('name', 'name', 'required|trim');
 
 
 
@@ -126,8 +126,10 @@
 
 $img1='image';
 
-
-
+            // echo "<pre>";
+            //  print_r($_FILES);
+            //   echo "</pre>";
+            //  exit;
 
          $image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
                      if (!file_exists($image_upload_folder))
@@ -138,17 +140,27 @@ $img1='image';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
+
+                     //$extension=$this->upload_config;
                      $this->upload->initialize($this->upload_config);
+                     // echo "<pre>";
+                     //  print_r($extension['allowed_types']);
+                     //   echo "</pre>";
+                     //  exit;
+
+
+
                      if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -215,10 +227,11 @@ $img1='image';
                      if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+                         echo json_encode($upload_error);
+
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {

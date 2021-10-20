@@ -104,8 +104,8 @@
 							 // print_r($this->input->post());
 							 // exit;
 	$this->form_validation->set_rules('name', 'name', 'required|trim');
-	$this->form_validation->set_rules('phone', 'phone', 'required|trim');
-	$this->form_validation->set_rules('email', 'email', 'required|trim');
+	$this->form_validation->set_rules('phone', 'phone', 'integer|max_length[10]|min_length[10]|required|trim');
+	$this->form_validation->set_rules('email', 'email', 'valid_email|required|trim');
 
 
 
@@ -131,7 +131,7 @@
 
 					 $data_insert = array(
 									'name'=>$name,
-	'phone'=>$phone,
+	'contact'=>$phone,
 	'email'=>$email,
 	'complain'=>$complain,
 
@@ -162,7 +162,7 @@
 
 					 $data_insert = array(
 									'name'=>$name,
-	'phone'=>$phone,
+	'contact'=>$phone,
 	'email'=>$email,
 	'complain'=>$complain,
 

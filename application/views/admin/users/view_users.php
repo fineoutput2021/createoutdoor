@@ -40,11 +40,12 @@
        <th>#</th>
 
   <th>Name</th>
-  <th>address</th>
-  <th>Email</th>
 
-  <!-- <th>pincode</th> -->
+  <th>Email</th>
   <th>password</th>
+  <th>address</th>
+  <th>pincode</th>
+
   <th>image</th>
 
 
@@ -58,10 +59,12 @@
        <td><?php echo $i ?> </td>
 
   <td><?php echo $data->name ?></td>
-  <td><?php echo $data->address ?></td>
+
   <td><?php echo $data->email ?></td>
-  <!-- <td><?php echo $data->pincode ?></td> -->
+
   <td><?php echo $data->password ?></td>
+  <td><?php echo $data->address ?></td>
+  <td><?php echo $data->pincode ?></td>
 
        <td>
        <?php if($data->image!=""){ ?>

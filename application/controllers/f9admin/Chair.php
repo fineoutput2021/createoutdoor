@@ -145,10 +145,10 @@ $img1='image1';
                      if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -188,10 +188,10 @@ $img2='Image2';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -259,10 +259,10 @@ $img1='image1';
                      if (!$this->upload->do_upload($img1))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -302,10 +302,10 @@ $img2='Image2';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
-                         // echo json_encode($upload_error);
+                         echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {

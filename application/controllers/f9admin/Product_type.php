@@ -114,6 +114,8 @@
                           $sellingprice=$this->input->post('sellingprice');
                           $gstprice=$this->input->post('gstprice');
                           $price=$this->input->post('price');
+                          $color=$this->input->post('color');
+
                           $weight=$this->input->post('weight');
 
                             $ip = $this->input->ip_address();
@@ -131,6 +133,8 @@
                               'sp'=>$sellingprice,
                               'gstprice'=>$gstprice,
                               'spgst'=>$price,
+                              'color'=>$color,
+
                               'weight'=>$weight,
                               'product_id'=>base64_decode($p_id),
                               'ip' =>$ip,
@@ -173,6 +177,7 @@
                     'sp'=>$sellingprice,
                     'gstprice'=>$gstprice,
                     'spgst'=>$price,
+                      'color'=>$color,
                     'weight'=>$weight
 
                               );

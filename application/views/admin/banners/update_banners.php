@@ -41,19 +41,72 @@
                                     <table class="table table-hover">
 
                       <tr>
+                                                <td> <strong>Banner name</strong>  <span style="color:red;">*</span></strong> </td>
+                                                <td>
+                          <input type="text" name="name"  class="form-control" placeholder="" required value="<?= $banner->imagename; ?>" />
+                                              </td>
+                        </tr>
+                      <tr>
                                                 <td> <strong>Redirection Link</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="redirection_link"  class="form-control" placeholder="" required value="<?= $banner->redirection_link; ?>" />
+                          <input type="text" name="url"  class="form-control" placeholder="" required value="<?= $banner->url; ?>" />
                                               </td>
                         </tr>
                             <tr>
-                                                      <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td> <strong>First Image</strong>  <span style="color:red;">*</span></strong> </td>
                                                       <td>
-                                <input type="file" name="banner_image"  class="form-control" placeholder="" required value="" />
-                                                    </td>
-                                                    <td>
-                                                        <?php if($banner->banner_image!=""){  ?>
-                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->banner_image; ?>">
+                                <input type="file" name="banner_image"  class="form-control" placeholder=""  value="" />
+
+                                                        <?php if($banner->image1!=""){  ?>
+                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->image1; ?>">
+                                                    <?php }else {  ?>
+                                                    Sorry No image Found
+                                                    <?php } ?>
+                                                      </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>Second Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image2"  class="form-control" placeholder=""  value="" />
+
+                                                        <?php if($banner->image2!=""){  ?>
+                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->image2; ?>">
+                                                    <?php }else {  ?>
+                                                    Sorry No image Found
+                                                    <?php } ?>
+                                                      </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>third Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image3"  class="form-control" placeholder=""  value="" />
+
+                                                        <?php if($banner->image3!=""){  ?>
+                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->image3; ?>">
+                                                    <?php }else {  ?>
+                                                    Sorry No image Found
+                                                    <?php } ?>
+                                                      </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>fourth Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image4"  class="form-control" placeholder=""  value="" />
+
+                                                        <?php if($banner->image4!=""){  ?>
+                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->image4; ?>">
+                                                    <?php }else {  ?>
+                                                    Sorry No image Found
+                                                    <?php } ?>
+                                                      </td>
+                              </tr>
+                            <tr>
+                                                      <td> <strong>fifth Image</strong>  <span style="color:red;">*</span></strong> </td>
+                                                      <td>
+                                <input type="file" name="image5"  class="form-control" placeholder=""  value="" />
+
+                                                        <?php if($banner->image5!=""){  ?>
+                                  <img id="slide_img_path" height=50 width=100  src="<?php echo base_url() ?><?php echo $banner->image5; ?>">
                                                     <?php }else {  ?>
                                                     Sorry No image Found
                                                     <?php } ?>

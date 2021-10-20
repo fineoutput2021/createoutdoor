@@ -30,7 +30,7 @@
 
                             $this->db->select('*');
                 $this->db->from('tbl_category');
-                //$this->db->where('id',$usr);
+                $this->db->where('is_active',1);
                 $data['inventory_data']= $this->db->get();
 
                $this->load->view('admin/common/header_view',$data);
@@ -49,7 +49,7 @@
 
 
 
-public function view_iproducts($idd){
+public function view_iproducts($idd,$idd1){
 
                  if(!empty($this->session->userdata('admin_data'))){
 
@@ -61,11 +61,19 @@ public function view_iproducts($idd){
                    // echo $this->session->userdata('position');
                    // exit;
                    $id=base64_decode($idd);
-                   // $data['id']=$idd;
+                    //$data['id']=$idd;
+
+
+
+                    $id1=base64_decode($idd1);
+                   //$data['id1']=$idd1;
+
 
             $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('category',$id);
+$this->db->where('subcategory',$id1);
+
 $data['product_list']= $this->db->get();
 
 
@@ -98,6 +106,10 @@ $data['id']=$idd;
 $this->db->from('tbl_inventory');
 $this->db->where('product_id',$id);
 $data['inventory_data']= $this->db->get()->row();
+if(empty($data['inventory_data'])){
+echo  "<h1 style='color:red; text-align:center'>Inventory is empty<h1>";
+exit;
+}
 
                                   $this->load->view('admin/common/header_view',$data);
                                   $this->load->view('admin/inventory/update_inventory');
@@ -129,6 +141,7 @@ $data['inventory_data']= $this->db->get()->row();
 
               if($this->form_validation->run()== TRUE)
               {
+
                 $quantity=$this->input->post('quantity');
                 // $passw=$this->input->post('password');
 
@@ -145,8 +158,6 @@ $data['inventory_data']= $this->db->get()->row();
                     );
 
 
-
-
             $this->db->where('product_id', $typ);
             $last_id=$this->db->update('tbl_inventory', $data_insert);
 
@@ -156,13 +167,23 @@ $this->db->select('*');
             $this->db->where('id',$typ);
             $dsa= $this->db->get();
             $da=$dsa->row();
-            $c=$da->category;
+            $c=base64_encode($da->category);
+
+          $this->db->select('*');
+                      $this->db->from('tbl_products');
+                      $this->db->where('id',$typ);
+                      $sub= $this->db->get();
+                      $s=$sub->row();
+                      $s_id=base64_encode($s->subcategory);
+
+
+
 
                               if($last_id!=0){
 
                               $this->session->set_flashdata('smessage','Data inserted successfully');
 
-                              redirect("dcadmin/inventory/view_iproducts/".base64_encode($c),"refresh");
+                              redirect("dcadmin/inventory/view_iproducts/$c/$s_id","refresh");
 
                                       }
 
@@ -201,6 +222,40 @@ $this->session->set_flashdata('emessage','Please insert some data, No data avail
           }
 
           }
+          public function view_isubcategory($idd){
+
+                           if(!empty($this->session->userdata('admin_data'))){
+
+
+                             $data['user_name']=$this->load->get_var('user_name');
+
+                             // echo SITE_NAME;
+                             // echo $this->session->userdata('image');
+                             // echo $this->session->userdata('position');
+                             // exit;
+                              $id=base64_decode($idd);
+                             $data['id']=$idd;
+
+                             $this->db->select('*');
+                                         $this->db->from('tbl_subcategory');
+                                         $this->db->where('category',$id);
+                                         $this->db->where('is_active',1);
+
+                                         $data['sub_filds']= $this->db->get();
+
+
+
+                             $this->load->view('admin/common/header_view',$data);
+                             $this->load->view('admin/inventory/view_isubcategory');
+                             $this->load->view('admin/common/footer_view');
+
+                         }
+                         else{
+
+                            redirect("login/admin_login","refresh");
+                         }
+
+                         }
 
 
 
