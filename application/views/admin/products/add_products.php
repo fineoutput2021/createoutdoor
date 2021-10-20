@@ -95,7 +95,81 @@
 <td> <strong>Model no.</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="modelno"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
+<tr>
+<td> <strong>Leadtime</strong>  <span style="color:red;">*</span></strong> </td>
+<td>
+  <select class="form-control" name="leadtime" >
+    <option value="">Select shape</option>
 
+    <?
+
+     foreach($leadtime_data->result() as $value) {?>
+       <option value="<?=$value->id;?>"><?=$value->filtername;?></option>
+     <? }?>
+  </select>
+
+</td>
+</tr>
+<tr>
+<td> <strong>Furniture type</strong>  <span style="color:red;">*</span></strong> </td>
+<td>
+  <select class="form-control" name="furniture_type"  >
+    <option value="">Select Furniture type</option>
+
+    <?
+
+     foreach($furniture_type_data->result() as $value) {?>
+       <option value="<?=$value->id;?>"><?=$value->filtername;?></option>
+     <? }?>
+  </select>
+
+</td>
+</tr>
+<tr>
+<td> <strong>Seating</strong>  <span style="color:red;">*</span></strong> </td>
+<td>
+  <select class="form-control" name="seating" >
+    <option value="">Select Seating</option>
+
+    <?
+
+     foreach($seating_data->result() as $value) {?>
+       <option value="<?=$value->id;?>"><?=$value->filtername;?></option>
+     <? }?>
+  </select>
+
+</td>
+</tr>
+<tr>
+<td> <strong>Furniture Shape</strong>  <span style="color:red;">*</span></strong> </td>
+<td>
+
+  <select class="form-control" name="shape" >
+    <option value="">Select shape</option>
+    <?
+
+     foreach($shape_data->result() as $value) {?>
+       <option value="<?=$value->id;?>"><?=$value->filtername;?></option>
+     <? }?>
+  </select>
+
+</td>
+</tr>
+<tr>
+<td> <strong>Furniture Features</strong>  <span style="color:red;">*</span></strong> </td>
+<td>
+  <select class="form-control" name="feature" >
+    <option value="">Select Features</option>
+
+    <?
+
+     foreach($feature_data->result() as $value) {?>
+       <option value="<?=$value->id;?>"><?=$value->filtername;?></option>
+     <? }?>
+  </select>
+
+</td>
+</tr>
 
                                  <tr>
                                    <td colspan="2" >

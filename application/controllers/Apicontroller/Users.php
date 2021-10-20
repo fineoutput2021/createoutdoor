@@ -69,7 +69,8 @@ public function login(){
                                     'code'=>200,
                                     'message'=>'success',
                                     'email'=>$email,
-                                    'password'=>$p1
+                                    'password'=>$p1,
+                                    'user_name'=>$da->name
                                   );
                                   echo json_encode($res);
                                   exit;
@@ -222,7 +223,8 @@ if(empty($userdata1)){
             $res = array('message'=>"success",
                           'status'=>200,
                           'email'=>$email,
-                          'password'=>md5($password)
+                          'password'=>md5($password),
+                          'user_name'=>$name,
                           );
 
                   echo json_encode($res);

@@ -136,7 +136,85 @@
               <td> <strong>Model No.</strong>  <span style="color:red;">*</span></strong> </td>
               <td> <input type="text" name="modelno"  class="form-control" placeholder=""  value="<?=$products_data->	modelno?>" />  </td>
               </tr>
+              <tr>
+              <td> <strong>Leadtime</strong>  <span style="color:red;">*</span></strong> </td>
+              <td>
+                <select class="form-control" name="leadtime" required>
+                  <option value="">Select shape</option>
 
+                  <?
+
+                   foreach($leadtime_data->result() as $value) {?>
+                    <option value="<?=$value->id;?>" <?php if($products_data->leadtime_id == $value->id){ echo "selected"; } ?>><?=$value->filtername;?></option>
+                   <? }?>
+                </select>
+
+              </td>
+              </tr>
+              <tr>
+              <td> <strong>Furniture type</strong>  <span style="color:red;">*</span></strong> </td>
+              <td>
+                <select class="form-control" name="furniture_type" required >
+                  <option value="">Select Furniture type</option>
+
+                  <?
+
+                   foreach($furniture_type_data->result() as $value) {?>
+                     <option value="<?=$value->id;?>" <?php if($products_data->furniture_type_id == $value->id){ echo "selected"; } ?>><?=$value->filtername;?></option>
+
+                   <? }?>
+                </select>
+
+              </td>
+              </tr>
+              <tr>
+              <td> <strong>Seating</strong>  <span style="color:red;">*</span></strong> </td>
+              <td>
+                <select class="form-control" name="seating" required>
+                  <option value="">Select Seating</option>
+
+                  <?
+
+                   foreach($seating_data->result() as $value) {?>
+                     <option value="<?=$value->id;?>" <?php if($products_data->seating_id == $value->id){ echo "selected"; } ?>><?=$value->filtername;?></option>
+
+                   <? }?>
+                </select>
+
+              </td>
+              </tr>
+              <tr>
+              <td> <strong>Furniture Shape</strong>  <span style="color:red;">*</span></strong> </td>
+              <td>
+
+                <select class="form-control" name="shape" required>
+                  <option value="">Select shape</option>
+                  <?
+
+                   foreach($shape_data->result() as $value) {?>
+                     <option value="<?=$value->id;?>" <?php if($products_data->shape_id == $value->id){ echo "selected"; } ?>><?=$value->filtername;?></option>
+
+                   <? }?>
+                </select>
+
+              </td>
+              </tr>
+              <tr>
+              <td> <strong>Furniture Features</strong>  <span style="color:red;">*</span></strong> </td>
+              <td>
+                <select class="form-control" name="feature" required>
+                  <option value="">Select Features</option>
+
+                  <?
+
+                   foreach($feature_data->result() as $value) {?>
+                     <option value="<?=$value->id;?>" <?php if($products_data->feature_id == $value->id){ echo "selected"; } ?>><?=$value->filtername;?></option>
+
+                   <? }?>
+                </select>
+
+              </td>
+              </tr>
 
               <tr>
               <td colspan="2" >

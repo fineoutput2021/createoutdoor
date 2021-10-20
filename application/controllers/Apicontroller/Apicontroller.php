@@ -67,106 +67,6 @@ echo json_encode($res);
 
 
 
-//------- demo user register--------
-public function add_user(){
-
-
-$this->load->helper(array('form', 'url'));
-$this->load->library('form_validation');
-$this->load->helper('security');
-if($this->input->post())
-{
-// print_r($this->input->post());
-// exit;
-$this->form_validation->set_rules('name', 'name', 'required|xss_clean|trim');
-$this->form_validation->set_rules('address', 'address', 'required|xss_clean|trim');
-$this->form_validation->set_rules('pincode', 'pincode', 'required|xss_clean|trim');
-$this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
-
-if($this->form_validation->run()== TRUE)
-{
-$name=$this->input->post('name');
-$address=$this->input->post('address');
-$pincode=$this->input->post('pincode');
-$password=$this->input->post('password');
-
-$ip = $this->input->ip_address();
-date_default_timezone_set("Asia/Calcutta");
-$cur_date=date("Y-m-d H:i:s");
-$addedby=999;
-
-$data_insert = array('name'=>$name,
-'address'=>$address,
-'pincode'=>$pincode,
-'password'=>md5($password),
-'ip' =>$ip,
-'added_by' =>$addedby,
-'is_active' =>1,
-'date'=>$cur_date
-
-);
-
-
-
-
-
-$last_id=$this->base_model->insert_table("tbl_users",$data_insert,1) ;
-
-if($last_id!=0){
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"success",
-'status'=>200
-);
-
-echo json_encode($res);
-
-}
-
-else
-
-{
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"Sorry error occured",
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-
-
-}
-
-
-}
-else{
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>validation_errors(),
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-}
-
-}
-else{
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"Please insert some data, No data available",
-'status'=>201
-);
-
-echo json_encode($res);
-
-}
-
-
-
-}
 // ======== Get Category =========
 
 public function get_category(){
@@ -301,102 +201,6 @@ echo json_encode($res);
 
 
 
-// ========= Register User ================
-
-
-public function register_user(){
-
-
-$this->load->helper(array('form', 'url'));
-$this->load->library('form_validation');
-$this->load->helper('security');
-if($this->input->post())
-{
-// print_r($this->input->post());
-// exit;
-$this->form_validation->set_rules('fullname', 'fullname', 'required|xss_clean|trim');
-$this->form_validation->set_rules('phone', 'phone', 'required|xss_clean|trim');
-$this->form_validation->set_rules('agentcode', 'agentcode', 'required|xss_clean|trim');
-
-if($this->form_validation->run()== TRUE)
-{
-$fullname=$this->input->post('fullname');
-$phone=$this->input->post('phone');
-$agentcode=$this->input->post('agentcode');
-
-
-$ip = $this->input->ip_address();
-date_default_timezone_set("Asia/Calcutta");
-$cur_date=date("Y-m-d H:i:s");
-
-
-$data_insert = array('fullname'=>$fullname,
-'phone'=>$phone,
-'agentcode'=>$agentcode,
-'ip' =>$ip,
-'is_active' =>1,
-'date'=>$cur_date
-
-);
-
-
-
-
-
-$last_id=$this->base_model->insert_table("tbl_tempuser",$data_insert,1) ;
-
-if($last_id!=0){
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"success",
-'status'=>200
-);
-
-echo json_encode($res);
-
-}
-
-else
-
-{
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"Sorry error occured",
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-
-
-}
-
-
-}
-else{
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>validation_errors(),
-'status'=>201
-);
-
-echo json_encode($res);
-
-
-}
-
-}
-else{
-
-header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"Please insert some data, No data available",
-'status'=>201
-);
-
-echo json_encode($res);
-
-}
-}
 //get subcategory
 
 public function get_subcategory($id){
@@ -2282,109 +2086,176 @@ echo json_encode($res);
 //-------------order detail-------------------
 public function orderdetail(){
 
-$this->db->select('*');
-$this->db->from('tbl_order1');
-//$this->db->where('id',$usr);
-$order= $this->db->get();
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
 
-$order2=[];
-foreach ($order->result() as $value) {
-$new = $value->id;
-//order2
+  $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('email_id', 'email_id', 'required|valid_email|xss_clean|trim');
+  $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('order_id', 'order_id', 'required|xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+  $email=$this->input->post('email_id');
+  $token_id=$this->input->post('token_id');
+  $password=$this->input->post('password');
+  $order_id=$this->input->post('order_id');
+
+    $this->db->select('*');
+    $this->db->from('tbl_users');
+    $this->db->where('email',$email);
+    $user_data= $this->db->get()->row();
+
+    if(!empty($user_data)){
+
+    if($user_data->password==$password){
+
+
 $this->db->select('*');
 $this->db->from('tbl_order2');
-$this->db->where('main_id',$new);
+$this->db->where('main_id',$order_id);
 $dsa= $this->db->get();
 $da=$dsa->row();
-if(!empty($da)){
-$p_id=$da->product_id;
-$quan=$da->quantity;
-$total_amount=$da->total_amount;
-$type_id=$da->type_id;
-$daa=$da->gst;
-$daa1=$da->gst_percentage;
+$order2 = [] ;
+$subtotal= 0 ;
+foreach($dsa->result() as $data) {
 
-
-
-
-}else{
-$p_id="";
-$daa1="";
-$daa="";
-$type_id="";
-$total_amount="";
-$quan="";
-
-
-}
-//product table
-$this->db->select('*');
+            $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('id',$p_id);
-$dsa1= $this->db->get();
-$fa=$dsa1->row();
-if(!empty($fa)){
-$var=$fa->name;
-
-}
+$this->db->where('id',$data->product_id);
+$product_data= $this->db->get()->row();
 
 
-//type--------------
-$this->db->select('*');
+            $this->db->select('*');
 $this->db->from('tbl_type');
-$this->db->where('id',$type_id);
-$dsa2= $this->db->get();
-$da2=$dsa2->row();
-if(!empty($da2)){
-$t_name=$da2->name;
-$t_gst=$da2->spgst;
-$t_gstprice=$da2->gstprice;
-
-
-
-}
-
-
-//cart
-$this->db->select('*');
-$this->db->from('tbl_cart');
-$this->db->where('product_id',$p_id);
-$ds= $this->db->get();
-$dafa=$ds->row();
-if(!empty($dafa)) {
-$faa=$dafa->quantity;
-
-
-}
-
-
+$this->db->where('id',$data->type_id);
+$type_data= $this->db->get()->row();
 
 $order2[]=array(
-'product_name' =>$var,
-'quantity'=> $faa,
-'total amount'=>$value->total_amount,
-'type_name'=>$t_name,
-'Price'=>$t_gst,
-'Gst'=>$t_gstprice
-
+'product_id' =>$product_data->id,
+'product_name' =>$product_data->productname,
+'quantity'=> $data->quantity,
+'type_id'=>$type_data->id,
+'type_name'=>$type_data->name,
+'price'=>$data->type_amt,
+'total amount'=>$data->total_amount,
 
 
 
 );
+$subtotal = $subtotal + $data->total_amount;
 
 }
 
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
-'data'=>$order2
+'data'=>$order2,
+'subtotal'=>$subtotal
+);
+
+echo json_encode($res);
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Wrong Password',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'user not found',
+'status'=>201
 );
 
 echo json_encode($res);
 
 }
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>validation_errors(),
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+}
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"Please insert some data",
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+}
+
+}
+
+//-----related products------
+public function related_products($id){
+
+            $this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->where('id',$id);
+$product_data= $this->db->get()->row();
+
+            $this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->where('subcategory',$product_data->subcategory);
+$related_data= $this->db->get();
 
 
+foreach($related_data->result() as $data) {
+
+if($data->id!=$id){
+
+            $this->db->select('*');
+$this->db->from('tbl_type');
+$this->db->where('product_id',$data->id);
+$type_data= $this->db->get();
+$type_check= $type_data->row();
+$type = [];
+if(!empty($type_check)){
+foreach($type_data->result() as $data1) {
+
+
+$type= array(
+'type_id'=>$data1->id,
+'type_name'=>$data1->name,
+'Price'=>$data1->spgst
+);
+
+
+}
+}
+$related_info  = array(
+'product_id'=>$data->id,
+'productname'=>$data->productname,
+'productimage'=>$data->image,
+'productdescription'=>$data->productdescription,
+'product_type'=>$type,
+
+);
+}
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+'status'=>200,
+'data'=>$related_info
+
+);
+
+echo json_encode($res);
+exit();
+
+
+}
 
 //count view cart product
 
@@ -3544,17 +3415,6 @@ echo json_encode($res);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
@@ -3670,126 +3530,334 @@ echo json_encode($res);
 
 
 
-
-
-//prmocode api
-
-// public function promocode(){
-//
-//
-//
-//  													$this->load->helper(array('form', 'url'));
-//  													$this->load->library('form_validation');
-//  													$this->load->helper('security');
-//  													if($this->input->post())
-//  													{
-//
-//  														$this->form_validation->set_rules('prmocode_name', 'prmocode_name', 'required|valid_email|xss_clean');
-//
-//  														if($this->form_validation->run()== TRUE)
-//  														{
-//
-//  															$prmocode_name=$this->input->post('prmocode_name');
-//
-//  																$ip = $this->input->ip_address();
-//  												date_default_timezone_set("Asia/Calcutta");
-//  																$cur_date=date("Y-m-d H:i:s");
-//
-//
-// 										   $addedby=$this->session->userdata('admin_id');
-//
-//                           $this->db->select('*');
-//                                       $this->db->from('tbl_promocode');
-//                                       $this->db->where('promocode',$prmocode_name);
-//                                       $this->db->where('is_active',1);
-//                                       $dsa= $this->db->get();
-//                                       $prmo=$dsa->row();
-//                                    if(!empty($prmo)) {
-//                                   $p_id=$prmo->id;
-// 																 $p_name=$prmo->promocode;
-// 																 $p_rate=$prmo->giftpercent;
-//
-//
-// 																	}else{
-//
-// 																		$res = array('message'=>'It is not valid prmocode',
-// 																					'status'=>201
-// 																					);
-//
-// 																					echo json_encode($res);
-//
-// 																	}
-//
-// 															//prmocode id match of table tbl_order1
-// 															  $this->db->select('*');
-// 															              $this->db->from('tbl_order1');
-// 															              $this->db->where('promocode_id',$p_name);
-// 															              $dsa= $this->db->get();
-// 															              $order=$dsa->row();
-// 															           if(!empty($order)){
-//
-//                                               $user_id=$order->user_id;
-//
-// 																				 }else{
-//
-// 																					 $res = array('message'=>'please add product cart',
-// 																								'status'=>201
-// 																								);
-//
-// 																								echo json_encode($res);
-//
-// 																				 }
-//
-// 																	//cart table
-//
-// 																	$this->db->select('*');
-// 																	            $this->db->from('tbl_');
-// 																	            $this->db->where('_id',$id);
-// 																	            $dsa= $this->db->get();
-// 																	            $da=$dsa->row();
-// 																	            echo $da->name;
-//
-//
-//
-//
-//
-//
-//
-//
-// 										 }
-// 										else{
-// 											$res = array('message'=>validation_errors(),
-// 														'status'=>201
-// 														);
-//
-// 														echo json_encode($res);
-//
-//
-// 										}
-//
-// 						}else{
-//
-// 						$res = array('message'=>'No data are available',
-// 						'status'=>201
-// 						);
-//
-// 						echo json_encode($res);
-// 						}
-//
-//
-//
-//
-//
-//
-//
-//
-// }
-
-//---------------------------------------------
+//----add to wishlist--------
+public function add_to_wishlist(){
 
 
 
+    $this->load->helper(array('form', 'url'));
+    $this->load->library('form_validation');
+    $this->load->helper('security');
+    if($this->input->post())
+    {
+
+    $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+    $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+    $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+    $this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+    $this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+
+    if($this->form_validation->run()== TRUE)
+    {
+
+    $email=$this->input->post('email');
+    $password=$this->input->post('password');
+    $token_id=$this->input->post('token_id');
+    $product_id=$this->input->post('product_id');
+    $type_id=$this->input->post('type_id');
+    $ip = $this->input->ip_address();
+    date_default_timezone_set("Asia/Calcutta");
+    $cur_date=date("Y-m-d H:i:s");
+
+    $this->db->select('*');
+    $this->db->from('tbl_users');
+    $this->db->where('email',$email);
+    $user_data= $this->db->get()->row();
+
+    if(!empty($user_data)){
+
+    if($user_data->password==$password){
+
+            $this->db->select('*');
+$this->db->from('tbl_wishlist');
+$this->db->where('user_id',$user_data->id);
+$this->db->where('product_id',$product_id);
+$this->db->where('type_id',$type_id);
+$wishlist_data= $this->db->get()->row();
+
+if(empty($wishlist_data)){
+      $data_insert = array('user_id'=>$user_data->id,
+                'product_id'=>$product_id,
+                'type_id'=>$type_id,
+                'ip' =>$ip,
+                'date'=>$cur_date
+
+                );
 
 
+      $last_id=$this->base_model->insert_table("tbl_wishlist",$data_insert,1) ;
+if(!empty($last_id)){
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200
+  );
+
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'product is already in your wishist',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+
+}
+
+        }else{
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'Wrong Password',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+        }
+        }else{
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'user not found',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+
+        }
+
+
+
+      }else{
+        header('Access-Control-Allow-Origin: *');
+
+        $res = array('message'=>validation_errors(),
+        'status'=>201
+        );
+
+        echo json_encode($res);
+
+
+        }
+
+        }else{
+        header('Access-Control-Allow-Origin: *');
+
+        $res = array('message'=>'No data are available',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+        }
+
+
+
+
+
+}
+
+//----remove wishlist product-----
+public function remove_wishlist_product(){
+
+
+      $this->load->helper(array('form', 'url'));
+      $this->load->library('form_validation');
+      $this->load->helper('security');
+      if($this->input->post())
+      {
+
+      $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+      $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+      $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+      $this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
+      $this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+
+      if($this->form_validation->run()== TRUE)
+      {
+
+      $email=$this->input->post('email');
+      $password=$this->input->post('password');
+      $token_id=$this->input->post('token_id');
+      $product_id=$this->input->post('product_id');
+      $type_id=$this->input->post('type_id');
+      $ip = $this->input->ip_address();
+      date_default_timezone_set("Asia/Calcutta");
+      $cur_date=date("Y-m-d H:i:s");
+
+      $this->db->select('*');
+      $this->db->from('tbl_users');
+      $this->db->where('email',$email);
+      $user_data= $this->db->get()->row();
+
+      if(!empty($user_data)){
+
+      if($user_data->password==$password){
+
+
+        $zapak=$this->db->delete('tbl_wishlist', array('user_id' => $user_data->id,'product_id' => $product_id,'type_id' => $type_id,));
+
+  if(!empty($zapak)){
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'success',
+    'status'=>200
+    );
+
+    echo json_encode($res);
+  }else{
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'some error occured',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+  }
+
+          }else{
+          header('Access-Control-Allow-Origin: *');
+          $res = array('message'=>'Wrong Password',
+          'status'=>201
+          );
+
+          echo json_encode($res);
+          }
+          }else{
+          header('Access-Control-Allow-Origin: *');
+          $res = array('message'=>'user not found',
+          'status'=>201
+          );
+
+          echo json_encode($res);
+
+          }
+
+
+
+        }else{
+          header('Access-Control-Allow-Origin: *');
+
+          $res = array('message'=>validation_errors(),
+          'status'=>201
+          );
+
+          echo json_encode($res);
+
+
+          }
+
+          }else{
+          header('Access-Control-Allow-Origin: *');
+
+          $res = array('message'=>'No data are available',
+          'status'=>201
+          );
+
+          echo json_encode($res);
+          }
+
+
+
+
+
+
+}
+
+//------------filter-----
+public function filter(){
+
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+
+  $this->form_validation->set_rules('leadtime_id', 'leadtime_id', 'xss_clean|trim');
+  $this->form_validation->set_rules('furniture_type_id', 'furniture_type_id', 'xss_clean|trim');
+  $this->form_validation->set_rules('seating_id', 'seating_id', 'xss_clean|trim');
+  $this->form_validation->set_rules('shape_id', 'shape_id', 'xss_clean|trim');
+  $this->form_validation->set_rules('feature_id', 'feature_id', 'xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+    $leadtime_id=$this->input->post('leadtime_id');
+    $furniture_type_id=$this->input->post('furniture_type_id');
+    $seating_id=$this->input->post('seating_id');
+    $shape_id=$this->input->post('shape_id');
+    $feature_id=$this->input->post('feature_id');
+
+
+            $this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->where('leadtime_id',$leadtime_id);
+$this->db->or_where('furniture_type_id',$furniture_type_id);
+$this->db->or_where('seating_id',$seating_id);
+$this->db->or_where('shape_id',$shape_id);
+$this->db->or_where('feature_id',$feature_id);
+$filter_data= $this->db->get();
+$filter_check = $filter_data->row();
+$filter_info = [];
+if(!empty($filter_check)){
+
+foreach($filter_data->result() as $data) {
+
+
+            $this->db->select('*');
+$this->db->from('tbl_type');
+$this->db->where('product_id',$data->id);
+$type_data= $this->db->get()->row();
+
+$filter_info[] = array(
+'product_id'=>$data->id,
+'product_name'=>$data->productname,
+'product_image'=>base_url().$data->image,
+'productdescription'=>$data->productdescription,
+'type_id'=>$type_data->id,
+'type_name'=>$type_data->name,
+'price'=>$type_data->spgst,
+
+);
+
+}
+}
+
+header('Access-Control-Allow-Origin: *');
+
+$res = array('message'=>'success',
+'status'=>200,
+'data'=>$filter_info,
+);
+
+echo json_encode($res);
+
+
+            }else{
+              header('Access-Control-Allow-Origin: *');
+
+              $res = array('message'=>validation_errors(),
+              'status'=>201
+              );
+
+              echo json_encode($res);
+
+
+              }
+
+              }else{
+              header('Access-Control-Allow-Origin: *');
+
+              $res = array('message'=>'No data are available',
+              'status'=>201
+              );
+
+              echo json_encode($res);
+              }
+
+
+}
 
 }

@@ -55,6 +55,32 @@ $this->db->from('tbl_subcategory');
 $data['subcategory_data']= $this->db->get();
 
 
+            $this->db->select('*');
+$this->db->from('tbl_leadtime');
+//$this->db->where('id',$usr);
+$data['leadtime_data']= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_furnituretype');
+//$this->db->where('id',$usr);
+$data['furniture_type_data']= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_seating');
+//$this->db->where('id',$usr);
+$data['seating_data']= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_tableshape');
+//$this->db->where('id',$usr);
+$data['shape_data']= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_table_feature');
+//$this->db->where('id',$usr);
+$data['feature_data']= $this->db->get();
+
+
                    $this->load->view('admin/common/header_view',$data);
                    $this->load->view('admin/products/add_products');
                    $this->load->view('admin/common/footer_view');
@@ -126,6 +152,32 @@ echo json_encode($igt);
                                         //$this->db->where('id',$id);
                                         $data['subcategory_data']= $this->db->get();
 
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_leadtime');
+                                        //$this->db->where('id',$usr);
+                                        $data['leadtime_data']= $this->db->get();
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_furnituretype');
+                                        //$this->db->where('id',$usr);
+                                        $data['furniture_type_data']= $this->db->get();
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_seating');
+                                        //$this->db->where('id',$usr);
+                                        $data['seating_data']= $this->db->get();
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_tableshape');
+                                        //$this->db->where('id',$usr);
+                                        $data['shape_data']= $this->db->get();
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_table_feature');
+                                        //$this->db->where('id',$usr);
+                                        $data['feature_data']= $this->db->get();
+
                      $this->load->view('admin/common/header_view',$data);
                      $this->load->view('admin/products/update_products');
                      $this->load->view('admin/common/footer_view');
@@ -173,6 +225,11 @@ echo json_encode($igt);
   $mrp=$this->input->post('mrp');
   $productdescription=$this->input->post('productdescription');
    $modelno=$this->input->post('modelno');
+   $leadtime=$this->input->post('leadtime');
+   $furniture_type=$this->input->post('furniture_type');
+   $seating=$this->input->post('seating');
+   $shape=$this->input->post('shape');
+   $feature=$this->input->post('feature');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -371,6 +428,11 @@ $img5='image3';
   'image3'=>$nnnn5,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
+  'leadtime_id'=>$leadtime,
+  'furniture_type_id'=>$furniture_type,
+  'seating_id'=>$seating,
+  'shape_id'=>$shape,
+  'feature_id'=>$feature,
 
 
   'modelno'=>$modelno,
@@ -384,15 +446,6 @@ $img5='image3';
 
            $last_id=$this->base_model->insert_table("tbl_products",$data_insert,1) ;
 
-          $inventory_data = array(
-            'product_id'=> $last_id,
-            'quantity'=>0,
-            'ip'=>$ip,
-            'date'=>$addedby,
-            'added_by'=>$cur_date
-
-          );
-          $last_id2=$this->base_model->insert_table("tbl_inventory",$inventory_data,1) ;
 
            }
            if($typ==2){
@@ -601,6 +654,11 @@ if(!empty($img)) { if(empty($nnnn5)){ $nnnn5 = $img; } }else{ if(empty($nnnn5)){
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
   'modelno'=>$modelno,
+  'leadtime_id'=>$leadtime,
+  'furniture_type_id'=>$furniture_type,
+  'seating_id'=>$seating,
+  'shape_id'=>$shape,
+  'feature_id'=>$feature,
 
                      );
              $this->db->where('id', $idw);
