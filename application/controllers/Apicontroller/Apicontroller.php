@@ -1382,7 +1382,7 @@ echo json_encode($res);
 
 
 //custom order ----
-public function customorder(){
+public function custom_order(){
 
 $this->load->helper(array('form', 'url'));
 $this->load->library('form_validation');
@@ -1405,7 +1405,9 @@ $lastname=$this->input->post('lastname');
 $businessname=$this->input->post('businessname');
 $email=$this->input->post('email');
 $message=$this->input->post('message');
-
+$ip = $this->input->ip_address();
+date_default_timezone_set("Asia/Calcutta");
+$cur_date=date("Y-m-d H:i:s");
 
 $this->load->library('upload');
 
@@ -1419,11 +1421,11 @@ if (!file_exists($image_upload_folder))
 {
 mkdir($image_upload_folder, DIR_WRITE_MODE, true);
 }
-$new_file_name="customproduct".date("Ymdhms");
+$new_file_name="customproduct1".date("Ymdhms");
 $this->upload_config = array(
 'upload_path'   => $image_upload_folder,
 'file_name' => $new_file_name,
-'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+'allowed_types' =>'jpg|jpeg|png',
 'max_size'      => 25000
 );
 $this->upload->initialize($this->upload_config);
@@ -1432,6 +1434,7 @@ if (!$this->upload->do_upload($img1))
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
 echo $upload_error;
+exit;
 }
 else
 {
@@ -1448,7 +1451,7 @@ $nnnn=$file_info['file_name'];
 
 
 //image2
-$img1='image2';
+$img2='image2';
 
 $file_check=($_FILES['image2']['error']);
 if($file_check!=4){
@@ -1457,19 +1460,20 @@ if (!file_exists($image_upload_folder))
 {
 mkdir($image_upload_folder, DIR_WRITE_MODE, true);
 }
-$new_file_name="customproduct".date("Ymdhms");
+$new_file_name="customproduct2".date("Ymdhms");
 $this->upload_config = array(
 'upload_path'   => $image_upload_folder,
 'file_name' => $new_file_name,
-'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+'allowed_types' =>'jpg|jpeg|png',
 'max_size'      => 25000
 );
 $this->upload->initialize($this->upload_config);
-if (!$this->upload->do_upload($img1))
+if (!$this->upload->do_upload($img2))
 {
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
 echo $upload_error;
+exit;
 }
 else
 {
@@ -1486,7 +1490,7 @@ $nnnn1=$file_info['file_name'];
 
 //image3
 
-$img1='image3';
+$img3='image3';
 
 $file_check=($_FILES['image3']['error']);
 if($file_check!=4){
@@ -1495,19 +1499,20 @@ if (!file_exists($image_upload_folder))
 {
 mkdir($image_upload_folder, DIR_WRITE_MODE, true);
 }
-$new_file_name="customproduct".date("Ymdhms");
+$new_file_name="customproduct3".date("Ymdhms");
 $this->upload_config = array(
 'upload_path'   => $image_upload_folder,
 'file_name' => $new_file_name,
-'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+'allowed_types' =>'jpg|jpeg|png',
 'max_size'      => 25000
 );
 $this->upload->initialize($this->upload_config);
-if (!$this->upload->do_upload($img1))
+if (!$this->upload->do_upload($img3))
 {
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
 echo $upload_error;
+exit;
 }
 else
 {
@@ -1524,28 +1529,29 @@ $nnnn2=$file_info['file_name'];
 
 
 //image4
-$img1='image4';
+$img4='image4';
 
 $file_check=($_FILES['image4']['error']);
 if($file_check!=4){
-$image_upload_folder = FCPATH . "assets/uploads/team/";
+$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
 if (!file_exists($image_upload_folder))
 {
 mkdir($image_upload_folder, DIR_WRITE_MODE, true);
 }
-$new_file_name="customproduct".date("Ymdhms");
+$new_file_name="customproduct4".date("Ymdhms");
 $this->upload_config = array(
 'upload_path'   => $image_upload_folder,
 'file_name' => $new_file_name,
-'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+'allowed_types' =>'jpg|jpeg|png',
 'max_size'      => 25000
 );
 $this->upload->initialize($this->upload_config);
-if (!$this->upload->do_upload($img1))
+if (!$this->upload->do_upload($img4))
 {
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
 echo $upload_error;
+exit;
 }
 else
 {
@@ -1556,6 +1562,82 @@ $videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file
 $file_info['new_name']=$videoNAmePath;
 // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
 $nnnn3=$file_info['file_name'];
+// echo json_encode($file_info);
+}
+}
+
+//image4
+$img5='image5';
+
+$file_check=($_FILES['image5']['error']);
+if($file_check!=4){
+$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
+if (!file_exists($image_upload_folder))
+{
+mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+}
+$new_file_name="customproduct5".date("Ymdhms");
+$this->upload_config = array(
+'upload_path'   => $image_upload_folder,
+'file_name' => $new_file_name,
+'allowed_types' =>'jpg|jpeg|png',
+'max_size'      => 25000
+);
+$this->upload->initialize($this->upload_config);
+if (!$this->upload->do_upload($img5))
+{
+$upload_error = $this->upload->display_errors();
+// echo json_encode($upload_error);
+echo $upload_error;
+exit;
+}
+else
+{
+
+$file_info = $this->upload->data();
+
+$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+$file_info['new_name']=$videoNAmePath;
+// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+$nnnn4=$file_info['file_name'];
+// echo json_encode($file_info);
+}
+}
+
+//image4
+$img6='image6';
+
+$file_check=($_FILES['image6']['error']);
+if($file_check!=4){
+$image_upload_folder = FCPATH . "assets/uploads/customproduct/";
+if (!file_exists($image_upload_folder))
+{
+mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+}
+$new_file_name="customproduct6".date("Ymdhms");
+$this->upload_config = array(
+'upload_path'   => $image_upload_folder,
+'file_name' => $new_file_name,
+'allowed_types' =>'jpg|jpeg|png',
+'max_size'      => 25000
+);
+$this->upload->initialize($this->upload_config);
+if (!$this->upload->do_upload($img6))
+{
+$upload_error = $this->upload->display_errors();
+// echo json_encode($upload_error);
+echo $upload_error;
+exit;
+}
+else
+{
+
+$file_info = $this->upload->data();
+
+$videoNAmePath = "assets/uploads/customproduct/".$new_file_name.$file_info['file_ext'];
+$file_info['new_name']=$videoNAmePath;
+// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+$nnnn5=$file_info['file_name'];
 // echo json_encode($file_info);
 }
 }
@@ -1576,7 +1658,11 @@ $data_insert = array('firstname'=>$firstname,
 'image1'=>$nnnn,
 'image2'=>$nnnn1,
 'image3'=>$nnnn2,
-'image4'=>$nnnn3
+'image4'=>$nnnn3,
+'image5'=>$nnnn4,
+'image6'=>$nnnn5,
+'ip'=>$ip,
+'date'=>$cur_date,
 
 
 
@@ -1665,15 +1751,14 @@ $ip = $this->input->ip_address();
 date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
-$addedby=$this->session->userdata('admin_id');
-
-
 
 $data_insert = array('firstname'=>$firstname,
 'lastname'=>$lastname,
 'businessname'=>$businessname,
 'email'=>$email,
 'message'=>$message,
+'ip'=>$ip,
+'date'=>$cur_date,
 
 
 
@@ -1858,7 +1943,7 @@ echo json_encode($res);
 
 
 //footer subscription
-public function subscription(){
+public function subscribe_us(){
 
 $this->load->helper(array('form', 'url'));
 $this->load->library('form_validation');
@@ -1878,14 +1963,14 @@ date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
 $this->db->select('*');
-$this->db->from('tbl_subscription');
-$this->db->where('Email_id',$email);
+$this->db->from('tbl_subscribe_us');
+$this->db->where('email_id',$email);
 $dsa= $this->db->get();
 $da=$dsa->row();
 if(!empty($da)){
 
 header('Access-Control-Allow-Origin: *');
-$res = array('message'=>"email already exist.",
+$res = array('message'=>"Already applied",
 'status'=>201
 );
 
@@ -1894,21 +1979,15 @@ exit;
 
 }
 
-
-$addedby=$this->session->userdata('admin_id');
-
-
-$data_insert = array('Email_id'=>$email,
-'ip' =>$ip
+$data_insert = array('email_id'=>$email,
+'ip' =>$ip,
+'date' =>$cur_date,
 
 
 );
 
 
-
-
-
-$last_id=$this->base_model->insert_table("tbl_subscription",$data_insert,1) ;
+$last_id=$this->base_model->insert_table("tbl_subscribe_us",$data_insert,1) ;
 
 if($last_id!=0){
 header('Access-Control-Allow-Origin: *');
@@ -2138,6 +2217,7 @@ $type_data= $this->db->get()->row();
 $order2[]=array(
 'product_id' =>$product_data->id,
 'product_name' =>$product_data->productname,
+'product_image' =>base_url().$product_data->image1,
 'quantity'=> $data->quantity,
 'type_id'=>$type_data->id,
 'type_name'=>$type_data->name,
@@ -2210,7 +2290,7 @@ $this->db->from('tbl_products');
 $this->db->where('subcategory',$product_data->subcategory);
 $related_data= $this->db->get();
 
-
+$related_info = [];
 foreach($related_data->result() as $data) {
 
 if($data->id!=$id){
@@ -2234,7 +2314,7 @@ $type= array(
 
 }
 }
-$related_info  = array(
+$related_info[]  = array(
 'product_id'=>$data->id,
 'productname'=>$data->productname,
 'productimage'=>$data->image,
@@ -3859,5 +3939,361 @@ echo json_encode($res);
 
 
 }
+
+///cancel_order
+public function cancel_order(){
+
+
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+        $this->load->helper('security');
+        if($this->input->post())
+        {
+
+        $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('order_id', 'order_id', 'required|xss_clean|trim');
+
+        if($this->form_validation->run()== TRUE)
+        {
+
+        $email=$this->input->post('email');
+        $password=$this->input->post('password');
+        $token_id=$this->input->post('token_id');
+        $order_id=$this->input->post('order_id');
+
+        $this->db->select('*');
+        $this->db->from('tbl_users');
+        $this->db->where('email',$email);
+        $user_data= $this->db->get()->row();
+
+        if(!empty($user_data)){
+
+        if($user_data->password==$password){
+
+
+          $zapak=$this->db->delete('tbl_order1', array('id' => $order_id,));
+
+    if(!empty($zapak)){
+      header('Access-Control-Allow-Origin: *');
+      $res = array('message'=>'success',
+      'status'=>200
+      );
+
+      echo json_encode($res);
+    }else{
+      header('Access-Control-Allow-Origin: *');
+      $res = array('message'=>'some error occured',
+      'status'=>201
+      );
+
+      echo json_encode($res);
+    }
+
+            }else{
+            header('Access-Control-Allow-Origin: *');
+            $res = array('message'=>'Wrong Password',
+            'status'=>201
+            );
+
+            echo json_encode($res);
+            }
+            }else{
+            header('Access-Control-Allow-Origin: *');
+            $res = array('message'=>'user not found',
+            'status'=>201
+            );
+
+            echo json_encode($res);
+
+            }
+
+
+
+          }else{
+            header('Access-Control-Allow-Origin: *');
+
+            $res = array('message'=>validation_errors(),
+            'status'=>201
+            );
+
+            echo json_encode($res);
+
+
+            }
+
+            }else{
+            header('Access-Control-Allow-Origin: *');
+
+            $res = array('message'=>'No data are available',
+            'status'=>201
+            );
+
+            echo json_encode($res);
+            }
+
+
+
+}
+
+//----view wishlist-------
+public function view_wishlist(){
+
+
+
+
+          $this->load->helper(array('form', 'url'));
+          $this->load->library('form_validation');
+          $this->load->helper('security');
+          if($this->input->post())
+          {
+
+          $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+          $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+          $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+
+          if($this->form_validation->run()== TRUE)
+          {
+
+          $email=$this->input->post('email');
+          $password=$this->input->post('password');
+          $token_id=$this->input->post('token_id');
+
+          $this->db->select('*');
+          $this->db->from('tbl_users');
+          $this->db->where('email',$email);
+          $user_data= $this->db->get()->row();
+
+          if(!empty($user_data)){
+
+          if($user_data->password==$password){
+
+
+                      $this->db->select('*');
+          $this->db->from('tbl_wishlist');
+          $this->db->where('user_id',$user_data->id);
+          $wishlist_data= $this->db->get();
+          $wishlist_check= $wishlist_data->row();
+  $wishlist_info = [];
+if(!empty($wishlist_check)){
+foreach($wishlist_data->result() as $data) {
+
+$this->db->select('*');
+            $this->db->from('tbl_products');
+            $this->db->where('id',$data->product_id);
+            $dsa= $this->db->get();
+            $product_data=$dsa->row();
+$this->db->select('*');
+            $this->db->from('tbl_type');
+            $this->db->where('id',$data->type_id);
+            $dsa= $this->db->get();
+            $type_data=$dsa->row();
+
+$wishlist_info[]=array(
+  'product_id'=>$product_data->id,
+  'product_name'=>$product_data->productname,
+  'product_image'=>base_url().$product_data->image1,
+  'type_id'=>$type_data->id,
+  'type_name'=>$type_data->name,
+  'price'=>$type_data->spgst,
+);
+
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'success',
+'status'=>200,
+'data'=>$wishlist_info,
+);
+
+echo json_encode($res);
+}
+else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Wishlist is empty',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+}
+
+        }else{
+              header('Access-Control-Allow-Origin: *');
+              $res = array('message'=>'Wrong Password',
+              'status'=>201
+              );
+
+              echo json_encode($res);
+              }
+              }else{
+              header('Access-Control-Allow-Origin: *');
+              $res = array('message'=>'user not found',
+              'status'=>201
+              );
+
+              echo json_encode($res);
+
+              }
+
+
+
+            }else{
+              header('Access-Control-Allow-Origin: *');
+
+              $res = array('message'=>validation_errors(),
+              'status'=>201
+              );
+
+              echo json_encode($res);
+
+
+              }
+
+              }else{
+              header('Access-Control-Allow-Origin: *');
+
+              $res = array('message'=>'No data are available',
+              'status'=>201
+              );
+
+              echo json_encode($res);
+              }
+
+
+
+}
+
+
+
+///----forget_password-----
+public function forget_password(){
+
+            $this->load->helper(array('form', 'url'));
+            $this->load->library('form_validation');
+            $this->load->helper('security');
+            if($this->input->post())
+            {
+
+            $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+            $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+            $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+
+            if($this->form_validation->run()== TRUE)
+            {
+
+            $email=$this->input->post('email');
+            $password=$this->input->post('password');
+            $token_id=$this->input->post('token_id');
+
+            $this->db->select('*');
+            $this->db->from('tbl_users');
+            $this->db->where('email',$email);
+            $user_data= $this->db->get()->row();
+
+            if(!empty($user_data)){
+
+            if($user_data->password==$password){
+
+
+                        $this->db->select('*');
+            $this->db->from('tbl_wishlist');
+            $this->db->where('user_id',$user_data->id);
+            $wishlist_data= $this->db->get();
+            $wishlist_check= $wishlist_data->row();
+    $wishlist_info = [];
+  if(!empty($wishlist_check)){
+  foreach($wishlist_data->result() as $data) {
+
+  $this->db->select('*');
+              $this->db->from('tbl_products');
+              $this->db->where('id',$data->product_id);
+              $dsa= $this->db->get();
+              $product_data=$dsa->row();
+  $this->db->select('*');
+              $this->db->from('tbl_type');
+              $this->db->where('id',$data->type_id);
+              $dsa= $this->db->get();
+              $type_data=$dsa->row();
+
+  $wishlist_info[]=array(
+    'product_id'=>$product_data->id,
+    'product_name'=>$product_data->productname,
+    'product_image'=>base_url().$product_data->image1,
+    'type_id'=>$type_data->id,
+    'type_name'=>$type_data->name,
+    'price'=>$type_data->spgst,
+  );
+
+  }
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200,
+  'data'=>$wishlist_info,
+  );
+
+  echo json_encode($res);
+  }
+  else{
+
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'Wishlist is empty',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+
+  }
+
+          }else{
+                header('Access-Control-Allow-Origin: *');
+                $res = array('message'=>'Wrong Password',
+                'status'=>201
+                );
+
+                echo json_encode($res);
+                }
+                }else{
+                header('Access-Control-Allow-Origin: *');
+                $res = array('message'=>'user not found',
+                'status'=>201
+                );
+
+                echo json_encode($res);
+
+                }
+
+
+
+              }else{
+                header('Access-Control-Allow-Origin: *');
+
+                $res = array('message'=>validation_errors(),
+                'status'=>201
+                );
+
+                echo json_encode($res);
+
+
+                }
+
+                }else{
+                header('Access-Control-Allow-Origin: *');
+
+                $res = array('message'=>'No data are available',
+                'status'=>201
+                );
+
+                echo json_encode($res);
+                }
+
+
+
+
+
+}
+
 
 }
