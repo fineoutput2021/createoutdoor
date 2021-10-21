@@ -2317,7 +2317,7 @@ $type= array(
 $related_info[]  = array(
 'product_id'=>$data->id,
 'productname'=>$data->productname,
-'productimage'=>$data->image,
+'productimage'=>base_url().$data->image,
 'productdescription'=>$data->productdescription,
 'product_type'=>$type,
 
