@@ -113,100 +113,96 @@
                {
   $name=$this->input->post('name');
 
+
+  $img1='image1';
+
+              $file_check=($_FILES['image1']['error']);
+              if($file_check!=4){
+            	$image_upload_folder = FCPATH . "assets/uploads/chair/";
+    						if (!file_exists($image_upload_folder))
+    						{
+    							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+    						}
+    						$new_file_name="chair".date("Ymdhms");
+    						$this->upload_config = array(
+    								'upload_path'   => $image_upload_folder,
+    								'file_name' => $new_file_name,
+    								'allowed_types' =>'jpg|jpeg|png',
+    								'max_size'      => 25000
+    						);
+    						$this->upload->initialize($this->upload_config);
+    						if (!$this->upload->do_upload($img1))
+    						{
+    							$upload_error = $this->upload->display_errors();
+    							// echo json_encode($upload_error);
+    							echo $upload_error;
+    						}
+    						else
+    						{
+
+    							$file_info = $this->upload->data();
+
+    							$videoNAmePath = "assets/uploads/chair/".$new_file_name.$file_info['file_ext'];
+    							$file_info['new_name']=$videoNAmePath;
+    							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+    							$nnnn=$file_info['file_name'];
+    							$nnnn1=$videoNAmePath;
+
+    							// echo json_encode($file_info);
+    						}
+              }
+
+
+
+    $img2='Image2';
+
+                $file_check2=($_FILES['Image2']['error']);
+                if($file_check2!=4){
+              	$image_upload_folder2 = FCPATH . "assets/uploads/chair/";
+      						if (!file_exists($image_upload_folder2))
+      						{
+      							mkdir($image_upload_folder2, DIR_WRITE_MODE, true);
+      						}
+      						$new_file_name2="chair2".date("Ymdhms");
+      						$this->upload_config = array(
+      								'upload_path'   => $image_upload_folder2,
+      								'file_name' => $new_file_name2,
+      								'allowed_types' =>'jpg|jpeg|png',
+      								'max_size'      => 25000
+      						);
+      						$this->upload->initialize($this->upload_config);
+      						if (!$this->upload->do_upload($img2))
+      						{
+      							$upload_error2 = $this->upload->display_errors();
+      							// echo json_encode($upload_error);
+      							echo $upload_error2;
+      						}
+      						else
+      						{
+
+      							$file_info2 = $this->upload->data();
+
+      							$videoNAmePath2 = "assets/uploads/chair/".$new_file_name2.$file_info2['file_ext'];
+      							$file_info2['new_name']=$videoNAmePath2;
+      							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+      							$nnnn=$file_info2['file_name'];
+      							$nnnn2=$videoNAmePath2;
+
+      							// echo json_encode($file_info);
+      						}
+                }
+
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
                    $cur_date=date("Y-m-d H:i:s");
                    $addedby=$this->session->userdata('admin_id');
 
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
 
 
 
-$img1='image1';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/chair/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="chair".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img1))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/chair/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn1=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img2='Image2';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/chair/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="chair2".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img2))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/chair/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn2=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
+$typ=base64_decode($t);
+$last_id = 0;
+if($typ==1){
 
 
 
@@ -236,102 +232,23 @@ $img2='Image2';
  $dsa=$this->db->get();
  $da=$dsa->row();
 
+if(!empty($nnnn1)){
+  $n1=$nnnn1;
+}else{
+  $n1=$da->image1;
+}
 
+if(!empty($nnnn2)){
+  $n2=$nnnn2;
+}else{
+  $n2=$da->Image2;
+}
 
-$img1='image1';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/chair/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="chair".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img1))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/chair/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn1=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img2='Image2';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/chair/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="chair2".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img2))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/chair/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn2=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
- if(!empty($da)){ $img = $da ->image1;
-if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){ $nnnn1= ""; } } }if(!empty($da)){ $img = $da ->Image2;
-if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }
 
            $data_insert = array(
                   'name'=>$name,
-  'image1'=>$nnnn1,
-  'Image2'=>$nnnn2,
+  'image1'=>$n1,
+  'Image2'=>$n2,
 
                      );
              $this->db->where('id', $idw);
@@ -451,12 +368,12 @@ if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('image');
+                     $this->db->select('image1');
                      $this->db->from('tbl_chair');
                      $this->db->where('id',$id);
                      $dsa= $this->db->get();
                      $da=$dsa->row();
-                     $img=$da->image;
+                     $img=$da->image1;
 
  $zapak=$this->db->delete('tbl_chair', array('id' => $id));
  if($zapak!=0){

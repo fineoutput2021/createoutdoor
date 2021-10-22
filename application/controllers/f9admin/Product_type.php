@@ -144,11 +144,22 @@
 
                               );
 
+                              $last_id=$this->base_model->insert_table("tbl_type",$data_insert,1) ;
+
+                             $inventory_data = array(
+                               'type_id'=> $last_id,
+                               'quantity'=>0,
+                               'ip'=>$ip,
+                               'date'=>$addedby,
+                               'added_by'=>$cur_date
+
+                             );
 
 
 
 
-                    $last_id=$this->base_model->insert_table("tbl_type",$data_insert,1) ;
+
+                    $last_id=$this->base_model->insert_table("tbl_inventory",$inventory_data,1) ;
 
                     }
                     if($typ==2){

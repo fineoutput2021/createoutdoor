@@ -1,12 +1,12 @@
 <div class="content-wrapper">
 <section class="content-header">
 <h1>
-Products
+Type
 </h1>
 <ol class="breadcrumb">
 <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-<li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Products </a></li>
-<li class="active">View Products</li>
+<li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Type </a></li>
+<li class="active">View Type</li>
 </ol>
 </section>
 <section class="content">
@@ -14,7 +14,7 @@ Products
 <div class="col-lg-12">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Products</h3>
+<h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Type</h3>
 </div>
 <div class="panel panel-default">
 
@@ -40,76 +40,40 @@ if(!empty($this->session->flashdata('emessage'))){ ?>
 <thead>
 <tr>
 <th>#</th>
-<th>Category</th>
-<th>Subcategory</th>
-
-<th>Product Name</th>
-<th>Image</th>
+<th>Name</th>
+<th>inventory</th>
 <th>Action</th>
 </tr>
 </thead>
 <tbody>
-<?php $i=1; foreach($product_list->result() as $data) { ?>
+<?php $i=1; foreach($data_type->result() as $data) { ?>
 <tr>
 <td><?php echo $i ?> </td>
 
-<td><?php  $cid=$data->category;
+<td><?php  echo $data->name;?></td>
+<td><?php $t_id=$data->id;
 $this->db->select('*');
-            $this->db->from('tbl_category');
-            $this->db->where('id',$cid);
+            $this->db->from('tbl_inventory');
+            $this->db->where('type_id',$t_id);
             $dsa= $this->db->get();
             $da=$dsa->row();
-            echo $da->title;
+            if(!empty($da)){
+            echo $da->quantity;
+          }
+          else{
+            echo "type not exist";
+          }
 
 ?></td>
-<td><?php  $sid=$data->subcategory;
-$this->db->select('*');
-            $this->db->from('tbl_subcategory');
-            $this->db->where('id',$sid);
-            $dsa= $this->db->get();
-            $da=$dsa->row();
-            echo $da->subcategory;
 
-?></td>
+
 <td>
-<?
-echo $data->productname;
 
-?>
-
-</td>
-<td>
-<?php if($data->image!=""){  ?>
-<img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image ?>" >
-<?php }else {  ?>
-Sorry No image Found
-<?php } ?>
-
-</td>
-
-<!-- <td>
-
-  // echo $data->id;
-  // exit;
-  //             $this->db->select('*');
-  // $this->db->from('tbl_type');
-  // $this->db->where('product_id',$data->id);
-  // $type= $this->db->get()->row();
-  // if(!empty($type)){
-  //     echo $type->name;
-  // }else{
-  //   echo "some error occured";
-  // }
-  //
-
-
-</td> -->
-<td>
 <div class="btn-group" id="btns<?php echo $i ?>">
 <div class="btn-group">
 <button type="button" class="btn btn-default">
-<a href="<?=base_url()?>dcadmin/inventory/view_type/<?=base64_encode($data->id);?>">
-  View type </button>
+<a href="<?=base_url()?>dcadmin/inventory/update_inventory/<?=base64_encode($data->id);?>">
+  update inventory</button>
 
 </div>
 </div>

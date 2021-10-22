@@ -126,14 +126,9 @@
   // $pincode=$this->input->post('pincode');
   $password=$this->input->post('password');
 
-                   $ip = $this->input->ip_address();
-                   date_default_timezone_set("Asia/Calcutta");
-                   $cur_date=date("Y-m-d H:i:s");
-                   $addedby=$this->session->userdata('admin_id');
 
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
+
+
 
 
 
@@ -158,12 +153,12 @@ $img4='image';
                      if (!$this->upload->do_upload($img4))
                      {
                          $upload_error = $this->upload->display_errors();
-                         echo $upload_error;
-                         exit;
-                          echo json_encode($upload_error);
 
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+
+           //                echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -178,6 +173,15 @@ $img4='image';
 
                          // echo json_encode($file_info);
                      }
+
+                     $ip = $this->input->ip_address();
+                     date_default_timezone_set("Asia/Calcutta");
+                     $cur_date=date("Y-m-d H:i:s");
+                     $addedby=$this->session->userdata('admin_id');
+
+                     $typ=base64_decode($t);
+                     $last_id = 0;
+                     if($typ==1){
 
 
 
@@ -212,52 +216,15 @@ $img4='image';
  $da=$dsa->row();
 
 
+ if(!empty($nnnn4)){
+   $n1=$nnnn4;
+ }else{
+   $n1=$da->image;
 
-$img4='image';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/users/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="users".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img4))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/users/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn4=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
+ }
 
 
 
-
- if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){ $nnnn4= ""; } } }
 
            $data_insert = array(
                   'name'=>$name,
@@ -265,7 +232,7 @@ if(!empty($img)) { if(empty($nnnn4)){ $nnnn4 = $img; } }else{ if(empty($nnnn4)){
   'email'=>$email,
    'pincode'=>$pincode,
   'password'=>$password,
-  'image'=>$nnnn4,
+  'image'=>$n1
 
                      );
              $this->db->where('id', $idw);

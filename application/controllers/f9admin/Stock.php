@@ -115,57 +115,58 @@
   $title=$this->input->post('title');
   $description=$this->input->post('description');
 
-                   $ip = $this->input->ip_address();
-                   date_default_timezone_set("Asia/Calcutta");
-                   $cur_date=date("Y-m-d H:i:s");
-                   $addedby=$this->session->userdata('admin_id');
+$img1='image';
 
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
+            $file_check=($_FILES['image']['error']);
+            if($file_check!=4){
+          	$image_upload_folder = FCPATH . "assets/uploads/stock/";
+  						if (!file_exists($image_upload_folder))
+  						{
+  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+  						}
+  						$new_file_name="stock".date("Ymdhms");
+  						$this->upload_config = array(
+  								'upload_path'   => $image_upload_folder,
+  								'file_name' => $new_file_name,
+  								'allowed_types' =>'jpg|jpeg|png',
+  								'max_size'      => 25000
+  						);
+  						$this->upload->initialize($this->upload_config);
+  						if (!$this->upload->do_upload($img1))
+  						{
+  							$upload_error = $this->upload->display_errors();
+  							// echo json_encode($upload_error);
+  							echo $upload_error;
+                exit;
+  						}
+  						else
+  						{
+
+  							$file_info = $this->upload->data();
+
+  							$videoNAmePath = "assets/uploads/stock/".$new_file_name.$file_info['file_ext'];
+  							$file_info['new_name']=$videoNAmePath;
+  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+  							$nnnn=$file_info['file_name'];
+                $nnnn0=$videoNAmePath;
+  							// echo json_encode($file_info);
+  						}
+            }
 
 
 
-$img0='image';
 
 
 
 
-         $image_upload_folder = FCPATH . "assets/uploads/stock/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="stock".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
+                     $ip = $this->input->ip_address();
+                     date_default_timezone_set("Asia/Calcutta");
+                     $cur_date=date("Y-m-d H:i:s");
+                     $addedby=$this->session->userdata('admin_id');
 
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/stock/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
+                     $typ=base64_decode($t);
+                     $last_id = 0;
+                     if($typ==1){
 
 
 
@@ -196,55 +197,13 @@ $img0='image';
  $da=$dsa->row();
 
 
-
-$img0='image';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/stock/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="stock".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img0))
-                     {
-                         $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/stock/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn0=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
- if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn0)){ $nnnn0 = $img; } }else{ if(empty($nnnn0)){ $nnnn0= ""; } } }
-
+if(!empty($nnnn0)){
+  $n1=$nnnn0;
+}else{
+    $n1=$da->image;
+}
            $data_insert = array(
-                  'image'=>$nnnn0,
+                  'image'=>$n1,
   'title'=>$title,
   'description'=>$description,
 

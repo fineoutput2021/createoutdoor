@@ -93,206 +93,178 @@
 
                {
 
-                 if(!empty($this->session->userdata('admin_data'))){
+                                 if(!empty($this->session->userdata('admin_data'))){
 
 
-             $this->load->helper(array('form', 'url'));
-             $this->load->library('form_validation');
-             $this->load->helper('security');
-             if($this->input->post())
-             {
-               // print_r($this->input->post());
-               // exit;
-  $this->form_validation->set_rules('name', 'name', 'required|trim');
+                             $this->load->helper(array('form', 'url'));
+                             $this->load->library('form_validation');
+                             $this->load->helper('security');
+                             if($this->input->post())
+                             {
+                               // print_r($this->input->post());
+                               // exit;
+                               $this->form_validation->set_rules('name', 'name', 'required|xss_clean');
 
+                               if($this->form_validation->run()== TRUE)
+                               {
+                                 $name=$this->input->post('name');
 
+$img1='fileToUpload1';
 
+            $file_check=($_FILES['fileToUpload1']['error']);
+            if($file_check!=4){
+          	$image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
+  						if (!file_exists($image_upload_folder))
+  						{
+  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+  						}
+  						$new_file_name="sliderpanel".date("Ymdhms");
+  						$this->upload_config = array(
+  								'upload_path'   => $image_upload_folder,
+  								'file_name' => $new_file_name,
+  								'allowed_types' =>'jpg|jpeg|png',
+  								'max_size'      => 25000
+  						);
+  						$this->upload->initialize($this->upload_config);
+  						if (!$this->upload->do_upload($img1))
+  						{
+  							$upload_error = $this->upload->display_errors();
+  							// echo json_encode($upload_error);
+  							echo $upload_error;
+  						}
+  						else
+  						{
 
+  							$file_info = $this->upload->data();
 
-               if($this->form_validation->run()== TRUE)
-               {
-  $name=$this->input->post('name');
-
-                   $ip = $this->input->ip_address();
-                   date_default_timezone_set("Asia/Calcutta");
-                   $cur_date=date("Y-m-d H:i:s");
-                   $addedby=$this->session->userdata('admin_id');
-
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
-
-
-
-$img1='image';
-
-            // echo "<pre>";
-            //  print_r($_FILES);
-            //   echo "</pre>";
-            //  exit;
-
-         $image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="sliderpanel".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-
-                     //$extension=$this->upload_config;
-                     $this->upload->initialize($this->upload_config);
-                     // echo "<pre>";
-                     //  print_r($extension['allowed_types']);
-                     //   echo "</pre>";
-                     //  exit;
+  							$videoNAmePath = "assets/uploads/sliderpanel/".$new_file_name.$file_info['file_ext'];
+  							$file_info['new_name']=$videoNAmePath;
+  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+  							$nnnn1=$videoNAmePath;
+  							// echo json_encode($file_info);
+  						}
+            }
 
 
 
-                     if (!$this->upload->do_upload($img1))
-                     {
-                         $upload_error = $this->upload->display_errors();
+                                   $ip = $this->input->ip_address();
+                           date_default_timezone_set("Asia/Calcutta");
+                                   $cur_date=date("Y-m-d H:i:s");
 
-                         echo json_encode($upload_error);
+                                   $addedby=$this->session->userdata('admin_id');
 
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
+                           $typ=base64_decode($t);
+                           if($typ==1){
 
-                         $file_info = $this->upload->data();
+                           $data_insert = array('name'=>$name,
+                                     'image'=>$nnnn1,
 
-                         $videoNAmePath = "assets/uploads/sliderpanel/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn1=$videoNAmePath;
+                                     'ip' =>$ip,
+                                     'added_by' =>$addedby,
+                                     'is_active' =>1,
+                                     'date'=>$cur_date
 
-                         // echo json_encode($file_info);
-                     }
+                                     );
 
 
 
 
-           $data_insert = array(
-                  'name'=>$name,
-  'image'=>$nnnn1,
 
-                     'ip' =>$ip,
-                     'added_by' =>$addedby,
-                     'is_active' =>1,
-                     'date'=>$cur_date
-                     );
+                           $last_id=$this->base_model->insert_table("tbl_sliderpanel",$data_insert,1) ;
+
+                           }
+                           if($typ==2){
+
+                    $idw=base64_decode($iw);
+
+                 // $this->db->select('*');
+                 //     $this->db->from('tbl_minor_category');
+                 //    $this->db->where('name',$name);
+                 //     $damm= $this->db->get();
+                 //    foreach($damm->result() as $da) {
+                 //      $uid=$da->id;
+                 // if($uid==$idw)
+                 // {
+                 //
+                 //  }
+                 // else{
+                 //    echo "Multiple Entry of Same Name";
+                 //       exit;
+                 //  }
+                 //     }
+
+                 $this->db->select('*');
+                             $this->db->from('tbl_sliderpanel');
+                             $this->db->where('id',$idw);
+                             $dsa= $this->db->get();
+                             $da=$dsa->row();
+
+                             if(!empty($nnnn1)){
+                               $n1=$nnnn1;
+                             }else{
+                               $n1=$da->image;
+                             }
 
 
-           $last_id=$this->base_model->insert_table("tbl_sliderpanel",$data_insert,1) ;
-
-           }
-           if($typ==2){
-
-    $idw=base64_decode($iw);
-
-
- $this->db->select('*');
- $this->db->from('tbl_sliderpanel');
- $this->db->where('id',$idw);
- $dsa=$this->db->get();
- $da=$dsa->row();
+                 $data_insert = array('name'=>$name,
+                           'image'=>$n1
 
 
 
-$img1='image';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="sliderpanel".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img1))
-                     {
-                         $upload_error = $this->upload->display_errors();
-
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/sliderpanel/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn1=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
+                           );
 
 
 
 
- if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){ $nnnn1= ""; } } }
+                             $this->db->where('id', $idw);
+                             $last_id=$this->db->update('tbl_sliderpanel', $data_insert);
 
-           $data_insert = array(
-                  'name'=>$name,
-  'image'=>$nnnn1,
-
-                     );
-             $this->db->where('id', $idw);
-             $last_id=$this->db->update('tbl_sliderpanel', $data_insert);
-           }
-                       if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
-                               redirect("dcadmin/sliderpanel/view_sliderpanel","refresh");
-                              }
-                               else
-                                   {
-
-                                    $this->session->set_flashdata('emessage','Sorry error occured');
-                                    redirect($_SERVER['HTTP_REFERER']);
-                                  }
-               }
-             else{
-
-        $this->session->set_flashdata('emessage',validation_errors());
-      redirect($_SERVER['HTTP_REFERER']);
-
-             }
-
-             }
-           else{
-
- $this->session->set_flashdata('emessage','Please insert some data, No data available');
-      redirect($_SERVER['HTTP_REFERER']);
-
-           }
-           }
-           else{
-
-       redirect("login/admin_login","refresh");
+                           }
 
 
-           }
+                                               if($last_id!=0){
+
+                                               $this->session->set_flashdata('smessage','Data inserted successfully');
+
+                                               redirect("dcadmin/sliderpanel/view_sliderpanel","refresh");
+
+                                                       }
+
+                                                       else
+
+                                                       {
+
+                                                    $this->session->set_flashdata('emessage','Sorry error occured');
+                                                      redirect($_SERVER['HTTP_REFERER']);
+
+
+                                                       }
+
+
+                               }
+                             else{
+
+                 $this->session->set_flashdata('emessage',validation_errors());
+                      redirect($_SERVER['HTTP_REFERER']);
+
+                             }
+
+                             }
+                           else{
+
+                 $this->session->set_flashdata('emessage','Please insert some data, No data available');
+                      redirect($_SERVER['HTTP_REFERER']);
+
+                           }
+                           }
+                           else{
+
+                       redirect("login/admin_login","refresh");
+
+
+                           }
+
+
 
            }
 

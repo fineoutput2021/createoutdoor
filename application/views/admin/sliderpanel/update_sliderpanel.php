@@ -41,8 +41,15 @@
 </tr>
 <tr>
 <td> <strong>image</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image"  class="form-control" placeholder="" />
-<?php if($sliderpanel_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$sliderpanel_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<td> <input type="file" name="fileToUpload1"  class="form-control" placeholder="" />
+  <?php if($sliderpanel_data->image!=""){ ?>
+  <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$sliderpanel_data->image
+  ?>" >
+  <?php }else { ?>
+  Sorry No File Found
+  <?php } ?>
+
+</td>
 </tr>
 
 

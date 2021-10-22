@@ -41,7 +41,7 @@
 </tr>
   <tr>
 <td> <strong>image</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image"  class="form-control" placeholder="" required value="" />  </td>
+<td> <input type="file" name="fileToUpload1"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 
 

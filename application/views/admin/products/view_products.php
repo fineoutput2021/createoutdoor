@@ -48,7 +48,7 @@
  	 <th>image3</th>
  	 <th>mrp</th>
  	 <th>Product Description</th>
- 
+
 
  	 <!-- <th>Model No.</th> -->
 

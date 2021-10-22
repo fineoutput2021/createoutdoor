@@ -96,6 +96,8 @@ $data['product_list']= $this->db->get();
 
  $id=base64_decode($idd);
 $data['id']=$idd;
+
+
                                   $data['user_name']=$this->load->get_var('user_name');
 
                                   // echo SITE_NAME;
@@ -104,7 +106,7 @@ $data['id']=$idd;
                                   // exit;
             $this->db->select('*');
 $this->db->from('tbl_inventory');
-$this->db->where('product_id',$id);
+$this->db->where('type_id',$id);
 $data['inventory_data']= $this->db->get()->row();
 if(empty($data['inventory_data'])){
 echo  "<h1 style='color:red; text-align:center'>Inventory is empty<h1>";
@@ -158,23 +160,35 @@ exit;
                     );
 
 
-            $this->db->where('product_id', $typ);
+            $this->db->where('type_id', $typ);
             $last_id=$this->db->update('tbl_inventory', $data_insert);
 
 
-$this->db->select('*');
-            $this->db->from('tbl_products');
-            $this->db->where('id',$typ);
-            $dsa= $this->db->get();
-            $da=$dsa->row();
-            $c=base64_encode($da->category);
+            $this->db->select('*');
+                        $this->db->from('tbl_type');
+                        $this->db->where('id',$typ);
+                        $p_id= $this->db->get()->row();
+                        $new_id=$p_id->product_id;
+                        $id_id=base64_encode($new_id);
 
-          $this->db->select('*');
-                      $this->db->from('tbl_products');
-                      $this->db->where('id',$typ);
-                      $sub= $this->db->get();
-                      $s=$sub->row();
-                      $s_id=base64_encode($s->subcategory);
+
+
+
+
+// $this->db->select('*');
+//             $this->db->from('tbl_products');
+//             $this->db->where('id',$p_id->product_id);
+//             $dsa= $this->db->get();
+//             $da=$dsa->row();
+//             $c=base64_encode($da->category);
+//
+//
+//           $this->db->select('*');
+//                       $this->db->from('tbl_products');
+//                       $this->db->where('id',$p_id->product_id);
+//                       $sub= $this->db->get();
+//                       $s=$sub->row();
+//                       $s_id=base64_encode($s->subcategory);
 
 
 
@@ -183,7 +197,7 @@ $this->db->select('*');
 
                               $this->session->set_flashdata('smessage','Data inserted successfully');
 
-                              redirect("dcadmin/inventory/view_iproducts/$c/$s_id","refresh");
+                              redirect("dcadmin/inventory/view_type/$id_id","refresh");
 
                                       }
 
@@ -256,6 +270,38 @@ $this->session->set_flashdata('emessage','Please insert some data, No data avail
                          }
 
                          }
+                         public function view_type($idd){
+
+                                          if(!empty($this->session->userdata('admin_data'))){
+
+
+                                            $data['user_name']=$this->load->get_var('user_name');
+
+                                            // echo SITE_NAME;
+                                            // echo $this->session->userdata('image');
+                                            // echo $this->session->userdata('position');
+                                            // exit;
+                                 $id=base64_decode($idd);
+
+                                    $this->db->select('*');
+                                                $this->db->from('tbl_type');
+                                                $this->db->where('product_id',$id);
+                                                $data['data_type']= $this->db->get();
+
+
+
+
+                                            $this->load->view('admin/common/header_view',$data);
+                                            $this->load->view('admin/inventory/view_itype');
+                                            $this->load->view('admin/common/footer_view');
+
+                                        }
+                                        else{
+
+                                           redirect("login/admin_login","refresh");
+                                        }
+
+                                        }
 
 
 
