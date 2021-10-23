@@ -165,12 +165,12 @@
 													<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Action <span class="caret"></span></button>
 												  <ul class="dropdown-menu" role="menu">
 
-													
+
 <li><a href="<?php echo base_url() ?>admin/home/update_team/<?php echo base64_encode($data->id) ?>">Accepted</a></li>
 													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">view Product</a></li>
 												  </ul>
 												</div>
-											</div>
+											</div>     
 
 												  <div style="display:none" id="cnfbox<?php echo $i ?>">
 														<p> Are you sure delete this </p>

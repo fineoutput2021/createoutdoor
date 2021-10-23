@@ -65,28 +65,28 @@
                                                         <td><?php echo $data->message ?></td>
                                                         <td>
                                                             <?php if($data->image1!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url()."assets/admin/team/".$data->image1 ?>" >
+                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image1 ?>" >
                                                         <?php }else {  ?>
                                                         Sorry No image Found
                                                         <?php } ?>
                                                           </td>
                                                         <td>
                                                             <?php if($data->image2!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url()."assets/admin/team/".$data->image2 ?>" >
+                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image2 ?>" >
                                                         <?php }else {  ?>
                                                         Sorry No image Found
                                                         <?php } ?>
                                                           </td>
                                                         <td>
                                                             <?php if($data->image3!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url()."assets/admin/team/".$data->image3 ?>" >
+                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image3 ?>" >
                                                         <?php }else {  ?>
                                                         Sorry No image Found
                                                         <?php } ?>
                                                           </td>
                                                         <td>
                                                             <?php if($data->image4!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url()."assets/admin/team/".$data->image4 ?>" >
+                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image4 ?>" >
                                                         <?php }else {  ?>
                                                         Sorry No image Found
                                                         <?php } ?>
@@ -111,15 +111,19 @@
 													<?php } else { ?>
 													<li><a href="<?php echo base_url() ?>admin/course/updateteamStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
 													<?php		}   ?>
-<li><a href="<?php echo base_url() ?>admin/home/update_team/<?php echo base64_encode($data->id) ?>">Edit</a></li>
+
+
+<li><a href="<?php echo base_url() ?>dcadmin/Customorder/update_customorder/<?php echo base64_encode($data->id) ?>">Edit</a></li>
+
 													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
+
 												  </ul>
 												</div>
 											</div>
 
 												  <div style="display:none" id="cnfbox<?php echo $i ?>">
 														<p> Are you sure delete this </p>
-														<a href="<?php echo base_url() ?>admin/home/delete_team/<?php echo base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
+														<a href="<?php echo base_url() ?>dcadmin/Customorder/delete_customorder/<?php echo base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
 														<a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
 												  </div>
 											</td>
