@@ -4296,4 +4296,86 @@ public function forget_password(){
 }
 
 
+///get filter name
+public function get_filter_name(){
+
+            $this->db->select('*');
+$this->db->from('tbl_leadtime');
+$this->db->where('is_active',1);
+$leadtime_data= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_furnituretype');
+$this->db->where('is_active',1);
+$type_data= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_seating');
+$this->db->where('is_active',1);
+$seating_data= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_tableshape');
+$this->db->where('is_active',1);
+$shape_data= $this->db->get();
+
+            $this->db->select('*');
+$this->db->from('tbl_table_feature');
+$this->db->where('is_active',1);
+$feature_data= $this->db->get();
+
+$leadtime = [];
+$type = [];
+$seating = [];
+$shape = [];
+$feature = [];
+
+foreach($leadtime_data->result() as $data1) {
+$leadtime[] = array(
+"name"=>$data1->filtername
+);
+}
+foreach($type_data->result() as $data2) {
+$type[] = array(
+"name"=>$data2->filtername
+);
+}
+foreach($seating_data->result() as $data3) {
+$seating[] = array(
+"name"=>$data3->filtername
+);
+}
+foreach($shape_data->result() as $data4) {
+$shape[] = array(
+"name"=>$data4->filtername
+);
+}
+foreach($feature_data->result() as $data5) {
+$feature[] = array(
+"name"=>$data5->filtername
+);
+}
+
+$response = array(
+"leadtime"=>$leadtime,
+"type"=>$type,
+"seating"=>$seating,
+"shape"=>$shape,
+"feature"=>$feature
+);
+
+
+header('Access-Control-Allow-Origin: *');
+
+$res = array('message'=>'success',
+'status'=>200,
+'data'=>$response,
+);
+
+echo json_encode($res);
+
+
+
+}
+
 }
