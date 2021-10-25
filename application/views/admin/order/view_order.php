@@ -54,9 +54,10 @@
                                                                               <th>Last updated date</th>
                                                                               <th>order date</th>
                                                                               <th>order status</th>
+                                                                            <th>Action</th>
 
 
-                                                                              <th>Action</th>
+
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -79,7 +80,7 @@
 
 
                                                           ?></td>
-                                                        <td><?php echo $data->total_amount  ?></td>
+                                                        <td><?php echo $data->total_amount;  ?></td>
                                                         <td><?php $check_prmocode_id= $data->promocode_id;
                                                            $this->db->select('*');
                                                                        $this->db->from('tbl_promocode');
@@ -133,7 +134,7 @@
                                                           $status="Placed";
                                                         }
                                                         if($status==2){
-                                                          $status="CONFIRMED";
+                                                          $status="Accepted";
                                                         }
                                                         if($status==3){
                                                           $status="DISPATCHED";
@@ -142,23 +143,15 @@
                                                           $status="DELIVERED";
                                                         }
                                                         if($status==5){
-                                                          $status="CANCEL";
-                                                        }
+                                                          $status="New order";
 
+                                                        }
+                                                    echo $status;
 
 
                                                           ?></td>
 
 
-                                                          <td><?php if($data->is_active==1){ ?>
-          													<p class="label bg-green" >Active</p>
-
-          											<?php } else { ?>
-          													<p class="label bg-yellow" >Inactive</p>
-
-
-          									<?php		}   ?>
-          												</td>
                                                 <td>
 											<div class="btn-group" id="btns<?php echo $i ?>">
 												<div class="btn-group">
@@ -166,11 +159,27 @@
 												  <ul class="dropdown-menu" role="menu">
 
 
-<li><a href="<?php echo base_url() ?>admin/home/update_team/<?php echo base64_encode($data->id) ?>">Accepted</a></li>
-													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">view Product</a></li>
+
+
+
+
+                            <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_order_status/<?php echo
+                            base64_encode($data->id) ?>/accept">Accepte order</a></li>
+
+
+
+                              <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_cancel_status/<?php echo
+                              base64_encode($data->id) ?>/Cancel">Cancel order</a></li>
+
+
+                            <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_product_status/<?php echo
+                            base64_encode($data->id) ?>">view product</a></li>
+
+
+
 												  </ul>
 												</div>
-											</div>     
+											</div>
 
 												  <div style="display:none" id="cnfbox<?php echo $i ?>">
 														<p> Are you sure delete this </p>

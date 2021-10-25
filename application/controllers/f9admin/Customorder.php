@@ -362,7 +362,7 @@ $this->db->select('*');
                     $this->db->where('id',$id);
                     $dsa= $this->db->get();
                     $da=$dsa->row();
-                    $img=$da->image;
+                    $img=$da->image1;
 
                                        									 $zapak=$this->db->delete('tbl_customorder', array('id' => $id));
                                        									 if($zapak!=0){
