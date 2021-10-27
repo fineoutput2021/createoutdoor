@@ -130,7 +130,10 @@ Sorry No File Found
 </tr>
 <tr>
 <td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="<?=$products_data->productdescription?>" />  </td>
+<!-- <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td> -->
+<td>
+  <textarea id="editor1" name="productdescription"><?=$products_data->productdescription?></textarea>
+</td>
 </tr>
 <tr>
 <td> <strong>Model No.</strong>  <span style="color:red;">*</span></strong> </td>
@@ -208,3 +211,7 @@ return false;
 })
 });
 </script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+                        CKEDITOR.replace( 'editor1' );
+                </script>

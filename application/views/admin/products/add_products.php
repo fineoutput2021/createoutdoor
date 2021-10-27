@@ -89,7 +89,11 @@
 </tr>
   <tr>
 <td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td>
+<!-- <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td> -->
+<td>
+<textarea id="editor1" name="productdescription" required></textarea>
+
+</td>
 </tr>
   <tr>
 <td> <strong>Model no.</strong>  <span style="color:red;">*</span></strong> </td>
@@ -167,3 +171,8 @@ $(document).ready(function(){
 	})
   });
 </script>
+
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+                        CKEDITOR.replace( 'editor1' );
+                </script>

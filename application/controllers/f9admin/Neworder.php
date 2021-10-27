@@ -1,4 +1,4 @@
-<?php
+  <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
        class Neworder extends CI_finecontrol{
@@ -239,6 +239,33 @@
                                                                           }
 
                                                                           }
+
+                        public function view_order_bill($main_id){
+
+                                         if(!empty($this->session->userdata('admin_data'))){
+
+
+                                           $this->db->select('*');
+                    $this->db->from('tbl_order1');
+                    $this->db->where('id',base64_decode($main_id));
+                    $data['order1_data']= $this->db->get()->row();
+
+                   $this->db->select('*');
+                    $this->db->from('tbl_order2');
+                    $this->db->where('main_id',base64_decode($main_id));
+                    $data['order2_data']= $this->db->get();
+
+                                           //$this->load->view('admin/common/header_view',$data);
+                                           $this->load->view('admin/order/order_bill',$data);
+                                           //$this->load->view('admin/common/footer_view');
+
+                                       }
+                                       else{
+
+                                          redirect("login/admin_login","refresh");
+                                       }
+
+                                       }
 
 
 

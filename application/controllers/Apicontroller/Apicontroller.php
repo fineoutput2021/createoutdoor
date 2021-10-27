@@ -4296,86 +4296,241 @@ public function forget_password(){
 }
 
 
-///get filter name
-public function get_filter_name(){
+                  ///get filter name
+                  public function get_filter_name(){
 
-            $this->db->select('*');
-$this->db->from('tbl_leadtime');
-$this->db->where('is_active',1);
-$leadtime_data= $this->db->get();
+                              $this->db->select('*');
+                  $this->db->from('tbl_leadtime');
+                  $this->db->where('is_active',1);
+                  $leadtime_data= $this->db->get();
 
-            $this->db->select('*');
-$this->db->from('tbl_furnituretype');
-$this->db->where('is_active',1);
-$type_data= $this->db->get();
+                              $this->db->select('*');
+                  $this->db->from('tbl_furnituretype');
+                  $this->db->where('is_active',1);
+                  $type_data= $this->db->get();
 
-            $this->db->select('*');
-$this->db->from('tbl_seating');
-$this->db->where('is_active',1);
-$seating_data= $this->db->get();
+                              $this->db->select('*');
+                  $this->db->from('tbl_seating');
+                  $this->db->where('is_active',1);
+                  $seating_data= $this->db->get();
 
-            $this->db->select('*');
-$this->db->from('tbl_tableshape');
-$this->db->where('is_active',1);
-$shape_data= $this->db->get();
+                              $this->db->select('*');
+                  $this->db->from('tbl_tableshape');
+                  $this->db->where('is_active',1);
+                  $shape_data= $this->db->get();
 
-            $this->db->select('*');
-$this->db->from('tbl_table_feature');
-$this->db->where('is_active',1);
-$feature_data= $this->db->get();
+                              $this->db->select('*');
+                  $this->db->from('tbl_table_feature');
+                  $this->db->where('is_active',1);
+                  $feature_data= $this->db->get();
 
-$leadtime = [];
-$type = [];
-$seating = [];
-$shape = [];
-$feature = [];
+                  $leadtime = [];
+                  $type = [];
+                  $seating = [];
+                  $shape = [];
+                  $feature = [];
 
-foreach($leadtime_data->result() as $data1) {
-$leadtime[] = array(
-"name"=>$data1->filtername
-);
-}
-foreach($type_data->result() as $data2) {
-$type[] = array(
-"name"=>$data2->filtername
-);
-}
-foreach($seating_data->result() as $data3) {
-$seating[] = array(
-"name"=>$data3->filtername
-);
-}
-foreach($shape_data->result() as $data4) {
-$shape[] = array(
-"name"=>$data4->filtername
-);
-}
-foreach($feature_data->result() as $data5) {
-$feature[] = array(
-"name"=>$data5->filtername
-);
-}
+                  foreach($leadtime_data->result() as $data1) {
+                  $leadtime[] = array(
+                  "name"=>$data1->filtername
+                  );
+                  }
+                  foreach($type_data->result() as $data2) {
+                  $type[] = array(
+                  "name"=>$data2->filtername
+                  );
+                  }
+                  foreach($seating_data->result() as $data3) {
+                  $seating[] = array(
+                  "name"=>$data3->filtername
+                  );
+                  }
+                  foreach($shape_data->result() as $data4) {
+                  $shape[] = array(
+                  "name"=>$data4->filtername
+                  );
+                  }
+                  foreach($feature_data->result() as $data5) {
+                  $feature[] = array(
+                  "name"=>$data5->filtername
+                  );
+                  }
 
-$response = array(
-"leadtime"=>$leadtime,
-"type"=>$type,
-"seating"=>$seating,
-"shape"=>$shape,
-"feature"=>$feature
-);
-
-
-header('Access-Control-Allow-Origin: *');
-
-$res = array('message'=>'success',
-'status'=>200,
-'data'=>$response,
-);
-
-echo json_encode($res);
+                  $response = array(
+                  "leadtime"=>$leadtime,
+                  "type"=>$type,
+                  "seating"=>$seating,
+                  "shape"=>$shape,
+                  "feature"=>$feature
+                  );
 
 
+                  header('Access-Control-Allow-Origin: *');
 
-}
+                  $res = array('message'=>'success',
+                  'status'=>200,
+                  'data'=>$response,
+                  );
+
+                  echo json_encode($res);
+
+
+//-------------------state api--------------------
+                  }
+      public function all_state_get(){
+
+                                   $this->db->select('*');
+                       $this->db->from('all_states');
+                       //$this->db->where('id',$usr);
+                       $data= $this->db->get();
+                       if(!empty($data)){
+                        $address=[];
+                       foreach($data->result() as $value){
+                         $address[]=array(
+                           'state_id'=>$value->id,
+                           'state'=>$value->state_name,
+                         );
+                       }
+
+                       header('Access-Control-Allow-Origin: *');
+
+                       $res = array('message'=>'success',
+                       'status'=>200,
+                       'data'=>$address,
+                       );
+
+                       echo json_encode($res);
+                  }else{
+
+                                           header('Access-Control-Allow-Origin: *');
+
+                                           $res = array('message'=>'some error occured',
+                                           'status'=>201,
+
+                                           );
+
+                                           echo json_encode($res);
+                  }
+                }
+    //-------------------------------------------------
+
+  //-----------------get_product_id using category_id--------------
+
+  public function get_all_products_category(){
+
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+
+
+  // print_r($this->input->post());
+  // exit;
+  $this->form_validation->set_rules('category_id', 'category_id', 'required|xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+                                        $category_id=$this->input->post('category_id');
+
+
+                                        $this->db->select('*');
+                                        $this->db->from('tbl_products');
+                                        $this->db->where('category',$category_id);
+                                        $product_data= $this->db->get();
+
+                                        // print_r($product_data);
+                                        // exit;
+
+                                        $product_check=$product_data->row();
+
+
+                  if(!empty($product_check)){
+
+                                        $product_data1 = [];
+
+                      foreach($product_data->result() as $data) {
+
+                                        $this->db->select('*');
+                                        $this->db->from('tbl_type');
+                                        $this->db->where('product_id',$data->id);
+                                        $type_info= $this->db->get();
+
+                                        $type_check=$type_info->row();
+
+                                        if(!empty($type_check)){
+                                                  $type_data= [];
+                                                  foreach($type_info->result() as $data1) {
+
+                                                  $type_data[] = array(
+
+                                                  'type_id'=>$data1->id,
+                                                  'type_name'=>$data1->name,
+                                                  'type_price'=>$data1->gstprice,
+
+                                                  );
+                                                  }
+                                                $product_data1[]= array(
+                                                'product_id'=>$data->id,
+                                                'product_name'=>$data->productname,
+                                                'description'=>$data->productdescription,
+                                                'image'=>base_url().$data->image,
+                                                'type'=>$type_data,
+                                                );
+
+
+                                        }else{
+                                          header('Access-Control-Allow-Origin: *');
+                                          $res = array('message'=>'type not exist',
+                                          'status'=>201
+                                          );
+
+                                          echo json_encode($res);
+
+                                        }
+                              }
+
+                                        header('Access-Control-Allow-Origin: *');
+                                        $res = array('message'=>'success',
+                                        'status'=>200,
+                                        'data'=>$product_data1
+                                        );
+
+                                        echo json_encode($res);
+                            }else{
+                              header('Access-Control-Allow-Origin: *');
+                              $res = array('message'=>'category_id not exist.',
+                              'status'=>201
+                              );
+
+                              echo json_encode($res);
+                            }
+
+
+  }
+  else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>validation_errors(),
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+  }
+
+  }
+  else{
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"Please insert some data, No data available",
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+  }
+  }
+
 
 }

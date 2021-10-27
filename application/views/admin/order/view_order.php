@@ -174,6 +174,8 @@
 
                             <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_product_status/<?php echo
                             base64_encode($data->id) ?>">view product</a></li>
+                            <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_order_bill/<?php echo
+                            base64_encode($data->id) ?>">view bill</a></li>
 
 
 

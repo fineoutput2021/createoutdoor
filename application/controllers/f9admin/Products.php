@@ -493,7 +493,12 @@ if(!empty($nnnn5)){
                           // echo $this->session->userdata('image');
                           // echo $this->session->userdata('position');
                           // exit;
+
+
                           $id=base64_decode($idd);
+                            echo $t;
+                            echo $id;
+                            exit;
 
                           if($t=="active"){
 

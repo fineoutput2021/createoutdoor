@@ -12,7 +12,7 @@
                                   		<section class="content">
                                   		<div class="row">
                                          <div class="col-lg-12">
-                                  				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>admin/home/add_team" role="button" style="margin-bottom:12px;"> Add customorder</a>
+                                  				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/customorder/add_customorder" role="button" style="margin-bottom:12px;"> Add customorder</a>
                                                           <div class="panel panel-default">
                                                               <div class="panel-heading">
                                                                   <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View customorder</h3>
@@ -47,9 +47,7 @@
                                                                               <th>Email</th>
                                                                               <th>Message</th>
                                                                               <th>image1</th>
-                                                                              <th>image2</th>
-                                                                              <th>image3</th>
-                                                                              <th>image4</th>
+
                                                                               <th>Status</th>
                                                                               <th>Action</th>
                                                                                 </tr>
@@ -70,27 +68,7 @@
                                                         Sorry No image Found
                                                         <?php } ?>
                                                           </td>
-                                                        <td>
-                                                            <?php if($data->image2!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image2 ?>" >
-                                                        <?php }else {  ?>
-                                                        Sorry No image Found
-                                                        <?php } ?>
-                                                          </td>
-                                                        <td>
-                                                            <?php if($data->image3!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image3 ?>" >
-                                                        <?php }else {  ?>
-                                                        Sorry No image Found
-                                                        <?php } ?>
-                                                          </td>
-                                                        <td>
-                                                            <?php if($data->image4!=""){  ?>
-                                      <img id="slide_img_path" height=50 width=100  src="<?php echo base_url().$data->image4 ?>" >
-                                                        <?php }else {  ?>
-                                                        Sorry No image Found
-                                                        <?php } ?>
-                                                          </td>
+
                                                           <td><?php if($data->is_active==1){ ?>
           													<p class="label bg-green" >Active</p>
 
@@ -107,14 +85,13 @@
 												  <ul class="dropdown-menu" role="menu">
 
 													<?php if($data->is_active==1){ ?>
-													<li><a href="<?php echo base_url() ?>admin/home/updateteamStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
+													<li><a href="<?php echo base_url() ?>dcadmin/customorder/updatecustomorderStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
 													<?php } else { ?>
-													<li><a href="<?php echo base_url() ?>admin/course/updateteamStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
+													<li><a href="<?php echo base_url() ?>dcadmin/customorder/updatecustomorderStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
 													<?php		}   ?>
 
 
-<li><a href="<?php echo base_url() ?>dcadmin/Customorder/update_customorder/<?php echo base64_encode($data->id) ?>">Edit</a></li>
-<li><a href="new_pdf.pdf">view brochers</a></li>
+                      <li><a href="<?php echo base_url() ?>dcadmin/Customorder/update_customorder/<?php echo base64_encode($data->id) ?>">Edit</a></li>
 
 													<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
 
