@@ -314,6 +314,12 @@ if(!empty($product_check)){
 $product_data1 = [];
 
 foreach($product_data->result() as $data) {
+  $this->db->select('*');
+              $this->db->from('tbl_subcategory');
+              $this->db->where('id',$subcategory_id);
+              $get_name= $this->db->get()->row();
+
+
 
 $this->db->select('*');
 $this->db->from('tbl_type');
@@ -349,7 +355,8 @@ $product_data1[]= array(
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
-'data'=>$product_data1
+'data'=>$product_data1,
+'subcategory'=>$get_name->subcategory
 );
 
 echo json_encode($res);
@@ -2291,6 +2298,7 @@ $this->db->where('subcategory',$product_data->subcategory);
 $related_data= $this->db->get();
 
 $related_info = [];
+$type = [];
 foreach($related_data->result() as $data) {
 
 if($data->id!=$id){
@@ -2300,15 +2308,16 @@ $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
 $type_data= $this->db->get();
 $type_check= $type_data->row();
-$type = [];
+
 if(!empty($type_check)){
 foreach($type_data->result() as $data1) {
 
 
-$type= array(
+$type[]= array(
 'type_id'=>$data1->id,
 'type_name'=>$data1->name,
-'Price'=>$data1->spgst
+'Price'=>$data1->spgst,
+'mrp'=>$data1->mrp
 );
 
 
@@ -3861,6 +3870,8 @@ public function filter(){
   $this->form_validation->set_rules('shape_id', 'shape_id', 'xss_clean|trim');
   $this->form_validation->set_rules('feature_id', 'feature_id', 'xss_clean|trim');
 
+
+
   if($this->form_validation->run()== TRUE)
   {
 
@@ -3869,6 +3880,8 @@ public function filter(){
     $seating_id=$this->input->post('seating_id');
     $shape_id=$this->input->post('shape_id');
     $feature_id=$this->input->post('feature_id');
+  
+
 
 
             $this->db->select('*');
@@ -4448,9 +4461,18 @@ public function forget_password(){
 
                   if(!empty($product_check)){
 
+
+
                                         $product_data1 = [];
 
                       foreach($product_data->result() as $data) {
+
+                        $this->db->select('*');
+                                    $this->db->from('tbl_category');
+                                    $this->db->where('id',$category_id);
+                                    $get_name= $this->db->get()->row();
+
+
 
                                         $this->db->select('*');
                                         $this->db->from('tbl_type');
@@ -4494,7 +4516,8 @@ public function forget_password(){
                                         header('Access-Control-Allow-Origin: *');
                                         $res = array('message'=>'success',
                                         'status'=>200,
-                                        'data'=>$product_data1
+                                        'data'=>$product_data1,
+                                        'category'=>$get_name->title
                                         );
 
                                         echo json_encode($res);
