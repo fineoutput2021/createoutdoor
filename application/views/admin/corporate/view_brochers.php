@@ -12,7 +12,7 @@
           <section class="content">
           <div class="row">
              <div class="col-lg-12">
-                 <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Customorder/add_brochers" role="button" style="margin-bottom:12px;"> Add Brochers</a>
+                 <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/corporate/add_brochers" role="button" style="margin-bottom:12px;"> Add Brochers</a>
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Brochers</h3>
@@ -43,6 +43,7 @@
                                                   <th>#</th>
                                                   <th>Title</th>
                                                   <th>File</th>
+                                                  <th>Image</th>
 
                                                   <th>Action</th>
                                                     </tr>
@@ -62,12 +63,26 @@
                             Sorry No file Found
                             <?php } ?>
                               </td>
+                              <td>
+                              <?php if($data->image!=""){ ?>
+                              <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
+                              ?>" >
+                              <?php }else { ?>
+                              Sorry No File Found
+                              <?php } ?>
+                              </td>
+
 
                     <td>
 <div class="btn-group" id="btns<?php echo $i ?>">
 <div class="btn-group">
 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Action <span class="caret"></span></button>
 <ul class="dropdown-menu" role="menu">
+
+
+  <li><a href="<?php echo base_url() ?>dcadmin/corporate/update_brochers/<?php echo
+  base64_encode($data->id) ?>">Edit</a></li>
+
 
 <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
 </ul>

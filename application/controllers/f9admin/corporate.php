@@ -379,7 +379,7 @@ $data['detail_corporate']= $this->db->get();
                                                            // echo $this->session->userdata('position');
                                                            // exit;
                                                            $this->db->select('*');
-                                                                       $this->db->from('tbl_brochers');
+                                                                       $this->db->from('tbl_corporate_brochers');
                                                                        //$this->db->where('_id',$id);
                                                                        $data['view_brochers']= $this->db->get();
 
@@ -409,7 +409,7 @@ $data['detail_corporate']= $this->db->get();
 
 
                                                          $this->load->view('admin/common/header_view',$data);
-                                                         $this->load->view('admin/customorder/add_brochers');
+                                                         $this->load->view('admin/corporate/add_brochers');
                                                          $this->load->view('admin/common/footer_view');
 
                                                      }
@@ -479,6 +479,45 @@ $data['detail_corporate']= $this->db->get();
                                   						}
                                             }
 
+                                            $img2='fileToUpload2';
+
+                                                        $file_check2=($_FILES['fileToUpload2']['error']);
+                                                        if($file_check2!=4){
+                                                      	$image_upload_folder2 = FCPATH . "assets/uploads/corporate_brochers_image/";
+                                              						if (!file_exists($image_upload_folder2))
+                                              						{
+                                              							mkdir($image_upload_folder2, DIR_WRITE_MODE, true);
+                                              						}
+                                              						$new_file_name2="corporate_brochers_image".date("Ymdhms");
+                                              						$this->upload_config = array(
+                                              								'upload_path'   => $image_upload_folder2,
+                                              								'file_name' => $new_file_name2,
+                                              								'allowed_types' =>'jpg|jpeg|png',
+                                              								'max_size'      => 25000
+                                              						);
+                                              						$this->upload->initialize($this->upload_config);
+                                              						if (!$this->upload->do_upload($img2))
+                                              						{
+                                              							$upload_error2 = $this->upload->display_errors();
+                                              							// echo json_encode($upload_error);
+                                              							echo $upload_error2;
+                                                            exit;
+                                              						}
+                                              						else
+                                              						{
+
+                                              							$file_info2 = $this->upload->data();
+
+                                              							$videoNAmePath2 = "assets/uploads/corporate_brochers_image/".$new_file_name2.$file_info2['file_ext'];
+                                              							$file_info2['new_name']=$videoNAmePath2;
+                                              							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                                              							//$nnnn=$file_info['file_name'];
+                                                            $nnnn2=$videoNAmePath2;
+                                              							// echo json_encode($file_info);
+                                              						}
+                                                        }
+
+
                                                       $ip = $this->input->ip_address();
                                               date_default_timezone_set("Asia/Calcutta");
                                                       $cur_date=date("Y-m-d H:i:s");
@@ -490,7 +529,7 @@ $data['detail_corporate']= $this->db->get();
 
                                               $data_insert = array('title'=>$title,
                                                       'file'=>$nnnn5,
-
+                                                      'image'=>$nnnn2,
                                                         'ip' =>$ip,
                                                         'added_by' =>$addedby,
                                                         'is_active' =>1,
@@ -502,7 +541,7 @@ $data['detail_corporate']= $this->db->get();
 
 
 
-                                              $last_id=$this->base_model->insert_table("tbl_brochers",$data_insert,1) ;
+                                              $last_id=$this->base_model->insert_table("tbl_corporate_brochers",$data_insert,1) ;
 
                                               }
                                               if($typ==2){
@@ -525,9 +564,32 @@ $data['detail_corporate']= $this->db->get();
                                     //  }
                                     //     }
 
-                                    $data_insert = array('title'=>$title,
-                                            'file'=>$nnnn5
+                                    if(!empty($nnnn5)){
+                                      $n1=$nnnn5;
 
+                                    }else{
+                                      $this->db->select('*');
+                                                  $this->db->from('tbl_corporate_brochers');
+                                                  $this->db->where('id',$idw);
+                                                  $dsa= $this->db->get()->row();
+                                                  $n1=$dsa->file;
+
+                                    }
+                                    if(!empty($nnnn2)){
+                                      $n2=$nnnn2;
+
+                                    }else{
+                                      $this->db->select('*');
+                                                  $this->db->from('tbl_corporate_brochers');
+                                                  $this->db->where('id',$idw);
+                                                  $dsa= $this->db->get()->row();
+                                                  $n2=$dsa->image;
+
+                                    }
+
+                                          $data_insert = array('title'=>$title,
+                                                  'file'=>$n1,
+                                                  'image'=>$n2
 
                                                         );
 
@@ -535,7 +597,7 @@ $data['detail_corporate']= $this->db->get();
 
 
                                                 $this->db->where('id', $idw);
-                                                $last_id=$this->db->update('tbl_brochers', $data_insert);
+                                                $last_id=$this->db->update('tbl_corporate_brochers', $data_insert);
 
                                               }
 
@@ -544,7 +606,7 @@ $data['detail_corporate']= $this->db->get();
 
                                                                   $this->session->set_flashdata('smessage','Data inserted successfully');
 
-                                                                  redirect("dcadmin/customorder/view_brochers","refresh");
+                                                                  redirect("dcadmin/corporate/view_brochers","refresh");
 
                                                                           }
 
@@ -597,7 +659,7 @@ $data['detail_corporate']= $this->db->get();
                                // exit;
              $id=base64_decode($idd);
           $this->db->select('*');
-                      $this->db->from('tbl_brochers');
+                      $this->db->from('tbl_corporate_brochers');
                       $this->db->where('id',$id);
                       $dsa= $this->db->get();
                       $da=$dsa->row();
@@ -635,8 +697,8 @@ $data['detail_corporate']= $this->db->get();
 
                       if($this->load->get_var('position')=="Super Admin"){
 
-                  	$this->db->select('file');
-                    $this->db->from('tbl_brochers');
+                  	$this->db->select('file','image');
+                    $this->db->from('tbl_corporate_brochers');
                     $this->db->where('id',$id);
                     $dsa= $this->db->get();
                     $da=$dsa->row();
@@ -692,6 +754,40 @@ $data['detail_corporate']= $this->db->get();
                            }
 
                            }
+                           public function update_brochers($idd){
+
+                                            if(!empty($this->session->userdata('admin_data'))){
+
+
+                                              $data['user_name']=$this->load->get_var('user_name');
+
+                                              // echo SITE_NAME;
+                                              // echo $this->session->userdata('image');
+                                              // echo $this->session->userdata('position');
+                                              // exit;
+                                               $id=base64_decode($idd);
+                                              $data['id']=$idd;
+                                         $this->db->select('*');
+                                                     $this->db->from('tbl_corporate_brochers');
+                                                     $this->db->where('id',$id);
+                                                     $dsa= $this->db->get();
+                                                     $data['brochers_data']=$dsa->row();
+
+
+
+
+                                              $this->load->view('admin/common/header_view',$data);
+                                              $this->load->view('admin/corporate/update_brochers');
+                                              $this->load->view('admin/common/footer_view');
+
+                                          }
+                                          else{
+
+                                             redirect("login/admin_login","refresh");
+                                          }
+
+                                          }
+
 
 
 

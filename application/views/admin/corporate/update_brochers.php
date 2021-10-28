@@ -1,11 +1,11 @@
 <div class="content-wrapper">
         <section class="content-header">
            <h1>
-          Add New Brochers
+          Add New Update
           </h1>
           <ol class="breadcrumb">
            <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Brochers </a></li>
+            <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Update </a></li>
 
           </ol>
         </section>
@@ -15,7 +15,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Add New Brochers</h3>
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Add New Update</h3>
                             </div>
 
                                     <? if(!empty($this->session->flashdata('smessage'))){ ?>
@@ -36,26 +36,38 @@
 
                             <div class="panel-body">
                                 <div class="col-lg-10">
-                                   <form action="<?php echo base_url() ?>dcadmin/corporate/add_brochers_data/<? echo base64_encode(1); ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                                   <form action="<?php echo base_url() ?>dcadmin/corporate/add_brochers_data/<? echo base64_encode(2); ?>/<?=$id?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
 
                       <tr>
-                                                <td> <strong>Title</strong>  <span style="color:red;">*</span></strong> </td>
+                                                <td> <strong>title</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="title"  class="form-control" placeholder="" required value="" />
+                            <input type="text" name="title"  class="form-control" placeholder=""  value="<?=$brochers_data->title?>" />
                                               </td>
                         </tr>
                       <tr>
                                                 <td> <strong>File Upload</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="file" name="fileToUpload1"  class="form-control" placeholder="" required value="" />
+                          <input type="file" name="fileToUpload1"  class="form-control" placeholder=""  value="<?=$brochers_data->file?>" />
+                          <?php if($brochers_data->file!=""){
+                              echo $brochers_data->file;?>
+
+                          <?php }else { ?>
+                          Sorry No File Found
+                          <?php } ?>
                                               </td>
                         </tr>
                       <tr>
                                                 <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="file" name="fileToUpload2"  class="form-control" placeholder="" required value="" />
+                          <input type="file" name="fileToUpload2"  class="form-control" placeholder=""  value="" />
+                          <?php if($brochers_data->image!=""){ ?>
+                          <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$brochers_data->image
+                          ?>" >
+                          <?php }else { ?>
+                          Sorry No File Found
+                          <?php } ?>
                                               </td>
                         </tr>
                           <tr>
@@ -84,4 +96,4 @@
 
 <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
 <link href="<? echo base_url() ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
-Brochers
+update
