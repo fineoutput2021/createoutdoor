@@ -314,6 +314,12 @@ if(!empty($product_check)){
 $product_data1 = [];
 
 foreach($product_data->result() as $data) {
+  $this->db->select('*');
+              $this->db->from('tbl_subcategory');
+              $this->db->where('id',$subcategory_id);
+              $get_name= $this->db->get()->row();
+
+
 
 $this->db->select('*');
 $this->db->from('tbl_type');
@@ -330,7 +336,8 @@ $type_data[] = array(
 
 'type_id'=>$data1->id,
 'type_name'=>$data1->name,
-'type_price'=>$data1->gstprice,
+'type_mrp'=>$data1->mrp,
+'type_price'=>$data1->spgst,
 
 );
 }
@@ -349,7 +356,8 @@ $product_data1[]= array(
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
-'data'=>$product_data1
+'data'=>$product_data1,
+'subcategory'=>$get_name->subcategory
 );
 
 echo json_encode($res);
@@ -418,7 +426,7 @@ $producttype[]=array(
 'type_id'=>$type->id,
 'type_name'=>$type->name,
 'MRP' =>$type->mrp,
-'Price' =>$type->gstprice,
+'Price' =>$type->spgst,
 );
 
 }
@@ -500,7 +508,7 @@ $producttype[]=array(
 'type_id'=>$type->id,
 'type_name'=>$type->name,
 'MRP' =>$type->mrp,
-'Price' =>$type->gstprice,
+'Price' =>$type->spgst,
 
 );
 
@@ -2068,6 +2076,7 @@ $this->db->select('*');
 $this->db->from('tbl_order1');
 $this->db->where('user_id',$user_data->id);
 $this->db->where('payment_status',1);
+$this->db->or_where('order_status',5);
 $data= $this->db->get();
 
 $viewcart=[];
@@ -2291,6 +2300,7 @@ $this->db->where('subcategory',$product_data->subcategory);
 $related_data= $this->db->get();
 
 $related_info = [];
+$type = [];
 foreach($related_data->result() as $data) {
 
 if($data->id!=$id){
@@ -2300,15 +2310,16 @@ $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
 $type_data= $this->db->get();
 $type_check= $type_data->row();
-$type = [];
+
 if(!empty($type_check)){
 foreach($type_data->result() as $data1) {
 
 
-$type= array(
+$type[]= array(
 'type_id'=>$data1->id,
 'type_name'=>$data1->name,
-'Price'=>$data1->spgst
+'MRP'=>$data1->mrp,
+'Price'=>$data1->spgst,
 );
 
 
@@ -3861,6 +3872,8 @@ public function filter(){
   $this->form_validation->set_rules('shape_id', 'shape_id', 'xss_clean|trim');
   $this->form_validation->set_rules('feature_id', 'feature_id', 'xss_clean|trim');
 
+
+
   if($this->form_validation->run()== TRUE)
   {
 
@@ -3870,14 +3883,31 @@ public function filter(){
     $shape_id=$this->input->post('shape_id');
     $feature_id=$this->input->post('feature_id');
 
+$leadtime_info = explode(',',$leadtime_id);
+$furniture_type_info = explode(',',$furniture_type_id);
+$seating_info = explode(',',$seating_id);
+$shape_info = explode(',',$shape_id);
+$feature_info = explode(',',$feature_id);
+
+
 
             $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('leadtime_id',$leadtime_id);
-$this->db->or_where('furniture_type_id',$furniture_type_id);
-$this->db->or_where('seating_id',$seating_id);
-$this->db->or_where('shape_id',$shape_id);
-$this->db->or_where('feature_id',$feature_id);
+foreach($leadtime_info as $data) {
+$this->db->or_where('leadtime_id',$data);
+}
+foreach($furniture_type_info as $data1) {
+$this->db->or_where('furniture_type_id',$data1);
+}
+foreach($seating_info as $data2) {
+$this->db->or_where('seating_id',$data2);
+}
+foreach($shape_info as $data3) {
+$this->db->or_where('shape_id',$data3);
+}
+foreach($feature_info as $data4) {
+$this->db->or_where('feature_id',$data4);
+}
 $filter_data= $this->db->get();
 $filter_check = $filter_data->row();
 $filter_info = [];
@@ -4166,6 +4196,16 @@ else{
 
 }
 
+function random_strings($length_of_string)
+{
+
+// String of all alphanumeric character
+$str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+// Shufle the $str_result and returns substring
+// of specified length
+return substr(str_shuffle($str_result), 0, $length_of_string);
+}
 
 
 ///----forget_password-----
@@ -4178,83 +4218,88 @@ public function forget_password(){
             {
 
             $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
-            $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
             $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 
             if($this->form_validation->run()== TRUE)
             {
 
             $email=$this->input->post('email');
-            $password=$this->input->post('password');
             $token_id=$this->input->post('token_id');
 
             $this->db->select('*');
             $this->db->from('tbl_users');
             $this->db->where('email',$email);
+            $this->db->where('is_active',1);
             $user_data= $this->db->get()->row();
 
             if(!empty($user_data)){
+              $user_id=$user_data->id;
+              $user_name=$user_data->name;
+              $ip = $this->input->ip_address();
+      date_default_timezone_set("Asia/Calcutta");
+              $cur_date=date("Y-m-d H:i:s");
 
-            if($user_data->password==$password){
+              //generate unique string number for txn_id
+
+   $txn_id=  $this->random_strings(6);
+
+   $data_insert = array('user_id'=>$user_id,
+             'txn_id'=>$txn_id,
+             'status'=>0,
+             'ip'=>$ip,
+             'date'=>$cur_date,
+             'added_by'=>""
+             );
+
+   $last_id=$this->base_model->insert_table("tbl_forgot_pass",$data_insert,1) ;
+   $link = base_url()."home/forget_password_reset/".$txn_id;
+  $forgot_password_data = array('user_name'=>$user_name,
+  'link'=>$link
+
+ );
+  //-------email--------
 
 
-                        $this->db->select('*');
-            $this->db->from('tbl_wishlist');
-            $this->db->where('user_id',$user_data->id);
-            $wishlist_data= $this->db->get();
-            $wishlist_check= $wishlist_data->row();
-    $wishlist_info = [];
-  if(!empty($wishlist_check)){
-  foreach($wishlist_data->result() as $data) {
 
-  $this->db->select('*');
-              $this->db->from('tbl_products');
-              $this->db->where('id',$data->product_id);
-              $dsa= $this->db->get();
-              $product_data=$dsa->row();
-  $this->db->select('*');
-              $this->db->from('tbl_type');
-              $this->db->where('id',$data->type_id);
-              $dsa= $this->db->get();
-              $type_data=$dsa->row();
+        $config = Array(
+                     'protocol' => 'ssmtp',
+                     // 'smtp_host' => 'mail.fineoutput.co.in',
+                     'smtp_host' => SMTP_HOST,
+                     'smtp_port' => SMTP_PORT,
+                     // 'smtp_user' => 'info@fineoutput.co.in', // change it to yours
+                     // 'smtp_pass' => 'info@fineoutput2019', // change it to yours
+                     'smtp_user' => USER_NAME, // change it to yours
+                     'smtp_pass' => PASSWORD, // change it to yours
+                     'mailtype' => 'html',
+                     'charset' => 'iso-8859-1',
+                     'wordwrap' => TRUE
+                     );
 
-  $wishlist_info[]=array(
-    'product_id'=>$product_data->id,
-    'product_name'=>$product_data->productname,
-    'product_image'=>base_url().$product_data->image1,
-    'type_id'=>$type_data->id,
-    'type_name'=>$type_data->name,
-    'price'=>$type_data->spgst,
-  );
+                  $to=$email;
 
-  }
-  header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>'success',
-  'status'=>200,
-  'data'=>$wishlist_info,
-  );
 
-  echo json_encode($res);
-  }
-  else{
+                    $message = 	$this->load->view('email/forgetpassword',$forgot_password_data,TRUE);
+                  $this->load->library('email', $config);
+                  $this->email->set_newline("");
+                  // $this->email->from('info@fineoutput.co.in'); // change it to yours
+                  $this->email->from(EMAIL); // change it to yours
+                  $this->email->to($to);// change it to yours
+                  $this->email->subject('Reset Forgot Password');
+                  $this->email->message($message);
+                  if($this->email->send()){
+                  //  echo 'Email sent.';
+                  }else{
+                  // show_error($this->email->print_debugger());
+                  }
 
-    header('Access-Control-Allow-Origin: *');
-    $res = array('message'=>'Wishlist is empty',
-    'status'=>201
-    );
 
-    echo json_encode($res);
+                  header('Access-Control-Allow-Origin: *');
+                  $res = array('message'=>'success',
+                  'status'=>200
+                  );
 
-  }
+                  echo json_encode($res);
 
-          }else{
-                header('Access-Control-Allow-Origin: *');
-                $res = array('message'=>'Wrong Password',
-                'status'=>201
-                );
-
-                echo json_encode($res);
-                }
                 }else{
                 header('Access-Control-Allow-Origin: *');
                 $res = array('message'=>'user not found',
@@ -4292,6 +4337,98 @@ public function forget_password(){
 
 
 
+
+}
+
+//---forget-password-reset-----
+public function forget_password_reset($t){
+
+	$id=$t;
+	$this->db->select('*');
+	$this->db->from('tbl_forgot_pass');
+	$this->db->where('txn_id',$id);
+	$u1= $this->db->get()->row();
+	$st=$u1->status;
+
+	if($st==0){
+		$data_update = array('status'=>1);
+		$this->db->where('status', $u1->status);
+		$zapak=$this->db->update('tbl_forgot_pass', $data_update);
+$data['auth']=$id;
+
+		$this->load->view('common/header',$data);
+		$this->load->view('frontend/reset_password');
+		$this->load->view('common/footer',$data);
+
+
+
+	}else{
+
+		echo "Link already used";
+	}
+
+
+
+}
+
+public function update_password($t){
+
+$txn_id=$t;
+
+			      			$this->db->select('*');
+									$this->db->from('tbl_forgot_pass');
+									$this->db->where('txn_id',$txn_id);
+									$u2= $this->db->get()->row();
+									$ui=$u2->user_id;
+									$data['auth']=$txn_id;
+			$this->load->helper( array( 'form', 'url' ) );
+			$this->load->library( 'form_validation' );
+			$this->load->helper( 'security' );
+			if ( $this->input->post() ) {
+
+					$this->form_validation->set_rules( 'reset_password', 'reset_password', 'required|xss_clean|trim' );
+
+					if ( $this->form_validation->run() == TRUE ) {
+
+							$reset_password = $this->input->post( 'reset_password' );
+
+							$this->db->select('*');
+							$this->db->from('tbl_users');
+							$this->db->where('id',$ui);
+							$user= $this->db->get()->row();
+							$rs=md5($reset_password);
+							$data_update = array('password'=>$rs);
+
+							                                    $this->db->where('password', $user->password);
+							                    								$zapak=$this->db->update('tbl_users', $data_update);
+
+							                                        if($zapak!=0){
+																												$this->session->set_flashdata('smessage','Password successfully reset');
+																												redirect("home/login","refresh");
+
+							                                                }
+
+
+
+						}else{
+
+							$this->load->view('common/header',$data);
+							$this->load->view('frontend/reset_password');
+							$this->load->view('common/footer',$data);
+
+
+								}
+
+								}
+							else{
+
+
+								$this->load->view('common/header',$data);
+								$this->load->view('frontend/reset_password');
+								$this->load->view('common/footer',$data);
+
+
+							}
 
 }
 
@@ -4448,9 +4585,18 @@ public function forget_password(){
 
                   if(!empty($product_check)){
 
+
+
                                         $product_data1 = [];
 
                       foreach($product_data->result() as $data) {
+
+                        $this->db->select('*');
+                                    $this->db->from('tbl_category');
+                                    $this->db->where('id',$category_id);
+                                    $get_name= $this->db->get()->row();
+
+
 
                                         $this->db->select('*');
                                         $this->db->from('tbl_type');
@@ -4467,7 +4613,8 @@ public function forget_password(){
 
                                                   'type_id'=>$data1->id,
                                                   'type_name'=>$data1->name,
-                                                  'type_price'=>$data1->gstprice,
+                                                  'type_mrp'=>$data1->mrp,
+                                                  'type_price'=>$data1->spgst,
 
                                                   );
                                                   }
@@ -4480,21 +4627,14 @@ public function forget_password(){
                                                 );
 
 
-                                        }else{
-                                          header('Access-Control-Allow-Origin: *');
-                                          $res = array('message'=>'type not exist',
-                                          'status'=>201
-                                          );
-
-                                          echo json_encode($res);
-
                                         }
                               }
 
                                         header('Access-Control-Allow-Origin: *');
                                         $res = array('message'=>'success',
                                         'status'=>200,
-                                        'data'=>$product_data1
+                                        'data'=>$product_data1,
+                                        'category'=>$get_name->title
                                         );
 
                                         echo json_encode($res);
@@ -4530,6 +4670,59 @@ public function forget_password(){
   echo json_encode($res);
 
   }
+  }
+
+
+public function custom_brochers(){
+
+            $this->db->select('*');
+$this->db->from('tbl_custom_brochers');
+$this->db->where('is_active',1);
+$brocher_data= $this->db->get();
+$brosher_info = [];
+foreach($brocher_data->result() as $data) {
+$brosher_info[] = array(
+  "id"=>$data->id,
+  "title"=>$data->title,
+  "file"=>base_url().$data->file,
+  "image"=>base_url().$data->image,
+);
+}
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"success",
+  'status'=>200,
+  'data'=>$brosher_info,
+  );
+
+  echo json_encode($res);
+
+  }
+
+public function corporate_brochers(){
+
+            $this->db->select('*');
+$this->db->from('tbl_corporate_brochers');
+$this->db->where('is_active',1);
+$brocher_data= $this->db->get();
+$brosher_info = [];
+foreach($brocher_data->result() as $data) {
+$brosher_info[] = array(
+  "id"=>$data->id,
+  "title"=>$data->title,
+  "file"=>base_url().$data->file,
+  "image"=>base_url().$data->image,
+);
+}
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"success",
+  'status'=>200,
+  'data'=>$brosher_info,
+  );
+
+  echo json_encode($res);
+
   }
 
 
