@@ -704,7 +704,7 @@ $data['detail_corporate']= $this->db->get();
                     $da=$dsa->row();
                     $img=$da->file;
 
-                                       									 $zapak=$this->db->delete('tbl_brochers', array('id' => $id));
+                                       									 $zapak=$this->db->delete('tbl_corporate_brochers', array('id' => $id));
                                        									 if($zapak!=0){
                                  $path = FCPATH . $img;
                                        										 unlink($path);

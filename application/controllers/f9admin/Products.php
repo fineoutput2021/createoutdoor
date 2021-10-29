@@ -54,6 +54,11 @@ $this->db->from('tbl_subcategory');
 //$this->db->where('id',$usr);
 $data['subcategory_data']= $this->db->get();
 
+            $this->db->select('*');
+$this->db->from('tbl_leadtime');
+//$this->db->where('id',$usr);
+$data['']= $this->db->get();
+
 
                    $this->load->view('admin/common/header_view',$data);
                    $this->load->view('admin/products/add_products');

@@ -99,6 +99,13 @@
 <td> <strong>Model no.</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="modelno"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
+  <tr>
+<td> <strong>Lead Time</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="" name="leadtime">
+  <option value=""><?php $?></option>
+
+</select>  </td>
+</tr>
 
 
                                  <tr>
