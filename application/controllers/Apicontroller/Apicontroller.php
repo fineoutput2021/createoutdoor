@@ -3550,7 +3550,7 @@ $this->db->select('*');
         if(!empty($type_data)){
         $ty_id=  $type_data->id;
         $ty_name=  $type_data->name;
-        $ty_mrp=  $type_data->name;
+        $ty_mrp=  $type_data->mrp;
         $ty_price=$type_data->spgst;
 
                      $search_data[]=array(
