@@ -3550,7 +3550,8 @@ $this->db->select('*');
         if(!empty($type_data)){
         $ty_id=  $type_data->id;
         $ty_name=  $type_data->name;
-        $ty_price=$type_data->gstprice;
+        $ty_mrp=  $type_data->name;
+        $ty_price=$type_data->spgst;
 
                      $search_data[]=array(
                        'product_id'=>$data->id,
@@ -3559,6 +3560,7 @@ $this->db->select('*');
                        'productdescription'=>$data->productdescription,
                        'type_id'=>$ty_id,
                        'type_name'=>$ty_name,
+                       'type_mrp'=>$ty_mrp,
                        'Price'=>$ty_price
 
 
@@ -4126,6 +4128,7 @@ $wishlist_info[]=array(
   'product_image'=>base_url().$product_data->image1,
   'type_id'=>$type_data->id,
   'type_name'=>$type_data->name,
+  'type_mrp'=>$type_data->mrp,
   'price'=>$type_data->spgst,
 );
 
