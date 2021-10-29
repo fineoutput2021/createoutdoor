@@ -53,12 +53,35 @@ $data['category_data']= $this->db->get();
 $this->db->from('tbl_subcategory');
 //$this->db->where('id',$usr);
 $data['subcategory_data']= $this->db->get();
+//filter
 
             $this->db->select('*');
 $this->db->from('tbl_leadtime');
 //$this->db->where('id',$usr);
-$data['']= $this->db->get();
+$data['leadtime_data']= $this->db->get();
+//filter
 
+            $this->db->select('*');
+$this->db->from('tbl_seating');
+//$this->db->where('id',$usr);
+$data['seating_data']= $this->db->get();
+//filter
+
+            $this->db->select('*');
+$this->db->from('tbl_tableshape');
+//$this->db->where('id',$usr);
+$data['shape_data']= $this->db->get();
+//filter
+            $this->db->select('*');
+$this->db->from('tbl_furnituretype');
+//$this->db->where('id',$usr);
+$data['furniture_type']= $this->db->get();
+// filter
+
+            $this->db->select('*');
+$this->db->from('tbl_table_feature');
+//$this->db->where('id',$usr);
+$data['feature_data']= $this->db->get();
 
                    $this->load->view('admin/common/header_view',$data);
                    $this->load->view('admin/products/add_products');
@@ -131,6 +154,37 @@ echo json_encode($igt);
                                         //$this->db->where('id',$id);
                                         $data['subcategory_data']= $this->db->get();
 
+
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_leadtime');
+                                        //$this->db->where('id',$usr);
+                                        $data['leadtime_data']= $this->db->get();
+                                        //filter
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_seating');
+                                        //$this->db->where('id',$usr);
+                                        $data['seating_data']= $this->db->get();
+                                        //filter
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_tableshape');
+                                        //$this->db->where('id',$usr);
+                                        $data['shape_data']= $this->db->get();
+                                        //filter
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_furnituretype');
+                                        //$this->db->where('id',$usr);
+                                        $data['furniture_type']= $this->db->get();
+                                        // filter
+
+                                                    $this->db->select('*');
+                                        $this->db->from('tbl_table_feature');
+                                        //$this->db->where('id',$usr);
+                                        $data['feature_data']= $this->db->get();
+
+
                      $this->load->view('admin/common/header_view',$data);
                      $this->load->view('admin/products/update_products');
                      $this->load->view('admin/common/footer_view');
@@ -162,6 +216,12 @@ echo json_encode($igt);
   $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
   $this->form_validation->set_rules('mrp', 'mrp', 'integer|required');
   $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
+  $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
+  $this->form_validation->set_rules('seating', 'seating', 'required');
+  $this->form_validation->set_rules('shape', 'shape', 'required');
+  $this->form_validation->set_rules('furniture', 'furniture', 'required');
+  $this->form_validation->set_rules('feature', 'feature', 'required');
+
   // $this->form_validation->set_rules('inventory', 'inventory', 'integer|required');
 
    $this->form_validation->set_rules('modelno', 'modelno', 'integer|required');
@@ -177,6 +237,12 @@ echo json_encode($igt);
   $subcategory=$this->input->post('sub_category');
   $mrp=$this->input->post('mrp');
   $productdescription=$this->input->post('productdescription');
+  $leadtime=$this->input->post('leadtime');
+  $seating=$this->input->post('seating');
+  $shape=$this->input->post('shape');
+  $furniture=$this->input->post('furniture');
+  $feature=$this->input->post('feature');
+
    $modelno=$this->input->post('modelno');
 
                    $ip = $this->input->ip_address();
@@ -376,6 +442,11 @@ $img5='image3';
   'image3'=>$nnnn5,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
+  'leadtime_id'=>$leadtime,
+  'furniture_type_id'=>$furniture,
+  'seating_id'=>$seating,
+  'shape_id'=>$shape,
+  'feature_id'=>$feature,
 
 
   'modelno'=>$modelno,
@@ -446,6 +517,11 @@ if(!empty($nnnn5)){
   'image3'=>$n4,
   'mrp'=>$mrp,
   'productdescription'=>$productdescription,
+  'leadtime_id'=>$leadtime,
+  'furniture_type_id'=>$furniture,
+  'seating_id'=>$seating,
+  'shape_id'=>$shape,
+  'feature_id'=>$feature,
   'modelno'=>$modelno,
 
                      );

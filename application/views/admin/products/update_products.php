@@ -140,6 +140,55 @@ Sorry No File Found
 <td> <input type="text" name="modelno"  class="form-control" placeholder=""  value="<?=$products_data->	modelno?>" />  </td>
 </tr>
 
+<tr>
+<td> <strong>Lead Time</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="leadtime">
+<!-- <option value="" selected>Select</option> -->
+<?php foreach($leadtime_data->result() as $lead){ ?>
+<option value="<?=$lead->id?>"  <?php if($products_data->leadtime_id == $lead->id){ echo "selected"; } ?>><?php echo $lead->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+
+<tr>
+<td> <strong>Seating</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="seating">
+
+<?php foreach($seating_data->result() as $seating){ ?>
+<option value="<?=$seating->id?>" <?php if($products_data->seating_id == $seating->id){ echo "selected"; } ?>><?php echo $seating->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+<tr>
+<td> <strong>Shape</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="shape">
+
+<?php foreach($shape_data->result() as $shape){ ?>
+<option value="<?=$shape->id?>" <?php if($products_data->shape_id == $shape->id){ echo "selected"; } ?>><?php echo $shape->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+
+<tr>
+<td> <strong>Furniture Type</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="furniture">
+
+<?php foreach($furniture_type->result() as $furniture){ ?>
+<option value="<?=$furniture->id?>" <?php if($products_data->furniture_type_id == $furniture->id){ echo "selected"; } ?>><?php echo $furniture->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+<tr>
+<td> <strong>Feature</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="feature">
+
+<?php foreach($feature_data->result() as $feature){ ?>
+<option value="<?=$feature->id?>" <?php if($products_data->feature_id == $feature->id){ echo "selected"; } ?>><?php echo $feature->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+
+
 
 <tr>
 <td colspan="2" >

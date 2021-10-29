@@ -101,11 +101,52 @@
 </tr>
   <tr>
 <td> <strong>Lead Time</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <select class="" name="leadtime">
-  <option value=""><?php $?></option>
-
+<td> <select class="form-control" name="leadtime">
+  <option value="" selected>Select</option>
+  <?php foreach($leadtime_data->result() as $lead){ ?>
+  <option value="<?=$lead->id?>"><?php echo $lead->filtername?></option>
+<? } ?>
 </select>  </td>
 </tr>
+
+<tr>
+<td> <strong>Seating</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="seating">
+  <option value="" selected>Select</option>
+<?php foreach($seating_data->result() as $seating){ ?>
+<option value="<?=$seating->id?>"><?php echo $seating->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+<tr>
+<td> <strong>Shape</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="shape">
+  <option value="" selected>Select</option>
+<?php foreach($shape_data->result() as $shape){ ?>
+<option value="<?=$shape->id?>"><?php echo $shape->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+
+<tr>
+<td> <strong>Furniture Type</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="furniture">
+  <option value="" selected>Select</option>
+<?php foreach($furniture_type->result() as $furniture){ ?>
+<option value="<?=$furniture->id?>"><?php echo $furniture->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+<tr>
+<td> <strong>Feature</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <select class="form-control" name="feature">
+  <option value="" selected>Select</option>
+<?php foreach($feature_data->result() as $feature){ ?>
+<option value="<?=$feature->id?>"><?php echo $feature->filtername?></option>
+<? } ?>
+</select>  </td>
+</tr>
+
 
 
                                  <tr>
