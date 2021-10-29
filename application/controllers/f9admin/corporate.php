@@ -379,7 +379,7 @@ $data['detail_corporate']= $this->db->get();
                                                            // echo $this->session->userdata('position');
                                                            // exit;
                                                            $this->db->select('*');
-                                                                       $this->db->from('tbl_corporate_brochers');
+                                                                        $this->db->from('tbl_corporate_brochers');
                                                                        //$this->db->where('_id',$id);
                                                                        $data['view_brochers']= $this->db->get();
 

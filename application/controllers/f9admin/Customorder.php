@@ -376,7 +376,7 @@ $this->db->select('*');
                                            // echo $this->session->userdata('position');
                                            // exit;
                                            $this->db->select('*');
-                                                       $this->db->from('tbl_customorder_brochers');
+                                                       $this->db->from('tbl_custom_brochers');
                                                        //$this->db->where('_id',$id);
                                                        $data['view_brochers']= $this->db->get();
 
@@ -537,7 +537,7 @@ $this->db->select('*');
 
 
 
-                              $last_id=$this->base_model->insert_table("tbl_customorder_brochers",$data_insert,1) ;
+                              $last_id=$this->base_model->insert_table("tbl_custom_brochers",$data_insert,1) ;
 
                               }
                               if($typ==2){
@@ -564,7 +564,7 @@ $this->db->select('*');
 
               }else{
                 $this->db->select('*');
-                            $this->db->from('tbl_customorder_brochers');
+                            $this->db->from('tbl_custom_brochers');
                             $this->db->where('id',$idw);
                             $dsa= $this->db->get()->row();
                             $n1=$dsa->file;
@@ -575,7 +575,7 @@ $this->db->select('*');
 
               }else{
                 $this->db->select('*');
-                            $this->db->from('tbl_customorder_brochers');
+                            $this->db->from('tbl_custom_brochers');
                             $this->db->where('id',$idw);
                             $dsa= $this->db->get()->row();
                             $n2=$dsa->image;
@@ -593,7 +593,7 @@ $this->db->select('*');
 
 
                                 $this->db->where('id', $idw);
-                                $last_id=$this->db->update('tbl_customorder_brochers', $data_insert);
+                                $last_id=$this->db->update('tbl_custom_brochers', $data_insert);
 
                               }
 
@@ -654,7 +654,7 @@ $this->db->select('*');
                                                  // exit;
                                $id=base64_decode($idd);
                             $this->db->select('*');
-                                        $this->db->from('tbl_customorder_brochers');
+                                        $this->db->from('tbl_custom_brochers');
                                         $this->db->where('id',$id);
                                         $dsa= $this->db->get();
                                         $da=$dsa->row();
@@ -694,13 +694,13 @@ $this->db->select('*');
                         if($this->load->get_var('position')=="Super Admin"){
 
                     	$this->db->select('file');
-                      $this->db->from('tbl_customorder_brochers');
+                      $this->db->from('tbl_custom_brochers');
                       $this->db->where('id',$id);
                       $dsa= $this->db->get();
                       $da=$dsa->row();
                       $img=$da->file;
 
-                                         									 $zapak=$this->db->delete('tbl_customorder_brochers', array('id' => $id));
+                                         									 $zapak=$this->db->delete('tbl_custom_brochers', array('id' => $id));
                                          									 if($zapak!=0){
                                    $path = FCPATH . $img;
                                          										 unlink($path);
@@ -764,7 +764,7 @@ $this->db->select('*');
                                             $id=base64_decode($idd);
                                            $data['id']=$idd;
                                       $this->db->select('*');
-                                                  $this->db->from('tbl_customorder_brochers');
+                                                  $this->db->from('tbl_custom_brochers');
                                                   $this->db->where('id',$id);
                                                   $dsa= $this->db->get();
                                                   $data['brochers_data']=$dsa->row();

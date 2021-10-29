@@ -9,7 +9,7 @@
             <li class="active">View Brochers</li>
           </ol>
         </section>
-          <section class="content">
+          <section class="content"> 
           <div class="row">
              <div class="col-lg-12">
                  <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/corporate/add_brochers" role="button" style="margin-bottom:12px;"> Add Brochers</a>
