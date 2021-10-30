@@ -364,6 +364,7 @@ $data['detail_corporate']= $this->db->get();
 
                $this->load->view('admin/login/index');
            }
+           
 
            }
 
