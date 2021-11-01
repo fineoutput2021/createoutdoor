@@ -131,7 +131,7 @@
                                                           ?></td>
                                                         <td><?php $status=$data->order_status;
                                                         if( $status==1){
-                                                          $status="Placed";
+                                                          $status="New Order";
                                                         }
                                                         if($status==2){
                                                           $status="Accepted";
@@ -143,7 +143,7 @@
                                                           $status="DELIVERED";
                                                         }
                                                         if($status==5){
-                                                          $status="New order";
+                                                          $status="Cancel order";
 
                                                         }
                                                     echo $status;
@@ -166,6 +166,9 @@
                             <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_order_status/<?php echo
                             base64_encode($data->id) ?>/accept">Accepte order</a></li>
 
+                            <!-- <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_dispatch_status/<?php echo
+                            base64_encode($data->id) ?>/dispatch">Dispatch order</a></li> -->
+
 
 
                               <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_cancel_status/<?php echo
@@ -174,8 +177,8 @@
 
                             <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_product_status/<?php echo
                             base64_encode($data->id) ?>">view product</a></li>
-                            <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_order_bill/<?php echo
-                            base64_encode($data->id) ?>">view bill</a></li>
+                            <!-- <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_order_bill/<?php echo
+                            base64_encode($data->id) ?>">view bill</a></li> -->
 
 
 
