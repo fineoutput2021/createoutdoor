@@ -106,7 +106,6 @@ $products[] = array(
 'mrp'=> $data->mrp,
 'productdescription'=> $data->productdescription,
 'colours'=> $data->colours,
-// 'inventory'=> $data->inventory
 );
 }
 
@@ -2086,6 +2085,8 @@ if($value->payment_type == 1){
 $payment_type="COD";
 }else if($value->payment_type == 2){
   $payment_type="Online Paymnet";
+}else{
+  $payment_type = "";
 }
 
 if($value->order_status==1 || $value->order_status==2){
@@ -3551,7 +3552,8 @@ $this->db->select('*');
         if(!empty($type_data)){
         $ty_id=  $type_data->id;
         $ty_name=  $type_data->name;
-        $ty_price=$type_data->gstprice;
+        $ty_mrp=  $type_data->mrp;
+        $ty_price=$type_data->spgst;
 
                      $search_data[]=array(
                        'product_id'=>$data->id,
@@ -3560,6 +3562,7 @@ $this->db->select('*');
                        'productdescription'=>$data->productdescription,
                        'type_id'=>$ty_id,
                        'type_name'=>$ty_name,
+                       'type_mrp'=>$ty_mrp,
                        'Price'=>$ty_price
 
 
@@ -4127,6 +4130,7 @@ $wishlist_info[]=array(
   'product_image'=>base_url().$product_data->image1,
   'type_id'=>$type_data->id,
   'type_name'=>$type_data->name,
+  'type_mrp'=>$type_data->mrp,
   'price'=>$type_data->spgst,
 );
 
@@ -4241,7 +4245,7 @@ public function forget_password(){
 
               //generate unique string number for txn_id
 
-   $txn_id=  $this->random_strings(6);
+   $txn_id=  $this->random_strings(15);
 
    $data_insert = array('user_id'=>$user_id,
              'txn_id'=>$txn_id,
@@ -4252,7 +4256,7 @@ public function forget_password(){
              );
 
    $last_id=$this->base_model->insert_table("tbl_forgot_pass",$data_insert,1) ;
-   $link = base_url()."home/forget_password_reset/".$txn_id;
+   $link = "http://localhost:3000/reset-password/".$txn_id;
   $forgot_password_data = array('user_name'=>$user_name,
   'link'=>$link
 
@@ -4295,7 +4299,8 @@ public function forget_password(){
 
                   header('Access-Control-Allow-Origin: *');
                   $res = array('message'=>'success',
-                  'status'=>200
+                  'status'=>200,
+                  'data'=> $txn_id
                   );
 
                   echo json_encode($res);
@@ -4341,33 +4346,118 @@ public function forget_password(){
 }
 
 //---forget-password-reset-----
-public function forget_password_reset($t){
+public function forget_password_reset(){
 
-	$id=$t;
+  $this->load->helper(array('form', 'url'));
+  $this->load->library('form_validation');
+  $this->load->helper('security');
+  if($this->input->post())
+  {
+
+  $this->form_validation->set_rules('forget_token', 'forget_token', 'required|xss_clean|trim');
+  $this->form_validation->set_rules( 'reset_password', 'reset_password', 'required|xss_clean|trim' );
+  $this->form_validation->set_rules( 'confirm_password', 'confirm_password', 'required|matches[reset_password]|xss_clean|trim' );
+  $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+
+  if($this->form_validation->run()== TRUE)
+  {
+
+  $forget_token=$this->input->post('forget_token');
+  $reset_password=$this->input->post('reset_password');
+  $token_id=$this->input->post('token_id');
+
 	$this->db->select('*');
 	$this->db->from('tbl_forgot_pass');
-	$this->db->where('txn_id',$id);
+	$this->db->where('txn_id',$forget_token);
 	$u1= $this->db->get()->row();
+
+if(!empty($u1)) {
 	$st=$u1->status;
 
 	if($st==0){
 		$data_update = array('status'=>1);
 		$this->db->where('status', $u1->status);
 		$zapak=$this->db->update('tbl_forgot_pass', $data_update);
-$data['auth']=$id;
 
-		$this->load->view('common/header',$data);
-		$this->load->view('frontend/reset_password');
-		$this->load->view('common/footer',$data);
+if(!empty($zapak)){
+  $rs=md5($reset_password);
+          $data_update = array('password'=>$rs);
 
+                                              $this->db->where('id', $u1->user_id);
+                                              $zapak2=$this->db->update('tbl_users', $data_update);
+
+                                        if(!empty($zapak2)) {
+                                          header('Access-Control-Allow-Origin: *');
+
+                                          $res = array('message'=>'success',
+                                          'status'=>200
+                                          );
+
+                                          echo json_encode($res);
+                                        }else{
+                                          header('Access-Control-Allow-Origin: *');
+
+                                          $res = array('message'=>'Some erroe occcured! please try again',
+                                          'status'=>201
+                                          );
+
+                                          echo json_encode($res);
+                                        }
+}else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>'Some erroe occcured!',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
 
 
 	}else{
 
-		echo "Link already used";
+    header('Access-Control-Allow-Origin: *');
+
+    $res = array('message'=>'Link already used',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+
+	}
+	}else{
+
+    header('Access-Control-Allow-Origin: *');
+
+    $res = array('message'=>'Wrong token',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+
 	}
 
+}else{
+  header('Access-Control-Allow-Origin: *');
 
+  $res = array('message'=>validation_errors(),
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+
+  }
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>'No data are available',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  }
 
 }
 
