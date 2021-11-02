@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class Coupancode extends CI_finecontrol{
+       class Promocode extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
@@ -11,7 +11,7 @@
              $this->load->library('upload');
            }
 
-         public function view_coupancode(){
+         public function view_promocode(){
 
             if(!empty($this->session->userdata('admin_data'))){
 
@@ -24,12 +24,12 @@
               // exit;
 
                            $this->db->select('*');
-               $this->db->from('tbl_coupancode');
+               $this->db->from('tbl_promocode');
                //$this->db->where('id',$usr);
-               $data['coupancode_data']= $this->db->get();
+               $data['promocode_data']= $this->db->get();
 
               $this->load->view('admin/common/header_view',$data);
-              $this->load->view('admin/coupancode/view_coupancode');
+              $this->load->view('admin/promocode/view_promocode');
               $this->load->view('admin/common/footer_view');
 
           }
@@ -40,12 +40,12 @@
 
           }
 
-              public function add_coupancode(){
+              public function add_promocode(){
 
                  if(!empty($this->session->userdata('admin_data'))){
 
                    $this->load->view('admin/common/header_view');
-                   $this->load->view('admin/coupancode/add_coupancode');
+                   $this->load->view('admin/promocode/add_promocode');
                    $this->load->view('admin/common/footer_view');
 
                }
@@ -56,7 +56,7 @@
 
                }
 
-               public function update_coupancode($idd){
+               public function update_promocode($idd){
 
                    if(!empty($this->session->userdata('admin_data'))){
 
@@ -72,13 +72,13 @@
                      $data['id']=$idd;
 
                             $this->db->select('*');
-                            $this->db->from('tbl_coupancode');
+                            $this->db->from('tbl_promocode');
                             $this->db->where('id',$id);
-                            $data['coupancode_data']= $this->db->get()->row();
+                            $data['promocode_data']= $this->db->get()->row();
 
 
                      $this->load->view('admin/common/header_view',$data);
-                     $this->load->view('admin/coupancode/update_coupancode');
+                     $this->load->view('admin/promocode/update_promocode');
                      $this->load->view('admin/common/footer_view');
 
                  }
@@ -89,7 +89,7 @@
 
                  }
 
-             public function add_coupancode_data($t,$iw="")
+             public function add_promocode_data($t,$iw="")
 
                {
 
@@ -103,12 +103,11 @@
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('name', 'name', 'required');
-  $this->form_validation->set_rules('startdate', 'startdate', 'required');
-  $this->form_validation->set_rules('enddate', 'enddate', 'required');
-  $this->form_validation->set_rules('cartamount', 'cartamount', 'integer|required');
-  $this->form_validation->set_rules('percentageoff', 'percentageoff', 'integer|required');
-  $this->form_validation->set_rules('maximumdiscount', 'maximumdiscount', 'integer|required');
+  $this->form_validation->set_rules('promocode', 'promocode', 'required');
+  $this->form_validation->set_rules('ptype', 'ptype', 'required');
+  $this->form_validation->set_rules('giftpercent', 'giftpercent', 'required');
+  $this->form_validation->set_rules('minorder', 'minorder', 'required');
+  $this->form_validation->set_rules('max', 'max', 'required');
 
 
 
@@ -116,12 +115,11 @@
 
                if($this->form_validation->run()== TRUE)
                {
-  $name=$this->input->post('name');
-  $startdate=$this->input->post('startdate');
-  $enddate=$this->input->post('enddate');
-  $cartamount=$this->input->post('cartamount');
-  $percentageoff=$this->input->post('percentageoff');
-  $maximumdiscount=$this->input->post('maximumdiscount');
+  $promocode=$this->input->post('promocode');
+  $ptype=$this->input->post('ptype');
+  $giftpercent=$this->input->post('giftpercent');
+  $minorder=$this->input->post('minorder');
+  $max=$this->input->post('max');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -135,12 +133,11 @@
 
 
            $data_insert = array(
-                  'name'=>$name,
-  'startdate'=>$startdate,
-  'enddate'=>$enddate,
-  'cartamount'=>$cartamount,
-  'percentageoff'=>$percentageoff,
-  'maximumdiscount'=>$maximumdiscount,
+                  'promocode'=>$promocode,
+  'ptype'=>$ptype,
+  'giftpercent'=>$giftpercent,
+  'minorder'=>$minorder,
+  'max'=>$max,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -149,7 +146,7 @@
                      );
 
 
-           $last_id=$this->base_model->insert_table("tbl_coupancode",$data_insert,1) ;
+           $last_id=$this->base_model->insert_table("tbl_promocode",$data_insert,1) ;
 
            }
            if($typ==2){
@@ -158,7 +155,7 @@
 
 
  $this->db->select('*');
- $this->db->from('tbl_coupancode');
+ $this->db->from('tbl_promocode');
  $this->db->where('id',$idw);
  $dsa=$this->db->get();
  $da=$dsa->row();
@@ -168,20 +165,19 @@
 
 
            $data_insert = array(
-                  'name'=>$name,
-  'startdate'=>$startdate,
-  'enddate'=>$enddate,
-  'cartamount'=>$cartamount,
-  'percentageoff'=>$percentageoff,
-  'maximumdiscount'=>$maximumdiscount,
+                  'promocode'=>$promocode,
+  'ptype'=>$ptype,
+  'giftpercent'=>$giftpercent,
+  'minorder'=>$minorder,
+  'max'=>$max,
 
                      );
              $this->db->where('id', $idw);
-             $last_id=$this->db->update('tbl_coupancode', $data_insert);
+             $last_id=$this->db->update('tbl_promocode', $data_insert);
            }
                        if($last_id!=0){
                                $this->session->set_flashdata('smessage','Data inserted successfully');
-                               redirect("dcadmin/coupancode/view_coupancode","refresh");
+                               redirect("dcadmin/promocode/view_promocode","refresh");
                               }
                                else
                                    {
@@ -214,7 +210,7 @@
 
            }
 
-               public function updatecoupancodeStatus($idd,$t){
+               public function updatepromocodeStatus($idd,$t){
 
                         if(!empty($this->session->userdata('admin_data'))){
 
@@ -235,10 +231,10 @@
                         );
 
                         $this->db->where('id', $id);
-                       $zapak=$this->db->update('tbl_coupancode', $data_update);
+                       $zapak=$this->db->update('tbl_promocode', $data_update);
 
                             if($zapak!=0){
-                            redirect("dcadmin/coupancode/view_coupancode","refresh");
+                            redirect("dcadmin/promocode/view_promocode","refresh");
                                     }
                                     else
                                     {
@@ -253,10 +249,10 @@
                          );
 
                          $this->db->where('id', $id);
-                         $zapak=$this->db->update('tbl_coupancode', $data_update);
+                         $zapak=$this->db->update('tbl_promocode', $data_update);
 
                              if($zapak!=0){
-                             redirect("dcadmin/coupancode/view_coupancode","refresh");
+                             redirect("dcadmin/promocode/view_promocode","refresh");
                                      }
                                      else
                                      {
@@ -279,7 +275,7 @@
 
 
 
-               public function delete_coupancode($idd){
+               public function delete_promocode($idd){
 
                       if(!empty($this->session->userdata('admin_data'))){
 
@@ -293,17 +289,11 @@
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('*');
-                     $this->db->from('tbl_coupancode');
-                     $this->db->where('id',$id);
-                     $dsa= $this->db->get();
-                     $da=$dsa->row();
-
-
- $zapak=$this->db->delete('tbl_coupancode', array('id' => $id));
+                    
+ $zapak=$this->db->delete('tbl_promocode', array('id' => $id));
  if($zapak!=0){
 
-        redirect("dcadmin/coupancode/view_coupancode","refresh");
+        redirect("dcadmin/promocode/view_promocode","refresh");
                 }
                 else
                 {

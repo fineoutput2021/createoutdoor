@@ -2,17 +2,17 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Coupancode
+          View Promocode
         </h1>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/coupancode/add_coupancode"
-        role="button" style="margin-bottom:12px;"> Add coupancode</a>
+        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/promocode/add_promocode"
+        role="button" style="margin-bottom:12px;"> Add promocode</a>
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View coupancode</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View promocode</h3>
         </div>
         <div class="panel panel-default">
 
@@ -39,12 +39,11 @@
         <tr>
         <th>#</th>
 
- 	 <th>PromoCodeName </th>
- 	 <th>Start Date</th>
- 	 <th>End Date</th>
- 	 <th>Cart Amount </th>
- 	 <th>Percentage Off </th>
- 	 <th>Maximum Discount </th>
+ 	 <th>Name</th>
+ 	 <th>Promocode Type</th>
+ 	 <th>Gift Percent</th>
+ 	 <th>Min Order</th>
+ 	 <th>Max Order</th>
 
 
         <th>Status</th>
@@ -52,16 +51,15 @@
         </tr>
         </thead>
         <tbody>
-        <?php $i=1; foreach($coupancode_data->result() as $data) { ?>
+        <?php $i=1; foreach($promocode_data->result() as $data) { ?>
         <tr>
         <td><?php echo $i ?> </td>
 
- 	 <td><?php echo $data->name ?></td>
- 	 <td><?php echo $data->startdate ?></td>
- 	 <td><?php echo $data->enddate ?></td>
- 	 <td><?php echo $data->cartamount ?></td>
- 	 <td><?php echo $data->percentageoff ?></td>
- 	 <td><?php echo $data->maximumdiscount ?></td>
+ 	 <td><?php echo $data->promocode ?></td>
+ 	 <td><?php echo $data->ptype ?></td>
+ 	 <td><?php echo $data->giftpercent ?></td>
+ 	 <td><?php echo $data->minorder ?></td>
+ 	 <td><?php echo $data->max ?></td>
 
 
 
@@ -84,13 +82,13 @@
         <ul class="dropdown-menu" role="menu">
 
         <?php if($data->is_active==1){ ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/coupancode/updatecoupancodeStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/promocode/updatepromocodeStatus/<?php echo
         base64_encode($data->id) ?>/inactive">Inactive</a></li>
         <?php } else { ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/coupancode/updatecoupancodeStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/promocode/updatepromocodeStatus/<?php echo
         base64_encode($data->id) ?>/active">Active</a></li>
         <?php } ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/coupancode/update_coupancode/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/promocode/update_promocode/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
@@ -99,7 +97,7 @@
 
         <div style="display:none" id="cnfbox<?php echo $i ?>">
         <p> Are you sure delete this </p>
-        <a href="<?php echo base_url() ?>dcadmin/coupancode/delete_coupancode/<?php echo
+        <a href="<?php echo base_url() ?>dcadmin/promocode/delete_promocode/<?php echo
         base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
         <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
         </div>

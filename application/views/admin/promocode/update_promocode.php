@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 <section class="content-header">
    <h1>
-  Update Coupancode
+  Update Promocode
   </h1>
 
 </section>
@@ -11,7 +11,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Coupancode </h3>
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Promocode </h3>
                     </div>
 
                              <? if(!empty($this->session->flashdata('smessage'))){  ?>
@@ -32,32 +32,28 @@
 
                     <div class="panel-body">
                         <div class="col-lg-10">
-                           <form action=" <?php echo base_url(); ?>dcadmin/coupancode/add_coupancode_data/<? echo base64_encode(2); ?>/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                           <form action=" <?php echo base_url(); ?>dcadmin/promocode/add_promocode_data/<? echo base64_encode(2); ?>/<?=$id;?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                         <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>PromoCodeName </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="name"  class="form-control" placeholder="" required value="<?=$coupancode_data->name;?>" />  </td>
+<td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="promocode"  class="form-control" placeholder="" required value="<?=$promocode_data->promocode;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Start Date</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="date" name="startdate"  class="form-control" placeholder="" required value="<?=$coupancode_data->startdate;?>" />  </td>
+<td> <strong>Promocode Type</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="number" name="ptype"  class="form-control" placeholder="" required value="<?=$promocode_data->ptype;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>End Date</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="date" name="enddate"  class="form-control" placeholder="" required value="<?=$coupancode_data->enddate;?>" />  </td>
+<td> <strong>Gift Percent</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="number" name="giftpercent"  class="form-control" placeholder="" required value="<?=$promocode_data->giftpercent;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Cart Amount </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="cartamount"  class="form-control" placeholder="" required value="<?=$coupancode_data->cartamount;?>" />  </td>
+<td> <strong>Min Order</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="number" name="minorder"  class="form-control" placeholder="" required value="<?=$promocode_data->minorder;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Percentage Off </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="percentageoff"  class="form-control" placeholder="" required value="<?=$coupancode_data->percentageoff;?>" />  </td>
-</tr>
-<tr>
-<td> <strong>Maximum Discount </strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="maximumdiscount"  class="form-control" placeholder="" required value="<?=$coupancode_data->maximumdiscount;?>" />  </td>
+<td> <strong>Max Order</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="number" name="max"  class="form-control" placeholder="" required value="<?=$promocode_data->max;?>" />  </td>
 </tr>
 
 
