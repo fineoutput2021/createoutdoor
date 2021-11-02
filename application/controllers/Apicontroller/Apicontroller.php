@@ -4819,5 +4819,66 @@ $brosher_info[] = array(
 
   }
 
+//-------custom banner image
+public function custom_banner_image(){
+
+            $this->db->select('*');
+$this->db->from('tbl_custom_banner_image');
+$this->db->where('is_active',1);
+$custom_data= $this->db->get();
+$banner_data=[];
+
+foreach($custom_data->result() as $data) {
+
+$banner_data = array(
+  "name"=>$data->name,
+  "image1"=>base_url().$data->image_1,
+  "image2"=>base_url().$data->image_2
+);
+
+}
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"success",
+  'status'=>200,
+  'data'=>$banner_data,
+  );
+
+  echo json_encode($res);
+
+}
+
+//-------corporate banner image
+public function corporate_banner_image(){
+
+            $this->db->select('*');
+$this->db->from('tbl_corporate_banner_image');
+$this->db->where('is_active',1);
+$corporate_data= $this->db->get();
+$banner_data=[];
+
+foreach($corporate_data->result() as $data) {
+
+$banner_data = array(
+  "name"=>$data->name,
+  "image1"=>base_url().$data->image_1,
+  "image2"=>base_url().$data->image_2
+);
+
+}
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"success",
+  'status'=>200,
+  'data'=>$banner_data,
+  );
+
+  echo json_encode($res);
+
+}
+
+
+
+
 
 }
