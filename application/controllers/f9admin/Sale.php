@@ -105,6 +105,7 @@
                // exit;
   $this->form_validation->set_rules('title', 'title', 'required');
   $this->form_validation->set_rules('description', 'description', 'required');
+  $this->form_validation->set_rules('link', 'link', 'required');
 
 
 
@@ -114,6 +115,7 @@
                {
   $title=$this->input->post('title');
   $description=$this->input->post('description');
+  $link=$this->input->post('link');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -216,6 +218,7 @@ $img3='image1';
            $data_insert = array(
                   'title'=>$title,
   'description'=>$description,
+  'link'=>$link,
   'image'=>$nnnn2,
   'image1'=>$nnnn3,
 
@@ -335,6 +338,7 @@ if(!empty($img)) { if(empty($nnnn3)){ $nnnn3 = $img; } }else{ if(empty($nnnn3)){
            $data_insert = array(
                   'title'=>$title,
   'description'=>$description,
+  'link'=>$link,
   'image'=>$nnnn2,
   'image1'=>$nnnn3,
 

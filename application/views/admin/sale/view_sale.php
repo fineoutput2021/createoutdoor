@@ -41,6 +41,7 @@
 
  	 <th>Title</th>
  	 <th>Description</th>
+ 	 <th>Link</th>
  	 <th>Image</th>
  	 <th>image1</th>
 
@@ -56,6 +57,7 @@
 
  	 <td><?php echo $data->title ?></td>
  	 <td><?php echo $data->description ?></td>
+ 	 <td><?php echo $data->link ?></td>
 
         <td>
         <?php if($data->image!=""){ ?>
@@ -169,7 +171,3 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-        

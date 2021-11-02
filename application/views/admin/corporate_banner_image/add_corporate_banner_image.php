@@ -36,16 +36,16 @@
                                        <div class="table-responsive">
                                            <table class="table table-hover">
   <tr>
-<td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="name"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>Home image</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="home_image"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
-<td> <strong>Image 1</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image_1"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>Detail Image 1</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="detail_image_1"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
-<td> <strong>Image 2</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image_2"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>Detail Image 2</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="detail_image_2"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 
 

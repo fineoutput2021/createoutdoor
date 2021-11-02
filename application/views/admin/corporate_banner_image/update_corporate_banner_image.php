@@ -36,18 +36,19 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
 <tr>
-<td> <strong>Name</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="name"  class="form-control" placeholder="" required value="<?=$corporate_banner_image_data->name;?>" />  </td>
+<td> <strong>Home image</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="home_image"  class="form-control" placeholder="" />
+<?php if($corporate_banner_image_data->home_image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$corporate_banner_image_data->home_image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
-<td> <strong>Image 1</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image_1"  class="form-control" placeholder="" />
-<?php if($corporate_banner_image_data->image_1!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$corporate_banner_image_data->image_1; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<td> <strong>Detail Image 1</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="detail_image_1"  class="form-control" placeholder="" />
+<?php if($corporate_banner_image_data->detail_image_1!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$corporate_banner_image_data->detail_image_1; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
-<td> <strong>Image 2</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image_2"  class="form-control" placeholder="" />
-<?php if($corporate_banner_image_data->image_2!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$corporate_banner_image_data->image_2; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<td> <strong>Detail Image 2</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="detail_image_2"  class="form-control" placeholder="" />
+<?php if($corporate_banner_image_data->detail_image_2!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$corporate_banner_image_data->detail_image_2; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 
 

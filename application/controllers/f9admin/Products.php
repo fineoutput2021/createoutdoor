@@ -573,9 +573,9 @@ if(!empty($nnnn5)){
 
 
                           $id=base64_decode($idd);
-                            echo $t;
-                            echo $id;
-                            exit;
+                            // echo $t;
+                            // echo $id;
+                            // exit;
 
                           if($t=="active"){
 

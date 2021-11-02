@@ -161,18 +161,20 @@
 
                     $last_id=$this->base_model->insert_table("tbl_inventory",$inventory_data,1) ;
 
+ $product_id=base64_decode($p_id);
             $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('id',$p_id);
+$this->db->where('id',$product_id);
 $this->db->where('is_active',0);
 $product_data= $this->db->get()->row();
 
 if(!empty($product_data)){
+// echo "hi";
+// exit;
+                              $data_insert1 = array('is_active'=>1);
 
-                              $data_insert = array('is_active'=>1);
-
-                                          $this->db->where('id', $p_id);
-                                          $last_id1=$this->db->update('tbl_products', $data_insert);
+                                          $this->db->where('id', $product_id);
+                                          $last_id1=$this->db->update('tbl_products', $data_insert1);
                                         }
 
                     }

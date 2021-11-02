@@ -4849,9 +4849,9 @@ $banner_data=[];
 foreach($custom_data->result() as $data) {
 
 $banner_data = array(
-  "name"=>$data->name,
-  "image1"=>base_url().$data->image_1,
-  "image2"=>base_url().$data->image_2
+  "home_image"=>base_url().$data->home_image,
+  "detail_image1"=>base_url().$data->detail_image_1,
+  "detail_image2"=>base_url().$data->detail_image_2
 );
 
 }
@@ -4877,11 +4877,11 @@ $banner_data=[];
 
 foreach($corporate_data->result() as $data) {
 
-$banner_data = array(
-  "name"=>$data->name,
-  "image1"=>base_url().$data->image_1,
-  "image2"=>base_url().$data->image_2
-);
+  $banner_data = array(
+    "home_image"=>base_url().$data->home_image,
+    "detail_image1"=>base_url().$data->detail_image_1,
+    "detail_image2"=>base_url().$data->detail_image_2
+  );
 
 }
 

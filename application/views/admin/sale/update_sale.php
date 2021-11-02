@@ -44,6 +44,10 @@
 <td> <input type="text" name="description"  class="form-control" placeholder="" required value="<?=$sale_data->description;?>" />  </td>
 </tr>
 <tr>
+<td> <strong>Link</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="link"  class="form-control" placeholder="" required value="<?=$sale_data->link;?>" />  </td>
+</tr>
+<tr>
 <td> <strong>Image</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image"  class="form-control" placeholder="" />
 <?php if($sale_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$sale_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>

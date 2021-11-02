@@ -39,9 +39,9 @@
         <tr>
         <th>#</th>
 
- 	 <th>Name</th>
- 	 <th>Image 1</th>
- 	 <th>Image 2</th>
+ 	 <th>Home image</th>
+ 	 <th>Detail Image 1</th>
+ 	 <th>Detail Image 2</th>
 
 
         <th>Status</th>
@@ -53,11 +53,10 @@
         <tr>
         <td><?php echo $i ?> </td>
 
- 	 <td><?php echo $data->name ?></td>
 
         <td>
-        <?php if($data->image_1!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image_1
+        <?php if($data->home_image!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->home_image
         ?>" >
         <?php }else { ?>
         Sorry No File Found
@@ -66,8 +65,18 @@
 
 
         <td>
-        <?php if($data->image_2!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image_2
+        <?php if($data->detail_image_1!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->detail_image_1
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+
+
+        <td>
+        <?php if($data->detail_image_2!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->detail_image_2
         ?>" >
         <?php }else { ?>
         Sorry No File Found
