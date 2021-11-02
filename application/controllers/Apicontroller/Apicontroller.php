@@ -2966,7 +2966,7 @@ public function apply_promocode(){
 
   $this->db->select('*');
   $this->db->from('tbl_promocode');
-  $this->db->like('promocode',$promocode);
+  $this->db->where('promocode',$promocode);
   $dsa= $this->db->get();
   $promocode_data=$dsa->row();
 
@@ -3112,7 +3112,6 @@ if(!empty($last_id)){
 
 
   }
-
 
 
   }else{
@@ -3418,21 +3417,22 @@ if(!empty($last_id)){
 foreach($order2_data->result() as $data) {
 
 $this->db->select('*');
-$this->db->from('tbl_products');
-$this->db->where('id',$data->product_id);
-$product_data= $this->db->get()->row();
+$this->db->from('tbl_inventory');
+$this->db->where('type_id',$data->type_id);
+$inventory_data= $this->db->get()->row()->row();
 
+if(!empty($inventory_data)){
 
-
+$new_inventory = $inventory_data->quantity - $data->quantity;
 
 $update_data = array(
-'quantity'=>$data->quantity,
+'quantity'=>$new_inventory,
 );
 
 $this->db->where('type_id', $data->type_id);
 $last_id=$this->db->update('tbl_inventory', $update_data);
 
-
+}
 }//--end_cart foreach
 
 $zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id));
