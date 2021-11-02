@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class Products extends CI_finecontrol{
+       class Custom_banner_image extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
@@ -11,7 +11,7 @@
              $this->load->library('upload');
            }
 
-         public function view_products(){
+         public function view_custom_banner_image(){
 
             if(!empty($this->session->userdata('admin_data'))){
 
@@ -24,12 +24,12 @@
               // exit;
 
                            $this->db->select('*');
-               $this->db->from('tbl_products');
+               $this->db->from('tbl_custom_banner_image');
                //$this->db->where('id',$usr);
-               $data['products_data']= $this->db->get();
+               $data['custom_banner_image_data']= $this->db->get();
 
               $this->load->view('admin/common/header_view',$data);
-              $this->load->view('admin/products/view_products');
+              $this->load->view('admin/custom_banner_image/view_custom_banner_image');
               $this->load->view('admin/common/footer_view');
 
           }
@@ -40,51 +40,12 @@
 
           }
 
-              public function add_products(){
+              public function add_custom_banner_image(){
 
                  if(!empty($this->session->userdata('admin_data'))){
 
-            $this->db->select('*');
-$this->db->from('tbl_category');
-$this->db->where('is_active',1);
-$data['category_data']= $this->db->get();
-
-            $this->db->select('*');
-$this->db->from('tbl_subcategory');
-//$this->db->where('id',$usr);
-$data['subcategory_data']= $this->db->get();
-//filter
-
-            $this->db->select('*');
-$this->db->from('tbl_leadtime');
-//$this->db->where('id',$usr);
-$data['leadtime_data']= $this->db->get();
-//filter
-
-            $this->db->select('*');
-$this->db->from('tbl_seating');
-//$this->db->where('id',$usr);
-$data['seating_data']= $this->db->get();
-//filter
-
-            $this->db->select('*');
-$this->db->from('tbl_tableshape');
-//$this->db->where('id',$usr);
-$data['shape_data']= $this->db->get();
-//filter
-            $this->db->select('*');
-$this->db->from('tbl_furnituretype');
-//$this->db->where('id',$usr);
-$data['furniture_type']= $this->db->get();
-// filter
-
-            $this->db->select('*');
-$this->db->from('tbl_table_feature');
-//$this->db->where('id',$usr);
-$data['feature_data']= $this->db->get();
-
-                   $this->load->view('admin/common/header_view',$data);
-                   $this->load->view('admin/products/add_products');
+                   $this->load->view('admin/common/header_view');
+                   $this->load->view('admin/custom_banner_image/add_custom_banner_image');
                    $this->load->view('admin/common/footer_view');
 
                }
@@ -95,35 +56,7 @@ $data['feature_data']= $this->db->get();
 
                }
 
-public function getSubcategory(){
-
-                   // $data['user_name']=$this->load->get_var('user_name');
-
-                   // echo SITE_NAME;
-                   // echo $this->session->userdata('image');
-                   // echo $this->session->userdata('position');
-                   // exit;
-
-$id=$_GET['isl'];
-            $this->db->select('*');
-$this->db->from('tbl_subcategory');
-$this->db->where('category',$id);
-$this->db->where('is_active',1);
-
-$dat= $this->db->get();
-
-$i=1; foreach($dat->result() as $data) {
-
-$igt[] = array('sub_id' =>$data->id ,'sub_name'=>$data->subcategory);
-
-}
-
-echo json_encode($igt);
-
-
-               }
-
-               public function update_products($idd){
+               public function update_custom_banner_image($idd){
 
                    if(!empty($this->session->userdata('admin_data'))){
 
@@ -139,54 +72,13 @@ echo json_encode($igt);
                      $data['id']=$idd;
 
                             $this->db->select('*');
-                            $this->db->from('tbl_products');
+                            $this->db->from('tbl_custom_banner_image');
                             $this->db->where('id',$id);
-                            $data['products_data']= $this->db->get()->row();
-
-
-                            $this->db->select('*');
-                            $this->db->from('tbl_category');
-                            // $this->db->where('id',$id);
-                            $data['category_data']= $this->db->get();
-
-                            $this->db->select('*');
-                                        $this->db->from('tbl_subcategory');
-                                        //$this->db->where('id',$id);
-                                        $data['subcategory_data']= $this->db->get();
-
-
-
-                                                    $this->db->select('*');
-                                        $this->db->from('tbl_leadtime');
-                                        //$this->db->where('id',$usr);
-                                        $data['leadtime_data']= $this->db->get();
-                                        //filter
-
-                                                    $this->db->select('*');
-                                        $this->db->from('tbl_seating');
-                                        //$this->db->where('id',$usr);
-                                        $data['seating_data']= $this->db->get();
-                                        //filter
-
-                                                    $this->db->select('*');
-                                        $this->db->from('tbl_tableshape');
-                                        //$this->db->where('id',$usr);
-                                        $data['shape_data']= $this->db->get();
-                                        //filter
-                                                    $this->db->select('*');
-                                        $this->db->from('tbl_furnituretype');
-                                        //$this->db->where('id',$usr);
-                                        $data['furniture_type']= $this->db->get();
-                                        // filter
-
-                                                    $this->db->select('*');
-                                        $this->db->from('tbl_table_feature');
-                                        //$this->db->where('id',$usr);
-                                        $data['feature_data']= $this->db->get();
+                            $data['custom_banner_image_data']= $this->db->get()->row();
 
 
                      $this->load->view('admin/common/header_view',$data);
-                     $this->load->view('admin/products/update_products');
+                     $this->load->view('admin/custom_banner_image/update_custom_banner_image');
                      $this->load->view('admin/common/footer_view');
 
                  }
@@ -197,7 +89,7 @@ echo json_encode($igt);
 
                  }
 
-             public function add_products_data($t,$iw="")
+             public function add_custom_banner_image_data($t,$iw="")
 
                {
 
@@ -211,19 +103,7 @@ echo json_encode($igt);
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('productname', 'productname', 'required');
-  $this->form_validation->set_rules('category', 'category', 'required');
-  $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
-  $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
-  $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
-  $this->form_validation->set_rules('seating', 'seating', 'required');
-  $this->form_validation->set_rules('shape', 'shape', 'required');
-  $this->form_validation->set_rules('furniture', 'furniture', 'required');
-  $this->form_validation->set_rules('feature', 'feature', 'required');
-
-  // $this->form_validation->set_rules('inventory', 'inventory', 'integer|required');
-
-   $this->form_validation->set_rules('modelno', 'modelno', 'integer|required');
+  $this->form_validation->set_rules('name', 'name', 'required');
 
 
 
@@ -231,17 +111,7 @@ echo json_encode($igt);
 
                if($this->form_validation->run()== TRUE)
                {
-  $productname=$this->input->post('productname');
-  $category=$this->input->post('category');
-  $subcategory=$this->input->post('sub_category');
-  $productdescription=$this->input->post('productdescription');
-  $leadtime=$this->input->post('leadtime');
-  $seating=$this->input->post('seating');
-  $shape=$this->input->post('shape');
-  $furniture=$this->input->post('furniture');
-  $feature=$this->input->post('feature');
-
-   $modelno=$this->input->post('modelno');
+  $name=$this->input->post('name');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -254,17 +124,60 @@ echo json_encode($igt);
 
 
 
-$img2='image';
+$img1='image_1';
 
 
 
 
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
+         $image_upload_folder = FCPATH . "assets/uploads/custom_banner_image/";
                      if (!file_exists($image_upload_folder))
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="products".date("Ymdhms");
+                     $new_file_name="custom_banner_image".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img1))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/custom_banner_image/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn1=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img2='image_2';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/custom_banner_image/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="custom_banner_image".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -275,18 +188,17 @@ $img2='image';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
 
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
 
                          $file_info = $this->upload->data();
 
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                         $videoNAmePath = "assets/uploads/custom_banner_image/".$new_file_name.$file_info['file_ext'];
                          $file_info['new_name']=$videoNAmePath;
                          // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
                          $nnnn=$file_info['file_name'];
@@ -298,155 +210,10 @@ $img2='image';
 
 
 
-$img3='image1';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products1".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img3))
-                     {
-                         $upload_error = $this->upload->display_errors();
-
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn3=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img4='image2';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products2".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img4))
-                     {
-                         $upload_error = $this->upload->display_errors();
-
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn4=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
-$img5='image3';
-
-
-
-
-         $image_upload_folder = FCPATH . "assets/uploads/products/";
-                     if (!file_exists($image_upload_folder))
-                     {
-                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                     }
-                     $new_file_name="products3".date("Ymdhms");
-                     $this->upload_config = array(
-                             'upload_path'   => $image_upload_folder,
-                             'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
-                             'max_size'      => 25000
-                     );
-                     $this->upload->initialize($this->upload_config);
-                     if (!$this->upload->do_upload($img5))
-                     {
-                         $upload_error = $this->upload->display_errors();
-
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                     }
-                     else
-                     {
-
-                         $file_info = $this->upload->data();
-
-                         $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                         $file_info['new_name']=$videoNAmePath;
-                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                         $nnnn=$file_info['file_name'];
-                         $nnnn5=$videoNAmePath;
-
-                         // echo json_encode($file_info);
-                     }
-
-
-
-
            $data_insert = array(
-                  'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
-  'image'=>$nnnn2,
-  'image1'=>$nnnn3,
-  'image2'=>$nnnn4,
-  'image3'=>$nnnn5,
-  'productdescription'=>$productdescription,
-  'leadtime_id'=>$leadtime,
-  'furniture_type_id'=>$furniture,
-  'seating_id'=>$seating,
-  'shape_id'=>$shape,
-  'feature_id'=>$feature,
-
-
-  'modelno'=>$modelno,
+                  'name'=>$name,
+  'image_1'=>$nnnn1,
+  'image_2'=>$nnnn2,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -455,17 +222,7 @@ $img5='image3';
                      );
 
 
-           $last_id=$this->base_model->insert_table("tbl_products",$data_insert,1) ;
-
-          // $inventory_data = array(
-          //   'product_id'=> $last_id,
-          //   'quantity'=>0,
-          //   'ip'=>$ip,
-          //   'date'=>$addedby,
-          //   'added_by'=>$cur_date
-          //
-          // );
-          // $last_id2=$this->base_model->insert_table("tbl_inventory",$inventory_data,1) ;
+           $last_id=$this->base_model->insert_table("tbl_custom_banner_image",$data_insert,1) ;
 
            }
            if($typ==2){
@@ -474,59 +231,115 @@ $img5='image3';
 
 
  $this->db->select('*');
- $this->db->from('tbl_products');
+ $this->db->from('tbl_custom_banner_image');
  $this->db->where('id',$idw);
  $dsa=$this->db->get();
  $da=$dsa->row();
 
-if(!empty($nnnn2)){
-  $n1=$nnnn2;
-}else{
-    $n1=$da->image;
-}
-
-if(!empty($nnnn3)){
-  $n2=$nnnn3;
-}else{
-    $n2=$da->image1;
-}
-
-if(!empty($nnnn4)){
-  $n3=$nnnn4;
-}else{
-    $n3=$da->image2;
-}
-if(!empty($nnnn5)){
-  $n4=$nnnn5;
-}else{
-    $n4=$da->image3;
-}
 
 
+$img1='image_1';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/custom_banner_image/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="custom_banner_image".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img1))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/custom_banner_image/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn1=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+$img2='image_2';
+
+
+
+
+         $image_upload_folder = FCPATH . "assets/uploads/custom_banner_image/";
+                     if (!file_exists($image_upload_folder))
+                     {
+                         mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                     }
+                     $new_file_name="custom_banner_image".date("Ymdhms");
+                     $this->upload_config = array(
+                             'upload_path'   => $image_upload_folder,
+                             'file_name' => $new_file_name,
+                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'max_size'      => 25000
+                     );
+                     $this->upload->initialize($this->upload_config);
+                     if (!$this->upload->do_upload($img2))
+                     {
+                         $upload_error = $this->upload->display_errors();
+                         // echo json_encode($upload_error);
+
+           //$this->session->set_flashdata('emessage',$upload_error);
+             //redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+
+                         $file_info = $this->upload->data();
+
+                         $videoNAmePath = "assets/uploads/custom_banner_image/".$new_file_name.$file_info['file_ext'];
+                         $file_info['new_name']=$videoNAmePath;
+                         // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                         $nnnn=$file_info['file_name'];
+                         $nnnn2=$videoNAmePath;
+
+                         // echo json_encode($file_info);
+                     }
+
+
+
+
+ if(!empty($da)){ $img = $da ->image_1;
+if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){ $nnnn1= ""; } } }if(!empty($da)){ $img = $da ->image_2;
+if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }
 
            $data_insert = array(
-                  'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
-  'image'=>$n1,
-  'image1'=>$n2,
-  'image2'=>$n3,
-  'image3'=>$n4,
-  'productdescription'=>$productdescription,
-  'leadtime_id'=>$leadtime,
-  'furniture_type_id'=>$furniture,
-  'seating_id'=>$seating,
-  'shape_id'=>$shape,
-  'feature_id'=>$feature,
-  'modelno'=>$modelno,
+                  'name'=>$name,
+  'image_1'=>$nnnn1,
+  'image_2'=>$nnnn2,
 
                      );
              $this->db->where('id', $idw);
-             $last_id=$this->db->update('tbl_products', $data_insert);
+             $last_id=$this->db->update('tbl_custom_banner_image', $data_insert);
            }
                        if($last_id!=0){
                                $this->session->set_flashdata('smessage','Data inserted successfully');
-                               redirect("dcadmin/products/view_products","refresh");
+                               redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                               }
                                else
                                    {
@@ -559,7 +372,7 @@ if(!empty($nnnn5)){
 
            }
 
-               public function updateproductsStatus($idd,$t){
+               public function updatecustom_banner_imageStatus($idd,$t){
 
                         if(!empty($this->session->userdata('admin_data'))){
 
@@ -570,12 +383,7 @@ if(!empty($nnnn5)){
                           // echo $this->session->userdata('image');
                           // echo $this->session->userdata('position');
                           // exit;
-
-
                           $id=base64_decode($idd);
-                            echo $t;
-                            echo $id;
-                            exit;
 
                           if($t=="active"){
 
@@ -585,10 +393,10 @@ if(!empty($nnnn5)){
                         );
 
                         $this->db->where('id', $id);
-                       $zapak=$this->db->update('tbl_products', $data_update);
+                       $zapak=$this->db->update('tbl_custom_banner_image', $data_update);
 
                             if($zapak!=0){
-                            redirect("dcadmin/products/view_products","refresh");
+                            redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                                     }
                                     else
                                     {
@@ -603,10 +411,10 @@ if(!empty($nnnn5)){
                          );
 
                          $this->db->where('id', $id);
-                         $zapak=$this->db->update('tbl_products', $data_update);
+                         $zapak=$this->db->update('tbl_custom_banner_image', $data_update);
 
                              if($zapak!=0){
-                             redirect("dcadmin/products/view_products","refresh");
+                             redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                                      }
                                      else
                                      {
@@ -629,7 +437,7 @@ if(!empty($nnnn5)){
 
 
 
-               public function delete_products($idd){
+               public function delete_custom_banner_image($idd){
 
                       if(!empty($this->session->userdata('admin_data'))){
 
@@ -643,18 +451,11 @@ if(!empty($nnnn5)){
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('image');
-                     $this->db->from('tbl_products');
-                     $this->db->where('id',$id);
-                     $dsa= $this->db->get();
-                     $da=$dsa->row();
-                     $img=$da->image;
-
- $zapak=$this->db->delete('tbl_products', array('id' => $id));
+              
+ $zapak=$this->db->delete('tbl_custom_banner_image', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
-        redirect("dcadmin/products/view_products","refresh");
+
+        redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                 }
                 else
                 {
@@ -677,3 +478,5 @@ if(!empty($nnnn5)){
 
                             }
                       }
+
+      ?>

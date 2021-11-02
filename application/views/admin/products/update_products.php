@@ -125,10 +125,6 @@ Sorry No File Found
 
 </tr>
 <tr>
-<td> <strong>mrp</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="mrp"  class="form-control" placeholder=""  value="<?=$products_data->mrp?>" />  </td>
-</tr>
-<tr>
 <td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
 <!-- <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td> -->
 <td>

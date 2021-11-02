@@ -95,12 +95,12 @@
 
 
                         $this->form_validation->set_rules('name', 'name', 'required|xss_clean|trim');
-                        $this->form_validation->set_rules('mrp', 'mrp', 'required|integer|xss_clean|trim');
-                        $this->form_validation->set_rules('gst', 'gst', 'required|integer|xss_clean|trim');
-                        $this->form_validation->set_rules('sellingprice', 'sellingprice', 'required|integer|xss_clean|trim');
-                        $this->form_validation->set_rules('gstprice', 'gstprice', 'required|integer|xss_clean|trim');
-                        $this->form_validation->set_rules('price', 'price', 'required|integer|xss_clean|trim');
-                        $this->form_validation->set_rules('weight', 'weight', 'required|integer|xss_clean|trim');
+                        $this->form_validation->set_rules('mrp', 'mrp', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('gst', 'gst', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('sellingprice', 'sellingprice', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('gstprice', 'gstprice', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('price', 'price', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('weight', 'weight', 'required|xss_clean|trim');
 
                         if($this->form_validation->run()== TRUE)
                         {

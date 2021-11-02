@@ -1,21 +1,21 @@
                             <div class="content-wrapper">
                                     <section class="content-header">
                                        <h1>
-                                       customorder
+                                       Custom Order
                                       </h1>
                                       <ol class="breadcrumb">
                                        <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                                        <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All customorder </a></li>
-                                        <li class="active">View customorder</li>
+                                        <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Custom Order </a></li>
+                                        <li class="active">View Custom Order</li>
                                       </ol>
                                     </section>
                                   		<section class="content">
                                   		<div class="row">
                                          <div class="col-lg-12">
-                                  				   <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/customorder/add_customorder" role="button" style="margin-bottom:12px;"> Add customorder</a>
+                                  				   <!-- <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/customorder/add_customorder" role="button" style="margin-bottom:12px;"> Add Custom Order</a> -->
                                                           <div class="panel panel-default">
                                                               <div class="panel-heading">
-                                                                  <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View customorder</h3>
+                                                                  <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Custom Order</h3>
                                                               </div>
                                                                  <div class="panel panel-default">
 

@@ -2086,7 +2086,7 @@ $payment_type="COD";
 }else if($value->payment_type == 2){
   $payment_type="Online Paymnet";
 }else{
-  $payment_type = "";
+  $payment_type = "NA";
 }
 
 if($value->order_status==1 || $value->order_status==2){
@@ -4007,9 +4007,13 @@ public function cancel_order(){
         if($user_data->password==$password){
 
 
-          $zapak=$this->db->delete('tbl_order1', array('id' => $order_id,));
+                    $data_insert = array('order_status'=>5,
+                              );
 
-    if(!empty($zapak)){
+                      $this->db->where('id', $order_id);
+                      $last_id=$this->db->update('tbl_order1', $data_insert);
+
+    if(!empty($last_id)){
       header('Access-Control-Allow-Origin: *');
       $res = array('message'=>'success',
       'status'=>200

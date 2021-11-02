@@ -46,7 +46,6 @@
  	 <th>image1</th>
  	 <th>image2</th>
  	 <th>image3</th>
- 	 <th>mrp</th>
  	 <th>Product Description</th>
 
 
@@ -128,7 +127,6 @@ if(!empty($subcategory_data)){
         <?php } ?>
         </td>
 
-	 <td><?php echo $data->mrp ?></td>
  	 <td><?php echo $data->productdescription ?></td>
 
 

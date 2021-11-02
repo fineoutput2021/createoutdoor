@@ -64,22 +64,23 @@
                           <input type="text" name="mrp"  class="form-control" placeholder="" required value="<?=$u_data->mrp?>" />
                                               </td>
                         </tr>
+                        <tr>
+                                                  <td> <strong>Selling Price(without GST)</strong>  <span style="color:red;">*</span></strong> </td>
+                                                  <td>
+                            <input type="text" name="sellingprice"  class="form-control" id="sp" placeholder="" required value="<?=$u_data->sp?>" />
+                                                </td>
+                          </tr>
                       <tr>
                                                 <td> <strong>GST%</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="gst"  class="form-control" placeholder="" required value="<?=$u_data->gst?>" />
+                          <input type="text" name="gst" id="gst" class="form-control" placeholder="" required value="<?=$u_data->gst?>" />
                                               </td>
                         </tr>
-                      <tr>
-                                                <td> <strong>Selling Price(without GST)</strong>  <span style="color:red;">*</span></strong> </td>
-                                                <td>
-                          <input type="text" name="sellingprice"  class="form-control" placeholder="" required value="<?=$u_data->sp?>" />
-                                              </td>
-                        </tr>
+
                       <tr>
                                                 <td> <strong>GST%Price</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="gstprice"  class="form-control" placeholder="" required value="<?=$u_data->gstprice?>" />
+                          <input type="text" name="gstprice" id="gstprice"  class="form-control" placeholder="" required value="<?=$u_data->gstprice?>" />
                                               </td>
                         </tr>
                       <tr>
@@ -127,5 +128,29 @@
 
 <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
 <link href="<? echo base_url() ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
-Type
-Update
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#gst').keyup(function() {
+
+    var price=$('#sp').val();
+    // alert("hello" + price);
+    var gst=$('#gst').val();
+    // alert('hello '+ price +"gst"+gst);
+
+        $('#gstprice').val(price * gst/100);
+      var sprice=$('#gstprice').val();
+     var v1=parseInt($('#sp').val());
+     var v2=parseInt($('#gstprice').val());
+     var v3=v1 + v2;
+     $('#sellingprice').val(v3);
+
+
+
+
+
+
+
+  });
+});
+
+</script>

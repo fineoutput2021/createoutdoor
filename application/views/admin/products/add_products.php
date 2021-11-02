@@ -84,10 +84,6 @@
 <td> <input type="file" name="image3"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
-<td> <strong>mrp</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="text" name="mrp"  class="form-control" placeholder="" required value="" />  </td>
-</tr>
-  <tr>
 <td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
 <!-- <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td> -->
 <td>

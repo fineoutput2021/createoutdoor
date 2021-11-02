@@ -104,6 +104,7 @@
                // print_r($this->input->post());
                // exit;
   $this->form_validation->set_rules('name', 'name', 'required');
+  $this->form_validation->set_rules('link', 'link', 'required');
 
 
 
@@ -112,6 +113,7 @@
                if($this->form_validation->run()== TRUE)
                {
   $name=$this->input->post('name');
+  $link=$this->input->post('link');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -169,6 +171,7 @@ $img1='image';
 
            $data_insert = array(
                   'name'=>$name,
+                  'link'=>$link,
   'image'=>$nnnn1,
 
                      'ip' =>$ip,
@@ -242,6 +245,7 @@ if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){
 
            $data_insert = array(
                   'name'=>$name,
+                  'link'=>$link,
   'image'=>$nnnn1,
 
                      );
@@ -398,4 +402,3 @@ if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){
                       }
 
       ?>
-       
