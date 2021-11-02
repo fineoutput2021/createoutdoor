@@ -450,7 +450,7 @@ $img5='image3';
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
-                     'is_active' =>1,
+                     'is_active' =>0,
                      'date'=>$cur_date
                      );
 

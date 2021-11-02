@@ -97,6 +97,7 @@ public function get_products(){
 
 $this->db->select('*');
 $this->db->from('tbl_products');
+$this->db->where('is_active',1);
 $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
@@ -299,6 +300,7 @@ $subcategory_id=$this->input->post('subcategory_id');
 
 $this->db->select('*');
 $this->db->from('tbl_products');
+$this->db->where('is_active',1);
 $this->db->where('subcategory',$subcategory_id);
 $product_data= $this->db->get();
 
@@ -316,6 +318,7 @@ foreach($product_data->result() as $data) {
   $this->db->select('*');
               $this->db->from('tbl_subcategory');
               $this->db->where('id',$subcategory_id);
+              $this->db->where('is_active',1);
               $get_name= $this->db->get()->row();
 
 
@@ -323,6 +326,7 @@ foreach($product_data->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
+$this->db->where('is_active',1);
 $type_info= $this->db->get();
 
 $type_check=$type_info->row();
@@ -394,6 +398,7 @@ public function get_all_products_detail($id){
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$id);
+$this->db->where('is_active',1);
 $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
@@ -417,6 +422,7 @@ $sub= $this->db->get()->row();
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
+$this->db->where('is_active',1);
 $typ= $this->db->get();
 $producttype=[];
 foreach($typ->result() as $type){
@@ -467,6 +473,7 @@ public function most_popular_products(){
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->limit(10);
+$this->db->where('is_active',1);
 $productslimitdata= $this->db->get();
 $products=[];
 foreach($productslimitdata->result() as $limit) {
@@ -499,6 +506,7 @@ $s1="";
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$limit->id);
+$this->db->where('is_active',1);
 $typ= $this->db->get();
 $producttype=[];
 foreach($typ->result() as $type){
@@ -1231,6 +1239,7 @@ foreach($cart_data->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$data->product_id);
+$this->db->where('is_active',1);
 $dsa= $this->db->get();
 $product_data=$dsa->row();
 
@@ -1238,6 +1247,7 @@ $product_data=$dsa->row();
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
+$this->db->where('is_active',1);
 $dsa= $this->db->get();
 $type_data=$dsa->row();
 
@@ -1316,6 +1326,7 @@ foreach($cart_data->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$data->product_id);
+$this->db->where('is_active',1);
 $dsa= $this->db->get();
 $product_data=$dsa->row();
 
@@ -1323,6 +1334,7 @@ $product_data=$dsa->row();
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
+$this->db->where('is_active',1);
 $dsa= $this->db->get();
 $type_data=$dsa->row();
 
@@ -2293,6 +2305,7 @@ public function related_products($id){
             $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$id);
+$this->db->where('is_active',1);
 $product_data= $this->db->get()->row();
 
             $this->db->select('*');
@@ -2309,6 +2322,7 @@ if($data->id!=$id){
             $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
+$this->db->where('is_active',1);
 $type_data= $this->db->get();
 $type_check= $type_data->row();
 
@@ -2578,11 +2592,13 @@ foreach($cart_data->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$data->product_id);
+$this->db->where('is_active',1);
 $product_data= $this->db->get()->row();
 
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
+$this->db->where('is_active',1);
 $type_data= $this->db->get()->row();
 
 
@@ -3536,6 +3552,7 @@ $string=$this->input->post('string');
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->like('productname',$string);
+$this->db->where('is_active',1);
 $search_string= $this->db->get();
 $string_check= $search_string->row();
 // print_r ($string_check);
@@ -3896,6 +3913,7 @@ $feature_info = explode(',',$feature_id);
 
             $this->db->select('*');
 $this->db->from('tbl_products');
+$this->db->where('is_active',1);
 foreach($leadtime_info as $data) {
 $this->db->or_where('leadtime_id',$data);
 }
