@@ -215,11 +215,11 @@ echo json_encode($igt);
   $this->form_validation->set_rules('category', 'category', 'required');
   $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
   $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
-  $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
-  $this->form_validation->set_rules('seating', 'seating', 'required');
-  $this->form_validation->set_rules('shape', 'shape', 'required');
-  $this->form_validation->set_rules('furniture', 'furniture', 'required');
-  $this->form_validation->set_rules('feature', 'feature', 'required');
+  // $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
+  // $this->form_validation->set_rules('seating', 'seating', 'required');
+  // $this->form_validation->set_rules('shape', 'shape', 'required');
+  // $this->form_validation->set_rules('furniture', 'furniture', 'required');
+  // $this->form_validation->set_rules('feature', 'feature', 'required');
 
   // $this->form_validation->set_rules('inventory', 'inventory', 'integer|required');
 
