@@ -3233,7 +3233,7 @@ $response  = array(
 
 );
 header('Access-Control-Allow-Origin: *');
-$res = array('message'=>'Wrong Password',
+$res = array('message'=>'success',
 'status'=>200,
 'data'=>$response,
 
