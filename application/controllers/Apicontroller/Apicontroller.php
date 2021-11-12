@@ -24,7 +24,8 @@ $slider=[];
 foreach($sliderdata->result() as $data) {
 $slider[] = array(
 'name'=> $data->name,
-'image'=> base_url().$data->image
+'image'=> base_url().$data->image,
+'link'=>$data->link
 );
 }
 header('Access-Control-Allow-Origin: *');

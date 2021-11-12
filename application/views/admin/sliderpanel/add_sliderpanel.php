@@ -43,6 +43,10 @@
 <td> <strong>image</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="fileToUpload1"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
+<tr>
+<td> <strong>link</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="link"  class="form-control" placeholder=""  value="" />  </td>
+</tr>
 
 
                                  <tr>

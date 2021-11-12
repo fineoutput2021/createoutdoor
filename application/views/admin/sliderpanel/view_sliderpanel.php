@@ -41,6 +41,8 @@
 
  	 <th>name</th>
  	 <th>image</th>
+ 	 <th>link</th>
+
 
 
         <th>Status</th>
@@ -54,6 +56,7 @@
 
  	 <td><?php echo $data->name ?></td>
 
+
         <td>
         <?php if($data->image!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
@@ -62,6 +65,7 @@
         Sorry No File Found
         <?php } ?>
         </td>
+        <td><?php echo $data->link ?></td>
 
 
 

@@ -104,10 +104,12 @@
                                // print_r($this->input->post());
                                // exit;
                                $this->form_validation->set_rules('name', 'name', 'required|xss_clean');
+                               $this->form_validation->set_rules('link', 'link', 'required|xss_clean');
 
                                if($this->form_validation->run()== TRUE)
                                {
                                  $name=$this->input->post('name');
+                                 $link=$this->input->post('link');
 
 $img1='fileToUpload1';
 
@@ -158,6 +160,7 @@ $img1='fileToUpload1';
 
                            $data_insert = array('name'=>$name,
                                      'image'=>$nnnn1,
+                                     'link'=>$link,
 
                                      'ip' =>$ip,
                                      'added_by' =>$addedby,
@@ -207,6 +210,7 @@ $img1='fileToUpload1';
 
 
                  $data_insert = array('name'=>$name,
+                                       'link'=>$link,
                            'image'=>$n1
 
 
