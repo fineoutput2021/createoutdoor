@@ -85,7 +85,9 @@ $category[] = array(
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
-'data'=>$category
+'data'=>$category,
+'data'=>$text
+
 );
 
 echo json_encode($res);
@@ -215,6 +217,7 @@ $subcategory=[];
 foreach($subcategorydata->result() as $data1) {
 $subcategory[] = array(
 'name'=> $data1->name,
+'text'=>$data1->text
 
 
 );
@@ -361,7 +364,8 @@ header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
 'data'=>$product_data1,
-'subcategory'=>$get_name->subcategory
+'subcategory'=>$get_name->subcategory,
+'subcategory'=>$get_name->text
 );
 
 echo json_encode($res);
@@ -4747,7 +4751,8 @@ $txn_id=$t;
                                         $res = array('message'=>'success',
                                         'status'=>200,
                                         'data'=>$product_data1,
-                                        'category'=>$get_name->title
+                                        'category'=>$get_name->title,
+                                        'text'=>$get_name->text
                                         );
 
                                         echo json_encode($res);

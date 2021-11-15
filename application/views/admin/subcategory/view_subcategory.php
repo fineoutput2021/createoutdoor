@@ -41,6 +41,8 @@
 
  	 <th>Category </th>
  	 <th>Sub-Category</th>
+ 	 <th>Text</th>
+
         <th>Status</th>
         <th>Action</th>
         </tr>
@@ -69,6 +71,7 @@
    ?></td>
 
  	 <td><?php echo $data->subcategory ?></td>
+ 	 <td><?php echo $data->text ?></td>
 
 
 

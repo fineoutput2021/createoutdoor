@@ -59,6 +59,13 @@
                                                     <?php } ?>
                                                       </td>
                               </tr>
+
+                              <tr>
+                                                        <td> <strong>text</strong>  <span style="color:red;">*</span></strong> </td>
+                                                        <td>
+                                  <input type="text" name="text"  class="form-control" placeholder="" required value="" />
+                                                      </td>
+                                </tr>
                           <tr>
                             <td colspan="2" >
                               <input type="submit" class="btn btn-success" value="save">

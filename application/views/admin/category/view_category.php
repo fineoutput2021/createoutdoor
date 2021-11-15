@@ -43,6 +43,7 @@
                                                   <th>#</th>
                                                   <th>Image</th>
                                                   <th>Title</th>
+                                                  <th>Text</th>
                                                   <th>Status</th>
                                                   <th>Action</th>
                                                     </tr>
@@ -59,6 +60,7 @@
                             <?php } ?>
                               </td>
                             <td><?php echo $data->title ?></td>
+                            <td><?php echo $data->text ?></td>
 
 
 

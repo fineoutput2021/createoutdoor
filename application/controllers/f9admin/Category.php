@@ -85,10 +85,12 @@ public function add_category(){
             {
 
               $this->form_validation->set_rules('title', 'title', 'required|xss_clean|trim');
+              $this->form_validation->set_rules('text', 'text', 'required|xss_clean|trim');
 
               if($this->form_validation->run()== TRUE)
               {
                 $title=$this->input->post('title');
+                $text=$this->input->post('text');
 
 								// Load library
 								$this->load->library('upload');
@@ -150,6 +152,7 @@ public function add_category(){
 
           $data_insert = array('title'=>$title,
                     'image'=>$image,
+										'text'=>$text,
                     'added_by' =>$addedby,
                     'is_active' =>1,
                     'date'=>$cur_date
@@ -197,6 +200,8 @@ if(!empty($image)){
 
           $data_insert = array('Title'=>$title,
                     'image'=>$n1,
+										'text'=>$text
+
                     );
 
 

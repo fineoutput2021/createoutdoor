@@ -51,6 +51,11 @@ foreach($category_data->result() as $value) {?>
 <td> <input type="" name="subcategory"  class="form-control" placeholder="" required value="<?=$subcategory_data->subcategory;?>" />  </td>
 </tr>
 
+<tr>
+<td> <strong>Text</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="text"  class="form-control" placeholder="" required value="<?=$subcategory_data->text;?>" />  </td>
+</tr>
+
 
                   <tr>
                     <td colspan="2" >

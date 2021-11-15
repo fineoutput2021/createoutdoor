@@ -116,6 +116,7 @@ $data['category_data']= $this->db->get();
                // exit;
   $this->form_validation->set_rules('category', 'category', 'required|trim');
   $this->form_validation->set_rules('subcategory', 'subcategory', 'required');
+  $this->form_validation->set_rules('text', 'text', 'trim');
 
 
 
@@ -125,6 +126,7 @@ $data['category_data']= $this->db->get();
                {
   $category=$this->input->post('category');
   $subcategory=$this->input->post('subcategory');
+  $text=$this->input->post('text');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -140,6 +142,7 @@ $data['category_data']= $this->db->get();
            $data_insert = array(
                   'category'=>$category,
   'subcategory'=>$subcategory,
+  'text'=>$text,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -169,6 +172,8 @@ $data['category_data']= $this->db->get();
            $data_insert = array(
                   'category'=>$category,
   'subcategory'=>$subcategory,
+  'text'=>$text
+
 
                      );
              $this->db->where('id', $idw);

@@ -52,6 +52,10 @@
 <td> <strong>Sub-Category</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="" name="subcategory"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
+  <tr>
+<td> <strong>Text</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="text" name="text"  class="form-control" placeholder="" required value="" />  </td>
+</tr>
 
 
                                  <tr>
