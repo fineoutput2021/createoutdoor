@@ -4897,6 +4897,31 @@ foreach($corporate_data->result() as $data) {
 }
 
 
+//testimonals
+public function view_testimonials(){
+  $this->db->select('*');
+              $this->db->from('tbl_testimonals');
+              $this->db->where('is_active',1);
+              $view_testmonials= $this->db->get();
+              $Testimonals_data=[];
+            foreach ($view_testmonials->result() as $value) {
+              $Testimonals_data[]=array(
+                'id'=>$value->id,
+                'name'=>$value->Name,
+                'image'=>base_url().$value->Image,
+                'description'=>$value->Description
+              );
+            }
+            header('Access-Control-Allow-Origin: *');
+            $res=array('message'=> "sucess",
+                  'status'=>200,
+                  'data'=>$Testimonals_data
+
+
+          );
+          echo json_encode($res);
+}
+
 
 
 

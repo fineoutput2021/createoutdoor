@@ -95,7 +95,7 @@ $data['feature_data']= $this->db->get();
 
                }
 
-public function getSubcategory(){
+  public function getSubcategory(){
 
                    // $data['user_name']=$this->load->get_var('user_name');
 
@@ -104,7 +104,14 @@ public function getSubcategory(){
                    // echo $this->session->userdata('position');
                    // exit;
 
-$id=$_GET['isl'];
+//$id=$_GET['isl'];
+// $id=$_POST['ids'];
+// //echo $id;
+// //exit;
+//
+// $arrd=impload(',',$id.ids);
+// echo $arrd;
+
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('category',$id);
@@ -211,10 +218,10 @@ echo json_encode($igt);
              {
                // print_r($this->input->post());
                // exit;
-  $this->form_validation->set_rules('productname', 'productname', 'required');
-  $this->form_validation->set_rules('category', 'category', 'required');
-  $this->form_validation->set_rules('sub_category', 'sub_category', 'required');
-  $this->form_validation->set_rules('productdescription', 'productdescription', 'required');
+  $this->form_validation->set_rules('productname', 'productname');
+  $this->form_validation->set_rules('category', 'category');
+  $this->form_validation->set_rules('sub_category', 'sub_category');
+  $this->form_validation->set_rules('productdescription', 'productdescription');
   // $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
   // $this->form_validation->set_rules('seating', 'seating', 'required');
   // $this->form_validation->set_rules('shape', 'shape', 'required');
@@ -233,6 +240,8 @@ echo json_encode($igt);
                {
   $productname=$this->input->post('productname');
   $category=$this->input->post('category');
+
+
   $subcategory=$this->input->post('sub_category');
   $productdescription=$this->input->post('productdescription');
   $leadtime=$this->input->post('leadtime');
@@ -242,15 +251,6 @@ echo json_encode($igt);
   $feature=$this->input->post('feature');
 
    $modelno=$this->input->post('modelno');
-
-                   $ip = $this->input->ip_address();
-                   date_default_timezone_set("Asia/Calcutta");
-                   $cur_date=date("Y-m-d H:i:s");
-                   $addedby=$this->session->userdata('admin_id');
-
-           $typ=base64_decode($t);
-           $last_id = 0;
-           if($typ==1){
 
 
 
@@ -428,6 +428,15 @@ $img5='image3';
                      }
 
 
+                                        $ip = $this->input->ip_address();
+                                        date_default_timezone_set("Asia/Calcutta");
+                                        $cur_date=date("Y-m-d H:i:s");
+                                        $addedby=$this->session->userdata('admin_id');
+
+                                $typ=base64_decode($t);
+                                $last_id = 0;
+                                if($typ==1){
+
 
 
            $data_insert = array(
@@ -471,6 +480,7 @@ $img5='image3';
            if($typ==2){
 
     $idw=base64_decode($iw);
+
 
 
  $this->db->select('*');

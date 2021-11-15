@@ -2,17 +2,17 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Products
+          View Testimonals
         </h1>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/products/add_products"
-        role="button" style="margin-bottom:12px;"> Add products</a>
+        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Testimonals/add_Testimonals"
+        role="button" style="margin-bottom:12px;"> Add Testimonals</a>
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View products</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Testimonals</h3>
         </div>
         <div class="panel panel-default">
 
@@ -39,17 +39,9 @@
         <tr>
         <th>#</th>
 
- 	 <th>Product Name</th>
- 	 <th>Category Name</th>
- 	 <th>Subcategory Name</th>
+ 	 <th>name</th>
  	 <th>image</th>
- 	 <th>image1</th>
- 	 <th>image2</th>
- 	 <th>image3</th>
- 	 <th>Product Description</th>
-
-
- 	 <!-- <th>Model No.</th> -->
+ 	 <th>description</th>
 
 
         <th>Status</th>
@@ -57,85 +49,21 @@
         </tr>
         </thead>
         <tbody>
-        <?php $i=1; foreach($products_data->result() as $data) { ?>
+        <?php $i=1; foreach($Testimonals_data->result() as $data) { ?>
         <tr>
         <td><?php echo $i ?> </td>
-        <td><?php echo $data->productname?></td>
 
- <td><?php $category_id=explode(",",$data->category);
-        foreach($category_id as $value){
+ 	 <td><?php echo $data->Name ?></td>
 
-            $this->db->select('*');
-$this->db->from('tbl_category');
-$this->db->where('id',$value);
-$category_data= $this->db->get()->row();
-
-if(!empty($category_data)){
-  echo $category_name=$category_data->title;
-  echo "<br>";
-}else{
-  echo "";
-}
-}
-?></td>
-<td><?php $subcategory_id=$data->subcategory;
-
-
-            $this->db->select('*');
-$this->db->from('tbl_subcategory');
-$this->db->where('id',$subcategory_id);
-$subcategory_data= $this->db->get()->row();
-if(!empty($subcategory_data)){
-  echo $subcategory_name=$subcategory_data->subcategory;
-}
-
-?></td>
-
-
-
-        <td>
-        <?php if($data->image!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image1!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image1
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image2!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image2
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
-
-        <td>
-        <?php if($data->image3!=""){ ?>
-        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image3
-        ?>" >
-        <?php }else { ?>
-        Sorry No File Found
-        <?php } ?>
-        </td>
-
- 	 <td><?php echo $data->productdescription ?></td>
-
-
- 	 <!-- <td><echo $data->modelno ?></td> -->
+           <td>
+           <?php if($data->Image!=""){ ?>
+           <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->Image
+           ?>" >
+           <?php }else { ?>
+           Sorry No File Found
+           <?php } ?>
+           </td>
+ 	 <td><?php echo $data->Description ?></td>
 
 
 
@@ -158,16 +86,14 @@ if(!empty($subcategory_data)){
         <ul class="dropdown-menu" role="menu">
 
         <?php if($data->is_active==1){ ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/products/updateproductsStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/Testimonals/updateTestimonalsStatus/<?php echo
         base64_encode($data->id) ?>/inactive">Inactive</a></li>
         <?php } else { ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/products/updateproductsStatus/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/Testimonals/updateTestimonalsStatus/<?php echo
         base64_encode($data->id) ?>/active">Active</a></li>
         <?php } ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/products/update_products/<?php echo
+        <li><a href="<?php echo base_url() ?>dcadmin/Testimonals/update_Testimonals/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
-        <li><a href="<?php echo base_url() ?>dcadmin/product_type/view_type/<?php echo
-        base64_encode($data->id) ?>">Type</a></li>
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
         </div>
@@ -175,7 +101,7 @@ if(!empty($subcategory_data)){
 
         <div style="display:none" id="cnfbox<?php echo $i ?>">
         <p> Are you sure delete this </p>
-        <a href="<?php echo base_url() ?>dcadmin/products/delete_products/<?php echo
+        <a href="<?php echo base_url() ?>dcadmin/Testimonals/delete_Testimonals/<?php echo
         base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
         <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
         </div>
