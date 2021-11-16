@@ -4904,8 +4904,9 @@ foreach($corporate_data->result() as $data) {
 
 //testimonals
 public function view_testimonials(){
+  
   $this->db->select('*');
-              $this->db->from('tbl_testimonals');
+              $this->db->from('tbl_Testimonals');
               $this->db->where('is_active',1);
               $view_testmonials= $this->db->get();
               $Testimonals_data=[];
