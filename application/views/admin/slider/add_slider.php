@@ -52,6 +52,12 @@
                                                           <input type="file" name="slider_image"  class="form-control" placeholder="" required value="" />
                                                                               </td>
                                                         </tr>
+                                                        <tr>
+                                                                                  <td> <strong>link</strong>  <span style="color:red;">*</span></strong> </td>
+                                                                                  <td>
+                                                            <input type="text" name="link"  class="form-control" placeholder="" required value="" />
+                                                                                </td>
+                                                          </tr>
                                                   	<tr>
                               												<td colspan="2" >
                               													<input type="submit" class="btn btn-success" value="save">

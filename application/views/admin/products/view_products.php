@@ -62,7 +62,7 @@
         <td><?php echo $i ?> </td>
         <td><?php echo $data->productname?></td>
 
- <td><?php $category_id=explode(",",$data->category);
+ <td><?php $category_id=json_decode($data->category);
         foreach($category_id as $value){
 
             $this->db->select('*');
@@ -78,17 +78,21 @@ if(!empty($category_data)){
 }
 }
 ?></td>
-<td><?php $subcategory_id=$data->subcategory;
+<td><?php $subcategory_id=json_decode($data->subcategory);
 
-
+foreach($subcategory_id as $value1){
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
-$this->db->where('id',$subcategory_id);
+$this->db->where('id',$value1);
 $subcategory_data= $this->db->get()->row();
 if(!empty($subcategory_data)){
   echo $subcategory_name=$subcategory_data->subcategory;
-}
+  echo "<br>";
+}else{
+  echo "";
 
+}
+}
 ?></td>
 
 

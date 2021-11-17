@@ -39,30 +39,35 @@ Update Products
 <td> <strong>Product Name</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="text" name="productname"  class="form-control" placeholder=""  value="<?=$products_data->productname?>" />  </td>
 </tr>
-<tr>
-<td> <strong>Category Name</strong>  <span style="color:red;">*</span></strong> </td>
-<td>
-<select class="form-control" id="cid" name="category">
-<option value="">Please select category</option>
 
-<?
-
-foreach($category_data->result() as $value) {?>
-<option value="<?=$value->id;?>"<?php if($products_data->category == $value->id){ echo "selected"; } ?>><?=$value->title;?></option>
-<? }?>
-</select>
-</td>
-</tr>
 
 <tr>
 <td> <strong>Subcategory Name</strong>  <span style="color:red;">*</span></strong> </td>
 <td>
-<select class="form-control" id="sid" name="sub_category">
-  <?php foreach ($subcategory_data->result() as $sub){ ?>
 
 
-  <option value="<?=$sub->id;?>" <?php if($products_data->subcategory == $sub->id){ echo "selected"; } ?>><?=$sub->subcategory;?></option>
-  <? } ?>
+<select class="selectpicker form-control" multiple data-live-search="true" name="sub_category[]">
+  <? foreach($subcategory_data->result() as $sub){?>
+
+    <option value="<?=$sub->id;?>"
+
+
+      <?php
+      $data_subcategory=json_decode($products_data->subcategory);
+
+
+    // $dat_impload=implode(",",$data_subcategory);
+
+    foreach($data_subcategory as $value){
+      if($value == $sub->id){ echo "selected"; }
+    } ?>
+    >
+
+    <?=$sub->subcategory;?>
+    </option>
+
+
+<? } ?>
 </select>
 
 
@@ -208,10 +213,19 @@ Sorry No File Found
 </div>
 </section>
 </div>
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
 
 <script type="text/javascript" src=" <?php echo base_url()  ?>assets/slider/ajaxupload.3.5.js"></script>
 <link href=" <? echo base_url()  ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
+<script type="text/javascript">
+
+$('select').selectpicker();
+</script>
 <script>
 $(document).ready(function(){
 $("#cid").change(function(){

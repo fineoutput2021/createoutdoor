@@ -105,19 +105,35 @@ $data['feature_data']= $this->db->get();
                    // exit;
 
 //$id=$_GET['isl'];
-// $id=$_POST['ids'];
-// //echo $id;
-// //exit;
+$id=$_POST['ids'];
+$new_var=count($id);
 //
 // $arrd=impload(',',$id.ids);
 // echo $arrd;
 
             $this->db->select('*');
 $this->db->from('tbl_subcategory');
-$this->db->where('category',$id);
+//$this->db->where('category',$id);
 $this->db->where('is_active',1);
+foreach($id as $value){
+
+$i=2;
+  if($new_var > $i){
+ $this->db->or_where('category',$value);
+
+  }else{
+//       print_r($id);
+// echo count($id);
+$this->db->where('category',$value);
+
+ $this->db->or_where('category',$value);
+
+  }
+
+}
 
 $dat= $this->db->get();
+
 
 $i=1; foreach($dat->result() as $data) {
 
@@ -219,7 +235,7 @@ echo json_encode($igt);
                // print_r($this->input->post());
                // exit;
   $this->form_validation->set_rules('productname', 'productname');
-  $this->form_validation->set_rules('category', 'category');
+  // $this->form_validation->set_rules('category', 'category');
   $this->form_validation->set_rules('sub_category', 'sub_category');
   $this->form_validation->set_rules('productdescription', 'productdescription');
   // $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
@@ -239,10 +255,50 @@ echo json_encode($igt);
                if($this->form_validation->run()== TRUE)
                {
   $productname=$this->input->post('productname');
-  $category=$this->input->post('category');
+  // $category=$this->input->post('category');
 
 
   $subcategory=$this->input->post('sub_category');
+  $subcategory_data= json_encode($subcategory);
+  // $subcategory_data=implode(",",$subcategory);
+
+
+  //geting category
+        $this->db->select('*');
+                    $this->db->from('tbl_subcategory');
+                  $i=1;
+                    foreach($subcategory as $value){
+
+                    $this->db->or_where('id',$value);
+                  $i++;
+                  }
+
+
+                  $data_subcategory= $this->db->get();
+                  $category_data=[];
+                  $i=1;
+                  foreach ($data_subcategory->result() as $value1) {
+                    if($i>1){
+                    foreach ($category_data as $value) {
+            if($value!=$value1->category){
+              $category_data[]=  $value1->category;
+                    }
+                    }
+                  }else{
+                    $category_data[]=  $value1->category;
+                  }
+                  $i++;
+                }
+
+
+$data_cat=json_encode($category_data);
+
+
+
+
+
+
+
   $productdescription=$this->input->post('productdescription');
   $leadtime=$this->input->post('leadtime');
   $seating=$this->input->post('seating');
@@ -276,10 +332,10 @@ $img2='image';
                      {
                          $upload_error = $this->upload->display_errors();
 
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //               echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -320,10 +376,10 @@ $img3='image1';
                      {
                          $upload_error = $this->upload->display_errors();
 
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //               echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -364,10 +420,10 @@ $img4='image2';
                      {
                          $upload_error = $this->upload->display_errors();
 
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //               echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -408,10 +464,10 @@ $img5='image3';
                      {
                          $upload_error = $this->upload->display_errors();
 
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //               echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -441,8 +497,8 @@ $img5='image3';
 
            $data_insert = array(
                   'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
+                  'category'=>$data_cat,
+  'subcategory'=>$subcategory_data,
   'image'=>$nnnn2,
   'image1'=>$nnnn3,
   'image2'=>$nnnn4,
@@ -516,8 +572,8 @@ if(!empty($nnnn5)){
 
            $data_insert = array(
                   'productname'=>$productname,
-                  'category'=>$category,
-  'subcategory'=>$subcategory,
+                  'category'=>$data_cat,
+  'subcategory'=>$subcategory_data,
   'image'=>$n1,
   'image1'=>$n2,
   'image2'=>$n3,
@@ -686,4 +742,31 @@ if(!empty($nnnn5)){
                             }
 
                             }
+  public function view_data_file(){
+
+                   if(!empty($this->session->userdata('admin_data'))){
+
+
+                     $data['user_name']=$this->load->get_var('user_name');
+
+                     // echo SITE_NAME;
+                     // echo $this->session->userdata('image');
+                     // echo $this->session->userdata('position');
+                     // exit;
+
+
+                     $this->load->view('admin/common/header_view',$data);
+                     $this->load->view('admin/products/view_data_file');
+                     $this->load->view('admin/common/footer_view');
+
+                 }
+                 else{
+
+                    redirect("login/admin_login","refresh");
+                 }
+
+                 }
+
+
+
                       }
