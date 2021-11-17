@@ -41,7 +41,6 @@
 
  	 <th>name</th>
  	 <th>Image</th>
- 	 <th>Image</th>
 
 
         <th>Status</th>
@@ -65,14 +64,14 @@
         </td>
 
 
-        <td>
+        <!-- <td>
         <?php if($data->Image2!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->Image2
         ?>" >
         <?php }else { ?>
         Sorry No File Found
         <?php } ?>
-        </td>
+        </td> -->
 
 
 
@@ -167,7 +166,3 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-        

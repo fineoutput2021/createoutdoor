@@ -154,43 +154,43 @@
 
 
 
-    $img2='Image2';
-
-                $file_check2=($_FILES['Image2']['error']);
-                if($file_check2!=4){
-              	$image_upload_folder2 = FCPATH . "assets/uploads/chair/";
-      						if (!file_exists($image_upload_folder2))
-      						{
-      							mkdir($image_upload_folder2, DIR_WRITE_MODE, true);
-      						}
-      						$new_file_name2="chair2".date("Ymdhms");
-      						$this->upload_config = array(
-      								'upload_path'   => $image_upload_folder2,
-      								'file_name' => $new_file_name2,
-      								'allowed_types' =>'jpg|jpeg|png',
-      								'max_size'      => 25000
-      						);
-      						$this->upload->initialize($this->upload_config);
-      						if (!$this->upload->do_upload($img2))
-      						{
-      							$upload_error2 = $this->upload->display_errors();
-      							// echo json_encode($upload_error);
-      							echo $upload_error2;
-      						}
-      						else
-      						{
-
-      							$file_info2 = $this->upload->data();
-
-      							$videoNAmePath2 = "assets/uploads/chair/".$new_file_name2.$file_info2['file_ext'];
-      							$file_info2['new_name']=$videoNAmePath2;
-      							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-      							$nnnn=$file_info2['file_name'];
-      							$nnnn2=$videoNAmePath2;
-
-      							// echo json_encode($file_info);
-      						}
-                }
+    // $img2='Image2';
+    //
+    //             $file_check2=($_FILES['Image2']['error']);
+    //             if($file_check2!=4){
+    //           	$image_upload_folder2 = FCPATH . "assets/uploads/chair/";
+    //   						if (!file_exists($image_upload_folder2))
+    //   						{
+    //   							mkdir($image_upload_folder2, DIR_WRITE_MODE, true);
+    //   						}
+    //   						$new_file_name2="chair2".date("Ymdhms");
+    //   						$this->upload_config = array(
+    //   								'upload_path'   => $image_upload_folder2,
+    //   								'file_name' => $new_file_name2,
+    //   								'allowed_types' =>'jpg|jpeg|png',
+    //   								'max_size'      => 25000
+    //   						);
+    //   						$this->upload->initialize($this->upload_config);
+    //   						if (!$this->upload->do_upload($img2))
+    //   						{
+    //   							$upload_error2 = $this->upload->display_errors();
+    //   							// echo json_encode($upload_error);
+    //   							echo $upload_error2;
+    //   						}
+    //   						else
+    //   						{
+    //
+    //   							$file_info2 = $this->upload->data();
+    //
+    //   							$videoNAmePath2 = "assets/uploads/chair/".$new_file_name2.$file_info2['file_ext'];
+    //   							$file_info2['new_name']=$videoNAmePath2;
+    //   							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+    //   							$nnnn=$file_info2['file_name'];
+    //   							$nnnn2=$videoNAmePath2;
+    //
+    //   							// echo json_encode($file_info);
+    //   						}
+    //             }
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -209,7 +209,7 @@ if($typ==1){
            $data_insert = array(
                   'name'=>$name,
   'image1'=>$nnnn1,
-  'Image2'=>$nnnn2,
+//  'Image2'=>$nnnn2,
 
                      'ip' =>$ip,
                      'added_by' =>$addedby,
@@ -238,17 +238,17 @@ if(!empty($nnnn1)){
   $n1=$da->image1;
 }
 
-if(!empty($nnnn2)){
-  $n2=$nnnn2;
-}else{
-  $n2=$da->Image2;
-}
+// if(!empty($nnnn2)){
+//   $n2=$nnnn2;
+// }else{
+//   $n2=$da->Image2;
+// }
 
 
            $data_insert = array(
                   'name'=>$name,
   'image1'=>$n1,
-  'Image2'=>$n2,
+  // 'Image2'=>$n2,
 
                      );
              $this->db->where('id', $idw);
