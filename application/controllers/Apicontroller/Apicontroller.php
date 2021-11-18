@@ -4904,7 +4904,7 @@ foreach($corporate_data->result() as $data) {
 
 //testimonals
 public function view_testimonials(){
-  
+
   $this->db->select('*');
               $this->db->from('tbl_Testimonals');
               $this->db->where('is_active',1);
@@ -4926,6 +4926,31 @@ public function view_testimonials(){
 
           );
           echo json_encode($res);
+}
+
+//top bar api
+public function get_topbar(){
+
+$this->db->select('*');
+$this->db->from('tbl_topbar');
+$topdata= $this->db->get();
+$top=[];
+foreach($topdata->result() as $data) {
+$top[] = array(
+'id'=> $data->id,
+'name'=> $data->Name,
+'link'=> base_url().$data->link
+);
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+'status'=>200,
+'data'=>$top
+);
+
+echo json_encode($res);
+
+
 }
 
 
