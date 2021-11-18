@@ -302,10 +302,11 @@ if($this->form_validation->run()== TRUE)
 $subcategory_id=$this->input->post('subcategory_id');
 
 
+
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('is_active',1);
-$this->db->where('subcategory',$subcategory_id);
+$this->db->like('subcategory',$subcategory_id);
 $product_data= $this->db->get();
 
 // print_r($product_data);
@@ -319,6 +320,7 @@ if(!empty($product_check)){
 $product_data1 = [];
 
 foreach($product_data->result() as $data) {
+
   $this->db->select('*');
               $this->db->from('tbl_subcategory');
               $this->db->where('id',$subcategory_id);
