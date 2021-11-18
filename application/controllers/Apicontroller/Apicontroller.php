@@ -4693,7 +4693,7 @@ $txn_id=$t;
 
                                         $this->db->select('*');
                                         $this->db->from('tbl_products');
-                                        $this->db->where('category',$category_id);
+                                        $this->db->like('category',$category_id);
                                         $product_data= $this->db->get();
 
                                         // print_r($product_data);
