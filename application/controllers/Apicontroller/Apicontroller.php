@@ -305,14 +305,15 @@ $subcategory_id=$this->input->post('subcategory_id');
 
 $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('is_active',1);
 $this->db->like('subcategory',$subcategory_id);
+$this->db->where('is_active',1);
 $product_data= $this->db->get();
 
 // print_r($product_data);
 // exit;
 
 $product_check=$product_data->row();
+
 
 
 if(!empty($product_check)){
@@ -326,8 +327,10 @@ foreach($product_data->result() as $data) {
               $this->db->where('id',$subcategory_id);
               $this->db->where('is_active',1);
               $get_name= $this->db->get()->row();
-
-
+              if(!empty($get_name)){
+                $subcategory_name=$get_name->subcategory;
+                $subcategory_text=$get_name->text;
+              }
 
 $this->db->select('*');
 $this->db->from('tbl_type');
@@ -366,14 +369,23 @@ header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
 'data'=>$product_data1,
-'subcategory'=>$get_name->subcategory,
-'subcategory'=>$get_name->text
+'subcategory'=>$subcategory_name,
+'text'=>$subcategory_text
 );
 
 echo json_encode($res);
 
 
-}}
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"product is not found",
+  'status'=>201
+  );
+
+  echo json_encode($res);
+}
+
+}
 else{
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
@@ -409,22 +421,35 @@ $this->db->where('is_active',1);
 $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
-
+$newvar=json_decode($data->category);
 //category
+foreach ($newvar as $value_ub) {
+
+
 $this->db->select('*');
 $this->db->from('tbl_category');
-$this->db->where('id',$data->category);
+$this->db->where('id',$value_ub);
 $cat= $this->db->get()->row();
+if(!empty($cat)){
+  $category_title=$cat->title;
+}
 
-
+}
 
 //subcategory
+$decode_sub=json_decode($data->subcategory);
+foreach ($decode_sub as $value_sub) {
+
+
 $this->db->select('*');
 $this->db->from('tbl_subcategory');
-$this->db->where('id',$data->subcategory);
+$this->db->where('id',$value_sub);
 $sub= $this->db->get()->row();
+if(!empty($sub)){
+  $subcategory_title=$sub->subcategory;
+}
 
-
+}
 //type --
 $this->db->select('*');
 $this->db->from('tbl_type');
@@ -449,8 +474,8 @@ $products[] = array(
 'product_id'=> $data->id,
 'productname'=> $data->productname,
 
-'category'=> $cat->title,
-'sucategory'=> $sub->subcategory,
+'category'=> $category_title,
+'sucategory'=> $subcategory_title,
 'productimage'=> base_url().$data->image,
 'productimage1'=> base_url().$data->image1,
 'productimage2'=> base_url().$data->image2,
@@ -2315,16 +2340,23 @@ $this->db->where('id',$id);
 $this->db->where('is_active',1);
 $product_data= $this->db->get()->row();
 
+$new_add=json_decode($product_data->subcategory);
+
+foreach($new_add as $data_subcategory){
             $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('subcategory',$product_data->subcategory);
+$this->db->like('subcategory',$data_subcategory);
+
 $related_data= $this->db->get();
+
 
 $related_info = [];
 $type = [];
+$i=1;
 foreach($related_data->result() as $data) {
 
 if($data->id!=$id){
+
 
             $this->db->select('*');
 $this->db->from('tbl_type');
@@ -2334,8 +2366,8 @@ $type_data= $this->db->get();
 $type_check= $type_data->row();
 
 if(!empty($type_check)){
-foreach($type_data->result() as $data1) {
 
+foreach($type_data->result() as $data1) {
 
 $type[]= array(
 'type_id'=>$data1->id,
@@ -2347,6 +2379,7 @@ $type[]= array(
 
 }
 }
+
 $related_info[]  = array(
 'product_id'=>$data->id,
 'productname'=>$data->productname,
@@ -2356,7 +2389,10 @@ $related_info[]  = array(
 
 );
 }
+$i++;
+
 }
+
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
@@ -2369,7 +2405,7 @@ exit();
 
 
 }
-
+}
 //count view cart product
 
 public function cart_count(){
@@ -4941,7 +4977,7 @@ foreach($topdata->result() as $data) {
 $top[] = array(
 'id'=> $data->id,
 'name'=> $data->Name,
-'link'=> base_url().$data->link
+'link'=>$data->link
 );
 }
 header('Access-Control-Allow-Origin: *');
