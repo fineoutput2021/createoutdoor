@@ -3475,6 +3475,14 @@ $update_data = array(
 $this->db->where('type_id', $data->type_id);
 $last_id=$this->db->update('tbl_inventory', $update_data);
 
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some Eroor Occured! please try again',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
 }
 }//--end_cart foreach
 
