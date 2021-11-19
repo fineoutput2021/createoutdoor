@@ -53,22 +53,40 @@ if(!empty($this->session->flashdata('emessage'))){ ?>
 <tr>
 <td><?php echo $i ?> </td>
 
-<td><?php  $cid=$data->category;
+<td><?php  $cid=json_decode($data->category);
+foreach($cid as $category_data){
 $this->db->select('*');
             $this->db->from('tbl_category');
-            $this->db->where('id',$cid);
+            $this->db->where('id',$category_data);
             $dsa= $this->db->get();
             $da=$dsa->row();
+            if(!empty($da)){
             echo $da->title;
-
+            echo "<br>";
+          }else{
+            echo "";
+          }
+}
 ?></td>
-<td><?php  $sid=$data->subcategory;
+<td><?php  $sid=json_decode($data->subcategory);
+foreach($sid as $subcategory_data){
+
+
 $this->db->select('*');
             $this->db->from('tbl_subcategory');
-            $this->db->where('id',$sid);
-            $dsa= $this->db->get();
-            $da=$dsa->row();
-            echo $da->subcategory;
+            $this->db->where('id',$subcategory_data);
+            $dsa_sub= $this->db->get();
+            $data_sub=$dsa_sub->row();
+
+            if(!empty($data_sub)){
+
+
+
+            echo $data_sub->subcategory;
+          }else{
+            echo "";
+          }
+}
 
 ?></td>
 <td>

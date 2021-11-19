@@ -71,8 +71,8 @@ public function view_iproducts($idd,$idd1){
 
             $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->where('category',$id);
-$this->db->where('subcategory',$id1);
+  $this->db->like('category',$id);
+$this->db->like('subcategory',$id1);
 
 $data['product_list']= $this->db->get();
 
