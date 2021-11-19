@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <html lang="en">
-<input type="hidden" value="<?php if(!empty($order1_data)){ echo $order1_data->total_amount; }?>" id="tot_amnt">
+<input type="hidden" value="<?php if(!empty($order1_data)){ echo $order1_data->final_amount; }?>" id="tot_amnt">
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -144,8 +144,8 @@ Zipcode: <?php echo $zipcode;?><br>
         <th>SNo.</th>
         <th>Product</th>
         <!-- <th>HSN Code</th> -->
-        <th>Unit Name</th>
-        <th>Unit Price</th>
+        <th>Type</th>
+        <th>Mrp.</th>
         <th>Qty</th>
 
         <th>Total Amount</th>
@@ -185,7 +185,7 @@ echo $product_name= $product_data->productname;
         $type_data= $this->db->get()->row();
         if(!empty($type_data)){
         echo $type_name= $type_data->name;
-         echo $type_mrp= $type_data->mrp;
+         $type_mrp= $type_data->mrp;
          // $type_gst_percentage= $type_data->gst_percentage;
           // $type_gst_percentage_price= $type_data->gst_percentage_price;
          //$type_selling_price= $type_data->selling_price;
@@ -195,7 +195,7 @@ echo $product_name= $product_data->productname;
         }
         else{
         echo  $type_name= "";
-           echo $type_mrp= "";
+           $type_mrp= "";
            $type_weight= 0;
            $type_gst_percentage= 0;
            $type_gst_percentage_price= 0;
@@ -204,7 +204,7 @@ echo $product_name= $product_data->productname;
 
 
         ?></td>
-        <td ><?php echo "AED. ".$type_mrp;?></td>
+        <td ><?php echo $type_mrp;?></td>
         <td ><?php echo $data->quantity;?></td>
         <!-- <td>9%</td>
         <td>CGST</td>
@@ -219,17 +219,27 @@ echo $product_name= $product_data->productname;
         ?>
 
 
-        <td><?php echo "AED. ".$data->total_amount;?></td>
+        <td><?php echo $data->total_amount;?></td>
       </tr>
   <?php $i++;} }?>
 
 
+
       <tr>
         <th>Total</th>
+
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
         <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
-        <th class="product_table"><?php if(!empty($order1_data)){ echo "AED. ".$order1_data->total_amount; }?></th>
+        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->total_amount; }?></th>
+      </tr>
+      <tr>
+        <th>Delivery charge:</th>
+
+        <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
+        <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
+
+        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->delivery_charge; }?></th>
       </tr>
 
       <tr>
@@ -278,11 +288,11 @@ echo $product_name= $product_data->productname;
           }else{
             $promo_discount= 0;
           }
-             "- AED. ".$promo_discount; }else{ echo "-AED. 0"; }?>
+             $promo_discount; }else{ echo ""; }?>
 
 <!-- from table order1  start-->
 
-<?php if(!empty($order1_data)){ echo "- AED. ".$order1_data->promo_deduction_amount; }else{ echo "-AED. 0"; }?>
+<?php if(!empty($order1_data)){ echo $order1_data->promo_deduction_amount; }else{ echo "0"; }?>
 
 <!-- from table order1  end-->
 
@@ -294,7 +304,7 @@ echo $product_name= $product_data->productname;
 
       <tr>
         <th colspan="5">SubTotal</th>
-        <th class="product_table"><?php if(!empty($order1_data)){ echo "AED. ".$order1_data->total_amount; }?></th>
+        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->total_amount + $order1_data->delivery_charge; }?></th>
 
       </tr>
 
