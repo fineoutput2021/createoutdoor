@@ -42,7 +42,7 @@
  	 <th>Name</th>
  	 <th>Contact No.</th>
  	 <th>Email</th>
- 	 <th>Complain</th>
+ 	 <!-- <th>Complain</th> -->
 
 
         <th>Status</th>
@@ -57,7 +57,7 @@
  	 <td><?php echo $data->name ?></td>
  	 <td><?php echo $data->contact ?></td>
  	 <td><?php echo $data->email ?></td>
- 	 <td><?php echo $data->complain ?></td>
+ 	 
 
 
 

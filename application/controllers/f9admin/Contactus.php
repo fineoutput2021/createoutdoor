@@ -106,6 +106,7 @@
 	$this->form_validation->set_rules('name', 'name', 'required|trim');
 	$this->form_validation->set_rules('phone', 'phone', 'integer|max_length[10]|min_length[10]|required|trim');
 	$this->form_validation->set_rules('email', 'email', 'valid_email|required|trim');
+	// $this->form_validation->set_rules('complain', 'complain', 'required|trim');
 
 
 
@@ -116,7 +117,7 @@
 	$name=$this->input->post('name');
 	$phone=$this->input->post('phone');
 	$email=$this->input->post('email');
-	$complain=$this->input->post('complain');
+	// $complain=$this->input->post('complain');
 
 									 $ip = $this->input->ip_address();
 									 date_default_timezone_set("Asia/Calcutta");
@@ -133,7 +134,7 @@
 									'name'=>$name,
 	'contact'=>$phone,
 	'email'=>$email,
-	'complain'=>$complain,
+	// 'complain'=>$complain,
 
 										 'ip' =>$ip,
 										 'added_by' =>$addedby,
@@ -164,7 +165,7 @@
 									'name'=>$name,
 	'contact'=>$phone,
 	'email'=>$email,
-	'complain'=>$complain,
+	// 'complain'=>$complain,
 
 										 );
 						 $this->db->where('id', $idw);

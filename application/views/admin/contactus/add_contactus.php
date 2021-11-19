@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
                <section class="content-header">
                   <h1>
@@ -47,10 +48,10 @@
 <td> <strong>Email</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="email" name="email"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
-  <tr>
+  <!-- <tr>
 <td> <strong>Complain</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <textarea class="form-control"  name="complain" rows="5" cols="5">  </textarea></td>
-</tr>
+</tr> -->
 
 
                                  <tr>
