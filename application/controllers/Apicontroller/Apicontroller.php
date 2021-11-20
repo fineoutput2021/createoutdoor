@@ -5004,13 +5004,21 @@ public function get_chair_text(){
 $this->db->select('*');
 $this->db->from('tbl_chair_text');
 $chair_text= $this->db->get()->row();
+if(!empty($chair_text)){
+  $chair_id=$chair_text->id;
+  $chair_heading=$chair_text->heading;
+  $chair_subheading=$chair_text->heading2;
+  $chair_paregraph=$chair_text->paregraph;
+
+
+}
 $top=[];
 
 $top[] = array(
-'id'=> $chair_text->id,
-'Heading'=> $chair_text->heading,
-'Sub_Heading'=>$chair_text->heading2,
-'paregraph'=>$chair_text->paregraph,
+'id'=> $chair_id,
+'Heading'=> $chair_heading,
+'Sub_Heading'=>$chair_subheading,
+'paregraph'=>$chair_paregraph
 );
 
 header('Access-Control-Allow-Origin: *');
