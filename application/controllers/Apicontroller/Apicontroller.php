@@ -4998,7 +4998,30 @@ echo json_encode($res);
 
 
 }
+//get chair text
+public function get_chair_text(){
 
+$this->db->select('*');
+$this->db->from('tbl_chair_text');
+$chair_text= $this->db->get()->row();
+$top=[];
+
+$top[] = array(
+'id'=> $chair_text->id,
+'Heading'=> $chair_text->heading,
+'Sub_Heading'=>$chair_text->heading2,
+'paregraph'=>$chair_text->paregraph,
+);
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+'status'=>200,
+'data'=>$top
+);
+
+echo json_encode($res);
+
+}
 
 
 
