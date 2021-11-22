@@ -1377,8 +1377,8 @@ $cart_info[] = array('product_id'=>$data->product_id,
 'type_id'=>$data->type_id,
 'type_name'=>$type_data->name,
 'quantity'=>$data->quantity,
-'price'=>$type_data->gstprice,
-'total='=>$total = $type_data->gstprice * $data->quantity
+'price'=>$type_data->spgst,
+'total='=>$total = $type_data->spgst * $data->quantity
 
 );
 $sub_total= $sub_total + $total;
@@ -5015,7 +5015,7 @@ if(!empty($chair_text)){
 $top=[];
 
 $top[] = array(
-'id'=> $chair_id,
+'id'=>$chair_id,
 'Heading'=> $chair_heading,
 'Sub_Heading'=>$chair_subheading,
 'paregraph'=>$chair_paregraph
@@ -5030,7 +5030,5 @@ $res = array('message'=>"success",
 echo json_encode($res);
 
 }
-
-
 
 }
