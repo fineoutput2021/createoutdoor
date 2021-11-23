@@ -266,7 +266,8 @@ $img2='image';
                      if (!$this->upload->do_upload($img2))
                      {
                          $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
+                        
+                         // echo json_encode($upload_error);
 
            $this->session->set_flashdata('emessage',$upload_error);
              redirect($_SERVER['HTTP_REFERER']);
@@ -309,10 +310,10 @@ $img3='image1';
                      if (!$this->upload->do_upload($img3))
                      {
                          $upload_error = $this->upload->display_errors();
-                         echo json_encode($upload_error);
-
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
+           //               echo json_encode($upload_error);
+           //
+           // $this->session->set_flashdata('emessage',$upload_error);
+           //   redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -329,18 +330,24 @@ $img3='image1';
                      }
 
 
+if(!empty($nnnn2)){
+  $n1=$nnnn2;
+}else{
+  $n1=$da->image;
+}
+if(!empty($nnnn3)){
+  $n2=$nnnn3;
+}else{
+  $n2=$da->image1;
+}
 
-
- if(!empty($da)){ $img = $da ->image;
-if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){ $nnnn2= ""; } } }if(!empty($da)){ $img = $da ->image1;
-if(!empty($img)) { if(empty($nnnn3)){ $nnnn3 = $img; } }else{ if(empty($nnnn3)){ $nnnn3= ""; } } }
 
            $data_insert = array(
                   'title'=>$title,
   'description'=>$description,
   'link'=>$link,
-  'image'=>$nnnn2,
-  'image1'=>$nnnn3,
+  'image'=>$n1,
+  'image1'=>$n2,
 
                      );
              $this->db->where('id', $idw);

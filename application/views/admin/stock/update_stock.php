@@ -37,8 +37,13 @@
                             <table class="table table-hover">
 <tr>
 <td> <strong>image</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image"  class="form-control" placeholder="" />
+<td> <input type="file" name="image1"  class="form-control" placeholder="" />
 <?php if($stock_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$stock_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+</tr>
+<tr>
+<td> <strong>Background Image</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="image2"  class="form-control" placeholder="" />
+<?php if($stock_data->back_image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$stock_data->back_image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 <tr>
 <td> <strong>title</strong>  <span style="color:red;">*</span></strong> </td>

@@ -37,7 +37,11 @@
                                            <table class="table table-hover">
   <tr>
 <td> <strong>image</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image"  class="form-control" placeholder="" required value="" />  </td>
+<td> <input type="file" name="image1"  class="form-control" placeholder="" required value="" />  </td>
+</tr>
+  <tr>
+<td> <strong>Background Image</strong> <span style="color:red;">*</span></strong> </td>
+<td> <input type="file" name="image2"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
   <tr>
 <td> <strong>title</strong>  <span style="color:red;">*</span></strong> </td>
@@ -75,5 +79,3 @@
 
 <script type="text/javascript" src=" <?php echo base_url()  ?>assets/slider/ajaxupload.3.5.js"></script>
      <link href=" <? echo base_url()  ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
-
-       

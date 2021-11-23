@@ -204,7 +204,7 @@ echo $product_name= $product_data->productname;
 
 
         ?></td>
-        <td ><?php echo $type_mrp;?></td>
+        <td ><?php echo "Rs. " .$type_mrp;?></td>
         <td ><?php echo $data->quantity;?></td>
         <!-- <td>9%</td>
         <td>CGST</td>
@@ -219,7 +219,7 @@ echo $product_name= $product_data->productname;
         ?>
 
 
-        <td><?php echo $data->total_amount;?></td>
+        <td><?php echo "Rs. ".$data->total_amount;?></td>
       </tr>
   <?php $i++;} }?>
 
@@ -231,15 +231,23 @@ echo $product_name= $product_data->productname;
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
         <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
-        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->total_amount; }?></th>
+        <th class="product_table"><?php if(!empty($order1_data)){ echo "Rs. ".$order1_data->total_amount; }?></th>
       </tr>
       <tr>
-        <th>Delivery charge:</th>
+        <th>Shipping charge:</th>
 
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
         <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
-        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->delivery_charge; }?></th>
+        <th class="product_table"><?php if(!empty($order1_data)){ echo "+Rs. ".$order1_data->delivery_charge; }?></th>
+      </tr>
+      <tr>
+        <th>Promocode discount:</th>
+
+        <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
+        <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
+
+        <th class="product_table"><?php if(!empty($order1_data)){ echo "-Rs. ".$order1_data->discount; }?></th>
       </tr>
 
       <tr>
@@ -304,7 +312,7 @@ echo $product_name= $product_data->productname;
 
       <tr>
         <th colspan="5">SubTotal</th>
-        <th class="product_table"><?php if(!empty($order1_data)){ echo $order1_data->total_amount + $order1_data->delivery_charge; }?></th>
+        <th class="product_table">Rs. <?php if(!empty($order1_data)){ echo  $order1_data->total_amount + $order1_data->delivery_charge; }?></th>
 
       </tr>
 

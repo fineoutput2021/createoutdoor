@@ -8,6 +8,7 @@
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
+          
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/topbar/add_topbar"
         role="button" style="margin-bottom:12px;"> Add topbar</a>
         <div class="panel panel-default">
@@ -147,7 +148,3 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-        

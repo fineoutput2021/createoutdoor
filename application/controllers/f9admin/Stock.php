@@ -114,10 +114,11 @@
                {
   $title=$this->input->post('title');
   $description=$this->input->post('description');
+  $this->load->library('upload');
 
-$img1='image';
+$img1='image1';
 
-            $file_check=($_FILES['image']['error']);
+            $file_check=($_FILES['image1']['error']);
             if($file_check!=4){
           	$image_upload_folder = FCPATH . "assets/uploads/stock/";
   						if (!file_exists($image_upload_folder))
@@ -137,28 +138,57 @@ $img1='image';
   							$upload_error = $this->upload->display_errors();
   							// echo json_encode($upload_error);
   							echo $upload_error;
-                exit;
+  						}
+  						else
+  						{
+
+  						$file_info1 = $this->upload->data();
+              // print_r(	$file_info1);
+
+  							$videoNAmePath1 = "assets/uploads/stock/".$new_file_name.$file_info1['file_ext'];
+  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+  							$nnnn=$videoNAmePath1;
+  							// echo json_encode($file_info);
+  						}
+            }
+$img2='image2';
+
+            $file_check=($_FILES['image2']['error']);
+            if($file_check!=4){
+          	$image_upload_folder = FCPATH . "assets/uploads/stock/";
+  						if (!file_exists($image_upload_folder))
+  						{
+  							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+  						}
+  						$new_file_name1="stock1".date("Ymdhms");
+  						$this->upload_config = array(
+  								'upload_path'   => $image_upload_folder,
+  								'file_name' => $new_file_name1,
+  								'allowed_types' =>'jpg|jpeg|png',
+  								'max_size'      => 25000
+  						);
+  						$this->upload->initialize($this->upload_config);
+  						if (!$this->upload->do_upload($img2))
+  						{
+  							$upload_error = $this->upload->display_errors();
+  							// echo json_encode($upload_error);
+  							echo $upload_error;
   						}
   						else
   						{
 
   							$file_info = $this->upload->data();
 
-  							$videoNAmePath = "assets/uploads/stock/".$new_file_name.$file_info['file_ext'];
-  							$file_info['new_name']=$videoNAmePath;
-  							// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-  							$nnnn=$file_info['file_name'];
-                $nnnn0=$videoNAmePath;
+  							$videoNAmePath1 = "assets/uploads/stock/".$new_file_name1.$file_info['file_ext'];
+                // print_r(	$file_info);
+
+
+  							$nnnn1=$videoNAmePath1;
   							// echo json_encode($file_info);
   						}
             }
-
-
-
-
-
-
-
+// echo $nnnn;
+// echo $nnnn1;    exit;
                      $ip = $this->input->ip_address();
                      date_default_timezone_set("Asia/Calcutta");
                      $cur_date=date("Y-m-d H:i:s");
@@ -171,7 +201,8 @@ $img1='image';
 
 
            $data_insert = array(
-                  'image'=>$nnnn0,
+                  'image'=>$nnnn,
+                  'back_image'=>$nnnn1,
   'title'=>$title,
   'description'=>$description,
 
@@ -180,7 +211,8 @@ $img1='image';
                      'is_active' =>1,
                      'date'=>$cur_date
                      );
-
+// print_r($data_insert);
+// exit;
 
            $last_id=$this->base_model->insert_table("tbl_stock",$data_insert,1) ;
 
@@ -197,13 +229,19 @@ $img1='image';
  $da=$dsa->row();
 
 
-if(!empty($nnnn0)){
-  $n1=$nnnn0;
+if(!empty($nnnn)){
+  $n1=$nnnn;
 }else{
     $n1=$da->image;
 }
+if(!empty($nnnn1)){
+  $n2=$nnnn1;
+}else{
+    $n2=$da->back_image;
+}
            $data_insert = array(
                   'image'=>$n1,
+                  'image'=>$n2,
   'title'=>$title,
   'description'=>$description,
 

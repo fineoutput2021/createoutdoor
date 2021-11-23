@@ -40,6 +40,8 @@
         <th>#</th>
 
  	 <th>image</th>
+ 	 <th>Background Image</th>
+
  	 <th>title</th>
  	 <th>description</th>
 
@@ -57,6 +59,14 @@
         <td>
         <?php if($data->image!=""){ ?>
         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image
+        ?>" >
+        <?php }else { ?>
+        Sorry No File Found
+        <?php } ?>
+        </td>
+        <td>
+        <?php if($data->back_image!=""){ ?>
+        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->back_image
         ?>" >
         <?php }else { ?>
         Sorry No File Found

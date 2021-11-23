@@ -55,7 +55,7 @@
 <tr>
 <td> <strong>image1</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="file" name="image1"  class="form-control" placeholder="" />
-<?php if($sale_data->image!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$sale_data->image; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
+<?php if($sale_data->image1!=""){ ?> <img id="slide_img_path" height=200 width=300 src="<?php echo base_url().$sale_data->image1; ?> "> <?php }else{ ?> Sorry No File Found <?php } ?>  </td>
 </tr>
 
 

@@ -51,7 +51,8 @@ $gallery=[];
 foreach($gallerydata->result() as $data) {
 $gallery[] = array(
 'name'=> $data->name,
-'image'=> base_url().$data->image
+'image'=> base_url().$data->image,
+'link'=>$data->link
 
 );
 }
@@ -137,6 +138,7 @@ $sales[] = array(
 'description'=> $data->description,
 'image'=> base_url().$data->image,
 'image1'=> base_url().$data->image1,
+'link'=>$data->link,
 
 );
 }
@@ -151,7 +153,7 @@ echo json_encode($res);
 
 }
 
-// ========= Get Stock =============
+  // ========= Get Stock =============
 public function get_stock(){
 
 $this->db->select('*');
@@ -161,6 +163,7 @@ $stock=[];
 foreach($stockdata->result() as $data) {
 $stock[] = array(
 'image'=> base_url().$data->image,
+'background_image'=>base_url().$data->back_image,
 'title'=> $data->title,
 'description'=> $data->description,
 
@@ -2158,7 +2161,9 @@ $d2=$newdate->format('d-m-Y');   #d-m-Y  // March 10, 2001, 5:16 pm
 $viewcart[]=array(
 'order_id'=>$value->id,
 'order_date'=>$d2,
-'total_amount'=>$value->final_amount,
+'total_amount'=>$value->total_amount,
+'final_amount'=>$value->final_amount,
+
 'payment_type'=> $payment_type,
 'delivery_charge'=>$value->delivery_charge,
 'discount'=>$value->discount,
@@ -2268,6 +2273,17 @@ $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
 $type_data= $this->db->get()->row();
 
+$this->db->select('*');
+            $this->db->from('tbl_order1');
+            $this->db->where('id',$order_id);
+            $data_order1= $this->db->get()->row();
+            if(!empty($data_order1)){
+              $data_amount=$data_order1->final_amount;
+            }else{
+            $data_amount="";
+            }
+
+
 $order2[]=array(
 'product_id' =>$product_data->id,
 'product_name' =>$product_data->productname,
@@ -2276,7 +2292,7 @@ $order2[]=array(
 'type_id'=>$type_data->id,
 'type_name'=>$type_data->name,
 'price'=>$data->type_amt,
-'total amount'=>$data->total_amount,
+'total amount'=>$data_amount,
 
 
 
@@ -3462,7 +3478,7 @@ foreach($order2_data->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
-$inventory_data= $this->db->get()->row()->row();
+$inventory_data= $this->db->get()->row();
 
 if(!empty($inventory_data)){
 
@@ -4081,6 +4097,33 @@ public function cancel_order(){
 
                       $this->db->where('id', $order_id);
                       $last_id=$this->db->update('tbl_order1', $data_insert);
+   //inventory update
+                      $this->db->select('*');
+                                  $this->db->from('tbl_order2');
+                                  $this->db->where('main_id',$order_id);
+                                  $data_order1= $this->db->get()->row();
+              if(!empty($data_order1)){
+                $this->db->select('*');
+                            $this->db->from('tbl_inventory');
+                            $this->db->where('type_id',$data_order1->type_id);
+                            $data_inventory= $this->db->get()->row();
+
+                          $total_quantity=$data_order1->quantity + $data_inventory->quantity;
+
+
+
+                          $data_update=array(
+                                   'quantity'=>$total_quantity
+                          );
+                          $this->db->where('type_id', $data_order1->type_id);
+                          $last_id2=$this->db->update('tbl_inventory', $data_update);
+
+
+
+
+
+
+
 
     if(!empty($last_id)){
       header('Access-Control-Allow-Origin: *');
@@ -4097,6 +4140,14 @@ public function cancel_order(){
 
       echo json_encode($res);
     }
+  }else{
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'order_id not found',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+  }
 
             }else{
             header('Access-Control-Allow-Origin: *');

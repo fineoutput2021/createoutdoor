@@ -133,6 +133,30 @@ $data_update = array(
 $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_order1', $data_update);
 
+//inventory_update
+$this->db->select('*');
+            $this->db->from('tbl_order2');
+            $this->db->where('main_id',$id);
+            $data_order1= $this->db->get()->row();
+if(!empty($data_order1)){
+
+$this->db->select('*');
+      $this->db->from('tbl_inventory');
+      $this->db->where('type_id',$data_order1->type_id);
+      $data_inventory= $this->db->get()->row();
+
+    $total_quantity=$data_order1->quantity + $data_inventory->quantity;
+
+
+
+    $data_update=array(
+             'quantity'=>$total_quantity
+    );
+    $this->db->where('type_id', $data_order1->type_id);
+    $last_id2=$this->db->update('tbl_inventory', $data_update);
+  }
+//---------------------
+
 if($zapak!=0){
 redirect("dcadmin/Neworder/view_cancel_orders","refresh");
 }
