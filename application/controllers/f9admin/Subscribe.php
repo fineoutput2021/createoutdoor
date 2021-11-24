@@ -148,10 +148,6 @@
  $dsa=$this->db->get();
  $da=$dsa->row();
 
-
-
-
-
            $data_insert = array(
                   'email'=>$email,
 
