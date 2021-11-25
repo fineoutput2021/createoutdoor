@@ -5116,6 +5116,7 @@ public function get_address(){
                                                             $get_address=[];
                                                             if(!empty($data_address)){
                                                                      $get_address[]=array(
+                                                                       'email'=>$data_address->email,
                                                                        'first_Name'=>$data_address->first_name,
                                                                        'Last_Name'=>$data_address->last_name,
                                                                        'post_code'=>$data_address->post_code,
