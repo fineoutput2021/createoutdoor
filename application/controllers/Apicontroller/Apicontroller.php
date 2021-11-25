@@ -5081,5 +5081,104 @@ $res = array('message'=>"success",
 echo json_encode($res);
 
 }
+// address get api
+public function get_address(){
+
+
+                          $this->load->helper(array('form', 'url'));
+                          $this->load->library('form_validation');
+                          $this->load->helper('security');
+                          if($this->input->post())
+                          {
+                            // print_r($this->input->post());
+                            // exit;
+                            $this->form_validation->set_rules('email', 'email', 'required|xss_clean');
+                            $this->form_validation->set_rules('password', 'password','required|xss_clean');
+                            $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean');
+
+                            if($this->form_validation->run()== TRUE)
+                            {
+                              $email=$this->input->post('email');
+                              $password=$this->input->post('password');
+                              $token_id=$this->input->post('token_id');
+
+                              $this->db->select('*');
+                                          $this->db->from('tbl_users');
+                                          $this->db->where('email',$email);
+                                          $check_email= $this->db->get()->row();
+                                          if(!empty($check_email)){
+                                            if($password == $check_email->password){
+                                                $this->db->select('*');
+                                                            $this->db->from('tbl_order1');
+                                                            $this->db->order_by('id','desc');
+                                                            $this->db->where('user_id',$check_email->id);
+                                                            $data_address= $this->db->get()->row();
+                                                            $get_address=[];
+                                                            if(!empty($data_address)){
+                                                                     $get_address[]=array(
+                                                                       'first_Name'=>$data_address->first_name,
+                                                                       'Last_Name'=>$data_address->last_name,
+                                                                       'post_code'=>$data_address->post_code,
+                                                                       'Street_address'=>$data_address->street_address,
+                                                                       'state'=>$data_address->state,
+                                                                       'city'=>$data_address->city,
+                                                                       'phone_number'=>$data_address->phone,
+                                                                     );
+                                                                     header('Access-Control-Allow-Origin: *');
+                                                                     $res = array('message'=>"success",
+                                                                     'status'=>200,
+                                                                     'data'=>$get_address
+                                                                     );
+
+                                                                     echo json_encode($res);
+
+
+                                                            }else{
+                                                              header('Access-Control-Allow-Origin: *');
+                                                              $res=array(
+                                                                'message'=>"this user no address",
+                                                                'status'=>201
+                                                              );
+                                                              echo json_encode($res);
+                                                            }
+
+                                            }else{
+                                              header('Access-Control-Allow-Origin: *');
+                                              $res=array(
+                                                'message'=>"wrong password,Try again.",
+                                                'status'=>201
+                                              );
+                                              echo json_encode($res);
+                                            }
+                                          }else{
+                                            header('Access-Control-Allow-Origin: *');
+                                            $res=array(
+                                              'message'=>"wrong email,Try again.",
+                                              'status'=>201
+                                            );
+                                            echo json_encode($res);
+                                          }
+
+
+
+                            }
+                          else{
+
+              $this->session->set_flashdata('emessage',validation_errors());
+                   redirect($_SERVER['HTTP_REFERER']);
+
+                          }
+
+                          }
+                        else{
+
+              $this->session->set_flashdata('emessage','Please insert some data, No data available');
+                   redirect($_SERVER['HTTP_REFERER']);
+
+                        }
+
+
+                        }
+
 
 }
