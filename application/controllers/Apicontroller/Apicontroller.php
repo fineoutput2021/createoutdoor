@@ -483,8 +483,8 @@ $products[] = array(
 'productimage1'=> base_url().$data->image1,
 'productimage2'=> base_url().$data->image2,
 'productimage3'=> base_url().$data->image3,
-
 'mrp'=> $data->mrp,
+'model_no'=> $data->modelno,
 'productdescription'=> $data->productdescription,
 // 'colours'=> $data->colours,
 'product_type'=>$producttype,
@@ -564,9 +564,6 @@ $products[] = array(
 'category'=> $c1,
 'sucategory'=> $s1,
 'productimage'=> base_url().$limit->image,
-'productimage1'=> base_url().$limit->image1,
-'productimage2'=> base_url().$limit->image2,
-'productimage3'=> base_url().$limit->image3,
 'mrp'=> $limit->mrp,
 'productdescription'=> $limit->productdescription,
 // 'colours'=> $limit->colours,
@@ -3619,6 +3616,7 @@ $string=$this->input->post('string');
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->like('productname',$string);
+$this->db->or_like('modelno',$string);
 $this->db->where('is_active',1);
 $search_string= $this->db->get();
 $string_check= $search_string->row();
@@ -3671,7 +3669,7 @@ echo json_encode($res);
 
 }else{
 header('Access-Control-Allow-Origin: *');
-$res = array('message'=>$string."no product",
+$res = array('message'=>$string." has no product",
 'status'=>201
 
 );

@@ -100,11 +100,12 @@ Sorry No File Found
 
 </tr>
 <tr>
-<td> <strong>image2</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>image2</strong></td>
 <td> <input type="file" name="image2"  class="form-control" placeholder=""  value="<?=$products_data->image2?>" />
 <?php if($products_data->image2!=""){ ?>
 <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$products_data->image2
-?>" >
+?>" ><a href="<?=base_url()?>dcadmin/products/remove_img/<?php echo
+base64_encode($products_data->id) ?>/image2">Remove</a>
 <?php }else { ?>
 Sorry No File Found
 <?php } ?>
@@ -116,12 +117,13 @@ Sorry No File Found
 
 </tr>
 <tr>
-<td> <strong>image3</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>image3</strong></td>
 <td> <input type="file" name="image3"  class="form-control" placeholder=""  value="<?=$products_data->image3?>" />
 
 <?php if($products_data->image3!=""){ ?>
 <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$products_data->image3
-?>" >
+?>" ><a href="<?=base_url()?>dcadmin/products/remove_img/<?php echo
+base64_encode($products_data->id) ?>/image3">Remove</a>
 <?php }else { ?>
 Sorry No File Found
 <?php } ?>

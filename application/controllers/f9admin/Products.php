@@ -307,7 +307,8 @@ $data_cat=json_encode($category_data);
   $feature=$this->input->post('feature');
 
    $modelno=$this->input->post('modelno');
-
+$nnnn4="";
+$nnnn5="";
 
 
 $img2='image';
@@ -509,10 +510,7 @@ $img5='image3';
   'seating_id'=>$seating,
   'shape_id'=>$shape,
   'feature_id'=>$feature,
-
-
   'modelno'=>$modelno,
-
                      'ip' =>$ip,
                      'added_by' =>$addedby,
                      'is_active' =>0,
@@ -767,6 +765,67 @@ if(!empty($nnnn5)){
 
                  }
 
+
+public function remove_img($idd,$t){
+
+         if(!empty($this->session->userdata('admin_data'))){
+
+
+           $data['user_name']=$this->load->get_var('user_name');
+
+           $id=base64_decode($idd);
+
+           if($t=="image2"){
+
+             $data_update = array(
+         'image2'=>""
+
+         );
+
+         $this->db->where('id', $id);
+        $zapak=$this->db->update('tbl_products', $data_update);
+
+             if($zapak!=0){
+               $this->session->set_flashdata('smessage','Successfully Removed');
+               redirect($_SERVER['HTTP_REFERER']);
+                     }
+                     else
+                     {
+                       echo "Error";
+                       exit;
+                     }
+           }
+           if($t=="image3"){
+             $data_update = array(
+          'image3'=>""
+
+          );
+
+          $this->db->where('id', $id);
+          $zapak=$this->db->update('tbl_products', $data_update);
+
+              if($zapak!=0){
+                $this->session->set_flashdata('smessage','Successfully Removed');
+                redirect($_SERVER['HTTP_REFERER']);
+                      }
+                      else
+                      {
+
+          $data['e']="Error Occured";
+                          	// exit;
+        	$this->load->view('errors/error500admin',$data);
+                      }
+           }
+
+
+
+       }
+       else{
+
+           $this->load->view('admin/login/index');
+       }
+
+       }
 
 
                       }

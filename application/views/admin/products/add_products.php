@@ -75,12 +75,12 @@
 <td> <input type="file" name="image1"  class="form-control" placeholder="" required value="" />  </td>
 </tr>
 <tr>
-<td> <strong>image2</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image2"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>image2</strong></td>
+<td> <input type="file" name="image2"  class="form-control" placeholder=""  value="" />  </td>
 </tr>
 <tr>
-<td> <strong>image3</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="file" name="image3"  class="form-control" placeholder="" required value="" />  </td>
+<td> <strong>image3</strong></td>
+<td> <input type="file" name="image3"  class="form-control" placeholder=""  value="" />  </td>
 </tr>
 <tr>
 <td> <strong>Product Description</strong>  <span style="color:red;">*</span></strong> </td>
