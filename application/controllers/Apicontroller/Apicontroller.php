@@ -130,6 +130,7 @@ public function get_sale(){
 
 $this->db->select('*');
 $this->db->from('tbl_sale');
+$this->db->where('is_active',1);
 $salesdata= $this->db->get();
 $sales=[];
 foreach($salesdata->result() as $data) {
