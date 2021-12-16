@@ -48,7 +48,7 @@
 
 <td>
 
-  <select class="selectpicker form-control" multiple data-live-search="true" name="sub_category[]">
+  <select class="selectpicker form-control" multiple data-live-search="true" name="sub_category[]" required>
     <? foreach($subcategory_data->result() as $value){?>
     <option value="<?=$value->id;?>"><?=$value->subcategory?></option>
 
