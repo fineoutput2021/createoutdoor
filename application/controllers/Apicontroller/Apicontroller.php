@@ -325,10 +325,18 @@ $product_data1 = [];
 foreach($product_data->result() as $data) {
 $i=0;
 $sub = json_decode($data->subcategory);
+  $var=count($sub);
+  if($var > 1){
+
 foreach ($sub as  $value) {
 if($value==$subcategory_id){
   $i=1;
 }
+}
+}else{
+  if($var[0]==$subcategory_id){
+    $i=1;
+  }
 }
 if($i==0){
 
@@ -4795,7 +4803,7 @@ $txn_id=$t;
 
                                         $this->db->select('*');
                                         $this->db->from('tbl_products');
-                                        $this->db->where('category',$category_id);
+                                        $this->db->like('category',$category_id);
                                         $product_data= $this->db->get();
 
                                         // print_r($product_data);
@@ -4806,11 +4814,34 @@ $txn_id=$t;
 
                   if(!empty($product_check)){
 
-
-
+     // $a=1;
                                         $product_data1 = [];
 
                       foreach($product_data->result() as $data) {
+                        $i=0;
+                        $sub = json_decode($data->category);
+                        // if($a==27){
+                        //   print_r($data->category);
+                        //   exit;
+                        // }
+                        $var=count($sub);
+                      // echo $var;
+                        if($var > 1){
+                        foreach ($sub as $value) {
+
+                        if($value==$category_id){
+                          $i=1;
+                        }
+                        }
+                      }else{
+
+                        if($sub[0] == $category_id){
+                          $i=1;
+                        }
+                      }
+                        if($i==0){
+
+                        }else{
 
                         $this->db->select('*');
                                     $this->db->from('tbl_category');
@@ -4850,7 +4881,11 @@ $txn_id=$t;
 
                                         }
                               }
-
+                              // $a++;
+                              // echo $a;
+                              // echo "<br>";
+                            }
+                     // exit;
                                         header('Access-Control-Allow-Origin: *');
                                         $res = array('message'=>'success',
                                         'status'=>200,
