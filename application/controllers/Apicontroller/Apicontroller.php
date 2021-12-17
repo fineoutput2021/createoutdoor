@@ -305,7 +305,8 @@ if($this->form_validation->run()== TRUE)
 
 $subcategory_id=$this->input->post('subcategory_id');
 
-
+// echo $subcategory_id;
+// exit;
 
 $this->db->select('*');
 $this->db->from('tbl_products');
@@ -313,18 +314,25 @@ $this->db->like('subcategory',$subcategory_id);
 $this->db->where('is_active',1);
 $product_data= $this->db->get();
 
-// print_r($product_data);
-// exit;
+
 
 $product_check=$product_data->row();
-
-
 
 if(!empty($product_check)){
 
 $product_data1 = [];
 
 foreach($product_data->result() as $data) {
+$i=0;
+$sub = json_decode($data->subcategory);
+foreach ($sub as  $value) {
+if($value==$subcategory_id){
+  $i=1;
+}
+}
+if($i==0){
+
+}else{
 
   $this->db->select('*');
               $this->db->from('tbl_subcategory');
@@ -368,7 +376,7 @@ $product_data1[]= array(
 
 }
 }
-
+}
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
@@ -4787,7 +4795,7 @@ $txn_id=$t;
 
                                         $this->db->select('*');
                                         $this->db->from('tbl_products');
-                                        $this->db->like('category',$category_id);
+                                        $this->db->where('category',$category_id);
                                         $product_data= $this->db->get();
 
                                         // print_r($product_data);
