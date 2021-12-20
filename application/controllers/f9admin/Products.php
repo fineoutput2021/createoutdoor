@@ -246,7 +246,7 @@ echo json_encode($igt);
 
   // $this->form_validation->set_rules('inventory', 'inventory', 'integer|required');
 
-   $this->form_validation->set_rules('modelno', 'modelno', 'integer|required');
+   $this->form_validation->set_rules('modelno', 'modelno', 'required');
 
 
 
