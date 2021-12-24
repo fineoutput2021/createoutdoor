@@ -351,17 +351,17 @@ $img1='fileToUpload1';
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('image');
-                     $this->db->from('tbl_sliderpanel');
-                     $this->db->where('id',$id);
-                     $dsa= $this->db->get();
-                     $da=$dsa->row();
-                     $img=$da->image;
+                     // $this->db->select('image');
+                     // $this->db->from('tbl_sliderpanel');
+                     // $this->db->where('id',$id);
+                     // $dsa= $this->db->get();
+                     // $da=$dsa->row();
+                     // $img=$da->image;
 
  $zapak=$this->db->delete('tbl_sliderpanel', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
+        // $path = FCPATH .$img;
+        //   unlink($path);
         redirect("dcadmin/sliderpanel/view_sliderpanel","refresh");
                 }
                 else
