@@ -50,6 +50,7 @@
                                                   <th>City</th>
                                                   <th>State</th>
                                                   <th>pincode</th>
+                                                  <th>Model No.</th>
                                                   <th>payment type</th>
                                                   <th>Last updated date</th>
                                                   <th>order date</th>
@@ -101,6 +102,26 @@
                             <td><?php echo $data->city  ?></td>
                             <td><?php echo $data->state  ?></td>
                             <td><?php echo $data->post_code  ?></td>
+                            <td><?php $check_id= $data->id;
+                            $this->db->select('*');
+                                        $this->db->from('tbl_order2');
+                                        $this->db->where('main_id',$check_id);
+                                        $check_pid= $this->db->get()->row();
+                                        if(!empty($check_pid)){
+                                          $p_id=$check_pid->product_id;
+                                          $this->db->select('*');
+                                                      $this->db->from('tbl_products');
+                                                      $this->db->where('id',$p_id);
+                                                      $data_idd= $this->db->get()->row();
+                                                      if(!empty($data_idd)){
+                                                        echo $data_idd->modelno;
+                                                      }else{
+                                                        echo "";
+                                                      }
+                                        }else{
+                                          echo "no product found";
+                                        } ?></td>
+                                        
                             <td><?php $type=$data->payment_type;
                             $n1="";
                             if($type==1){

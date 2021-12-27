@@ -46,6 +46,8 @@
  	 <th>image1</th>
  	 <th>image2</th>
  	 <th>image3</th>
+ 	 <th>Model No.</th>
+
  	 <th>Product Description</th>
 
 
@@ -136,6 +138,7 @@ if(!empty($subcategory_data)){
         <?php } ?>
         </td>
 
+ 	 <td><?php if(!empty($data->modelno)){ echo $data->modelno; }else{ echo ""; } ?></td>
  	 <td><?php echo $data->productdescription ?></td>
 
 
