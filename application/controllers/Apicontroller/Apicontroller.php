@@ -1459,18 +1459,18 @@ if($this->input->post())
 {
 // print_r($this->input->post());
 // exit;
-$this->form_validation->set_rules('firstname', 'firstname', 'required|xss_clean|trim');
-$this->form_validation->set_rules('lastname', 'lastname', 'required|xss_clean|trim');
-$this->form_validation->set_rules('businessname', 'businessname', 'required|xss_clean|trim');
+$this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('business_name', 'business_name', 'required|xss_clean|trim');
 $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim');
 $this->form_validation->set_rules('message', 'message', 'required|xss_clean|trim');
 
 
 if($this->form_validation->run()== TRUE)
 {
-$firstname=$this->input->post('firstname');
-$lastname=$this->input->post('lastname');
-$businessname=$this->input->post('businessname');
+$firstname=$this->input->post('first_name');
+$lastname=$this->input->post('last_name');
+$businessname=$this->input->post('business_name');
 $email=$this->input->post('email');
 $message=$this->input->post('message');
 $ip = $this->input->ip_address();
@@ -1800,18 +1800,18 @@ if($this->input->post())
 {
 // print_r($this->input->post());
 // exit;
-$this->form_validation->set_rules('firstname', 'firstname', 'required|xss_clean|trim');
-$this->form_validation->set_rules('lastname', 'lastname', 'required|xss_clean|trim');
-$this->form_validation->set_rules('businessname', 'businessname', 'required|xss_clean|trim');
+$this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
+$this->form_validation->set_rules('business_name', 'business_name', 'required|xss_clean|trim');
 $this->form_validation->set_rules('email', 'email', 'required|valid_email|trim');
 $this->form_validation->set_rules('message', 'message', 'required|xss_clean|trim');
 
 
 if($this->form_validation->run()== TRUE)
 {
-$firstname=$this->input->post('firstname');
-$lastname=$this->input->post('lastname');
-$businessname=$this->input->post('businessname');
+$firstname=$this->input->post('first_name');
+$lastname=$this->input->post('last_name');
+$businessname=$this->input->post('business_name');
 $email=$this->input->post('email');
 $message=$this->input->post('message');
 
