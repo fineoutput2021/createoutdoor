@@ -1478,7 +1478,12 @@ date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
 $this->load->library('upload');
-
+$nnnn = "";
+$nnnn1 = "";
+$nnnn2 = "";
+$nnnn3 = "";
+$nnnn4 = "";
+$nnnn5 = "";
 //image1 code
 $img1='image1';
 
@@ -1500,10 +1505,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img1))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
@@ -1540,10 +1545,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img2))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
@@ -1580,10 +1585,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img3))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
@@ -1620,10 +1625,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img4))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
@@ -1659,10 +1664,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img5))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
@@ -1698,10 +1703,10 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img6))
 {
 $upload_error = $this->upload->display_errors();
-header('Access-Control-Allow-Origin: *');
-echo json_encode($upload_error);
-// echo $upload_error;
-exit;
+// header('Access-Control-Allow-Origin: *');
+// echo json_encode($upload_error);
+// // echo $upload_error;
+// exit;
 }
 else
 {
