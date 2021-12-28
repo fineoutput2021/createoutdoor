@@ -23,7 +23,7 @@
                               // exit;
             $this->db->select('*');
 $this->db->from('tbl_corporate');
-//$this->db->where('id',$usr);
+$this->db->order_by('id','desc');
 $data['detail_corporate']= $this->db->get();
 
                               $this->load->view('admin/common/header_view',$data);
@@ -364,7 +364,7 @@ $data['detail_corporate']= $this->db->get();
 
                $this->load->view('admin/login/index');
            }
-           
+
 
            }
 

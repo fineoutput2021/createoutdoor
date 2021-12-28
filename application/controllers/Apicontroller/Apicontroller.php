@@ -1450,7 +1450,7 @@ echo json_encode($res);
 
 
 //custom order ----
-public function custom_order(){
+public function customorder(){
 
 $this->load->helper(array('form', 'url'));
 $this->load->library('form_validation');
@@ -1500,8 +1500,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img1))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
@@ -1539,8 +1540,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img2))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
@@ -1578,8 +1580,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img3))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
@@ -1617,8 +1620,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img4))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
@@ -1655,8 +1659,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img5))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
@@ -1693,8 +1698,9 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img6))
 {
 $upload_error = $this->upload->display_errors();
-// echo json_encode($upload_error);
-echo $upload_error;
+header('Access-Control-Allow-Origin: *');
+echo json_encode($upload_error);
+// echo $upload_error;
 exit;
 }
 else
