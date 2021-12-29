@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class customorder extends CI_finecontrol{
+       class Abandoncart extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
@@ -26,12 +26,12 @@
                                 $this->db->from('tbl_users');
                                 // $this->db->where('id',$id);
                                 $data['fetch_cart_detail']= $this->db->get();
-                                
+
 
 
 
                               $this->load->view('admin/common/header_view',$data);
-                              $this->load->view('admin/dash');
+                              $this->load->view('admin/abandoncart/view_Abandon_cart');
                               $this->load->view('admin/common/footer_view');
 
                           }

@@ -2699,7 +2699,8 @@ if($inventory_data->quantity >= $data->quantity){
 $price = $type_data->spgst * $data->quantity;
 $total = $total + $price;
 $total_weight = $total_weight +$type_data->weight;
-$shipping_charges = $total_weight * SHIPPING;
+// $shipping_charges = $total_weight * SHIPPING;
+$shipping_charges = 0;
 
 
 
