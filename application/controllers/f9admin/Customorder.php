@@ -1,7 +1,7 @@
 <?php
     if ( ! defined('BASEPATH')) exit('No direct script access allowed');
        require_once(APPPATH . 'core/CI_finecontrol.php');
-       class customorder extends CI_finecontrol{
+       class Customorder extends CI_finecontrol{
        function __construct()
            {
              parent::__construct();
@@ -22,7 +22,7 @@
                               // echo $this->session->userdata('position');
                               // exit;
             $this->db->select('*');
-$this->db->from('tbl_customorder');
+$this->db->from('tbl_corporate');
 $this->db->order_by('id','desc');
 $data['detail_customorder']= $this->db->get();
 

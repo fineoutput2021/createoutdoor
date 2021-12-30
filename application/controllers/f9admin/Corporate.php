@@ -22,7 +22,7 @@
                               // echo $this->session->userdata('position');
                               // exit;
             $this->db->select('*');
-$this->db->from('tbl_corporate');
+$this->db->from('tbl_customorder');
 $this->db->order_by('id','desc');
 $data['detail_corporate']= $this->db->get();
 
