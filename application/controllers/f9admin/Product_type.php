@@ -148,7 +148,7 @@
 
                              $inventory_data = array(
                                'type_id'=> $last_id,
-                               'quantity'=>0,
+                               'quantity'=>100000,
                                'ip'=>$ip,
                                'date'=>$addedby,
                                'added_by'=>$cur_date
