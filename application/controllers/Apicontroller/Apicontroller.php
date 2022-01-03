@@ -321,27 +321,38 @@ $product_check=$product_data->row();
 if(!empty($product_check)){
 
 $product_data1 = [];
-
+$a=0;
 foreach($product_data->result() as $data) {
 $i=0;
 $sub = json_decode($data->subcategory);
   $var=count($sub);
+  // echo $subcategory_id;
+  // print_r($sub);
+  // exit;
+  // if($a==19){
+  //   echo $var;
+  //   exit;
+  // }
   if($var > 1){
 
 foreach ($sub as  $value) {
+  // echo $value;
+  // echo "<br>";
+  // exit;
 if($value==$subcategory_id){
   $i=1;
 }
 }
+// exit;
 }else{
-  if($var[0]==$subcategory_id){
+
+  if($var==$subcategory_id){
     $i=1;
   }
 }
 if($i==0){
 
 }else{
-
   $this->db->select('*');
               $this->db->from('tbl_subcategory');
               $this->db->where('id',$subcategory_id);
@@ -360,9 +371,9 @@ $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
 $this->db->where('is_active',1);
 $type_info= $this->db->get();
-
 $type_check=$type_info->row();
-
+// print_r($type_check);
+// exit;
 if(!empty($type_check)){
 $type_data= [];
 foreach($type_info->result() as $data1) {
@@ -376,6 +387,8 @@ $type_data[] = array(
 
 );
 }
+// print_r($type_data);
+// exit;
 $product_data1[]= array(
 'product_id'=>$data->id,
 'product_name'=>$data->productname,
@@ -387,7 +400,9 @@ $product_data1[]= array(
 
 }
 }
-}
+// echo $a;
+// echo "<br />";
+$a++;}
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
