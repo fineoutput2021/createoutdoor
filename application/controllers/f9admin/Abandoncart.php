@@ -178,7 +178,7 @@
 
             $random = bin2hex(random_bytes(3));
 
-              $promo = "CS".$random;
+              $promo = strtoupper("CS".$random);
 
               $data_insert = array(
                         'promocode'=>$promo,
