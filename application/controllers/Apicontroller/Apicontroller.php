@@ -326,8 +326,8 @@ foreach($product_data->result() as $data) {
 $i=0;
 $sub = json_decode($data->subcategory);
   $var=count($sub);
-  // echo $subcategory_id;
   // print_r($sub);
+  // echo $var;
   // exit;
   // if($a==19){
   //   echo $var;
@@ -345,14 +345,17 @@ if($value==$subcategory_id){
 }
 // exit;
 }else{
+  // echo "hi";
+  // exit;
+  if($sub[0]==$subcategory_id){
 
-  if($var==$subcategory_id){
     $i=1;
   }
 }
 if($i==0){
 
 }else{
+
   $this->db->select('*');
               $this->db->from('tbl_subcategory');
               $this->db->where('id',$subcategory_id);
@@ -365,7 +368,8 @@ if($i==0){
                 $subcategory_name="";
                 $subcategory_text="";
               }
-
+// echo $subcategory_name;
+// exit;
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
@@ -403,6 +407,7 @@ $product_data1[]= array(
 // echo $a;
 // echo "<br />";
 $a++;}
+
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200,
