@@ -36,14 +36,14 @@
 
                                     <div class="panel-body">
                                       <div class="col-lg-10">
-                                        <form action="<?php echo base_url() ?>dcadmin/Abandoncart/add_percentage_data/<? echo base64_encode(1); ?>" method="POST" id="slide_frm" enctype="multipart/form-data">
+                                        <form action="<?php echo base_url() ?>dcadmin/Abandoncart/add_percentage_data/<? echo base64_encode(2); ?>/<?=base64_encode($percentage_data->id)?>" method="POST" id="slide_frm" enctype="multipart/form-data">
                                           <div class="table-responsive">
                                             <table class="table table-hover">
 
                                               <tr>
                                                 <td> <strong>Percentage</strong> <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                                                  <input type="text" name="percentage" class="form-control" placeholder="" required value="" onkeypress="return isNumberKey(event)"/>
+                                                  <input type="text" name="percentage" class="form-control" placeholder="" required value="<?=$percentage_data->percentage?>" onkeypress="return isNumberKey(event)"/>
                                                 </td>
                                               </tr>
                                               <tr>

@@ -35,11 +35,17 @@
                }
            }
 
-           public function view_add_percentage()
+           public function view_percentage()
            {
                if (!empty($this->session->userdata('admin_data'))) {
-                   $this->load->view('admin/common/header_view');
-                   $this->load->view('admin/abandoncart/view_add_percentage');
+
+                             $this->db->select('*');
+                 $this->db->from('tbl_discount_percentage');
+                 //$this->db->where('id',$usr);
+                 $data['percentage_data']= $this->db->get()->row();
+
+                   $this->load->view('admin/common/header_view',$data);
+                   $this->load->view('admin/abandoncart/view_percentage');
                    $this->load->view('admin/common/footer_view');
                } else {
                    redirect("login/admin_login", "refresh");
@@ -80,7 +86,8 @@
                            }
                            if ($typ==2) {
                                $idw=base64_decode($iw);
-
+                               // echo $idw;
+                               // exit;
                                $data_insert = array('percentage'=>$percentage,
                                'ip' =>$ip,
                                'added_by' =>$addedby,
@@ -95,7 +102,7 @@
 
 
                            if ($last_id!=0) {
-                               $this->session->set_flashdata('smessage', 'Data inserted successfully');
+                               $this->session->set_flashdata('smessage', 'Data updated successfully');
 
                                redirect("dcadmin/Abandoncart/view_Abandon_cart", "refresh");
                            } else {
@@ -133,4 +140,39 @@
                redirect("login/admin_login", "refresh");
            }
            }
+
+//---------cronjob function-----------
+
+          public function abandoncart(){
+
+            $this->db->select('user_id');
+            $this->db->distinct();
+            $this->db->where('user_id is NOT NULL', NULL, FALSE);
+            $cart_data = $this->db->get('tbl_cart');
+
+            $cart_check = $cart_data->row();
+            if(!empty($cart_check)){
+
+            foreach($cart_check->result() as $data) {
+
+              $this->db->select('*');
+              $this->db->from('tbl_products');
+              $this->db->where('id',$data->product_id);
+              $pro_data= $this->db->get()->row();
+              if(!empty($pro_data)){
+
+                $this->db->select('*');
+                $this->db->from('tbl_products');
+                $this->db->where('id',$data->type_id);
+                $type_data= $this->db->get()->row();
+
+                if(!empty($type_data)){
+
+
+                }
+              }
+            }
+            }
+          }
+
        }
