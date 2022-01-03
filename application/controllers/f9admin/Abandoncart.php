@@ -153,24 +153,81 @@
             $cart_check = $cart_data->row();
             if(!empty($cart_check)){
 
-            foreach($cart_check->result() as $data) {
+            foreach($cart_data->result() as $data) {
+              $email_data = [];
+                          $this->db->select('*');
+              $this->db->from('tbl_cart');
+              $this->db->where('user_id',$data->user_id);
+              $c_data= $this->db->get();
 
               $this->db->select('*');
-              $this->db->from('tbl_products');
-              $this->db->where('id',$data->product_id);
-              $pro_data= $this->db->get()->row();
-              if(!empty($pro_data)){
-
-                $this->db->select('*');
-                $this->db->from('tbl_products');
-                $this->db->where('id',$data->type_id);
-                $type_data= $this->db->get()->row();
-
-                if(!empty($type_data)){
+              $this->db->from('tbl_users');
+              $this->db->where('id',$data->user_id);
+              $user_data= $this->db->get()->row();
 
 
-                }
+              //------craeting special promocode------
+              $this->db->select('*');
+              $this->db->from('tbl_discount_percentage');
+              $discount_data= $this->db->get()->row();
+
+
+              $ip = $this->input->ip_address();
+              date_default_timezone_set("Asia/Calcutta");
+              $cur_date=date("Y-m-d H:i:s");
+
+            $random = bin2hex(random_bytes(3));
+
+              $promo = "CS".$random;
+
+              $data_insert = array(
+                        'promocode'=>$promo,
+                        'ptype'=>1,
+                        'abandon'=>1,
+                        'giftpercent'=>$discount_data->percentage,
+                        'ip' =>$ip,
+                        'is_active' =>1,
+                        'date'=>$cur_date
+                        );
+
+              $last_id=$this->base_model->insert_table("tbl_promocode",$data_insert,1) ;
+              $email_data =array(
+                'user_id'=> $user_data->id,
+                'discount'=> $discount_data->percentage,
+                'promocode'=> $promo);
+
+              $config = Array(
+              			 'protocol' => 'smtp',
+              			 'smtp_host' => 'mail.fineoutput.website',
+              			 'smtp_port' => 26,
+              			 'smtp_user' => 'info@fineoutput.website', // change it to yours
+              			 'smtp_pass' => 'info@fineoutput2019', // change it to yours
+              			 'mailtype' => 'html',
+              			 'charset' => 'iso-8859-1',
+              			 'wordwrap' => TRUE
+              		 );
+              $to=$user_data->email;
+
+            // print_r($email_data);
+            //   exit;
+              $message = 	$this->load->view('email/abandon',$email_data,TRUE);
+              echo $message;
+              exit;
+              // $message = 'Hello '.$n1.'<br/><br/>
+              // you have requested to reset your password, Here is the link<br/>'.$link.'<br/>click on the link and reset your password. Please remember that link can be used only once<br/><br/>Thanks';
+              $this->load->library('email', $config);
+              $this->email->set_newline("");
+              $this->email->from('info@fineoutput.website'); // change it to yours
+              $this->email->to($to);// change it to yours
+              $this->email->subject('Reset your password');
+              $this->email->message($message);
+              if($this->email->send()){
+               // echo 'Email sent.';
+              }else{
+               // show_error($this->email->print_debugger());
               }
+
+
             }
             }
           }

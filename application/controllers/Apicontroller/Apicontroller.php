@@ -350,6 +350,9 @@ if($i==0){
               if(!empty($get_name)){
                 $subcategory_name=$get_name->subcategory;
                 $subcategory_text=$get_name->text;
+              }else{
+                $subcategory_name="";
+                $subcategory_text="";
               }
 
 $this->db->select('*');
@@ -2737,6 +2740,7 @@ $promocode_data=$dsa->row();
 
 if(!empty($promocode_data)){
 $promocode_id = $promocode_data->id;
+if($promocode_data->abandon==0){
 if($promocode_data->ptype==1){
 
 $this->db->select('*');
@@ -2819,8 +2823,32 @@ exit;
 
 
 }
+}
+//----------abandon cart promocode-------
+else{
+
+    $this->db->select('*');
+    $this->db->from('tbl_order1');
+    $this->db->where('user_id',$user_data->id);
+    $this->db->where('promocode_id',$promocode_data->id);
+    $dsa= $this->db->get();
+    $promo_check=$dsa->row();
+
+    if(empty($promo_check)){
+      $discount = $order_data->total_amount * $promocode_data->giftpercent/100;
+    }else{
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'Promocode is already used',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+    exit;
 
 
+    }
+
+}
 
 }else{
 
@@ -3064,6 +3092,7 @@ public function apply_promocode(){
 
     $final_amount = 0;
   $promocode_id = $promocode_data->id;
+  if($promocode_data->abandon==0){
   if($promocode_data->ptype==1){
 
   $this->db->select('*');
@@ -3143,10 +3172,33 @@ public function apply_promocode(){
   exit;
   }
 
-
-
   }
+}
+//----------abandon cart promocode-------
+else{
 
+    $this->db->select('*');
+    $this->db->from('tbl_order1');
+    $this->db->where('user_id',$user_data->id);
+    $this->db->where('promocode_id',$promocode_data->id);
+    $dsa= $this->db->get();
+    $promo_check=$dsa->row();
+
+    if(empty($promo_check)){
+      $discount = $order_data->total_amount * $promocode_data->giftpercent/100;
+    }else{
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=>'Promocode is already used',
+    'status'=>201
+    );
+
+    echo json_encode($res);
+    exit;
+
+
+    }
+
+}
 
   $final_amount = $order_data->final_amount - $discount;
 
