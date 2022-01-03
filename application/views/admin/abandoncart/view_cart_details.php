@@ -64,7 +64,7 @@
                                                   ?>
                                                 <tr>
                                                   <td><?php echo $i ?> </td>
-                                                  <td><?php if(!empty($pro_data->name)){echo $pro_data->name;} ?></td>
+                                                  <td><?php if(!empty($pro_data->productname)){echo $pro_data->productname;} ?></td>
                                                   <td><?php if(!empty($type_data->name)){echo $type_data->name;} ?></td>
                                                   <td><?php if(!empty($cart->quantity)){echo $cart->quantity;} ?></td>
                                                   <td><?php if(!empty($type_data->spgst)){echo $type_data->spgst;} ?></td>

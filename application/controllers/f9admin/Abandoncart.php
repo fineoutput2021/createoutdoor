@@ -198,10 +198,10 @@
 
               $config = Array(
               			 'protocol' => 'smtp',
-              			 'smtp_host' => 'mail.fineoutput.website',
-              			 'smtp_port' => 26,
-              			 'smtp_user' => 'info@fineoutput.website', // change it to yours
-              			 'smtp_pass' => 'info@fineoutput2019', // change it to yours
+              			 'smtp_host' => SMTP_HOST,
+              			 'smtp_port' => SMTP_PORT,
+              			 'smtp_user' => USER_NAME, // change it to yours
+              			 'smtp_pass' => PASSWORD, // change it to yours
               			 'mailtype' => 'html',
               			 'charset' => 'iso-8859-1',
               			 'wordwrap' => TRUE
@@ -211,15 +211,15 @@
             // print_r($email_data);
             //   exit;
               $message = 	$this->load->view('email/abandon',$email_data,TRUE);
-              echo $message;
-              exit;
+              // echo $message;
+              // exit;
               // $message = 'Hello '.$n1.'<br/><br/>
               // you have requested to reset your password, Here is the link<br/>'.$link.'<br/>click on the link and reset your password. Please remember that link can be used only once<br/><br/>Thanks';
               $this->load->library('email', $config);
               $this->email->set_newline("");
-              $this->email->from('info@fineoutput.website'); // change it to yours
+              $this->email->from(EMAIL); // change it to yours
               $this->email->to($to);// change it to yours
-              $this->email->subject('Reset your password');
+              $this->email->subject('Special Discount for you');
               $this->email->message($message);
               if($this->email->send()){
                // echo 'Email sent.';
@@ -229,6 +229,14 @@
 
 
             }
+            header('Access-Control-Allow-Origin: *');
+            $res = array('message'=>'success',
+            'status'=>200
+            );
+
+            echo json_encode($res);
+
+
             }
           }
 

@@ -34,7 +34,7 @@ $c_data= $this->db->get();
 				$this->db->where('id',$data->product_id);
 				$pro_data= $this->db->get()->row();
 				if(!empty($pro_data)){
-					$pname = $pro_data->name;
+					$pname = $pro_data->productname;
 				}else{
 					$pname = "";
 				}

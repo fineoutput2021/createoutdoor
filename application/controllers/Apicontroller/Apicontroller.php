@@ -2747,6 +2747,7 @@ $this->db->select('*');
 $this->db->from('tbl_order1');
 $this->db->where('user_id',$user_data->id);
 $this->db->where('promocode_id',$promocode_data->id);
+$this->db->where('payment_status',1);
 $dsa= $this->db->get();
 $promo_check=$dsa->row();
 
@@ -3099,6 +3100,7 @@ public function apply_promocode(){
   $this->db->from('tbl_order1');
   $this->db->where('user_id',$user_data->id);
   $this->db->where('promocode_id',$promocode_data->id);
+  $this->db->where('payment_status',1);
   $dsa= $this->db->get();
   $promo_check=$dsa->row();
 
