@@ -22,7 +22,7 @@
 
                    $this->db->select('user_id');
                    $this->db->distinct();
-                   $this->db->where('user_id is NOT NULL', NULL, FALSE);
+                   $this->db->where('user_id is NOT NULL', null, false);
                    $cart_data = $this->db->get('tbl_cart');
 
                    $data['cart_data']= $cart_data;
@@ -38,13 +38,12 @@
            public function view_percentage()
            {
                if (!empty($this->session->userdata('admin_data'))) {
+                   $this->db->select('*');
+                   $this->db->from('tbl_discount_percentage');
+                   //$this->db->where('id',$usr);
+                   $data['percentage_data']= $this->db->get()->row();
 
-                             $this->db->select('*');
-                 $this->db->from('tbl_discount_percentage');
-                 //$this->db->where('id',$usr);
-                 $data['percentage_data']= $this->db->get()->row();
-
-                   $this->load->view('admin/common/header_view',$data);
+                   $this->load->view('admin/common/header_view', $data);
                    $this->load->view('admin/abandoncart/view_percentage');
                    $this->load->view('admin/common/footer_view');
                } else {
@@ -122,65 +121,61 @@
                }
            }
 
-           public function view_cart_details($idd){
-             if (!empty($this->session->userdata('admin_data'))) {
-                $id=base64_decode($idd);
-               $data['id']=$idd;
+           public function view_cart_details($idd)
+           {
+               if (!empty($this->session->userdata('admin_data'))) {
+                   $id=base64_decode($idd);
+                   $data['id']=$idd;
 
-                           $this->db->select('*');
-               $this->db->from('tbl_cart');
-               $this->db->where('user_id',$id);
-               $data['cart_data']= $this->db->get();
+                   $this->db->select('*');
+                   $this->db->from('tbl_cart');
+                   $this->db->where('user_id', $id);
+                   $data['cart_data']= $this->db->get();
 
-               $this->load->view('admin/common/header_view',$data);
-               $this->load->view('admin/abandoncart/view_cart_details');
-               $this->load->view('admin/common/footer_view');
-
-           } else {
-               redirect("login/admin_login", "refresh");
+                   $this->load->view('admin/common/header_view', $data);
+                   $this->load->view('admin/abandoncart/view_cart_details');
+                   $this->load->view('admin/common/footer_view');
+               } else {
+                   redirect("login/admin_login", "refresh");
+               }
            }
-           }
 
-//---------cronjob function-----------
+           //---------cronjob function-----------
 
-          public function abandoncart(){
+           public function abandoncart()
+           {
+               $this->db->select('user_id');
+               $this->db->distinct();
+               $this->db->where('user_id is NOT NULL', null, false);
+               $cart_data = $this->db->get('tbl_cart');
 
-            $this->db->select('user_id');
-            $this->db->distinct();
-            $this->db->where('user_id is NOT NULL', NULL, FALSE);
-            $cart_data = $this->db->get('tbl_cart');
-
-            $cart_check = $cart_data->row();
-            if(!empty($cart_check)){
-
-            foreach($cart_data->result() as $data) {
-              $email_data = [];
-                          $this->db->select('*');
-              $this->db->from('tbl_cart');
-              $this->db->where('user_id',$data->user_id);
-              $c_data= $this->db->get();
-
-              $this->db->select('*');
-              $this->db->from('tbl_users');
-              $this->db->where('id',$data->user_id);
-              $user_data= $this->db->get()->row();
+               $cart_check = $cart_data->row();
+               if (!empty($cart_check)) {
+                   foreach ($cart_data->result() as $data) {
+                       $email_data = [];
 
 
-              //------craeting special promocode------
-              $this->db->select('*');
-              $this->db->from('tbl_discount_percentage');
-              $discount_data= $this->db->get()->row();
+                       $this->db->select('*');
+                       $this->db->from('tbl_users');
+                       $this->db->where('id', $data->user_id);
+                       $user_data= $this->db->get()->row();
 
 
-              $ip = $this->input->ip_address();
-              date_default_timezone_set("Asia/Calcutta");
-              $cur_date=date("Y-m-d H:i:s");
+                       //------craeting special promocode------
+                       $this->db->select('*');
+                       $this->db->from('tbl_discount_percentage');
+                       $discount_data= $this->db->get()->row();
 
-            $random = bin2hex(random_bytes(3));
 
-              $promo = strtoupper("CS".$random);
+                       $ip = $this->input->ip_address();
+                       date_default_timezone_set("Asia/Calcutta");
+                       $cur_date=date("Y-m-d H:i:s");
 
-              $data_insert = array(
+                       $random = bin2hex(random_bytes(3));
+
+                       $promo = strtoupper("CS".$random);
+
+                       $data_insert = array(
                         'promocode'=>$promo,
                         'ptype'=>1,
                         'abandon'=>1,
@@ -190,54 +185,63 @@
                         'date'=>$cur_date
                         );
 
-              $last_id=$this->base_model->insert_table("tbl_promocode",$data_insert,1) ;
-              $email_data =array(
+                       $last_id=$this->base_model->insert_table("tbl_promocode", $data_insert, 1) ;
+                       $email_data =array(
                 'user_id'=> $user_data->id,
                 'discount'=> $discount_data->percentage,
                 'promocode'=> $promo);
 
-              $config = Array(
-              			 'protocol' => 'smtp',
-              			 'smtp_host' => SMTP_HOST,
-              			 'smtp_port' => SMTP_PORT,
-              			 'smtp_user' => USER_NAME, // change it to yours
-              			 'smtp_pass' => PASSWORD, // change it to yours
-              			 'mailtype' => 'html',
-              			 'charset' => 'iso-8859-1',
-              			 'wordwrap' => TRUE
-              		 );
-              $to=$user_data->email;
+                       $config = array(
+                           'protocol' => 'smtp',
+                           'smtp_host' => SMTP_HOST,
+                           'smtp_port' => SMTP_PORT,
+                           'smtp_user' => USER_NAME, // change it to yours
+                           'smtp_pass' => PASSWORD, // change it to yours
+                           'mailtype' => 'html',
+                           'charset' => 'iso-8859-1',
+                           'wordwrap' => true
+                       );
+                       $to=$user_data->email;
 
-            // print_r($email_data);
-            //   exit;
-              $message = 	$this->load->view('email/abandon',$email_data,TRUE);
-              // echo $message;
-              // exit;
-              // $message = 'Hello '.$n1.'<br/><br/>
-              // you have requested to reset your password, Here is the link<br/>'.$link.'<br/>click on the link and reset your password. Please remember that link can be used only once<br/><br/>Thanks';
-              $this->load->library('email', $config);
-              $this->email->set_newline("");
-              $this->email->from(EMAIL); // change it to yours
+                       // print_r($email_data);
+                       //   exit;
+                       $message = 	$this->load->view('email/abandon', $email_data, true);
+                       // echo $message;
+                       // exit;
+                       // $message = 'Hello '.$n1.'<br/><br/>
+                       // you have requested to reset your password, Here is the link<br/>'.$link.'<br/>click on the link and reset your password. Please remember that link can be used only once<br/><br/>Thanks';
+                       $this->load->library('email', $config);
+                       $this->email->set_newline("");
+                       $this->email->from(EMAIL); // change it to yours
               $this->email->to($to);// change it to yours
               $this->email->subject('Special Discount for you');
-              $this->email->message($message);
-              if($this->email->send()){
-               // echo 'Email sent.';
-              }else{
-               // show_error($this->email->print_debugger());
-              }
+                       $this->email->message($message);
+                       if ($this->email->send()) {
+                           // echo 'Email sent.';
+                       } else {
+                           // show_error($this->email->print_debugger());
+                       }
 
+                       //-------update cart status---------------
 
-            }
-            header('Access-Control-Allow-Origin: *');
-            $res = array('message'=>'success',
+                       $this->db->select('*');
+                       $this->db->from('tbl_cart');
+                       $this->db->where('user_id', $data->user_id);
+                       $this->db->where('abandon', 0);
+                       $c_data= $this->db->get();
+                       foreach ($c_data->result() as $Cdata) {
+                           $cart_update = array('abandon'=>1,
+                         );
+                           $this->db->where('id', $Cdata);
+                           $zapak=$this->db->update('tbl_cart', $cart_update);
+                       }
+                   }
+                   header('Access-Control-Allow-Origin: *');
+                   $res = array('message'=>'success',
             'status'=>200
             );
 
-            echo json_encode($res);
-
-
-            }
-          }
-
+                   echo json_encode($res);
+               }
+           }
        }

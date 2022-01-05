@@ -26,6 +26,7 @@
 				$this->db->select('*');
 $this->db->from('tbl_cart');
 $this->db->where('user_id',$user_id);
+$this->db->where('abandon',0);
 $c_data= $this->db->get();
 				foreach($c_data->result() as $data) {
 					$total = 0;
