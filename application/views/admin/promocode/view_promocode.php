@@ -43,7 +43,7 @@
  	 <th>Promocode Type</th>
  	 <th>Gift Percent</th>
  	 <th>Min Order</th>
- 	 <th>Max Order</th>
+ 	 <th>Max Discount</th>
 
 
         <th>Status</th>
@@ -56,7 +56,7 @@
         <td><?php echo $i ?> </td>
 
  	 <td><?php echo $data->promocode ?></td>
- 	 <td><?php echo $data->ptype ?></td>
+ 	 <td><?php if($data->ptype==1){ echo "One Time";}else{echo "Every Time";} ?></td>
  	 <td><?php echo $data->giftpercent ?></td>
  	 <td><?php echo $data->minorder ?></td>
  	 <td><?php echo $data->max ?></td>
@@ -153,7 +153,3 @@
         <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->
-
-
-
-        

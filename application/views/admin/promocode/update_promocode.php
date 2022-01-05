@@ -41,7 +41,11 @@
 </tr>
 <tr>
 <td> <strong>Promocode Type</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="number" name="ptype"  class="form-control" placeholder="" required value="<?=$promocode_data->ptype;?>" />  </td>
+<td> <select name="ptype"  class="form-control" required>
+  <option value="">----Select Type------</option>
+  <option value="1" <?if($promocode_data->ptype==1){echo "selected";}?>>One Time </option>
+  <option value="2" <?if($promocode_data->ptype==2){echo "selected";}?>>Every Time</option>
+</select> </td>
 </tr>
 <tr>
 <td> <strong>Gift Percent</strong>  <span style="color:red;">*</span></strong> </td>
@@ -52,7 +56,7 @@
 <td> <input type="number" name="minorder"  class="form-control" placeholder="" required value="<?=$promocode_data->minorder;?>" />  </td>
 </tr>
 <tr>
-<td> <strong>Max Order</strong>  <span style="color:red;">*</span></strong> </td>
+<td> <strong>Max Discount</strong>  <span style="color:red;">*</span></strong> </td>
 <td> <input type="number" name="max"  class="form-control" placeholder="" required value="<?=$promocode_data->max;?>" />  </td>
 </tr>
 
