@@ -511,6 +511,26 @@ $producttype[]=array(
 
 }
 
+if(!empty($data->image)){
+  $image = base_url().$data->image;
+}else{
+  $image = "";
+}
+if(!empty($data->image1)){
+  $image1 = base_url().$data->image1;
+}else{
+  $image1 = "";
+}
+if(!empty($data->image2)){
+  $image2 = base_url().$data->image2;
+}else{
+  $image2 = "";
+}
+if(!empty($data->image3)){
+  $image3 = base_url().$data->image3;
+}else{
+  $image3 = "";
+}
 
 
 $products[] = array(
@@ -519,10 +539,10 @@ $products[] = array(
 
 'category'=> $category_title,
 'sucategory'=> $subcategory_title,
-'productimage'=> base_url().$data->image,
-'productimage1'=> base_url().$data->image1,
-'productimage2'=> base_url().$data->image2,
-'productimage3'=> base_url().$data->image3,
+'productimage'=> $image,
+'productimage1'=> $image1,
+'productimage2'=> $image2,
+'productimage3'=> $image3,
 'mrp'=> $data->mrp,
 'model_no'=> $data->modelno,
 'productdescription'=> $data->productdescription,
