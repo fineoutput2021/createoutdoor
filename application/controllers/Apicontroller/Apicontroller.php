@@ -3480,8 +3480,6 @@ public function checkout(){
 
 
 
-
-
 $this->load->helper(array('form', 'url'));
 $this->load->library('form_validation');
 $this->load->helper('security');
@@ -3650,6 +3648,82 @@ exit;
 //-----online payment----
 else{
 
+  //-------final amount----------
+  $final_amount = ($order_data->total_amount - $order_data->discount) + $order_data->delivery_charge;
+
+//-----razor pay request-------
+$send_price = $final_amount*100;
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.razorpay.com/v1/orders',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS =>'{
+
+  "amount": '.$send_price.',
+  "currency": "INR",
+  "receipt": "Receipt no. 1",
+  "payment_capture": 1,
+  "notes": {
+    "notes_key_1": "Tea, Earl Grey, Hot",
+    "notes_key_2": "Tea, Earl Grey… decaf."
+  }
+}',
+  CURLOPT_HTTPHEADER => array(
+    'Content-Type: application/json',
+    ': ',
+    'Authorization: Basic cnpwX2xpdmVfVjE4YzRLNXJjWDlxdjU6YU1iYkp4N2l1MXV2VlFRRHZMQ0NFRkFE'
+  ),
+));
+
+$response = curl_exec($curl);
+
+$ress = json_decode($response);
+// print_r($ress);
+// exit;
+$razor_id = $ress->id;
+
+//-----order1 enter----------
+$order1_data = array(
+'final_amount'=>$final_amount,
+'payment_status'=>0,
+'order_status'=>0,
+'payment_type'=>2,
+'razor_id'=>$razor_id,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
+
+$this->db->where('txnid', $txn_id);
+$last_id=$this->db->update('tbl_order1', $order1_data);
+
+if(!empty($last_id)){
+
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'success',
+  'status'=>200,
+  'razor_id'=>$razor_id,
+  );
+
+  echo json_encode($res);
+  exit;
+
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Some error occured',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  exit;
+}
+
 }
 }else{
 
@@ -3680,10 +3754,6 @@ echo json_encode($res);
 
 }
 
-
-
-
-
 }
 else{
 header('Access-Control-Allow-Origin: *');
@@ -3711,7 +3781,207 @@ echo json_encode($res);
 
 }
 
+//------check_payment----------
+public function check_payment(){
+  $this->load->helper(array('form', 'url'));
+$this->load->library('form_validation');
+$this->load->helper('security');
+if($this->input->post())
+{
+  $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+  $this->form_validation->set_rules('razor_id', 'razor_id', 'required|xss_clean|trim');
 
+  if($this->form_validation->run()== TRUE)
+  {
+    $email=$this->input->post('email');
+    $password=$this->input->post('password');
+    $token_id=$this->input->post('token_id');
+    $razor_id=$this->input->post('razor_id');
+
+    $this->db->select('*');
+    $this->db->from('tbl_users');
+    $this->db->where('email',$email);
+    $user_data= $this->db->get()->row();
+
+    if(!empty($user_data)){
+
+    if($user_data->password==$password){
+    $this->db->select('*');
+    $this->db->from('tbl_order1');
+    $this->db->where('razor_id',$razor_id);
+    $order_data= $this->db->get()->row();
+
+    if(!empty($order_data)){
+
+      //-----call razor pay------
+      $curl = curl_init();
+
+      	curl_setopt_array($curl, array(
+      	  CURLOPT_URL => 'https://api.razorpay.com/v1/orders/'.$razor_id,
+      	  CURLOPT_RETURNTRANSFER => true,
+      	  CURLOPT_ENCODING => '',
+      	  CURLOPT_MAXREDIRS => 10,
+      	  CURLOPT_TIMEOUT => 0,
+      	  CURLOPT_FOLLOWLOCATION => true,
+      	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      	  CURLOPT_CUSTOMREQUEST => 'GET',
+      	  CURLOPT_HTTPHEADER => array(
+      	    'Authorization: Basic cnpwX2xpdmVfVjE4YzRLNXJjWDlxdjU6YU1iYkp4N2l1MXV2VlFRRHZMQ0NFRkFE'
+      	  ),
+      	));
+
+      	$response1 = curl_exec($curl);
+
+      	curl_close($curl);
+      	// echo $response;
+      $response = json_decode($response1);
+
+      if($response->status=='paid'){
+
+        $online_amount = $response->amount_paid/100;
+
+      if($online_amount==$order_data->total_amount){
+
+//-------order 1 update------
+        $order1_data = array(
+        'final_amount'=>$final_amount,
+        'payment_status'=>1,
+        'order_status'=>1,
+        'order_status'=>1,
+        'online_amount'=>$online_amount,
+        'ip' =>$ip,
+        'date'=>$cur_date,
+        );
+
+        $this->db->where('txnid', $razor_id);
+        $last_id=$this->db->update('tbl_order1', $order1_data);
+
+
+        if(!empty($last_id)){
+
+                      $this->db->select('*');
+          $this->db->from('tbl_order1');
+          $this->db->where('main_id',$order_data->id);
+          $order2_data= $this->db->get();
+
+        ///--update_invenory----
+        foreach($order2_data->result() as $data) {
+
+        $this->db->select('*');
+        $this->db->from('tbl_inventory');
+        $this->db->where('type_id',$data->type_id);
+        $inventory_data= $this->db->get()->row();
+
+        if(!empty($inventory_data)){
+
+        $new_inventory = $inventory_data->quantity - $data->quantity;
+
+        $update_data = array(
+        'quantity'=>$new_inventory,
+        );
+
+        $this->db->where('type_id', $data->type_id);
+        $last_id2=$this->db->update('tbl_inventory', $update_data);
+
+        }else{
+          header('Access-Control-Allow-Origin: *');
+          $res = array('message'=>'Some Eroor Occured! please try again',
+          'status'=>201
+          );
+
+          echo json_encode($res);
+          exit;
+        }
+        }//--end_cart foreach
+
+        $zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id));
+
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'success',
+        'status'=>200
+        );
+
+        echo json_encode($res);
+
+        }else{
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'some eroor occured! please try again',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+        exit;
+
+        }
+
+      }else{
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'Wrong amount paid! Please contact admin',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+      }
+      }else{
+        header('Access-Control-Allow-Origin: *');
+        $res = array('message'=>'Payment Failed',
+        'status'=>201
+        );
+
+        echo json_encode($res);
+      }
+
+    }else{
+      header('Access-Control-Allow-Origin: *');
+      $res = array('message'=>'Wrong ID',
+      'status'=>201
+      );
+
+      echo json_encode($res);
+    }
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'Wrong Password',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  }
+  }else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'user not found',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+  }
+
+  }
+  else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>validation_errors(),
+  'status'=>201
+  );
+
+  echo json_encode($res);
+
+
+  }
+
+  }else{
+  header('Access-Control-Allow-Origin: *');
+
+  $res = array('message'=>'No data are available',
+  'status'=>201
+  );
+
+  echo json_encode($res);
+  }
+}
 
 
 
