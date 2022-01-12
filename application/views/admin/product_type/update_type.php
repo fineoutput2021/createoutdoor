@@ -86,7 +86,7 @@
                       <tr>
                                                 <td> <strong>Selling Price</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="price"  class="form-control" placeholder="" required value="<?=$u_data->spgst?>" />
+                          <input type="text" name="price" id="sellingprice"  class="form-control" placeholder="" required value="<?=$u_data->spgst?>" />
                                               </td>
                         </tr>
 
