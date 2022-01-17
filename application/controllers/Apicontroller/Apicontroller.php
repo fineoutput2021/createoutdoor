@@ -3678,7 +3678,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/json',
     ': ',
-    'Authorization: Basic cnpwX2xpdmVfVjE4YzRLNXJjWDlxdjU6YU1iYkp4N2l1MXV2VlFRRHZMQ0NFRkFE'
+    'Authorization: Basic cnpwX3Rlc3RfQnJMM01Vc3N0S1loVHA6SDloTTFRSXBVbVhNb01HUTkzbENSaUVs'
   ),
 ));
 
@@ -3709,6 +3709,10 @@ if(!empty($last_id)){
   $res = array('message'=>'success',
   'status'=>200,
   'razor_id'=>$razor_id,
+  'amount'=>$final_amount,
+  'name'=>$order_data->first_name,
+  'email'=>$order_data->email,
+  'contact'=>$order_data->phone,
   );
 
   echo json_encode($res);
@@ -3828,7 +3832,7 @@ if($this->input->post())
       	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       	  CURLOPT_CUSTOMREQUEST => 'GET',
       	  CURLOPT_HTTPHEADER => array(
-      	    'Authorization: Basic cnpwX2xpdmVfVjE4YzRLNXJjWDlxdjU6YU1iYkp4N2l1MXV2VlFRRHZMQ0NFRkFE'
+      	    'Authorization: Basic cnpwX3Rlc3RfQnJMM01Vc3N0S1loVHA6SDloTTFRSXBVbVhNb01HUTkzbENSaUVs'
       	  ),
       	));
 
