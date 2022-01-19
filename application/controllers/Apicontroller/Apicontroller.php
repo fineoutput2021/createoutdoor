@@ -75,6 +75,7 @@ public function get_category(){
 
 $this->db->select('*');
 $this->db->from('tbl_category');
+$this->db->where('is_active',1);
 $categorydata= $this->db->get();
 $category=[];
 foreach($categorydata->result() as $data) {
@@ -216,6 +217,7 @@ public function get_subcategory($id){
 $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('category_id',$id);
+$this->db->where('is_active',1);
 $subcategorydata= $this->db->get();
 $subcategory=[];
 foreach($subcategorydata->result() as $data1) {
@@ -244,6 +246,7 @@ public function get_all_category(){
 
 $this->db->select('*');
 $this->db->from('tbl_category');
+$this->db->where('is_active',1);
 $categorydata= $this->db->get();
 $category=[];
 foreach($categorydata->result() as $data) {
@@ -251,6 +254,7 @@ foreach($categorydata->result() as $data) {
 $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('category',$data->id);
+$this->db->where('is_active',1);
 $sub= $this->db->get();
 $subcategory=[];
 foreach($sub->result() as $sub2) {
@@ -472,6 +476,7 @@ foreach ($newvar as $value_ub) {
 $this->db->select('*');
 $this->db->from('tbl_category');
 $this->db->where('id',$value_ub);
+$this->db->where('is_active',1);
 $cat= $this->db->get()->row();
 if(!empty($cat)){
   $category_title=$cat->title;
@@ -487,6 +492,7 @@ foreach ($decode_sub as $value_sub) {
 $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('id',$value_sub);
+$this->db->where('is_active',1);
 $sub= $this->db->get()->row();
 if(!empty($sub)){
   $subcategory_title=$sub->subcategory;
@@ -577,6 +583,7 @@ foreach($productslimitdata->result() as $limit) {
 $this->db->select('*');
 $this->db->from('tbl_category');
 $this->db->where('id',$limit->category);
+$this->db->where('is_active',1);
 $cat= $this->db->get()->row();
 if(!empty($cat)){
 $c1=$cat->title;
@@ -590,6 +597,7 @@ $c1="";
 $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('id',$limit->subcategory);
+$this->db->where('is_active',1);
 $sub= $this->db->get()->row();
 if(!empty($sub)){
 $s1=$sub->subcategory;
