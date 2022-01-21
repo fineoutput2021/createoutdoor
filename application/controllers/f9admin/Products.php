@@ -27,7 +27,7 @@
 
                    $this->db->select('*');
                    $this->db->from('tbl_products');
-                   //$this->db->where('id',$usr);
+                   $this->db->order_by('id','desc');
                    $data['products_data']= $this->db->get();
 
                    $this->load->view('admin/common/header_view', $data);
