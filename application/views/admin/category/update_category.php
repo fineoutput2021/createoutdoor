@@ -43,7 +43,7 @@
                       <tr>
                                                 <td> <strong>Title</strong>  <span style="color:red;">*</span></strong> </td>
                                                 <td>
-                          <input type="text" name="title"  class="form-control" placeholder="" required value="<?= $category->title; ?>" />
+                          <input type="text" name="title"  class="form-control" placeholder="" required value="<?=$category->title; ?>" />
                                               </td>
                         </tr>
                             <tr>
@@ -63,7 +63,9 @@
                               <tr>
                                                         <td> <strong>text</strong>  <span style="color:red;">*</span></strong> </td>
                                                         <td>
-                                  <input type="text" name="text"  class="form-control" placeholder="" required value="" />
+                                                            <textarea  name="text" rows="4" class="form-control" placeholder="" required value="" cols="50"><?=$category->text;?>
+                                                            </textarea>
+
                                                       </td>
                                 </tr>
                           <tr>

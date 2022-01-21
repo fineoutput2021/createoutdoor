@@ -103,6 +103,7 @@ public function get_products(){
 $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
@@ -132,6 +133,7 @@ public function get_sale(){
 $this->db->select('*');
 $this->db->from('tbl_sale');
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $salesdata= $this->db->get();
 $sales=[];
 foreach($salesdata->result() as $data) {
@@ -316,6 +318,7 @@ $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->like('subcategory',$subcategory_id);
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $product_data= $this->db->get();
 
 
@@ -465,6 +468,7 @@ $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$id);
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $productsdata= $this->db->get();
 $products=[];
 foreach($productsdata->result() as $data) {
@@ -575,6 +579,7 @@ $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->limit(10);
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $productslimitdata= $this->db->get();
 $products=[];
 foreach($productslimitdata->result() as $limit) {
@@ -2198,6 +2203,7 @@ $this->db->select('*');
 $this->db->from('tbl_order1');
 $this->db->where('user_id',$user_data->id);
 $this->db->where('payment_status',1);
+$this->db->order_by('id','desc');
 $data= $this->db->get();
 
 $viewcart=[];

@@ -55,7 +55,8 @@
                               <tr>
                                                         <td> <strong>Text</strong>  <span style="color:red;">*</span></strong> </td>
                                                         <td>
-                                  <input type="text" name="text"  class="form-control" placeholder="" required value="" />
+                                                          <textarea  name="text" rows="4" class="form-control" placeholder="" required value="" cols="50">
+                                  </textarea>
                                                       </td>
                                 </tr>
                           <tr>
