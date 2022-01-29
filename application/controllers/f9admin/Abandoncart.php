@@ -206,8 +206,8 @@
                        // print_r($email_data);
                        //   exit;
                        $message = 	$this->load->view('email/abandon', $email_data, true);
-                       // echo $message;
-                       // exit;
+                       echo $message;
+                       exit;
                        // $message = 'Hello '.$n1.'<br/><br/>
                        // you have requested to reset your password, Here is the link<br/>'.$link.'<br/>click on the link and reset your password. Please remember that link can be used only once<br/><br/>Thanks';
                        $this->load->library('email', $config);
@@ -232,7 +232,7 @@
                        foreach ($c_data->result() as $Cdata) {
                            $cart_update = array('abandon'=>1,
                          );
-                           $this->db->where('id', $Cdata);
+                           $this->db->where('id', $Cdata->id);
                            $zapak=$this->db->update('tbl_cart', $cart_update);
                        }
                    }

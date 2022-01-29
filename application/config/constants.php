@@ -99,8 +99,14 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 defined('SHIPPING')      or define('SHIPPING', 5); // highest automatically-assigned error code
 
 //-----------email config----
-defined('USER_NAME')      or define('USER_NAME', 'info@fineoutput.co.in');
-defined('PASSWORD')       or define('PASSWORD', 'info@fineoutput2019');
-defined('EMAIL')          or define('EMAIL', 'info@fineoutput.co.in');
-defined('SMTP_HOST')      or define('SMTP_HOST', 'mail.fineoutput.co.in');
-defined('SMTP_PORT')      or define('SMTP_PORT', '465');
+
+define('USER_NAME','info@fineoutput.co.in');
+define('PASSWORD','info@fineoutput2019');
+define('EMAIL','info@fineoutput.co.in');
+define('SMTP_HOST','mail.fineoutput.co.in');
+define('SMTP_PORT','587');
+
+
+//-----razor pay---------
+define('RAZOR_NAME','rzp_live_V18c4K5rcX9qv5');
+define('RAZOR_PASSWORD','aMbbJx7iu1uvVQQDvLCCEFAD');

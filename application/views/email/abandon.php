@@ -40,7 +40,7 @@ $c_data= $this->db->get();
 					$pname = "";
 				}
 					$this->db->select('*');
-					$this->db->from('tbl_products');
+					$this->db->from('tbl_type');
 					$this->db->where('id',$data->type_id);
 					$type_data= $this->db->get()->row();
 
