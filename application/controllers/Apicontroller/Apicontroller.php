@@ -3871,7 +3871,7 @@ if($this->input->post())
         'date'=>$cur_date,
         );
 
-        $this->db->where('txnid', $razor_id);
+        $this->db->where('razor_id', $razor_id);
         $last_id=$this->db->update('tbl_order1', $order1_data);
 
 
