@@ -3864,9 +3864,7 @@ if($this->input->post())
 
 //-------order 1 update------
         $order1_data = array(
-        'final_amount'=>$final_amount,
         'payment_status'=>1,
-        'order_status'=>1,
         'order_status'=>1,
         'online_amount'=>$online_amount,
         'ip' =>$ip,
