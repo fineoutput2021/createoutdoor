@@ -3901,6 +3901,7 @@ if($this->input->post())
 
         $online_amount = $response->amount_paid/100;
 
+
       if($online_amount==$order_data->total_amount){
 
 //-------order 1 update------
@@ -3918,8 +3919,8 @@ if($this->input->post())
 
         if(!empty($last_id)){
 
-                      $this->db->select('*');
-          $this->db->from('tbl_order1');
+          $this->db->select('*');
+          $this->db->from('tbl_order2');
           $this->db->where('id',$order_data->id);
           $order2_data= $this->db->get();
 
