@@ -3920,7 +3920,7 @@ if($this->input->post())
 
                       $this->db->select('*');
           $this->db->from('tbl_order1');
-          $this->db->where('main_id',$order_data->id);
+          $this->db->where('id',$order_data->id);
           $order2_data= $this->db->get();
 
         ///--update_invenory----
