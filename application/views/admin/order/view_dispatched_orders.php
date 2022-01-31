@@ -50,7 +50,7 @@
                                                   <th>City</th>
                                                   <th>State</th>
                                                   <th>pincode</th>
-                                                  <th>Model No.</th>
+                                                  <!-- <th>Model No.</th> -->
                                                   <th>payment type</th>
                                                   <th>Last updated date</th>
                                                   <th>order date</th>
@@ -102,7 +102,7 @@
                             <td><?php echo $data->city  ?></td>
                             <td><?php echo $data->state  ?></td>
                             <td><?php echo $data->post_code  ?></td>
-                            <td><?php $check_id= $data->id;
+                            <!-- <td><?php $check_id= $data->id;
                             $this->db->select('*');
                                         $this->db->from('tbl_order2');
                                         $this->db->where('main_id',$check_id);
@@ -120,8 +120,8 @@
                                                       }
                                         }else{
                                           echo "no product found";
-                                        } ?></td>
-                                        
+                                        } ?></td> -->
+
                             <td><?php $type=$data->payment_type;
                             $n1="";
                             if($type==1){

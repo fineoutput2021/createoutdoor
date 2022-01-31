@@ -137,24 +137,24 @@ $zapak=$this->db->update('tbl_order1', $data_update);
 $this->db->select('*');
             $this->db->from('tbl_order2');
             $this->db->where('main_id',$id);
-            $data_order1= $this->db->get()->row();
-if(!empty($data_order1)){
+            $data_order2= $this->db->get();
+ foreach($data_order2->result() as $data) {
 
-$this->db->select('*');
+   $this->db->select('*');
       $this->db->from('tbl_inventory');
-      $this->db->where('type_id',$data_order1->type_id);
+      $this->db->where('type_id',$data->type_id);
       $data_inventory= $this->db->get()->row();
 
-    $total_quantity=$data_order1->quantity + $data_inventory->quantity;
+    $total_quantity=$data->quantity + $data_inventory->quantity;
 
 
 
     $data_update=array(
              'quantity'=>$total_quantity
     );
-    $this->db->where('type_id', $data_order1->type_id);
+    $this->db->where('id', $data_inventory->id);
     $last_id2=$this->db->update('tbl_inventory', $data_update);
-  }
+}
 //---------------------
 
 if($zapak!=0){
