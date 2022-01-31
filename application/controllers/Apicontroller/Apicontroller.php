@@ -3902,7 +3902,7 @@ if($this->input->post())
         $online_amount = $response->amount_paid/100;
 
 
-      if($online_amount==$order_data->total_amount){
+      if($online_amount==$order_data->final_amount){
 
 //-------order 1 update------
         $order1_data = array(
