@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-define('SITE_NAME', 'Create Outdoor');
+define('SITE_NAME', 'Create Spaces');
 define('ADMIN_URL', 'dcadmin');
 
 
@@ -100,11 +100,11 @@ defined('SHIPPING')      or define('SHIPPING', 5); // highest automatically-assi
 
 //-----------email config----
 
-define('USER_NAME','info@fineoutput.co.in');
-define('PASSWORD','info@fineoutput2019');
-define('EMAIL','info@fineoutput.co.in');
-define('SMTP_HOST','mail.fineoutput.co.in');
-define('SMTP_PORT','587');
+  define('USER_NAME','info@fineoutput.co.in');
+              define('PASSWORD','info@fineoutput2019');
+              define('EMAIL','info@fineoutput.co.in');
+              define('SMTP_HOST','mail.fineoutput.co.in');
+              define('SMTP_PORT','587');
 
 
 //-----razor pay---------

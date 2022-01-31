@@ -3637,6 +3637,44 @@ $zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id));
 
 
 
+$config = Array(
+		'protocol' => 'smtp',
+    'smtp_host' => SMTP_HOST,
+    'smtp_port' => SMTP_PORT,
+    'smtp_user' => USER_NAME, // change it to yours
+    'smtp_pass' => PASSWORD, // change it to yours
+    'mailtype' => 'html',
+    'charset' => 'iso-8859-1',
+    'wordwrap' => true
+		 );
+$to=$email;
+$name= $order_data->first_name." ".$order_data->last_name;
+$data->name = $name;
+$data->order1_id = $order_data->id;
+$data->date = $order_data->date;
+
+
+$message =$this->load->view('email/ordersuccess',$data,TRUE);
+ // print_r($message);
+ // exit;
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to($to);// change it to yours
+$this->email->subject('Order Placed');
+$this->email->message($message);
+if($this->email->send()){
+ // echo 'Email sent.';
+}else{
+ // show_error($this->email->print_debugger());
+}
+
+
+
+
+
+
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200
@@ -3817,7 +3855,10 @@ if($this->input->post())
     $password=$this->input->post('password');
     $token_id=$this->input->post('token_id');
     $razor_id=$this->input->post('razor_id');
-
+    $ip = $this->input->ip_address();
+               date_default_timezone_set("Asia/Calcutta");
+               $cur_date=date("Y-m-d H:i:s");
+               $addedby=$this->session->userdata('admin_id');
     $this->db->select('*');
     $this->db->from('tbl_users');
     $this->db->where('email',$email);
@@ -3913,6 +3954,44 @@ if($this->input->post())
         }//--end_cart foreach
 
         $zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id));
+
+
+        $config = Array(
+        		'protocol' => 'smtp',
+            'smtp_host' => SMTP_HOST,
+            'smtp_port' => SMTP_PORT,
+            'smtp_user' => USER_NAME, // change it to yours
+            'smtp_pass' => PASSWORD, // change it to yours
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1',
+            'wordwrap' => true
+        		 );
+        $to=$email;
+        $name= $order_data->first_name." ".$order_data->last_name;
+        $data->name = $name;
+        $data->order1_id = $order_data->id;
+        $data->date = $order_data->date;
+
+
+        $message =$this->load->view('email/ordersuccess',$data,TRUE);
+         // print_r($message);
+         // exit;
+
+        $this->load->library('email', $config);
+        $this->email->set_newline("");
+        $this->email->from(EMAIL); // change it to yours
+        $this->email->to($to);// change it to yours
+        $this->email->subject('Order Placed');
+        $this->email->message($message);
+        if($this->email->send()){
+         // echo 'Email sent.';
+        }else{
+         // show_error($this->email->print_debugger());
+        }
+
+
+
+
 
         header('Access-Control-Allow-Origin: *');
         $res = array('message'=>'success',
