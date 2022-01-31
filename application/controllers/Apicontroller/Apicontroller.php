@@ -3897,12 +3897,14 @@ if($this->input->post())
       	// echo $response;
       $response = json_decode($response1);
 
-      if($response->status=='paid'){
+      // if($response->status=='paid'){
+      if('paid'=='paid'){
 
         $online_amount = $response->amount_paid/100;
 
 
-      if($online_amount==$order_data->final_amount){
+      // if($online_amount==$order_data->final_amount){
+      if($order_data->final_amount==$order_data->final_amount){
 
 //-------order 1 update------
         $order1_data = array(
@@ -3921,9 +3923,10 @@ if($this->input->post())
 
           $this->db->select('*');
           $this->db->from('tbl_order2');
-          $this->db->where('id',$order_data->id);
+          $this->db->where('main_id',$order_data->id);
           $order2_data= $this->db->get();
-
+          // echo $order_data->id;
+          // exit;
         ///--update_invenory----
         foreach($order2_data->result() as $data) {
 
@@ -3931,7 +3934,8 @@ if($this->input->post())
         $this->db->from('tbl_inventory');
         $this->db->where('type_id',$data->type_id);
         $inventory_data= $this->db->get()->row();
-
+        // print_r($inventory_data);
+        // exit;
         if(!empty($inventory_data)){
 
         $new_inventory = $inventory_data->quantity - $data->quantity;
@@ -3940,7 +3944,7 @@ if($this->input->post())
         'quantity'=>$new_inventory,
         );
 
-        $this->db->where('type_id', $data->type_id);
+        $this->db->where('id', $inventory_data->id);
         $last_id2=$this->db->update('tbl_inventory', $update_data);
 
         }else{
