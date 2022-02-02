@@ -220,6 +220,7 @@ $this->db->select('*');
 $this->db->from('tbl_subcategory');
 $this->db->where('category_id',$id);
 $this->db->where('is_active',1);
+$this->db->order_by('id','desc');
 $subcategorydata= $this->db->get();
 $subcategory=[];
 foreach($subcategorydata->result() as $data1) {
