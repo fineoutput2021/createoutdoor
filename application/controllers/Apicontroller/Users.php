@@ -159,8 +159,6 @@ class Users extends CI_Controller
 
 
 
-
-
                     $last_id=$this->base_model->insert_table("tbl_users", $data_insert, 1) ;
 
                     if ($last_id!=0) {
@@ -204,8 +202,8 @@ class Users extends CI_Controller
                             'wordwrap' => true
                         		 );
                         $to=$email;
-                        $data['name'] = $name;
-                        $message =$this->load->view('email/newaccount',$data,TRUE);
+                        $data1['name'] = $user_data->name;
+                        $message =$this->load->view('email/newaccount',$data1,TRUE);
                          // print_r($message);
                          // exit;
 
