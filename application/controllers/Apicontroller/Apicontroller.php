@@ -3649,7 +3649,7 @@ $config = Array(
     'wordwrap' => true
 		 );
 $to=$email;
-$name= $order_data->first_name." ".$order_data->last_name;
+$name= $user_data->name;
 $data->name = $name;
 $data->order1_id = $order_data->id;
 $data->date = $order_data->date;
@@ -3974,7 +3974,7 @@ if($this->input->post())
             'wordwrap' => true
         		 );
         $to=$email;
-        $name= $order_data->first_name." ".$order_data->last_name;
+        $name= $user_data->name;
         $data->name = $name;
         $data->order1_id = $order_data->id;
         $data->date = $order_data->date;
@@ -4882,17 +4882,14 @@ public function forget_password(){
 
 
         $config = Array(
-                     'protocol' => 'ssmtp',
-                     // 'smtp_host' => 'mail.fineoutput.co.in',
-                     'smtp_host' => SMTP_HOST,
-                     'smtp_port' => SMTP_PORT,
-                     // 'smtp_user' => 'info@fineoutput.co.in', // change it to yours
-                     // 'smtp_pass' => 'info@fineoutput2019', // change it to yours
-                     'smtp_user' => USER_NAME, // change it to yours
-                     'smtp_pass' => PASSWORD, // change it to yours
-                     'mailtype' => 'html',
-                     'charset' => 'iso-8859-1',
-                     'wordwrap' => TRUE
+          'protocol' => 'smtp',
+          'smtp_host' => SMTP_HOST,
+          'smtp_port' => SMTP_PORT,
+          'smtp_user' => USER_NAME, // change it to yours
+          'smtp_pass' => PASSWORD, // change it to yours
+          'mailtype' => 'html',
+          'charset' => 'iso-8859-1',
+          'wordwrap' => true
                      );
 
                   $to=$email;

@@ -42,8 +42,10 @@ class Users extends CI_Controller
                 $this->db->select('*');
                 $this->db->from('tbl_users');
                 $this->db->where('email', $email);
+                $this->db->where('is_active', 1);
                 $dsa= $this->db->get();
                 $da=$dsa->row();
+
                 if (!empty($da)) {
                     $p1=$da->password;
                     if ($p1==$password) {

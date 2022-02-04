@@ -80,6 +80,7 @@ User: <?=$user_name;?>
   //
   // }
 
+    $name=$order1_data->first_name." ".$order1_data->last_name;
     $address=$order1_data->street_address;
     $state=$order1_data->state;
     $city=$order1_data->city;
@@ -95,7 +96,7 @@ User: <?=$user_name;?>
 <div class="row">
 	<div class="col-sm-6"></div>
 <div class="col-sm-6 shipping_content"><span class="font-weight-bold ">Shipping Address:</span>	<br>
-
+Name: <?=$name?><br>
 Address: <?php
 // if(empty($location_addres)){
 //   echo $addres;
