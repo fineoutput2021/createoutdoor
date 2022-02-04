@@ -112,7 +112,7 @@ class Users extends CI_Controller
         }
     }
 
-    public function register()
+    public function user_register()
     {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
@@ -220,8 +220,6 @@ class Users extends CI_Controller
                         }
 
 
-
-
                         header('Access-Control-Allow-Origin: *');
                         $res = array('message'=>"success",
                           'status'=>200,
@@ -233,7 +231,6 @@ class Users extends CI_Controller
                         echo json_encode($res);
                     } else {
                         header('Access-Control-Allow-Origin: *');
-
                         $res = array('message'=>"Sorry error occured",
                               'status'=>201
                               );
@@ -242,7 +239,6 @@ class Users extends CI_Controller
                     }
                 } else {
                     header('Access-Control-Allow-Origin: *');
-
                     $res = array('message'=>'User already exist',
         'status'=>201
         );
@@ -251,7 +247,6 @@ class Users extends CI_Controller
                 }
             } else {
                 header('Access-Control-Allow-Origin: *');
-
                 $res = array('message'=>validation_errors(),
                           'status'=>201
                           );
@@ -260,7 +255,6 @@ class Users extends CI_Controller
             }
         } else {
             header('Access-Control-Allow-Origin: *');
-
             $res = array('message'=>"Please insert some data, No data available",
                         'status'=>201
                         );
