@@ -3889,24 +3889,25 @@ if($this->input->post())
       	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       	  CURLOPT_CUSTOMREQUEST => 'GET',
       	  CURLOPT_HTTPHEADER => array(
-      	    'Authorization: Basic cnpwX3Rlc3RfQnJMM01Vc3N0S1loVHA6SDloTTFRSXBVbVhNb01HUTkzbENSaUVs'
+      	    'Authorization: Basic cnpwX2xpdmVfaTlrdVNxTllDdUpYeWo6dlp2VXJYWFh3MGtnQWs1TnhPR05TSzRB'
       	  ),
       	));
 
       	$response1 = curl_exec($curl);
 
       	curl_close($curl);
-      	// echo $response;
+      	// echo $response1;
+        // exit;
       $response = json_decode($response1);
 
-      // if($response->status=='paid'){
-      if('paid'=='paid'){
+      if($response->status=='paid'){
+      // if('paid'=='paid'){
 
         $online_amount = $response->amount_paid/100;
 
 
-      // if($online_amount==$order_data->final_amount){
-      if($order_data->final_amount==$order_data->final_amount){
+      if($online_amount==$order_data->final_amount){
+      // if($order_data->final_amount==$order_data->final_amount){
 
 //-------order 1 update------
         $order1_data = array(
