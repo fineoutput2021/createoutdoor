@@ -81,7 +81,7 @@ $c_data= $this->db->get();
 				<!-- <p>Thank you for ordering with us, </p> -->
 				<p>Team Create Spaces</p>
 				<!-- <p>Stay Safe, Stay Fashionable</p> -->
-				<p><b>For any support,</b> free to email us at <a href="#">connect@createspace.com</a> or ring us on 1234789900</p>
+				<p><b>For any support,</b> feel free to email us at <a href="#">info@createspace.in</a> or ring us on +919620986386</p>
 			</div>
 		</div>
 

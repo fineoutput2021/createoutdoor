@@ -97,7 +97,7 @@ $sub_total=0;
 				<p>Thank you for ordering with us, </p>
 				<p>Team Create Spaces</p>
 				<p>Stay Safe, Stay Fashionable</p>
-				<p><b>For any support,</b> free to email us at <a href="#">connect@createspaces.com</a> or ring us on +919620986386</p>
+				<p><b>For any support,</b> feel free to email us at <a href="#">info@createspaces.in</a> or ring us on +919620986386</p>
 			</div>
 		</div>
 

@@ -14,7 +14,7 @@
 		</div>
 		<div>
 			<p>Hi <?php echo $user_name; ?>,</p>
-			<p>Someone has requested a new password for the following account on Createoutdoor:</p>
+			<p>Someone has requested a new password for the following account on Create Spaces:</p>
 			<p>Username: <b> <?php echo $user_name; ?></b></p>
 			<p>If you didn't make this request, just ignore this email. If you'd like to proceed:</p>
 			<p ><a href="<?php echo $link; ?>" style="color: #ff700a;">Click here to reset your password</a></p>
