@@ -4874,7 +4874,7 @@ public function forget_password(){
              );
 
    $last_id=$this->base_model->insert_table("tbl_forgot_pass",$data_insert,1) ;
-   $link = "http://localhost:3000/reset-password/".$txn_id;
+   $link = "https://www.createspaces.in/reset-password/".$txn_id;
   $forgot_password_data = array('user_name'=>$user_name,
   'link'=>$link
 
