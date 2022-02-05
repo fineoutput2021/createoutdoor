@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ob_start();
 class Apicontroller extends CI_Controller{
 function __construct()
 {
