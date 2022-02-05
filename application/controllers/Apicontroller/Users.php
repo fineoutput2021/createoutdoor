@@ -34,10 +34,13 @@ class Users extends CI_Controller
             // exit;
             $this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
             $this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+            $this->form_validation->set_rules('token', 'token', 'required|xss_clean|trim');
 
             if ($this->form_validation->run()== true) {
                 $email=$this->input->post('email');
                 $password=md5($this->input->post('password'));
+                $token=$this->input->post('token');
+
 
                 $this->db->select('*');
                 $this->db->from('tbl_users');
@@ -49,7 +52,6 @@ class Users extends CI_Controller
                 if (!empty($da)) {
                     $p1=$da->password;
                     if ($p1==$password) {
-                        $token = $da->token;
 
                         $this->db->select('*');
                         $this->db->from('tbl_cart');
