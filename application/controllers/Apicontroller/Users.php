@@ -55,25 +55,30 @@ class Users extends CI_Controller
 
                         $this->db->select('*');
                         $this->db->from('tbl_cart');
+                        $this->db->where('user_id', $da->id);
+                        $user_cart_data= $this->db->get();
+
+                        $this->db->select('*');
+                        $this->db->from('tbl_cart');
                         $this->db->where('token_id', $token);
                         $cart_data= $this->db->get();
 
 
 
                         foreach ($cart_data->result() as $data) {
-
-                          $this->db->select('*');
-                          $this->db->from('tbl_cart');
-                          $this->db->where('token_id',$token);
-                          $this->db->where('product_id',$data->product_id);
-                          $cart_check= $this->db->get()->row();
-
-                          if(empty($cart_check)){
+                          $i=0;
+                          foreach($user_cart_data->result() as $user_cart) {
+                            if($user_cart->product_id==$data->product_id && $user_cart->type_id==$data->type_id){
+                              $i=1;
+                            }
+                          }
+                          if($i==0){
                             $data_insert = array('user_id'=>$da->id,
                                             );
                             $this->db->where('id', $data->id);
                             $last_id=$this->db->update('tbl_cart', $data_insert);
                           }
+
                         }
                         header('Access-Control-Allow-Origin: *');
                         $res=array(
