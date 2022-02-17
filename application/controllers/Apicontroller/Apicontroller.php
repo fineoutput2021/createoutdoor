@@ -4111,9 +4111,10 @@ $string=$this->input->post('string');
 
 $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->like('productname',$string);
-$this->db->or_like('modelno',$string);
 $this->db->where('is_active',1);
+// $this->db->like('productname',$string);
+// $this->db->or_like('modelno',$string);
+$this->db->where("(productname LIKE '%".$string."%' OR modelno LIKE '%".$string."%')", NULL, FALSE);
 $search_string= $this->db->get();
 $string_check= $search_string->row();
 // print_r ($string_check);
@@ -5280,6 +5281,7 @@ $txn_id=$t;
                                         $this->db->select('*');
                                         $this->db->from('tbl_products');
                                         $this->db->like('category',$category_id);
+                                        $this->db->where('is_active',1);
                                         $this->db->order_by('id','desc');
                                         $product_data= $this->db->get();
 
