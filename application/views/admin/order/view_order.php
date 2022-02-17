@@ -244,10 +244,7 @@
       <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
       <script type="text/javascript">
         $(document).ready(function() {
-          $('#userTable').DataTable({
-            responsive: true,
-            // bSort: true
-          });
+
 
           $(document.body).on('click', '.dCnf', function() {
             var i = $(this).attr("mydata");
@@ -268,5 +265,17 @@
 
         });
       </script>
+      <script type="text/javascript">
+          $('#userTable').dataTable({
+        responsive: true,
+        "bStateSave": true,
+        "fnStateSave": function (oSettings, oData) {
+            localStorage.setItem('offersDataTables', JSON.stringify(oData));
+        },
+        "fnStateLoad": function (oSettings) {
+            return JSON.parse(localStorage.getItem('offersDataTables'));
+        }
+    });
+          </script>
       <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
             <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
