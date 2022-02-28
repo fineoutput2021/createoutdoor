@@ -285,8 +285,6 @@
                            $img2='image';
 
 
-
-
                            $image_upload_folder = FCPATH . "assets/uploads/products/";
                            if (!file_exists($image_upload_folder)) {
                                mkdir($image_upload_folder, DIR_WRITE_MODE, true);
@@ -298,14 +296,13 @@
                              'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
                              'max_size'      => 25000
                      );
-                           $this->upload->initialize($this->upload_config);
+                        $this->upload->initialize($this->upload_config);
                            if (!$this->upload->do_upload($img2)) {
                                $upload_error = $this->upload->display_errors();
 
                            //               echo json_encode($upload_error);
-           //
-           // $this->session->set_flashdata('emessage',$upload_error);
-           //   redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                            } else {
                                $file_info = $this->upload->data();
 
@@ -571,6 +568,13 @@
                    // exit;
 
                    if ($t=="active") {
+                                 $this->db->select('*');
+                     $this->db->from('tbl_type');
+                     $this->db->where('product_id',$id);
+                     $this->db->where('is_active',1);
+                     $type_count= $this->db->count_all_results();
+
+                     if(!empty($type_count)){
                        $data_update = array(
                         'is_active'=>1
 
@@ -585,6 +589,10 @@
                            $this->session->set_flashdata('emessage', 'Sorry error occured');
                            redirect($_SERVER['HTTP_REFERER']);
                        }
+                     }else{
+                       $this->session->set_flashdata('emessage', 'Please make a type of this product for activating');
+                       redirect($_SERVER['HTTP_REFERER']);
+                     }
                    }
                    if ($t=="inactive") {
                        $data_update = array(
