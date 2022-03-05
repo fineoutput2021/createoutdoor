@@ -104,7 +104,6 @@
                // print_r($this->input->post());
                // exit;
   $this->form_validation->set_rules('name', 'name', 'required');
-  $this->form_validation->set_rules('link', 'link', 'required');
 
 
 
@@ -113,7 +112,6 @@
                if($this->form_validation->run()== TRUE)
                {
   $name=$this->input->post('name');
-  $link=$this->input->post('link');
 
                    $ip = $this->input->ip_address();
                    date_default_timezone_set("Asia/Calcutta");
@@ -171,7 +169,6 @@ $img1='image';
 
            $data_insert = array(
                   'name'=>$name,
-                  'link'=>$link,
   'image'=>$nnnn1,
 
                      'ip' =>$ip,
@@ -245,7 +242,6 @@ if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){
 
            $data_insert = array(
                   'name'=>$name,
-                  'link'=>$link,
   'image'=>$nnnn1,
 
                      );
@@ -366,17 +362,17 @@ if(!empty($img)) { if(empty($nnnn1)){ $nnnn1 = $img; } }else{ if(empty($nnnn1)){
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                     $this->db->select('image');
-                     $this->db->from('tbl_gallery');
-                     $this->db->where('id',$id);
-                     $dsa= $this->db->get();
-                     $da=$dsa->row();
-                     $img=$da->image;
+                     // $this->db->select('image');
+                     // $this->db->from('tbl_gallery');
+                     // $this->db->where('id',$id);
+                     // $dsa= $this->db->get();
+                     // $da=$dsa->row();
+                     // $img=$da->image;
 
  $zapak=$this->db->delete('tbl_gallery', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
+        // $path = FCPATH .$img;
+        //   unlink($path);
         redirect("dcadmin/gallery/view_gallery","refresh");
                 }
                 else

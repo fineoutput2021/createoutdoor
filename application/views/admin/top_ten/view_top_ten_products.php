@@ -1,19 +1,17 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      View Slider panel
+      View Products
     </h1>
   </section>
   <section class="content">
     <div class="row">
       <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/sliderpanel/add_sliderpanel" role="button" style="margin-bottom:12px;"> Add Slider panel</a>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View slider panel</h3>
+            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View products</h3>
           </div>
           <div class="panel panel-default">
-
             <?php if (!empty($this->session->flashdata('smessage'))) { ?>
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -36,21 +34,68 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>name</th>
-                      <th>Web Image</th>
-                      <th>Mobile Image</th>
-                      <th>link</th>
-                      <th>Status</th>
+                      <th>Product Name</th>
+                      <th>Category Name</th>
+                      <th>Subcategory Name</th>
+                      <th>Image</th>
+                      <th>Sequence</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; foreach ($sliderpanel_data->result() as $data) { ?>
+                    <?php $i=1;
+         foreach ($products_data->result() as $data) {
+             $a=0;
+             $sub = json_decode($data->subcategory);
+             $count = count($sub);
+             if ($count>1) {
+                 foreach ($sub as $value) {
+                     if ($value==base64_decode($id)) {
+                         $a=1;
+                     }
+                 }
+             } else {
+                 if ($sub[0]==base64_decode($id)) {
+                     $a=1;
+                 }
+             }
+             if ($a==1) {
+                 ?>
                     <tr>
                       <td><?php echo $i ?> </td>
+                      <td><?php echo $data->productname?></td>
 
-                      <td><?php echo $data->name ?></td>
+                      <td><?php $category_id=json_decode($data->category);
+                 foreach ($category_id as $value) {
+                     $this->db->select('*');
+                     $this->db->from('tbl_category');
+                     $this->db->where('id', $value);
+                     $category_data= $this->db->get()->row();
 
+                     if (!empty($category_data)) {
+                         echo $category_name=$category_data->title;
+                         echo ", ";
+                     } else {
+                         echo "No Category";
+                     }
+                 } ?></td>
+                      <td><?php $subcategory_id=json_decode($data->subcategory);
+                 if (!empty($subcategory_id)) {
+                     foreach ($subcategory_id as $value1) {
+                         $this->db->select('*');
+                         $this->db->from('tbl_subcategory');
+                         $this->db->where('id', $value1);
+                         $subcategory_data= $this->db->get()->row();
+                         if (!empty($subcategory_data)) {
+                             echo $subcategory_name=$subcategory_data->subcategory;
+                             echo ", ";
+                         } else {
+                             echo "";
+                         }
+                     }
+                 } else {
+                     echo "No Subcategory";
+                 } ?></td>
 
                       <td>
                         <?php if ($data->image!="") { ?>
@@ -60,60 +105,23 @@
                         Sorry No File Found
                         <?php } ?>
                       </td>
-                      <td>
-                        <?php if ($data->image2!="") { ?>
-                        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image2
-        ?>">
-                        <?php } else { ?>
-                        Sorry No File Found
-                        <?php } ?>
-                      </td>
-                      <td><?php echo $data->link ?></td>
 
-
-
-
-
-
-                      <td><?php if ($data->is_active==1) { ?>
-                        <p class="label bg-green">Active</p>
-
-                        <?php } else { ?>
-                        <p class="label bg-yellow">Inactive</p>
-
-
-                        <?php } ?>
-                      </td>
+                      <td><?=$data->top_ten; ?></td>
                       <td>
                         <div class="btn-group" id="btns<?php echo $i ?>">
                           <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              Action <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-
-                              <?php if ($data->is_active==1) { ?>
-                              <li><a href="<?php echo base_url() ?>dcadmin/sliderpanel/updatesliderpanelStatus/<?php echo
-        base64_encode($data->id) ?>/inactive">Inactive</a></li>
-                              <?php } else { ?>
-                              <li><a href="<?php echo base_url() ?>dcadmin/sliderpanel/updatesliderpanelStatus/<?php echo
-        base64_encode($data->id) ?>/active">Active</a></li>
-                              <?php } ?>
-                              <li><a href="<?php echo base_url() ?>dcadmin/sliderpanel/update_sliderpanel/<?php echo
-        base64_encode($data->id) ?>">Edit</a></li>
-                              <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
-                            </ul>
+                            <?if (!empty($data->top_ten)) {?>
+                    <button type="button" class="btn btn-default" onclick="window.location.href='<?=base_url()?>dcadmin/Top_ten/remove_top_ten/<?=base64_encode($data->id)?>'">Remove</button>
+                          <?} else {?>
+                <button type="button" class="btn btn-default" onclick="window.location.href='<?=base_url()?>dcadmin/Top_ten/add_top_ten/<?=$id?>/<?=base64_encode($data->id)?>'">Add</button>
+                <?} ?>
                           </div>
-                        </div>
-
-                        <div style="display:none" id="cnfbox<?php echo $i ?>">
-                          <p> Are you sure delete this </p>
-                          <a href="<?php echo base_url() ?>dcadmin/sliderpanel/delete_sliderpanel/<?php echo
-        base64_encode($data->id); ?>" class="btn btn-danger">Yes</a>
-                          <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>">No</a>
                         </div>
                       </td>
                     </tr>
-                    <?php $i++; } ?>
+                    <?php $i++;
+             }
+         }?>
                   </tbody>
                 </table>
 
@@ -134,10 +142,7 @@
 <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
-    $('#userTable').DataTable({
-      responsive: true,
-      // bSort: true
-    });
+
 
     $(document.body).on('click', '.dCnf', function() {
       var i = $(this).attr("mydata");
@@ -158,6 +163,7 @@
 
   });
 </script>
+
 <!-- <script type="text/javascript" src="<?php echo base_url()
         ?>assets/slider/ajaxupload.3.5.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->

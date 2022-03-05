@@ -27,7 +27,7 @@ class Category extends CI_finecontrol
 
             $this->db->select('*');
             $this->db->from('tbl_category');
-            //$this->db->where('id',$usr);
+            $this->db->order_by('seq','asc');
             $data['category_data']= $this->db->get();
 
 
@@ -69,10 +69,12 @@ class Category extends CI_finecontrol
             if ($this->input->post()) {
                 $this->form_validation->set_rules('title', 'title', 'required|xss_clean|trim');
                 $this->form_validation->set_rules('text', 'text', 'required|xss_clean|trim');
+                $this->form_validation->set_rules('seq', 'seq', 'required|xss_clean|trim');
 
                 if ($this->form_validation->run()== true) {
                     $title=$this->input->post('title');
                     $text=$this->input->post('text');
+                    $seq=$this->input->post('seq');
 
                     // Load library
                     $this->load->library('upload');
@@ -122,6 +124,7 @@ class Category extends CI_finecontrol
                         $data_insert = array('title'=>$title,
                     'image'=>$image,
                                         'text'=>$text,
+                                        'seq'=>$seq,
                     'added_by' =>$addedby,
                     'is_active' =>1,
                     'date'=>$cur_date
@@ -150,7 +153,8 @@ class Category extends CI_finecontrol
 
                         $data_insert = array('Title'=>$title,
                     'image'=>$n1,
-                                        'text'=>$text
+                                        'text'=>$text,
+                                        'seq'=>$seq
 
                     );
 
@@ -243,42 +247,40 @@ class Category extends CI_finecontrol
 
             $zapak=$this->db->delete('tbl_category', array('id' => $id));
             if ($zapak!=0) {
+                $this->db->select('*');
+                $this->db->from('tbl_subcategory');
+                $this->db->like('category', $id);
+                $sub_data= $this->db->get();
 
-              $this->db->select('*');
-              $this->db->from('tbl_subcategory');
-              $this->db->like('category',$id);
-              $sub_data= $this->db->get();
-
-              foreach($sub_data->result() as $subcat) {
-              $sub_delete=$this->db->delete('tbl_subcategory', array('id' => $subcat->id));
-              $this->db->select('*');
-              $this->db->from('tbl_products');
-              $this->db->like('subcategory',$subcat->id);
-              $product_data= $this->db->get();
-               foreach($product_data->result() as $pro) {
-                 $sub = json_decode($pro->subcategory);
-                 $i=0;
-                 foreach ($sub as $value) {
-                   if($value==$id){
-                     $i=1;
-                   }
-                 }
-                 if($i==1){
-                   if(count($sub)==1){
-                   $delete=$this->db->delete('tbl_products', array('id' => $pro->id));
-                   $delete2=$this->db->delete('tbl_type', array('product_id' => $pro->id));
-                   }else{
-                     if (($key = array_search($id, $sub)) !== false) {
-                         unset($sub[$key]);
-                         $data_update = array('subcategory'=>json_encode($sub));
-                                     $this->db->where('id',$pro->id);
-                                     $zapak=$this->db->update('tbl_products', $data_update);
-
-                       }
-                   }
-                 }
-               }
-             }
+                foreach ($sub_data->result() as $subcat) {
+                    $sub_delete=$this->db->delete('tbl_subcategory', array('id' => $subcat->id));
+                    $this->db->select('*');
+                    $this->db->from('tbl_products');
+                    $this->db->like('subcategory', $subcat->id);
+                    $product_data= $this->db->get();
+                    foreach ($product_data->result() as $pro) {
+                        $sub = json_decode($pro->subcategory);
+                        $i=0;
+                        foreach ($sub as $value) {
+                            if ($value==$id) {
+                                $i=1;
+                            }
+                        }
+                        if ($i==1) {
+                            if (count($sub)==1) {
+                                $delete=$this->db->delete('tbl_products', array('id' => $pro->id));
+                                $delete2=$this->db->delete('tbl_type', array('product_id' => $pro->id));
+                            } else {
+                                if (($key = array_search($id, $sub)) !== false) {
+                                    unset($sub[$key]);
+                                    $data_update = array('subcategory'=>json_encode($sub));
+                                    $this->db->where('id', $pro->id);
+                                    $zapak=$this->db->update('tbl_products', $data_update);
+                                }
+                            }
+                        }
+                    }
+                }
                 redirect("dcadmin/category/view_category", "refresh");
             } else {
                 $this->session->set_flashdata('emessage', 'Sorry error occured');

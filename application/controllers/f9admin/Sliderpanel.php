@@ -92,9 +92,9 @@ if ($this->form_validation->run()== true) {
 $name=$this->input->post('name');
 $link=$this->input->post('link');
 
-$img1='fileToUpload1';
+$img1='image';
 
-$file_check=($_FILES['fileToUpload1']['error']);
+$file_check=($_FILES['image']['error']);
 if ($file_check!=4) {
 $image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
 if (!file_exists($image_upload_folder)) {
@@ -122,6 +122,36 @@ $nnnn1=$videoNAmePath;
 // echo json_encode($file_info);
 }
 }
+$img2='image2';
+
+$file_check=($_FILES['image2']['error']);
+if ($file_check!=4) {
+$image_upload_folder = FCPATH . "assets/uploads/sliderpanel/";
+if (!file_exists($image_upload_folder)) {
+mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+}
+$new_file_name="sliderpane2".date("Ymdhms");
+$this->upload_config = array(
+'upload_path'   => $image_upload_folder,
+'file_name' => $new_file_name,
+'allowed_types' =>'jpg|jpeg|png',
+'max_size'      => 25000
+);
+$this->upload->initialize($this->upload_config);
+if (!$this->upload->do_upload($img2)) {
+$upload_error = $this->upload->display_errors();
+// echo json_encode($upload_error);
+echo $upload_error;
+} else {
+$file_info = $this->upload->data();
+
+$videoNAmePath = "assets/uploads/sliderpanel/".$new_file_name.$file_info['file_ext'];
+$file_info['new_name']=$videoNAmePath;
+// $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+$nnnn2=$videoNAmePath;
+// echo json_encode($file_info);
+}
+}
 
 
 
@@ -135,8 +165,8 @@ $typ=base64_decode($t);
 if ($typ==1) {
 $data_insert = array('name'=>$name,
 'image'=>$nnnn1,
+'image2'=>$nnnn2,
 'link'=>$link,
-
 'ip' =>$ip,
 'added_by' =>$addedby,
 'is_active' =>1,
@@ -180,13 +210,17 @@ $n1=$nnnn1;
 } else {
 $n1=$da->image;
 }
+if (!empty($nnnn2)) {
+$n2=$nnnn2;
+} else {
+$n2=$da->image2;
+}
 
 
 $data_insert = array('name'=>$name,
 'link'=>$link,
-'image'=>$n1
-
-
+'image'=>$n1,
+'image2'=>$n2
 
 );
 

@@ -27,7 +27,7 @@
 
                    $this->db->select('*');
                    $this->db->from('tbl_products');
-                   $this->db->order_by('id','desc');
+                   $this->db->order_by('id', 'desc');
                    $data['products_data']= $this->db->get();
 
                    $this->load->view('admin/common/header_view', $data);
@@ -214,6 +214,8 @@
                        // $this->form_validation->set_rules('category', 'category');
                        $this->form_validation->set_rules('sub_category', 'sub_category');
                        $this->form_validation->set_rules('productdescription', 'productdescription');
+                       $this->form_validation->set_rules('productspecification', 'productspecification');
+                       $this->form_validation->set_rules('top', 'top');
                        // $this->form_validation->set_rules('leadtime', 'leadtime', 'required');
                        // $this->form_validation->set_rules('seating', 'seating', 'required');
                        // $this->form_validation->set_rules('shape', 'shape', 'required');
@@ -270,6 +272,8 @@
 
 
                            $productdescription=$this->input->post('productdescription');
+                           $productspecification=$this->input->post('productspecification');
+                           $top=$this->input->post('top');
                            $leadtime=$this->input->post('leadtime');
                            $seating=$this->input->post('seating');
                            $shape=$this->input->post('shape');
@@ -277,44 +281,46 @@
                            $feature=$this->input->post('feature');
 
                            $modelno=$this->input->post('modelno');
+                           $nnnn2="";
                            $nnnn3="";
                            $nnnn4="";
                            $nnnn5="";
 
-
+                           // echo $top;die();
                            $img2='image';
 
-
-                           $image_upload_folder = FCPATH . "assets/uploads/products/";
-                           if (!file_exists($image_upload_folder)) {
-                               mkdir($image_upload_folder, DIR_WRITE_MODE, true);
-                           }
-                           $new_file_name="products".date("Ymdhms");
-                           $this->upload_config = array(
+                           $file_check=($_FILES['image']['error']);
+                           if($file_check!=4){
+                               $image_upload_folder = FCPATH . "assets/uploads/products/";
+                               if (!file_exists($image_upload_folder)) {
+                                   mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                               }
+                               $new_file_name="products".date("Ymdhms");
+                               $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
                              'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
                              'max_size'      => 25000
                      );
-                        $this->upload->initialize($this->upload_config);
-                           if (!$this->upload->do_upload($img2)) {
-                               $upload_error = $this->upload->display_errors();
+                               $this->upload->initialize($this->upload_config);
+                               if (!$this->upload->do_upload($img2)) {
+                                   $upload_error = $this->upload->display_errors();
 
-                           //               echo json_encode($upload_error);
-           $this->session->set_flashdata('emessage',$upload_error);
-             redirect($_SERVER['HTTP_REFERER']);
-                           } else {
-                               $file_info = $this->upload->data();
+                                   //               echo json_encode($upload_error);
+                                   $this->session->set_flashdata('emessage', $upload_error);
+                                   redirect($_SERVER['HTTP_REFERER']);
+                               } else {
+                                   $file_info = $this->upload->data();
 
-                               $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
-                               $file_info['new_name']=$videoNAmePath;
-                               // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
-                               $nnnn=$file_info['file_name'];
-                               $nnnn2=$videoNAmePath;
+                                   $videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                                   $file_info['new_name']=$videoNAmePath;
+                                   // $this->step6_model->updateappIconImage($imageNAmePath,$appInfoId);
+                                   $nnnn=$file_info['file_name'];
+                                   $nnnn2=$videoNAmePath;
 
-                               // echo json_encode($file_info);
+                                   // echo json_encode($file_info);
+                               }
                            }
-
 
 
 
@@ -322,7 +328,8 @@
 
 
 
-
+                           $file_check=($_FILES['image1']['error']);
+                              if($file_check!=4){
                            $image_upload_folder = FCPATH . "assets/uploads/products/";
                            if (!file_exists($image_upload_folder)) {
                                mkdir($image_upload_folder, DIR_WRITE_MODE, true);
@@ -353,15 +360,14 @@
 
                                // echo json_encode($file_info);
                            }
-
+}
 
 
 
                            $img4='image2';
 
-
-
-
+                           $file_check=($_FILES['image2']['error']);
+                              if($file_check!=4){
                            $image_upload_folder = FCPATH . "assets/uploads/products/";
                            if (!file_exists($image_upload_folder)) {
                                mkdir($image_upload_folder, DIR_WRITE_MODE, true);
@@ -392,7 +398,7 @@
 
                                // echo json_encode($file_info);
                            }
-
+}
 
 
 
@@ -400,7 +406,8 @@
 
 
 
-
+                           $file_check=($_FILES['image3']['error']);
+                            if($file_check!=4){
                            $image_upload_folder = FCPATH . "assets/uploads/products/";
                            if (!file_exists($image_upload_folder)) {
                                mkdir($image_upload_folder, DIR_WRITE_MODE, true);
@@ -431,7 +438,7 @@
 
                                // echo json_encode($file_info);
                            }
-
+                         }
 
                            $ip = $this->input->ip_address();
                            date_default_timezone_set("Asia/Calcutta");
@@ -450,12 +457,14 @@
   'image2'=>$nnnn4,
   'image3'=>$nnnn5,
   'productdescription'=>$productdescription,
+  'productspecification'=>$productspecification,
   'leadtime_id'=>$leadtime,
   'furniture_type_id'=>$furniture,
   'seating_id'=>$seating,
   'shape_id'=>$shape,
   'feature_id'=>$feature,
   'modelno'=>$modelno,
+  'top'=>$top,
                      'ip' =>$ip,
                      'added_by' =>$addedby,
                      'is_active' =>0,
@@ -520,12 +529,14 @@
   'image2'=>$n3,
   'image3'=>$n4,
   'productdescription'=>$productdescription,
+  'productspecification'=>$productspecification,
   'leadtime_id'=>$leadtime,
   'furniture_type_id'=>$furniture,
   'seating_id'=>$seating,
   'shape_id'=>$shape,
   'feature_id'=>$feature,
   'modelno'=>$modelno,
+  'top'=>$top,
 
                      );
                                $this->db->where('id', $idw);
@@ -568,31 +579,31 @@
                    // exit;
 
                    if ($t=="active") {
-                                 $this->db->select('*');
-                     $this->db->from('tbl_type');
-                     $this->db->where('product_id',$id);
-                     $this->db->where('is_active',1);
-                     $type_count= $this->db->count_all_results();
+                       $this->db->select('*');
+                       $this->db->from('tbl_type');
+                       $this->db->where('product_id', $id);
+                       $this->db->where('is_active', 1);
+                       $type_count= $this->db->count_all_results();
 
-                     if(!empty($type_count)){
-                       $data_update = array(
+                       if (!empty($type_count)) {
+                           $data_update = array(
                         'is_active'=>1
 
                         );
 
-                       $this->db->where('id', $id);
-                       $zapak=$this->db->update('tbl_products', $data_update);
+                           $this->db->where('id', $id);
+                           $zapak=$this->db->update('tbl_products', $data_update);
 
-                       if ($zapak!=0) {
-                           redirect("dcadmin/products/view_products", "refresh");
+                           if ($zapak!=0) {
+                               redirect("dcadmin/products/view_products", "refresh");
+                           } else {
+                               $this->session->set_flashdata('emessage', 'Sorry error occured');
+                               redirect($_SERVER['HTTP_REFERER']);
+                           }
                        } else {
-                           $this->session->set_flashdata('emessage', 'Sorry error occured');
+                           $this->session->set_flashdata('emessage', 'Please make a type of this product for activating');
                            redirect($_SERVER['HTTP_REFERER']);
                        }
-                     }else{
-                       $this->session->set_flashdata('emessage', 'Please make a type of this product for activating');
-                       redirect($_SERVER['HTTP_REFERER']);
-                     }
                    }
                    if ($t=="inactive") {
                        $data_update = array(

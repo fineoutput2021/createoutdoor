@@ -23,6 +23,7 @@ foreach($sliderdata->result() as $data) {
 $slider[] = array(
 'name'=> $data->name,
 'image'=> base_url().$data->image,
+'image2'=> base_url().$data->image2,
 'link'=>$data->link
 );
 }
@@ -50,7 +51,6 @@ foreach($gallerydata->result() as $data) {
 $gallery[] = array(
 'name'=> $data->name,
 'image'=> base_url().$data->image,
-'link'=>$data->link
 
 );
 }
@@ -74,6 +74,7 @@ public function get_category(){
 $this->db->select('*');
 $this->db->from('tbl_category');
 $this->db->where('is_active',1);
+$this->db->order_by('seq','asc');
 $categorydata= $this->db->get();
 $category=[];
 foreach($categorydata->result() as $data) {
@@ -110,6 +111,7 @@ $products[] = array(
 'productimage'=> base_url().$data->image,
 'mrp'=> $data->mrp,
 'productdescription'=> $data->productdescription,
+'specification'=>$data->productspecification,
 'colours'=> $data->colours,
 );
 }
@@ -248,6 +250,7 @@ public function get_all_category(){
 $this->db->select('*');
 $this->db->from('tbl_category');
 $this->db->where('is_active',1);
+$this->db->order_by('seq','asc');
 $categorydata= $this->db->get();
 $category=[];
 foreach($categorydata->result() as $data) {
@@ -328,6 +331,7 @@ if(!empty($product_check)){
 
 $product_data1 = [];
 $a=0;
+$top_ten=[];
 foreach($product_data->result() as $data) {
 $i=0;
 $sub = json_decode($data->subcategory);
@@ -385,6 +389,7 @@ $type_check=$type_info->row();
 // print_r($type_check);
 // exit;
 if(!empty($type_check)){
+if(!empty($data->top_ten)){
 $type_data= [];
 foreach($type_info->result() as $data1) {
 
@@ -399,20 +404,54 @@ $type_data[] = array(
 }
 // print_r($type_data);
 // exit;
-$product_data1[]= array(
+$top_ten[]= array(
 'product_id'=>$data->id,
 'product_name'=>$data->productname,
 'description'=>$data->productdescription,
+'specification'=>$data->productspecification,
+'top_ten'=>$data->top_ten,
 'image'=>base_url().$data->image,
 'type'=>$type_data,
 );
 
+}
+else{
+  $type_data= [];
+  foreach($type_info->result() as $data1) {
 
+  $type_data[] = array(
+
+  'type_id'=>$data1->id,
+  'type_name'=>$data1->name,
+  'type_mrp'=>$data1->mrp,
+  'type_price'=>$data1->spgst,
+
+  );
+  }
+  // print_r($type_data);
+  // exit;
+  $product_data1[]= array(
+  'product_id'=>$data->id,
+  'product_name'=>$data->productname,
+  'description'=>$data->productdescription,
+  'specification'=>$data->productspecification,
+  'top_ten'=>$data->top_ten,
+  'image'=>base_url().$data->image,
+  'type'=>$type_data,
+  );
+
+}
 }
 }
 // echo $a;
 // echo "<br />";
 $a++;}
+if(!empty($top_ten)){
+  // print_r($top_ten);die();
+$top = array_column($top_ten, 'top_ten');
+array_multisort($top, SORT_ASC, $top_ten);
+$product_data1 = array_merge($top_ten, $product_data1);
+}
 
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
@@ -555,7 +594,7 @@ $products[] = array(
 'mrp'=> $data->mrp,
 'model_no'=> $data->modelno,
 'productdescription'=> $data->productdescription,
-// 'colours'=> $data->colours,
+'specification'=>$data->productspecification,
 'product_type'=>$producttype,
 // 'inventory'=> $data->inventory
 );
@@ -576,8 +615,9 @@ public function most_popular_products(){
 
 $this->db->select('*');
 $this->db->from('tbl_products');
-$this->db->limit(10);
+// $this->db->limit(10);
 $this->db->where('is_active',1);
+$this->db->where('top',1);
 $this->db->order_by('id','desc');
 $productslimitdata= $this->db->get();
 $products=[];
@@ -638,7 +678,7 @@ $products[] = array(
 'productimage'=> base_url().$limit->image,
 'mrp'=> $limit->mrp,
 'productdescription'=> $limit->productdescription,
-// 'colours'=> $limit->colours,
+'specification'=>$limit->productspecification,
 'product_type'=>$producttype,
 // 'inventory'=> $data->inventory
 );
@@ -2481,6 +2521,7 @@ $related_info[]  = array(
 'productname'=>$data->productname,
 'productimage'=>base_url().$data->image,
 'productdescription'=>$data->productdescription,
+'specification'=>$data->productspecification,
 'product_type'=>$type,
 
 );
@@ -5035,6 +5076,7 @@ $search_data[]=array(
 'product_name'=>$data->productname,
 'produt_image'=>base_url().$data->image,
 'productdescription'=>$data->productdescription,
+'specification'=>$data->productspecification,
 'type_id'=>$ty_id,
 'type_name'=>$ty_name,
 'type_mrp'=>$ty_mrp,
@@ -5405,6 +5447,7 @@ $filter_info[] = array(
 'product_name'=>$data->productname,
 'product_image'=>base_url().$data->image,
 'productdescription'=>$data->productdescription,
+'specification'=>$data->productspecification,
 'type_id'=>$type_data->id,
 'type_name'=>$type_data->name,
 'price'=>$type_data->spgst,
@@ -6249,6 +6292,7 @@ $product_data1[]= array(
 'product_id'=>$data->id,
 'product_name'=>$data->productname,
 'description'=>$data->productdescription,
+'specification'=>$data->productspecification,
 'image'=>base_url().$data->image,
 'type'=>$type_data,
 );

@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                       <td> <strong>image1</strong></td>
-                      <td> <input type="file" name="image1" class="form-control" placeholder=""  value="" /> </td>
+                      <td> <input type="file" name="image1" class="form-control" placeholder="" value="" /> </td>
                     </tr>
                     <tr>
                       <td> <strong>image2</strong></td>
@@ -91,8 +91,23 @@
                       </td>
                     </tr>
                     <tr>
+                      <td> <strong>Product Specification</strong> <span style="color:red;">*</span></strong> </td>
+                      <td>
+                        <textarea id="editor2" name="productspecification" required></textarea>
+
+                      </td>
+                    </tr>
+                    <tr>
                       <td> <strong>Model no.</strong> <span style="color:red;">*</span></strong> </td>
                       <td> <input type="text" name="modelno" class="form-control" placeholder="" required value="" /> </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Top Products</strong></strong> </td>
+                      <td><input type="radio" id="yes" name="top" value="1">
+                        <label for="yes">Yes</label>
+                        <input type="radio" id="no" name="top" value="0" checked>
+                        <label for="no">No</label>
+                      </td>
                     </tr>
                     <tr>
                       <td> <strong>Lead Time</strong> </strong> </td>
@@ -317,4 +332,5 @@
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
   CKEDITOR.replace('editor1');
+  CKEDITOR.replace('editor2');
 </script>
