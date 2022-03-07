@@ -46,7 +46,7 @@
                       <th>Model No.</th>
                       <th>Top Product</th>
                       <th>Product Description</th>
-                      <th>Product Description</th>
+                      <th>Product Specification</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
