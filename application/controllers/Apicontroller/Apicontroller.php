@@ -44,6 +44,29 @@ echo json_encode($res);
 public function get_gallery(){
 
 $this->db->select('*');
+$this->db->from('tbl_gallery');
+$gallerydata= $this->db->get();
+$gallery=[];
+foreach($gallerydata->result() as $data) {
+$gallery[] = array(
+'name'=> $data->name,
+'image'=> base_url().$data->image,
+
+);
+}
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>"success",
+'status'=>200,
+'data'=>$gallery
+);
+
+echo json_encode($res);
+
+}
+// ========= gallery =========
+public function get_gallery2(){
+
+$this->db->select('*');
 $this->db->from('tbl_gallery2');
 $gallerydata= $this->db->get();
 $gallery=[];
