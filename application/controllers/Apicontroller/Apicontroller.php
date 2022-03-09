@@ -44,7 +44,7 @@ echo json_encode($res);
 public function get_gallery(){
 
 $this->db->select('*');
-$this->db->from('tbl_gallery');
+$this->db->from('tbl_gallery2');
 $gallerydata= $this->db->get();
 $gallery=[];
 foreach($gallerydata->result() as $data) {
