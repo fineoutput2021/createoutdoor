@@ -175,7 +175,7 @@ $img1='detail_image_1';
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="corporate_banner_image".date("Ymdhms");
+                     $new_file_name="corporate_banner_image2".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -218,7 +218,7 @@ $img2='detail_image_2';
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="corporate_banner_image".date("Ymdhms");
+                     $new_file_name="corporate_banner_image3".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -332,7 +332,7 @@ $img1='detail_image_1';
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="corporate_banner_image".date("Ymdhms");
+                     $new_file_name="corporate_banner_image2".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
@@ -375,7 +375,7 @@ $img2='detail_image_2';
                      {
                          mkdir($image_upload_folder, DIR_WRITE_MODE, true);
                      }
-                     $new_file_name="corporate_banner_image".date("Ymdhms");
+                     $new_file_name="corporate_banner_image3".date("Ymdhms");
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
