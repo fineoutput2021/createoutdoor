@@ -85,6 +85,12 @@
                           </td>
                         </tr>
                         <tr>
+                          <td> <strong>Sample Price</strong> <span style="color:red;">*</span></strong> </td>
+                          <td>
+                            <input type="text" name="sample_price" class="form-control" placeholder="" required value="" id="sample_price" />
+                          </td>
+                        </tr>
+                        <tr>
                           <td> <strong>color</strong> <span style="color:red;">*</span></strong> </td>
                           <td>
                             <input type="color" name="color" class="form-control" placeholder="" required value="" />

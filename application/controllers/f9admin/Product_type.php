@@ -100,6 +100,7 @@
                         $this->form_validation->set_rules('sellingprice', 'sellingprice', 'required|xss_clean|trim');
                         $this->form_validation->set_rules('gstprice', 'gstprice', 'required|xss_clean|trim');
                         $this->form_validation->set_rules('price', 'price', 'required|xss_clean|trim');
+                        $this->form_validation->set_rules('sample_price', 'sample_price', 'required|xss_clean|trim');
                         $this->form_validation->set_rules('weight', 'weight', 'required|xss_clean|trim');
 
                         if($this->form_validation->run()== TRUE)
@@ -114,6 +115,7 @@
                           $sellingprice=$this->input->post('sellingprice');
                           $gstprice=$this->input->post('gstprice');
                           $price=$this->input->post('price');
+                          $sample_price=$this->input->post('sample_price');
                           $color=$this->input->post('color');
 
                           $weight=$this->input->post('weight');
@@ -134,6 +136,7 @@
                               'gstprice'=>$gstprice,
                               'spgst'=>$price,
                               'color'=>$color,
+                              'sample_price'=>$sample_price,
 
                               'weight'=>$weight,
                               'product_id'=>base64_decode($p_id),
@@ -204,6 +207,7 @@ if(!empty($product_data)){
                     'sp'=>$sellingprice,
                     'gstprice'=>$gstprice,
                     'spgst'=>$price,
+                    'sample_price'=>$sample_price,
                       'color'=>$color,
                     'weight'=>$weight
 

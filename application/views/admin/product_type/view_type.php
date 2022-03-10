@@ -21,20 +21,20 @@
           </div>
           <div class="panel panel-default">
 
-            <? if(!empty($this->session->flashdata('smessage'))){ ?>
+            <?php if (!empty($this->session->flashdata('smessage'))) { ?>
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <h4><i class="icon fa fa-check"></i> Alert!</h4>
-              <? echo $this->session->flashdata('smessage'); ?>
+              <?php echo $this->session->flashdata('smessage'); ?>
             </div>
-            <? }
-                                                                 			     if(!empty($this->session->flashdata('emessage'))){ ?>
+            <?php }
+                                                                                  if (!empty($this->session->flashdata('emessage'))) { ?>
             <div class="alert alert-danger alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-              <? echo $this->session->flashdata('emessage'); ?>
+              <?php echo $this->session->flashdata('emessage'); ?>
             </div>
-            <? } ?>
+            <?php } ?>
 
 
             <div class="panel-body">
@@ -45,31 +45,30 @@
                       <th>#</th>
                       <th>Name</th>
                       <th>Product Name</th>
-
                       <th>MRP</th>
                       <th>GST%</th>
                       <th>Selling Price(without GST)</th>
                       <th>GST%Price</th>
                       <th>Selling Price</th>
+                      <th>Sample Price</th>
                       <th>weight</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; foreach($type->result() as $data) { ?>
+                    <?php $i=1; foreach ($type->result() as $data) { ?>
                     <tr>
                       <td><?php echo $i ?> </td>
                       <td><?php echo $data->name ?></td>
                       <td><?php $fh= $data->product_id;
                                                                           $this->db->select('*');
                                                               $this->db->from('tbl_products');
-                                                              $this->db->where('id',$fh);
+                                                              $this->db->where('id', $fh);
                                                               $da= $this->db->get();
                                                                $fa=$da->row();
-                                                             if(!empty($fa)){
-                                                                  echo $fa->productname;
-
+                                                             if (!empty($fa)) {
+                                                                 echo $fa->productname;
                                                              }
 
                                                       ?></td>
@@ -79,10 +78,11 @@
                       <td><?php echo $data->sp ?></td>
                       <td><?php echo $data->gstprice ?></td>
                       <td><?php echo $data->spgst ?></td>
+                      <td><?php echo $data->sample_price ?></td>
                       <td><?php echo $data->weight ?></td>
 
 
-                      <td><?php if($data->is_active==1){ ?>
+                      <td><?php if ($data->is_active==1) { ?>
                         <p class="label bg-green">Active</p>
 
                         <?php } else { ?>
@@ -97,7 +97,7 @@
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Action <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
 
-                              <?php if($data->is_active==1){ ?>
+                              <?php if ($data->is_active==1) { ?>
                               <li><a href="<?php echo base_url() ?>dcadmin/Product_type/updatetypeStatus/<?php echo base64_encode($data->id)?>/inactive">Inactive</a></li>
                               <?php } else { ?>
                               <li><a href="<?php echo base_url() ?>dcadmin/Product_type/updatetypeStatus/<?php echo base64_encode($data->id)?>/active">Active</a></li>
@@ -167,17 +167,17 @@
   });
 </script>
 <script type="text/javascript">
-    $('#userTable').dataTable({
-  responsive: true,
-  "bStateSave": true,
-  "fnStateSave": function (oSettings, oData) {
+  $('#userTable').dataTable({
+    responsive: true,
+    "bStateSave": true,
+    "fnStateSave": function(oSettings, oData) {
       localStorage.setItem('offersDataTables', JSON.stringify(oData));
-  },
-  "fnStateLoad": function (oSettings) {
+    },
+    "fnStateLoad": function(oSettings) {
       return JSON.parse(localStorage.getItem('offersDataTables'));
-  }
-});
-    </script>
+    }
+  });
+</script>
 <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
                                   <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
 Type

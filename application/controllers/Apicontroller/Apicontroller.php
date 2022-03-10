@@ -578,6 +578,8 @@ $producttype[]=array(
 'type_name'=>$type->name,
 'MRP' =>$type->mrp,
 'Price' =>$type->spgst,
+'sample_price' =>$type->sample_price,
+
 );
 
 }
