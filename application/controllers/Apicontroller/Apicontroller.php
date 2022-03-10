@@ -6645,13 +6645,11 @@ echo json_encode($res);
 }
 
 }else{
-  $get_address=[];
   header('Access-Control-Allow-Origin: *');
-  $res = array('message'=>"success",
-  'status'=>200,
-  'data'=>$get_address
+  $res=array(
+  'message'=>"this user no address",
+  'status'=>201
   );
-
   echo json_encode($res);
 }
 
