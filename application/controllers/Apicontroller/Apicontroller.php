@@ -3430,8 +3430,8 @@ $this->load->helper('security');
 if($this->input->post())
 {
 
-$this->form_validation->set_rules('email', 'email', 'required|xss_clean|trim');
-$this->form_validation->set_rules('password', 'password', 'required|xss_clean|trim');
+$this->form_validation->set_rules('email', 'email', 'xss_clean|trim');
+$this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('txn_id', 'txn_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('promocode', 'promocode', 'required|xss_clean|trim');
