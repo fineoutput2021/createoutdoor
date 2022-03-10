@@ -6576,8 +6576,8 @@ if($this->input->post())
 {
 // print_r($this->input->post());
 // exit;
-$this->form_validation->set_rules('email', 'email', 'required|xss_clean');
-$this->form_validation->set_rules('password', 'password','required|xss_clean');
+$this->form_validation->set_rules('email', 'email', 'xss_clean');
+$this->form_validation->set_rules('password', 'password','xss_clean');
 $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean');
 
 if($this->form_validation->run()== TRUE)
@@ -6585,7 +6585,7 @@ if($this->form_validation->run()== TRUE)
 $email=$this->input->post('email');
 $password=$this->input->post('password');
 $token_id=$this->input->post('token_id');
-
+if(!empty($email) && !empty($password)){
 $this->db->select('*');
 $this->db->from('tbl_users');
 $this->db->where('email',$email);
@@ -6644,7 +6644,16 @@ $res=array(
 echo json_encode($res);
 }
 
+}else{
+  $get_address=[];
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>"success",
+  'status'=>200,
+  'data'=>$get_address
+  );
 
+  echo json_encode($res);
+}
 
 }
 else{
