@@ -815,6 +815,16 @@ exit;
 
 }
 
+}else{
+  if(empty($type_data->sample_price)){
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=> "Sample is not available currently",
+    'status'=>201
+    );
+
+    echo json_encode($res);
+    exit;
+  }
 }
 if(empty($sample)){
   $sample=0;
@@ -951,6 +961,16 @@ echo json_encode($res);
 exit;
 
 }
+}else{
+  if(empty($type_data->sample_price)){
+    header('Access-Control-Allow-Origin: *');
+    $res = array('message'=> "Sample is not available currently",
+    'status'=>201
+    );
+
+    echo json_encode($res);
+    exit;
+  }
 }
 if(empty($sample)){
   $sample=0;
