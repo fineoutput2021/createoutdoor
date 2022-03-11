@@ -939,7 +939,7 @@ if(!empty($product_data)){
 
 if(!empty($type_data)){
 
-if(empty($sapmle)){
+if(empty($sample)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$type_id);
@@ -962,6 +962,7 @@ exit;
 
 }
 }else{
+  // echo "hi";die();
   if(empty($type_data->sample_price)){
     header('Access-Control-Allow-Origin: *');
     $res = array('message'=> "Sample is not available currently",
