@@ -816,7 +816,9 @@ exit;
 }
 
 }
-
+if(empty($sample)){
+  $sample=0;
+}
 $data_insert = array('product_id'=>$product_id,
 'type_id'=>$type_id,
 'quantity'=>$quantity,
@@ -950,6 +952,9 @@ exit;
 
 }
 }
+if(empty($sample)){
+  $sample=0;
+}
 $data_insert = array('product_id'=>$product_id,
 'type_id'=>$type_id,
 'quantity'=>$quantity,
@@ -1042,6 +1047,7 @@ if($this->input->post())
 // exit;
 $this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('sample', 'sample', 'xss_clean|trim');
 $this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
 $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
@@ -1050,6 +1056,7 @@ if($this->form_validation->run()== TRUE)
 {
 $product_id=$this->input->post('product_id');
 $type_id=$this->input->post('type_id');
+$sample=$this->input->post('sample');
 $email_id=$this->input->post('email_id');
 $password=$this->input->post('password');
 $token_id=$this->input->post('token_id');
@@ -1074,7 +1081,7 @@ if($user_data->password==$password){
 // $this->db->where('$type_id',$type_id);
 // $cart_data= $this->db->get()->row();
 
-$zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id));
+$zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id,"sample"=>$sample));
 
 // echo $zapak;
 // exit;
@@ -1120,7 +1127,7 @@ echo json_encode($res);
 else{
 
 
-$zapak=$this->db->delete('tbl_cart', array('token_id' => $token_id,'product_id'=>$product_id,'type_id'=>$type_id));
+$zapak=$this->db->delete('tbl_cart', array('token_id' => $token_id,'product_id'=>$product_id,'type_id'=>$type_id,"sample"=>$sample));
 
 if(!empty($zapak)){
 header('Access-Control-Allow-Origin: *');
@@ -1177,6 +1184,7 @@ if($this->input->post())
 // exit;
 $this->form_validation->set_rules('product_id', 'product_id', 'required|xss_clean|trim');
 $this->form_validation->set_rules('type_id', 'type_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('sample', 'sample', 'xss_clean|trim');
 $this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|trim');
 $this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
 $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
@@ -1186,6 +1194,7 @@ if($this->form_validation->run()== TRUE)
 {
 $product_id=$this->input->post('product_id');
 $type_id=$this->input->post('type_id');
+$sample=$this->input->post('sample');
 $quantity=$this->input->post('quantity');
 $email_id=$this->input->post('email_id');
 $password=$this->input->post('password');
@@ -1204,6 +1213,7 @@ if(!empty($user_data)){
 
 if($user_data->password==$password){
 
+if(empty($sample)){
 
 $this->db->select('*');
 $this->db->from('tbl_inventory');
@@ -1236,12 +1246,11 @@ $data_insert = array('product_id'=>$product_id,
 );
 
 
-$this->db->where(array('user_id'=>  $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id));
+$this->db->where(array('user_id'=>  $user_data->id,'product_id'=>$product_id,'type_id'=>$type_id,'sample'=>$sample));
 $last_id=$this->db->update('tbl_cart', $data_insert);
 
 
 if(!empty($last_id)){
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200
@@ -1250,17 +1259,22 @@ $res = array('message'=>'success',
 echo json_encode($res);
 }else{
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'Some error occured',
 'status'=>201
 );
 
 echo json_encode($res);
 }
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'For Sample 1 quantity is allowed',
+  'status'=>201
+  );
 
+  echo json_encode($res);
+}
 }else{
 
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'Passwod does not match',
 'status'=>201
@@ -1274,7 +1288,6 @@ echo json_encode($res);
 }else{
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'Email is not exist',
 'status'=>201
 );
@@ -1285,7 +1298,7 @@ echo json_encode($res);
 }
 //-----update with token id------
 else{
-
+if(empty($sample)){
 
 $this->db->select('*');
 $this->db->from('tbl_inventory');
@@ -1317,12 +1330,11 @@ $data_insert = array('product_id'=>$product_id,
 
 );
 
-$this->db->where(array('token_id'=> $token_id,'product_id'=>$product_id,'type_id'=>$type_id));
+$this->db->where(array('token_id'=> $token_id,'product_id'=>$product_id,'type_id'=>$type_id,'sample'=>$sample));
 $last_id=$this->db->update('tbl_cart', $data_insert);
 
 
 if(!empty($last_id)){
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
 'status'=>200
@@ -1331,7 +1343,6 @@ $res = array('message'=>'success',
 echo json_encode($res);
 }else{
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'Some error occured',
 'status'=>201
 );
@@ -1339,10 +1350,16 @@ $res = array('message'=>'Some error occured',
 echo json_encode($res);
 }
 
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res = array('message'=>'For Sample 1 quantity is allowed',
+  'status'=>201
+  );
 
+  echo json_encode($res);
+}
 }
 }else{
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>validation_errors(),
 'status'=>201
@@ -1355,7 +1372,6 @@ echo json_encode($res);
 
 }else{
 
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"please insert data",
 'status'=>201
@@ -1430,10 +1446,10 @@ $dsa= $this->db->get();
 $type_data=$dsa->row();
 
 if(!empty($data->sample)){
-$sample = 1;
+$sample = '1';
 $price=$type_data->sample_price;
 }else{
-$sample=0;
+$sample="0";
 $price=$type_data->spgst;
 }
 
@@ -1525,10 +1541,10 @@ $dsa= $this->db->get();
 $type_data=$dsa->row();
 
 if(!empty($data->sample)){
-$sample = 1;
+$sample = "1";
 $price=$type_data->sample_price;
 }else{
-$sample=0;
+$sample="0";
 $price=$type_data->spgst;
 }
 
@@ -2460,6 +2476,7 @@ $order2[]=array(
 'product_name' =>$product_data->productname,
 'product_image' =>base_url().$product_data->image1,
 'quantity'=> $data->quantity,
+'sample'=> $data->sample,
 'type_id'=>$type_data->id,
 'type_name'=>$type_data->name,
 'price'=>$data->type_amt,
