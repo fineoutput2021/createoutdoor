@@ -43,7 +43,7 @@
                                                   <th>#</th>
                                                   <th>Product</th>
                                                   <th>Type</th>
-                                                  <th>sample</th>
+                                                  <th>Sample</th>
                                                   <th>Quantity</th>
                                                   <th>Amount</th>
                                                   <th>date</th>
