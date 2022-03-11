@@ -736,6 +736,7 @@ $this->form_validation->set_rules('quantity', 'quantity', 'required|xss_clean|tr
 $this->form_validation->set_rules('email_id', 'email_id', 'xss_clean|trim');
 $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
 $this->form_validation->set_rules('token_id', 'token_id', 'required|xss_clean|trim');
+$this->form_validation->set_rules('sample', 'sample', 'xss_clean|trim');
 
 if($this->form_validation->run()== TRUE)
 {
@@ -745,6 +746,7 @@ $quantity=$this->input->post('quantity');
 $email_id=$this->input->post('email_id');
 $password=$this->input->post('password');
 $token_id=$this->input->post('token_id');
+$sample=$this->input->post('sample');
 
 //-------add to cart with email----------
 
@@ -764,6 +766,7 @@ $this->db->from('tbl_cart');
 $this->db->where('user_id',$user_data->id);
 $this->db->where('product_id',$product_id);
 $this->db->where('type_id',$type_id);
+$this->db->where('sample',$sample);
 $dsa= $this->db->get();
 $cart_data=$dsa->row();
 
@@ -777,6 +780,7 @@ $this->db->select('*');
 $this->db->from('tbl_products');
 $this->db->where('id',$product_id);
 $product_data= $this->db->get()->row();
+
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$type_id);
@@ -787,7 +791,7 @@ if(!empty($product_data)){
 
 if(!empty($type_data)){
 
-
+if(empty($sample)){
 
 $this->db->select('*');
 $this->db->from('tbl_inventory');
@@ -811,11 +815,12 @@ exit;
 
 }
 
-
+}
 
 $data_insert = array('product_id'=>$product_id,
 'type_id'=>$type_id,
 'quantity'=>$quantity,
+'sample'=>$sample,
 'user_id'=>$user_data->id,
 'token_id'=>$token_id,
 'ip' =>$ip,
@@ -898,6 +903,7 @@ $this->db->from('tbl_cart');
 $this->db->where('token_id',$token_id);
 $this->db->where('product_id',$product_id);
 $this->db->where('type_id',$type_id);
+$this->db->where('sample',$sample);
 $dsa= $this->db->get();
 $cart_data=$dsa->row();
 // print_r($cart_data);
@@ -921,6 +927,7 @@ if(!empty($product_data)){
 
 if(!empty($type_data)){
 
+if(empty($sapmle)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$type_id);
@@ -942,9 +949,11 @@ echo json_encode($res);
 exit;
 
 }
+}
 $data_insert = array('product_id'=>$product_id,
 'type_id'=>$type_id,
 'quantity'=>$quantity,
+'sample'=>$sample,
 'token_id'=>$token_id,
 'ip' =>$ip,
 'date'=>$cur_date
@@ -1420,6 +1429,13 @@ $this->db->where('is_active',1);
 $dsa= $this->db->get();
 $type_data=$dsa->row();
 
+if(!empty($data->sample)){
+$sample = 1;
+$price=$type_data->sample_price;
+}else{
+$sample=0;
+$price=$type_data->spgst;
+}
 
 $cart_info[] = array('product_id'=>$data->product_id,
 'product_name'=>$product_data->productname,
@@ -1427,8 +1443,9 @@ $cart_info[] = array('product_id'=>$data->product_id,
 'type_id'=>$data->type_id,
 'type_name'=>$type_data->name,
 'quantity'=>$data->quantity,
-'price'=>$type_data->spgst,
-'total='=>$total = $type_data->spgst * $data->quantity
+'price'=>$price,
+'sample'=>$sample,
+'total='=>$total = $price * $data->quantity
 
 );
 $sub_total= $sub_total + $total;
@@ -1507,6 +1524,14 @@ $this->db->where('is_active',1);
 $dsa= $this->db->get();
 $type_data=$dsa->row();
 
+if(!empty($data->sample)){
+$sample = 1;
+$price=$type_data->sample_price;
+}else{
+$sample=0;
+$price=$type_data->spgst;
+}
+
 
 $cart_info[] = array('product_id'=>$data->product_id,
 'product_name'=>$product_data->productname,
@@ -1514,8 +1539,9 @@ $cart_info[] = array('product_id'=>$data->product_id,
 'type_id'=>$data->type_id,
 'type_name'=>$type_data->name,
 'quantity'=>$data->quantity,
-'price'=>$type_data->spgst,
-'total='=>$total = $type_data->spgst * $data->quantity
+'price'=>$price,
+'sample'=>$sample,
+'total='=>$total = $price * $data->quantity
 
 );
 $sub_total= $sub_total + $total;
@@ -2809,7 +2835,7 @@ $this->db->where('id',$data->type_id);
 $this->db->where('is_active',1);
 $type_data= $this->db->get()->row();
 
-
+if(empty($data->sample)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
@@ -2838,7 +2864,12 @@ echo json_encode($res);
 exit;
 
 }
-
+}else{
+  $price = $type_data->sample_price * $data->quantity;
+  $total = $total + $price;
+  // $shipping_charges = $total_weight * SHIPPING;
+  $shipping_charges = 0;
+}
 
 }//--end_cart foreach
 
@@ -3029,17 +3060,26 @@ $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('id',$data3->type_id);
 $type_data= $this->db->get()->row();
-
+if(empty($data3->sample)){
 $price2= $type_data->spgst * $data3->quantity;
-
+$type_amt=$type_data->spgst;
+$gst=$type_data->gst;
+$gstprice=$type_data->gstprice;
+}else{
+  $price2= $type_data->sample_price * $data3->quantity;
+  $type_amt=$type_data->sample_price;
+  $gst="";
+  $gstprice="";
+}
 $order2_data = array('main_id'=>$last_id,
 'product_id'=>$data3->product_id,
 'type_id'=>$data3->type_id,
 'quantity'=>$data3->quantity,
+'sample'=>$data3->sample,
 'total_amount'=>$price2,
-'type_amt'=>$type_data->spgst,
-'gst'=>$type_data->gst,
-'gst_percentage'=>$type_data->gstprice,
+'type_amt'=>$type_amt,
+'gst'=>$gst,
+'gst_percentage'=>$gstprice,
 'ip' =>$ip,
 'date'=>$cur_date,
 );
@@ -3151,6 +3191,7 @@ $this->db->where('id',$data->type_id);
 $this->db->where('is_active',1);
 $type_data= $this->db->get()->row();
 
+if(empty($data->sample)){
 
 $this->db->select('*');
 $this->db->from('tbl_inventory');
@@ -3180,7 +3221,10 @@ echo json_encode($res);
 exit;
 
 }
-
+}else{
+  $price = $type_data->sample_price * $data->quantity;
+  $total = $total + $price;
+}
 
 }//--end_cart foreach
 
@@ -3314,16 +3358,26 @@ $this->db->from('tbl_type');
 $this->db->where('id',$data3->type_id);
 $type_data= $this->db->get()->row();
 
+if(empty($data3->sample)){
 $price2= $type_data->spgst * $data3->quantity;
-
+$type_amt=$type_data->spgst;
+$gst=$type_data->gst;
+$gstprice=$type_data->gstprice;
+}else{
+  $price2= $type_data->sample_price * $data3->quantity;
+  $type_amt=$type_data->sample_price;
+  $gst="";
+  $gstprice="";
+}
 $order2_data = array('main_id'=>$last_id,
 'product_id'=>$data3->product_id,
 'type_id'=>$data3->type_id,
 'quantity'=>$data3->quantity,
+'sample'=>$data3->sample,
 'total_amount'=>$price2,
-'type_amt'=>$type_data->spgst,
-'gst'=>$type_data->gst,
-'gst_percentage'=>$type_data->gstprice,
+'type_amt'=>$type_amt,
+'gst'=>$gst,
+'gst_percentage'=>$gstprice,
 'ip' =>$ip,
 'date'=>$cur_date,
 );
@@ -4036,7 +4090,7 @@ $ip = $this->input->ip_address();
 date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
-if($email!="null"){
+if($email!="null" || $email==""){
 
 $this->db->select('*');
 $this->db->from('tbl_users');
@@ -4072,6 +4126,7 @@ $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
 $type_data= $this->db->get()->row();
 
+if(empty($data->sample)){
 
 $this->db->select('*');
 $this->db->from('tbl_inventory');
@@ -4095,7 +4150,7 @@ exit;
 
 }
 
-
+}
 }//--end_cart foreach
 
 //------cod------------
@@ -4124,7 +4179,7 @@ if(!empty($last_id)){
 
 ///--update_invenory----
 foreach($order2_data->result() as $data) {
-
+if(empty($data->sample)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
@@ -4149,6 +4204,7 @@ $res = array('message'=>'Some Eroor Occured! please try again',
 
 echo json_encode($res);
 exit;
+}
 }
 }//--end_cart foreach
 
@@ -4358,7 +4414,7 @@ $this->db->from('tbl_type');
 $this->db->where('id',$data->type_id);
 $type_data= $this->db->get()->row();
 
-
+if(empty($data->sample)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
@@ -4380,7 +4436,7 @@ echo json_encode($res);
 exit;
 
 }
-
+}
 
 }//--end_cart foreach
 
@@ -4410,7 +4466,7 @@ if(!empty($last_id)){
 
 ///--update_invenory----
 foreach($order2_data->result() as $data) {
-
+if(empty($data->sample)){
 $this->db->select('*');
 $this->db->from('tbl_inventory');
 $this->db->where('type_id',$data->type_id);
@@ -4435,6 +4491,7 @@ $res = array('message'=>'Some Eroor Occured! please try again',
 
 echo json_encode($res);
 exit;
+}
 }
 }//--end_cart foreach
 

@@ -146,8 +146,9 @@ Zipcode: <?php echo $zipcode;?><br>
         <th>Product</th>
         <!-- <th>HSN Code</th> -->
         <th>Type</th>
-        <th>Mrp.</th>
-        <th>Qty</th>
+        <th>Sample</th>
+        <th>MRP</th>
+        <th>QTY</th>
 
         <th>Total Amount</th>
       </tr>
@@ -184,16 +185,17 @@ echo $product_name= $product_data->productname;
         $this->db->from('tbl_type');
         $this->db->where('id',$data->type_id);
         $type_data= $this->db->get()->row();
+
         if(!empty($type_data)){
         echo $type_name= $type_data->name;
          $type_mrp= $type_data->mrp;
+       }
          // $type_gst_percentage= $type_data->gst_percentage;
           // $type_gst_percentage_price= $type_data->gst_percentage_price;
          //$type_selling_price= $type_data->selling_price;
          // $type_weight= $type_data->weight;
          // $type_qty_weight= $type_weight * $data->quantity;
 
-        }
         else{
         echo  $type_name= "";
            $type_mrp= "";
@@ -202,10 +204,11 @@ echo $product_name= $product_data->productname;
            $type_gst_percentage_price= 0;
         }
 
-
-
         ?></td>
-        <td ><?php echo "Rs. " .$type_mrp;?></td>
+        <td ><?if(!empty($data->sample)){ echo "Yes";}else{echo "No";}?></td>
+
+        <td ><?php
+        if(empty($data->sample)){ echo "Rs. " .$type_mrp;}else{echo "NA";}?></td>
         <td ><?php echo $data->quantity;?></td>
         <!-- <td>9%</td>
         <td>CGST</td>
@@ -230,7 +233,7 @@ echo $product_name= $product_data->productname;
         <th>Total</th>
 
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
-        <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
+        <th class="product_table" colspan="4"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
         <th class="product_table"><?php if(!empty($order1_data)){ echo "Rs. ".$order1_data->total_amount; }?></th>
       </tr>
@@ -238,7 +241,7 @@ echo $product_name= $product_data->productname;
         <th>Shipping charge:</th>
 
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
-        <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
+        <th class="product_table" colspan="4"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
         <th class="product_table"><?php if(!empty($order1_data)){ echo "+Rs. ".$order1_data->delivery_charge; }?></th>
       </tr>
@@ -246,7 +249,7 @@ echo $product_name= $product_data->productname;
         <th>Promocode discount:</th>
 
         <th class="product_table" ><?php if(!empty($order1_data)){ echo ""; }?></th>
-        <th class="product_table" colspan="3"><?php if(!empty($order1_data)){ echo ""; }?></th>
+        <th class="product_table" colspan="4"><?php if(!empty($order1_data)){ echo ""; }?></th>
 
         <th class="product_table"><?php if(!empty($order1_data)){ echo "-Rs. ".$order1_data->discount; }?></th>
       </tr>
@@ -257,7 +260,7 @@ echo $product_name= $product_data->productname;
       </tr>
 
       <tr>
-        <th colspan="5">SubTotal</th>
+        <th colspan="6">SubTotal</th>
         <th class="product_table">Rs. <?php if(!empty($order1_data)){ echo  $order1_data->final_amount; }?></th>
 
       </tr>

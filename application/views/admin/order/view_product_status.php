@@ -1,12 +1,12 @@
                             <div class="content-wrapper">
                               <section class="content-header">
                                 <h1>
-                                  Product
+                                  Order Details
                                 </h1>
                                 <ol class="breadcrumb">
                                   <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                                  <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Product </a></li>
-                                  <li class="active">View Product</li>
+                                  <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All  Orders </a></li>
+                                  <li class="active">View Order Details</li>
                                 </ol>
                               </section>
                               <section class="content">
@@ -15,7 +15,7 @@
                                     <!-- <a class="btn btn-info cticket" href="<?php echo base_url() ?>admin/home/add_team" role="button" style="margin-bottom:12px;"> Add Team</a> -->
                                     <div class="panel panel-default">
                                       <div class="panel-heading">
-                                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Product</h3>
+                                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Order Details</h3>
                                       </div>
                                       <div class="panel panel-default">
 
@@ -43,7 +43,7 @@
                                                   <th>#</th>
                                                   <th>Product</th>
                                                   <th>Type</th>
-
+                                                  <th>sample</th>
                                                   <th>Quantity</th>
                                                   <th>Amount</th>
                                                   <th>date</th>
@@ -70,11 +70,14 @@
 
 
                                                         ?></td>
-                                                  <td><?php $type_id=$data->type_id;
+                                                  <td><?php
+
+                                                  $type_id=$data->type_id;
                                                                      $this->db->select('*');
                                                                                  $this->db->from('tbl_type');
                                                                                  $this->db->where('id',$type_id);
                                                                                  $get_tname= $this->db->get()->row();
+
                                                                                  if(!empty($get_tname)){
                                                                                      echo $get_tname->name;
                                                                                  }else{
@@ -82,11 +85,9 @@
                                                                               }
 
 
-
-
-
                                                         ?></td>
 
+                                                  <td><?php if(!empty($data->sample)){echo "Yes";}else{ echo "No";}?> </td>
                                                   <td><?php echo $data->quantity; ?> </td>
                                                   <td><?php echo $data->type_amt; ?> </td>
                                                   <td><?php echo $data->date; ?> </td>
@@ -147,38 +148,36 @@
                             <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/jquery.dataTables.js"></script>
                             <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
                             <script type="text/javascript">
+                              $(document.body).on('click', '.dCnf', function() {
+                                var i = $(this).attr("mydata");
+                                console.log(i);
 
+                                $("#btns" + i).hide();
+                                $("#cnfbox" + i).show();
 
-                                $(document.body).on('click', '.dCnf', function() {
-                                  var i = $(this).attr("mydata");
-                                  console.log(i);
+                              });
 
-                                  $("#btns" + i).hide();
-                                  $("#cnfbox" + i).show();
+                              $(document.body).on('click', '.cans', function() {
+                              var i = $(this).attr("mydatas");
+                              console.log(i);
 
-                                });
-
-                                $(document.body).on('click', '.cans', function() {
-                                  var i = $(this).attr("mydatas");
-                                  console.log(i);
-
-                                  $("#btns" + i).show();
-                                  $("#cnfbox" + i).hide();
-                                })
+                              $("#btns" + i).show();
+                              $("#cnfbox" + i).hide();
+                              })
 
                               });
                             </script>
                             <script type="text/javascript">
-            $('#userTable').dataTable({
-          responsive: true,
-          "bStateSave": true,
-          "fnStateSave": function (oSettings, oData) {
-              localStorage.setItem('offersDataTables', JSON.stringify(oData));
-          },
-          "fnStateLoad": function (oSettings) {
-              return JSON.parse(localStorage.getItem('offersDataTables'));
-          }
-      });
-            </script>
+                              $('#userTable').dataTable({
+                                responsive: true,
+                                "bStateSave": true,
+                                "fnStateSave": function(oSettings, oData) {
+                                  localStorage.setItem('offersDataTables', JSON.stringify(oData));
+                                },
+                                "fnStateLoad": function(oSettings) {
+                                  return JSON.parse(localStorage.getItem('offersDataTables'));
+                                }
+                              });
+                            </script>
                             <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
                                   <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
