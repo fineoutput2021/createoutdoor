@@ -2561,6 +2561,7 @@ foreach($related_data->result() as $data) {
 
 if($data->id!=$id){
 
+if($data->is_active==1){
 
 $this->db->select('*');
 $this->db->from('tbl_type');
@@ -2593,6 +2594,7 @@ $related_info[]  = array(
 'product_type'=>$type,
 
 );
+}
 }
 $i++;
 

@@ -43,8 +43,10 @@
                       <th>#</th>
                       <th>Order_id</th>
                       <th>User</th>
+                      <th>Promocode</th>
                       <th>Total Amount</th>
-                      <th>promocode</th>
+                      <th>Promo Discount</th>
+                      <th>Paid Amount</th>
                       <th>Address</th>
                       <th>User mob.</th>
                       <th>City</th>
@@ -81,7 +83,6 @@
 
 
                               ?></td>
-                      <td><?php echo $data->final_amount;  ?></td>
                       <td><?php $check_prmocode_id= $data->promocode_id;
                                $this->db->select('*');
                                            $this->db->from('tbl_promocode');
@@ -97,6 +98,9 @@
 
 
                               ?></td>
+                              <td>Rs.<?php echo $data->total_amount; ?></td>
+                            <td>Rs.<?php echo $data->discount; ?></td>
+                            <td>Rs.<?php echo $data->final_amount; ?></td>
                       <td><?php echo $data->street_address ?></td>
                       <td><?php echo $data->phone  ?></td>
                       <td><?php echo $data->city  ?></td>
