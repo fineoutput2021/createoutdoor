@@ -40,6 +40,10 @@
                       <td> <input type="text" name="name" class="form-control" placeholder="" required value="" /> </td>
                     </tr>
                     <tr>
+                      <td> <strong>Link</strong> <span style="color:red;">*</span></strong> </td>
+                      <td> <input type="text" name="link" class="form-control" placeholder="" required value="" /> </td>
+                    </tr>
+                    <tr>
                       <td> <strong>Image</strong> <span style="color:red;">*</span></strong> </td>
                       <td> <input type="file" name="image" class="form-control" placeholder="" required value="" /> </td>
                     </tr>

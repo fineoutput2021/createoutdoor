@@ -50,6 +50,7 @@ $gallery=[];
 foreach($gallerydata->result() as $data) {
 $gallery[] = array(
 'name'=> $data->name,
+'link'=> $data->link,
 'image'=> base_url().$data->image,
 
 );

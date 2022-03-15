@@ -38,6 +38,7 @@
                       <th>#</th>
 
                       <th>Name</th>
+                      <th>Link</th>
                       <th>Image</th>
 
 
@@ -51,6 +52,7 @@
                       <td><?php echo $i ?> </td>
 
                       <td><?php echo $data->name ?></td>
+                      <td><?php echo $data->link ?></td>
 
                       <td>
                         <?php if($data->image!=""){ ?>
