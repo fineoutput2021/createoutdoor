@@ -4131,10 +4131,8 @@ $ip = $this->input->ip_address();
 date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
-echo json_encode($email);
-exit;
 
-if(!empty($email)){
+if(!empty($email) || !(is_null($email))){
 
 
 $this->db->select('*');
