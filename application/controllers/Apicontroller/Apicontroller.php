@@ -4132,7 +4132,7 @@ date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
 
-if(!empty($email) || !(is_null($email))){
+if(!empty($email) || $email!="null"){
 
 
 $this->db->select('*');
