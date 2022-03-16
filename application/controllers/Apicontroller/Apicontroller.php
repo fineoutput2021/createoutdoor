@@ -4132,6 +4132,7 @@ date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
 if(!empty($email)){
+  echo $email;exit;
 
 $this->db->select('*');
 $this->db->from('tbl_users');
