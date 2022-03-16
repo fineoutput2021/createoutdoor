@@ -4131,10 +4131,8 @@ $ip = $this->input->ip_address();
 date_default_timezone_set("Asia/Calcutta");
 $cur_date=date("Y-m-d H:i:s");
 
-
-if($email!=="null" || $email!=""){
-
-
+if($email!=="null"){
+if( $email!=""){
 $this->db->select('*');
 $this->db->from('tbl_users');
 $this->db->where('email',$email);
@@ -4427,6 +4425,277 @@ $res = array('message'=>'user not foundd',
 
 echo json_encode($res);
 
+}
+}
+//---- guest mode-------
+else{
+
+$this->db->select('*');
+$this->db->from('tbl_order1');
+$this->db->where('txnid',$txn_id);
+$order_data= $this->db->get()->row();
+
+if(!empty($order_data)){
+
+$this->db->select('*');
+$this->db->from('tbl_order2');
+$this->db->where('main_id',$order_data->id);
+$order2_data= $this->db->get();
+
+
+foreach($order2_data->result() as $data) {
+
+$this->db->select('*');
+$this->db->from('tbl_products');
+$this->db->where('id',$data->product_id);
+$product_data= $this->db->get()->row();
+
+$this->db->select('*');
+$this->db->from('tbl_type');
+$this->db->where('id',$data->type_id);
+$type_data= $this->db->get()->row();
+
+if(empty($data->sample)){
+$this->db->select('*');
+$this->db->from('tbl_inventory');
+$this->db->where('type_id',$data->type_id);
+$inventory_data= $this->db->get()->row();
+
+// echo $inventory_data->quantity;
+// exit;
+//----inventory_check----------
+
+if($inventory_data->quantity >= $data->quantity){
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=> "$product_data->productname. Product is out of stock",
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+}
+}
+
+}//--end_cart foreach
+
+//------cod------------
+
+if($payment_type==1){
+
+//-------final amount----------
+$final_amount = ($order_data->total_amount - $order_data->discount) + $order_data->delivery_charge;
+
+//-------table_order1 entry-------
+
+$order1_data = array(
+'final_amount'=>$final_amount,
+'payment_status'=>1,
+'order_status'=>1,
+'payment_type'=>1,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
+
+$this->db->where('txnid', $txn_id);
+$last_id=$this->db->update('tbl_order1', $order1_data);
+
+
+if(!empty($last_id)){
+
+///--update_invenory----
+foreach($order2_data->result() as $data) {
+if(empty($data->sample)){
+$this->db->select('*');
+$this->db->from('tbl_inventory');
+$this->db->where('type_id',$data->type_id);
+$inventory_data= $this->db->get()->row();
+
+if(!empty($inventory_data)){
+
+$new_inventory = $inventory_data->quantity - $data->quantity;
+
+$update_data = array(
+'quantity'=>$new_inventory,
+);
+
+$this->db->where('type_id', $data->type_id);
+$last_id=$this->db->update('tbl_inventory', $update_data);
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Some Eroor Occured! please try again',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+}
+}
+}//--end_cart foreach
+
+$zapak=$this->db->delete('tbl_cart', array('token_id' => $token_id));
+
+
+
+$config = Array(
+'protocol' => 'smtp',
+'smtp_host' => SMTP_HOST,
+'smtp_port' => SMTP_PORT,
+'smtp_user' => USER_NAME, // change it to yours
+'smtp_pass' => PASSWORD, // change it to yours
+'mailtype' => 'html',
+'charset' => 'iso-8859-1',
+'wordwrap' => true
+);
+$to=$order_data->email;
+$name= $order_data->first_name." ".$order_data->last_name;
+$data->name = $name;
+$data->order1_id = $order_data->id;
+$data->date = $order_data->date;
+
+
+$message =$this->load->view('email/ordersuccess',$data,TRUE);
+// print_r($message);
+// exit;
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to($to);// change it to yours
+$this->email->subject('Order Placed');
+$this->email->message($message);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
+
+
+
+
+
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'success',
+'status'=>200
+);
+
+echo json_encode($res);
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured! please try again',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+
+
+}
+
+
+}
+//-----online payment----
+else{
+
+//-------final amount----------
+$final_amount = ($order_data->total_amount - $order_data->discount) + $order_data->delivery_charge;
+
+//-----razor pay request-------
+$send_price = $final_amount*100;
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+CURLOPT_URL => 'https://api.razorpay.com/v1/orders',
+CURLOPT_RETURNTRANSFER => true,
+CURLOPT_ENCODING => '',
+CURLOPT_MAXREDIRS => 10,
+CURLOPT_TIMEOUT => 0,
+CURLOPT_FOLLOWLOCATION => true,
+CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+CURLOPT_CUSTOMREQUEST => 'POST',
+CURLOPT_POSTFIELDS =>'{
+
+"amount": '.$send_price.',
+"currency": "INR",
+"receipt": "Receipt no. 1",
+"payment_capture": 1,
+"notes": {
+"notes_key_1": "Tea, Earl Grey, Hot",
+"notes_key_2": "Tea, Earl Grey… decaf."
+}
+}',
+CURLOPT_HTTPHEADER => array(
+'Content-Type: application/json',
+': ',
+'Authorization: Basic cnpwX2xpdmVfaTlrdVNxTllDdUpYeWo6dlp2VXJYWFh3MGtnQWs1TnhPR05TSzRB'
+// 'Authorization: Basic cnpwX3Rlc3RfQnJMM01Vc3N0S1loVHA6SDloTTFRSXBVbVhNb01HUTkzbENSaUVs'
+),
+));
+
+$response = curl_exec($curl);
+
+$ress = json_decode($response);
+// print_r($ress);
+// exit;
+$razor_id = $ress->id;
+
+//-----order1 enter----------
+$order1_data = array(
+'final_amount'=>$final_amount,
+'payment_status'=>0,
+'order_status'=>0,
+'payment_type'=>2,
+'razor_id'=>$razor_id,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
+
+$this->db->where('txnid', $txn_id);
+$last_id=$this->db->update('tbl_order1', $order1_data);
+
+if(!empty($last_id)){
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'success',
+'status'=>200,
+'razor_id'=>$razor_id,
+'amount'=>$final_amount,
+'name'=>$order_data->first_name,
+'email'=>$order_data->email,
+'contact'=>$order_data->phone,
+);
+
+echo json_encode($res);
+exit;
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Some error occured',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+}
+
+}
+}else{
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'orders is empty',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+}
 }
 }
 //---- guest mode-------
