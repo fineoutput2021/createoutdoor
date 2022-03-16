@@ -4421,7 +4421,7 @@ echo json_encode($res);
 }
 }else{
 header('Access-Control-Allow-Origin: *');
-$res = array('message'=>'user not found',
+$res = array('message'=>'user not foundd',
 'status'=>201
 );
 
