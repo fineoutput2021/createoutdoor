@@ -4133,7 +4133,7 @@ $cur_date=date("Y-m-d H:i:s");
 
 if(!empty($email)){
 
-  echo $email;exit();
+  echo $email;die();
 
 $this->db->select('*');
 $this->db->from('tbl_users');
