@@ -41,10 +41,13 @@
                   <thead>
                     <tr>
                       <th>#</th>
+<<<<<<< HEAD
                       <th>User</th>
                       <th>Address</th>
                       <th>State</th>
                       <th>Pincode</th>
+=======
+>>>>>>> 1a02ada6d083b570a683d3e5a4c2149d3765f86a
                       <th>Product</th>
                       <th>Model No.</th>
                       <th>Type</th>
@@ -56,6 +59,7 @@
                     </tr>
                   </thead>
                   <tbody>
+<<<<<<< HEAD
                     <?php $i=1; foreach($status_product->result() as $data) {
                       $this->db->select('*');
                       $this->db->from('tbl_order1');
@@ -88,6 +92,12 @@
                         echo $state_data->state_name;?>
                       </td>
                       <td><?php echo $order_data->post_code ?> </td>
+=======
+                    <?php $i=1; foreach($status_product->result() as $data) { ?>
+                    <tr>
+                      <td><?php echo $i ?> </td>
+
+>>>>>>> 1a02ada6d083b570a683d3e5a4c2149d3765f86a
                       <td><?php $p_id=$data->product_id;
                                          $this->db->select('*');
                                                      $this->db->from('tbl_products');
