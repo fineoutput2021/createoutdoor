@@ -76,7 +76,7 @@
                                                  if (!empty($check_username)) {
                                                      echo $check_username->name;
                                                  } else {
-                                                     echo "user_id not exist";
+                                                     echo $data->first_name." ".$data->last_name;
                                                  }
 
 
@@ -105,7 +105,17 @@
                             <td><?php echo $data->street_address ?></td>
                             <td><?php echo $data->phone  ?></td>
                             <td><?php echo $data->city  ?></td>
-                            <td><?php echo $data->state  ?></td>
+                            <td><?php
+                            $this->db->select('*');
+                            $this->db->from('all_states');
+                            $this->db->where('id',$data->state);
+                            $state_data= $this->db->get()->row();
+                            if(!empty($state_data)){
+                              echo $state_data->state_name;
+                            }else{
+                              echo "NA";
+                            }
+                            ?></td>
                             <td><?php echo $data->post_code  ?></td>
                             <!-- <td><?php $check_id= $data->id;
                                   $this->db->select('*');
@@ -203,8 +213,8 @@
 
                                     <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_product_status/<?php echo
       base64_encode($data->id) ?>">view product</a></li>
-                                    <!-- <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_order_bill/<?php echo
-      base64_encode($data->id) ?>">view bill</a></li> -->
+                                    <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_order_bill/<?php echo
+      base64_encode($data->id) ?>">view bill</a></li>
 
 
 
