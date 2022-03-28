@@ -200,7 +200,7 @@
 
 
                                     <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_order_status/<?php echo
-      base64_encode($data->id) ?>/accept">Accepte order</a></li>
+      base64_encode($data->id) ?>/accept">Accepted order</a></li>
 
                                     <!-- <li><a href="<?php echo base_url() ?>dcadmin/Neworder/update_dispatch_status/<?php echo
       base64_encode($data->id) ?>/dispatch">Dispatch order</a></li> -->
