@@ -42,6 +42,7 @@
                                                 <tr>
                                                   <th>#</th>
                                                   <th>User Name</th>
+                                                  <th>User Email</th>
                                                   <th>Action</th>
                                                 </tr>
                                               </thead>
@@ -56,6 +57,7 @@
                                                 <tr>
                                                   <td><?php echo $i ?> </td>
                                                   <td><?php if(!empty($user_data->name)){echo $user_data->name;} ?></td>
+                                                  <td><?php if(!empty($user_data->name)){echo $user_data->email;} ?></td>
                                                   <td>
                                                     <div class="btn-group" id="btns<?php echo $i ?>">
                                                       <div class="btn-group">

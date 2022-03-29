@@ -10,6 +10,12 @@
     </ol>
   </section>
   <section class="content">
+    <?php $i=1; foreach($status_product->result() as $data) {
+      $this->db->select('*');
+      $this->db->from('tbl_order1');
+      $this->db->where('id',$data->main_id);
+      $order_data= $this->db->get()->row();
+      ?>
     <div class="row">
       <div class="col-lg-12">
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Neworder/view_order" role="button" style="margin-bottom:12px;">Back</a>
@@ -37,14 +43,154 @@
 
             <div class="panel-body">
               <div class="box-body table-responsive no-padding">
+
                 <table class="table table-bordered table-hover table-striped" id="userTable">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Billing Information</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <b>Name:</b>
+                            <?php if(!empty($order_data->user_id) ){
+                              if(!empty($order_data->user_id)){
+                              $this->db->select('*');
+                              $this->db->from('tbl_users');
+                              $this->db->where('id',$order_data->user_id);
+                              $users_data= $this->db->get()->row();
+                              if(!empty($users_data)){
+                                echo $users_data->name;
+
+                              }
+                            }else{
+                                echo $order_data->first_name." ".$order_data->last_name;
+                              }
+                          }else{
+                              echo $order_data->first_name." ".$order_data->last_name;
+                            }
+                             ?><br />
+                             <b>Email: </b>
+                             <?php if(!empty($order_data->email) ){
+                               if(!empty($order_data->email)){
+                               $this->db->select('*');
+                               $this->db->from('tbl_users');
+                               $this->db->where('id',$order_data->user_id);
+                               $users_data= $this->db->get()->row();
+                               echo $users_data->email;
+                             }else{
+                                 echo "GUEST";
+                               }
+                           }else{
+                                echo "GUEST";
+                             }
+                              ?><br />
+                              <b>Address: </b>
+                              <?echo $order_data->street_address?><br />
+                              <b>City: </b>
+                              <?echo $order_data->city?><br />
+                              <b>Pincode: </b>
+                              <?echo $order_data->post_code?><br />
+                              <b>Phone: </b>
+                              <?echo $order_data->phone?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Shipping Information</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <b>Name:</b>
+                            <?php if(!empty($order_data->user_id) ){
+                              if(!empty($order_data->user_id)){
+                              $this->db->select('*');
+                              $this->db->from('tbl_users');
+                              $this->db->where('id',$order_data->user_id);
+                              $users_data= $this->db->get()->row();
+                              echo $users_data->name;
+                            }else{
+                                echo $order_data->first_name." ".$order_data->last_name;
+                              }
+                          }else{
+                              echo $order_data->first_name." ".$order_data->last_name;
+                            }
+                             ?><br />
+                             <b>Email: </b>
+                             <?php if(!empty($order_data->email) ){
+                               if(!empty($order_data->email)){
+                               $this->db->select('*');
+                               $this->db->from('tbl_users');
+                               $this->db->where('id',$order_data->user_id);
+                               $users_data= $this->db->get()->row();
+                               echo $users_data->email;
+                             }else{
+                                 echo "GUEST";
+                               }
+                           }else{
+                                echo "GUEST";
+                             }
+                              ?><br />
+                              <b>Address: </b>
+                              <?echo $order_data->street_address?><br />
+                              <b>City: </b>
+                              <?echo $order_data->city?><br />
+                              <b>Pincode: </b>
+                              <?echo $order_data->post_code?><br />
+                              <b>Phone: </b>
+                              <?echo $order_data->phone?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class"row">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Payment Status</h3>
+                        </div>
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="box-body responsive no-padding">
+                              <?if($order_data->payment_status==0){
+                                echo "Pending";
+                              }else{
+                                echo "Payment succeed";
+                              }
+                              ?>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class"row mt-0">
+                        <div class="panel-heading">
+                          <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Payment Mode</h3>
+                        </div>
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="box-body responsive no-padding">
+                              <?if($order_data->payment_type==1){
+                                echo "COD";
+                              }else{
+                                echo "Online Payment";
+                              }
+                              ?>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>User</th>
-                      <th>Address</th>
-                      <th>State</th>
-                      <th>Pincode</th>
                       <th>Product</th>
                       <th>Model No.</th>
                       <th>Type</th>
@@ -56,12 +202,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; foreach($status_product->result() as $data) {
-                      $this->db->select('*');
-                      $this->db->from('tbl_order1');
-                      $this->db->where('id',$data->main_id);
-                      $order_data= $this->db->get()->row();
-                      ?>
                     <tr>
                       <td><?php echo $i ?> </td>
                       <td><?php if(!empty($order_data->user_id) ){
@@ -78,16 +218,6 @@
                         echo $order_data->first_name." ".$order_data->last_name;
                       }
                        ?> </td>
-                      <td><?php echo $order_data->street_address ?> </td>
-                      <td>
-                        <?
-                        $this->db->select('*');
-                        $this->db->from('all_states');
-                        $this->db->where('id',$order_data->state);
-                        $state_data= $this->db->get()->row();
-                        echo $state_data->state_name;?>
-                      </td>
-                      <td><?php echo $order_data->post_code ?> </td>
                       <td><?php $p_id=$data->product_id;
                                          $this->db->select('*');
                                                      $this->db->from('tbl_products');

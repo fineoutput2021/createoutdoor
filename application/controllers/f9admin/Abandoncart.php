@@ -23,6 +23,7 @@
                    $this->db->select('user_id');
                    $this->db->distinct();
                    $this->db->where('user_id is NOT NULL', null, false);
+                   $this->db->order_by('id', 'desc');
                    $cart_data = $this->db->get('tbl_cart');
 
                    $data['cart_data']= $cart_data;
