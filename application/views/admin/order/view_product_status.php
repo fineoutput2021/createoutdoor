@@ -65,7 +65,7 @@
                     <tr>
                       <td><?php echo $i ?> </td>
                       <td><?php if(!empty($order_data->user_id) ){
-                        if(!is_null($order_data->user_id) == false){
+                        if(!empty($order_data->user_id)){
                         $this->db->select('*');
                         $this->db->from('tbl_users');
                         $this->db->where('id',$order_data->user_id);
