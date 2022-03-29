@@ -42,6 +42,7 @@
                                                 <tr>
                                                   <th>#</th>
                                                   <th>Product Name</th>
+                                                  <th>Model No.</th>
                                                   <th>Type Name</th>
                                                   <th>Quantity</th>
                                                   <th>Price</th>
@@ -65,10 +66,11 @@
                                                 <tr>
                                                   <td><?php echo $i ?> </td>
                                                   <td><?php if(!empty($pro_data->productname)){echo $pro_data->productname;} ?></td>
+                                                  <td><?php if(!empty($pro_data->modelno)){echo $pro_data->modelno;} ?></td>
                                                   <td><?php if(!empty($type_data->name)){echo $type_data->name;} ?></td>
                                                   <td><?php if(!empty($cart->quantity)){echo $cart->quantity;} ?></td>
-                                                  <td><?php if(!empty($type_data->spgst)){echo $type_data->spgst;} ?></td>
-                                                  <td><?php if(!empty($type_data->spgst)){echo $type_data->spgst*$cart->quantity;} ?></td>
+                                                  <td><?php if(!empty($type_data->spgst)){echo "Rs.".$type_data->spgst;} ?></td>
+                                                  <td><?php if(!empty($type_data->spgst)){echo "Rs.".$type_data->spgst*$cart->quantity;} ?></td>
                                                 </tr>
                                                 <?php $i++; } ?>
                                               </tbody>
