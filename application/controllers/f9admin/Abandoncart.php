@@ -20,11 +20,13 @@
                if (!empty($this->session->userdata('admin_data'))) {
                    $data['user_name']=$this->load->get_var('user_name');
 
-                   $this->db->select('user_id');
+                   $this->db->select('user_id,token_id');
                    $this->db->distinct();
-                   $this->db->where('user_id is NOT NULL', null, false);
+                   // $this->db->where('user_id is NOT NULL', null, false);
                    $this->db->order_by('id', 'desc');
                    $cart_data = $this->db->get('tbl_cart');
+                   // $cart_data = $this->db->count_all_results('tbl_cart');
+                   // echo $cart_data;exit;
 
                    $data['cart_data']= $cart_data;
 
@@ -122,16 +124,22 @@
                }
            }
 
-           public function view_cart_details($idd)
+           public function view_cart_details($idd,$id="")
            {
                if (!empty($this->session->userdata('admin_data'))) {
-                   $id=base64_decode($idd);
-                   $data['id']=$idd;
-
+                   if(!empty($id)){
+                     $id=base64_decode($id);
                    $this->db->select('*');
                    $this->db->from('tbl_cart');
                    $this->db->where('user_id', $id);
-                   $data['cart_data']= $this->db->get();
+                 }else{
+                   $id=base64_decode($idd);
+                   $data['id']=$idd;
+                   $this->db->select('*');
+                   $this->db->from('tbl_cart');
+                   $this->db->where('token_id', $id);
+                 }
+                 $data['cart_data']= $this->db->get();
 
                    $this->load->view('admin/common/header_view', $data);
                    $this->load->view('admin/abandoncart/view_cart_details');

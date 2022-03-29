@@ -3363,6 +3363,7 @@ $final_amount = $total + $shipping_charges;
 //-------table_order1 entry-------
 
 $order1_data = array(
+'token_id'=>$token,
 'guest'=>1,
 'discount'=>$discount,
 'total_amount'=>$total,

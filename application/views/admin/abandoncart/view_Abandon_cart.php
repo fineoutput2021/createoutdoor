@@ -42,26 +42,97 @@
                                                 <tr>
                                                   <th>#</th>
                                                   <th>User Name</th>
+                                                  <th>User Phone</th>
                                                   <th>User Email</th>
+                                                  <th>Checkout</th>
                                                   <th>Action</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
                                                 <?php $i=1; foreach($cart_data->result() as $data) {
-                                                              $this->db->select('*');
+                                                  $a=0;
+                                                  if(!empty($data->user_id)){
+                                                  $this->db->select('*');
+                                                  $this->db->from('tbl_order1');
+                                                  $this->db->where('user_id',$data->user_id);
+                                                  $order_data= $this->db->get()->row();
+                                                  if(!empty($order_data)){
+                                                    $a++;
+                                                    if(!empty($order_data->phone)){
+                                                      $phone= $order_data->phone;
+                                                    }else{
+                                                      $phone="";
+                                                    }
+                                                    if(!empty($order_data->email)){
+                                                      $email= $order_data->email;
+                                                    }else{
+                                                      $email="";
+                                                    }
+                                                    if(!empty($order_data->first_name)){
+                                                      $fname= $order_data->first_name;
+                                                    }else{
+                                                      $fname="";
+                                                    }
+                                                    if(!empty($order_data->last_name)){
+                                                      $lname= $order_data->last_name;
+                                                    }else{
+                                                      $lname="";
+                                                    }
+                                                    $name=$fname." ".$lname;
+                                                  }else{
+                                                  $this->db->select('*');
                                                   $this->db->from('tbl_users');
                                                   $this->db->where('id',$data->user_id);
                                                   $this->db->where('is_active',1);
                                                   $user_data= $this->db->get()->row();
+                                                  if(!empty($user_data)){
+                                                    $a++;
+                                                    $name=$user_data->name;
+                                                    $email=$user_data->email;
+                                                    $phone="";
+                                                  }
+                                                }
+                                                }else{
+                                                  $this->db->select('*');
+                                                  $this->db->from('tbl_order1');
+                                                  $this->db->where('token_id',$data->token_id);
+                                                  $order_data= $this->db->get()->row();
+                                                  if(!empty($order_data)){
+                                                    $a++;
+                                                    if(!empty($order_data->phone)){
+                                                      $phone= $order_data->phone;
+                                                    }else{
+                                                      $phone="";
+                                                    }
+                                                    if(!empty($order_data->email)){
+                                                      $email= $order_data->email;
+                                                    }else{
+                                                      $email="";
+                                                    }
+                                                    if(!empty($order_data->first_name)){
+                                                      $fname= $order_data->first_name;
+                                                    }else{
+                                                      $fname="";
+                                                    }
+                                                    if(!empty($order_data->last_name)){
+                                                      $lname= $order_data->last_name;
+                                                    }else{
+                                                      $lname="";
+                                                    }
+                                                    $name=$fname." ".$lname;
+                                                  }
+                                                }
                                                   ?>
                                                 <tr>
                                                   <td><?php echo $i ?> </td>
-                                                  <td><?php if(!empty($user_data->name)){echo $user_data->name;} ?></td>
-                                                  <td><?php if(!empty($user_data->name)){echo $user_data->email;} ?></td>
+                                                  <td><?php echo $name; ?></td>
+                                                  <td><?php echo $phone; ?></td>
+                                                  <td><?php if(!empty($email)){echo $email;} ?></td>
+                                                  <td><?php if($a==1){echo 'Yes';}else{echo "No";} ?></td>
                                                   <td>
                                                     <div class="btn-group" id="btns<?php echo $i ?>">
                                                       <div class="btn-group">
-                                                        <a href="<?=base_url()?>dcadmin/Abandoncart/view_cart_details/<?=base64_encode($data->user_id)?>"><button type="button" class="btn btn-default"aria-expanded="false"> View Details </button></a>
+                                                        <a href="<?=base_url()?>dcadmin/Abandoncart/view_cart_details/<?=base64_encode($data->token_id)?>/<?=base64_encode($data->user_id)?>"><button type="button" class="btn btn-default"aria-expanded="false"> View Details </button></a>
                                                       </div>
                                                     </div>
                                                   </td>
