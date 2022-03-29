@@ -124,7 +124,7 @@
                }
            }
 
-           public function view_cart_details($idd,$id="")
+           public function view_cart_details($idd="",$id="")
            {
                if (!empty($this->session->userdata('admin_data'))) {
                    if(!empty($id)){
@@ -132,12 +132,15 @@
                    $this->db->select('*');
                    $this->db->from('tbl_cart');
                    $this->db->where('user_id', $id);
-                 }else{
+                 }else if(!empty($idd)){
                    $id=base64_decode($idd);
                    $data['id']=$idd;
                    $this->db->select('*');
                    $this->db->from('tbl_cart');
                    $this->db->where('token_id', $id);
+                 }else{
+                   $this->session->set_flashdata('emessage', 'Token Id not found');
+                   redirect($_SERVER['HTTP_REFERER']);
                  }
                  $data['cart_data']= $this->db->get();
 
