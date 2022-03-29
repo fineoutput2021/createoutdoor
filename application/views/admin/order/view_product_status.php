@@ -10,12 +10,7 @@
     </ol>
   </section>
   <section class="content">
-    <?php $i=1; foreach($status_product->result() as $data) {
-      $this->db->select('*');
-      $this->db->from('tbl_order1');
-      $this->db->where('id',$data->main_id);
-      $order_data= $this->db->get()->row();
-      ?>
+
     <div class="row">
       <div class="col-lg-12">
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Neworder/view_order" role="button" style="margin-bottom:12px;">Back</a>
@@ -62,8 +57,9 @@
                               $users_data= $this->db->get()->row();
                               if(!empty($users_data)){
                                 echo $users_data->name;
-
-                              }
+                              }else{
+                                  echo $order_data->first_name." ".$order_data->last_name;
+                                }
                             }else{
                                 echo $order_data->first_name." ".$order_data->last_name;
                               }
@@ -78,7 +74,11 @@
                                $this->db->from('tbl_users');
                                $this->db->where('id',$order_data->user_id);
                                $users_data= $this->db->get()->row();
-                               echo $users_data->email;
+                               if(!empty($users_data)){
+                                 echo $users_data->email;
+                               }else{
+                                   echo "GUEST";
+                                 }
                              }else{
                                  echo "GUEST";
                                }
@@ -112,7 +112,11 @@
                               $this->db->from('tbl_users');
                               $this->db->where('id',$order_data->user_id);
                               $users_data= $this->db->get()->row();
-                              echo $users_data->name;
+                              if(!empty($users_data)){
+                                echo $users_data->name;
+                              }else{
+                                  echo $order_data->first_name." ".$order_data->last_name;
+                                }
                             }else{
                                 echo $order_data->first_name." ".$order_data->last_name;
                               }
@@ -127,7 +131,11 @@
                                $this->db->from('tbl_users');
                                $this->db->where('id',$order_data->user_id);
                                $users_data= $this->db->get()->row();
-                               echo $users_data->email;
+                               if(!empty($users_data)){
+                                 echo $users_data->email;
+                               }else{
+                                   echo "GUEST";
+                                 }
                              }else{
                                  echo "GUEST";
                                }
@@ -187,6 +195,76 @@
 
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Promocode</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <?if(!empty($order_data->promocode_id)){
+                              $this->db->select('*');
+                              $this->db->from('tbl_promocode');
+                              $this->db->where('id',$order_data->promocode_id);
+                              $promo_data= $this->db->get()->row();
+                              if(!empty($promo_data->name)){
+                                echo $promo_data->name;
+                              }else{
+                                echo "No Promocode";
+                              }
+                            }else{
+                              echo "No Promocode";
+                            }
+                            ?>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Shipping Charges</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <?if(!empty($order_data->delivery_charge)){
+                              echo $order_data->delivery_charge;
+                            }elseif(!is_null($order_data->delivery_charge)){
+                              echo $order_data->delivery_charge;
+                            }else{
+                              echo "-";
+                            }
+
+                            ?>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Total Amount</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <?if(!empty($order_data->final_amount)){
+                              echo $order_data->final_amount;
+                            }elseif(!is_null($order_data->final_amount)){
+                              echo $order_data->final_amount;
+                            }else{
+                              echo "-";
+                            }
+
+                            ?>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   <thead>
                     <tr>
                       <th>#</th>
@@ -203,6 +281,12 @@
                   </thead>
                   <tbody>
                     <tr>
+                      <?php $i=1; foreach($status_product->result() as $data) {
+                        $this->db->select('*');
+                        $this->db->from('tbl_order1');
+                        $this->db->where('id',$data->main_id);
+                        $order_data= $this->db->get()->row();
+                        ?>
                       <td><?php echo $i ?> </td>
                       <td><?php if(!empty($order_data->user_id) ){
                         if(!empty($order_data->user_id)){
@@ -210,7 +294,11 @@
                         $this->db->from('tbl_users');
                         $this->db->where('id',$order_data->user_id);
                         $users_data= $this->db->get()->row();
-                        echo $users_data->name;
+                        if(!empty($users_data)){
+                          echo $users_data->name;
+                        }else{
+                            echo $order_data->first_name." ".$order_data->last_name;
+                          }
                       }else{
                           echo $order_data->first_name." ".$order_data->last_name;
                         }
@@ -290,14 +378,9 @@
 </td> -->
                     </tr>
                     <?php $i++; } ?>
+
                   </tbody>
                 </table>
-
-
-
-
-
-
               </div>
             </div>
           </div>

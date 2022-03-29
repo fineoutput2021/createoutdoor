@@ -285,6 +285,11 @@ $this->db->from('tbl_order2');
 $this->db->where('main_id',$id);
 $data['status_product']= $this->db->get();
 
+$this->db->select('*');
+$this->db->from('tbl_order1');
+$this->db->where('id',$id);
+$data['order_data']= $this->db->get()->row();
+
 
 $this->load->view('admin/common/header_view',$data);
 $this->load->view('admin/order/view_product_status');
