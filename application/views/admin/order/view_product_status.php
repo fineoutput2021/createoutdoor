@@ -10,7 +10,6 @@
     </ol>
   </section>
   <section class="content">
-
     <div class="row">
       <div class="col-lg-12">
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Neworder/view_order" role="button" style="margin-bottom:12px;">Back</a>
@@ -196,25 +195,42 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Promocode</h3>
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Total Amount</h3>
                       </div>
                       <div class="panel panel-default">
                         <div class="panel-body">
                           <div class="box-body responsive no-padding">
-                            <?if(!empty($order_data->promocode_id)){
-                              $this->db->select('*');
-                              $this->db->from('tbl_promocode');
-                              $this->db->where('id',$order_data->promocode_id);
-                              $promo_data= $this->db->get()->row();
-                              if(!empty($promo_data->name)){
-                                echo $promo_data->name;
+                            <?if(!empty($order_data->total_amount)){
+                              echo $order_data->total_amount;
+                            }elseif(!is_null($order_data->total_amount)){
+                              echo $order_data->total_amount;
+                            }else{
+                              echo "-";
+                            }
+
+                            ?>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Promocode Discount</h3>
+                      </div>
+                      <div class="panel panel-default">
+                        <div class="panel-body">
+                          <div class="box-body responsive no-padding">
+                            <?if(!empty($order_data->discount)){
+                              if(!empty($order_data->discount)){
+                                echo $order_data->discount;
                               }else{
-                                echo "No Promocode";
+                                echo "0";
                               }
                             }else{
-                              echo "No Promocode";
+                              echo "0";
                             }
                             ?>
                           </div>
@@ -222,7 +238,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                       <div class="panel-heading">
                         <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Shipping Charges</h3>
                       </div>
@@ -243,9 +259,10 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4">
+
+                    <div class="col-lg-3">
                       <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Total Amount</h3>
+                        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>Sub Total</h3>
                       </div>
                       <div class="panel panel-default">
                         <div class="panel-body">
