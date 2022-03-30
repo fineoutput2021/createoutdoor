@@ -4288,8 +4288,28 @@ if($this->email->send()){
 }
 
 
+//---------admin email---------
+
+$message="Order recieved of amount:- Rs.".$final_amount." and order id:- ".$order_data->id." ";
 
 
+$data->name = "admin";
+$data->heading = "New Order Received";
+$data->body = $message;
+
+$mail =$this->load->view('email/mail',$data,TRUE);
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to('hr.fineoutput@gmail.com');// change it to yours
+$this->email->subject('New Order Received');
+$this->email->message($mail);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
 
 
 header('Access-Control-Allow-Origin: *');
@@ -4575,7 +4595,28 @@ if($this->email->send()){
 }
 
 
+//---------admin email---------
 
+$message="Order recieved of amount:- Rs.".$final_amount." and order id:- ".$order_data->id." ";
+
+
+$data->name = "admin";
+$data->heading = "New Order Received";
+$data->body = $message;
+
+$mail =$this->load->view('email/mail',$data,TRUE);
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to('hr.fineoutput@gmail.com');// change it to yours
+$this->email->subject('New Order Received');
+$this->email->message($mail);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
 
 
 
@@ -4845,6 +4886,30 @@ if($this->email->send()){
 // show_error($this->email->print_debugger());
 }
 
+
+
+//---------admin email---------
+
+$message="Order recieved of amount:- Rs.".$final_amount." and order id:- ".$order_data->id." ";
+
+
+$data->name = "admin";
+$data->heading = "New Order Received";
+$data->body = $message;
+
+$mail =$this->load->view('email/mail',$data,TRUE);
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to('hr.fineoutput@gmail.com');// change it to yours
+$this->email->subject('New Order Received');
+$this->email->message($mail);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
 
 
 
@@ -5155,6 +5220,29 @@ if($this->email->send()){
 // show_error($this->email->print_debugger());
 }
 
+//---------admin email---------
+
+$message="Order recieved of amount:- Rs.".$online_amount." and order id:- ".$order_data->id." ";
+
+
+$data->name = "admin";
+$data->heading = "New Order Received";
+$data->body = $message;
+
+
+$mail =$this->load->view('email/mail',$data,TRUE);
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to('hr.fineoutput@gmail.com');// change it to yours
+$this->email->subject('New Order Received');
+$this->email->message($mail);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
 
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>'success',
