@@ -4302,7 +4302,7 @@ $mail =$this->load->view('email/mail',$data,TRUE);
 $this->load->library('email', $config);
 $this->email->set_newline("");
 $this->email->from(EMAIL); // change it to yours
-$this->email->to('orders@createspaces.in');// change it to yours
+$this->email->to('order@createspaces.in');// change it to yours
 $this->email->subject('New Order Received');
 $this->email->message($mail);
 if($this->email->send()){
@@ -4609,7 +4609,7 @@ $mail =$this->load->view('email/mail',$data,TRUE);
 $this->load->library('email', $config);
 $this->email->set_newline("");
 $this->email->from(EMAIL); // change it to yours
-$this->email->to('orders@createspaces.in');// change it to yours
+$this->email->to('order@createspaces.in');// change it to yours
 $this->email->subject('New Order Received');
 $this->email->message($mail);
 if($this->email->send()){
@@ -4902,7 +4902,7 @@ $mail =$this->load->view('email/mail',$data,TRUE);
 $this->load->library('email', $config);
 $this->email->set_newline("");
 $this->email->from(EMAIL); // change it to yours
-$this->email->to('orders@createspaces.in');// change it to yours
+$this->email->to('order@createspaces.in');// change it to yours
 $this->email->subject('New Order Received');
 $this->email->message($mail);
 if($this->email->send()){
@@ -5235,7 +5235,7 @@ $mail =$this->load->view('email/mail',$data,TRUE);
 $this->load->library('email', $config);
 $this->email->set_newline("");
 $this->email->from(EMAIL); // change it to yours
-$this->email->to('orders@createspaces.in');// change it to yours
+$this->email->to('order@createspaces.in');// change it to yours
 $this->email->subject('New Order Received');
 $this->email->message($mail);
 if($this->email->send()){
