@@ -45,12 +45,15 @@
                                                   <th>User Phone</th>
                                                   <th>User Email</th>
                                                   <th>Checkout</th>
+                                                  <th>Date</th>
                                                   <th>Action</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
                                                 <?php $i=1; foreach($cart_data->result() as $data) {
                                                   $a=0;
+                                                  $name='';
+                                                  $phone='';
                                                   if(!empty($data->user_id)){
                                                   $this->db->select('*');
                                                   $this->db->from('tbl_order1');
@@ -77,6 +80,11 @@
                                                       $lname= $order_data->last_name;
                                                     }else{
                                                       $lname="";
+                                                    }
+                                                    if(!empty($order_data->date)){
+                                                      $date= $order_data->date;
+                                                    }else{
+                                                      $date="";
                                                     }
                                                     $name=$fname." ".$lname;
                                                   }else{
@@ -119,7 +127,18 @@
                                                     }else{
                                                       $lname="";
                                                     }
+                                                    if(!empty($order_data->date)){
+                                                      $date= $order_data->date;
+                                                    }else{
+                                                      $date="";
+                                                    }
                                                     $name=$fname." ".$lname;
+                                                  }else{
+                                                                $this->db->select('*');
+                                                    $this->db->from('tbl_cart');
+                                                    $this->db->where('token_id',$data->token_id);
+                                                    $cdata= $this->db->get()->row();
+                                                    $date=$cdata->date;
                                                   }
                                                 }
                                                   ?>
@@ -129,6 +148,7 @@
                                                   <td><?php echo $phone; ?></td>
                                                   <td><?php if(!empty($email)){echo $email;} ?></td>
                                                   <td><?php if($a==1){echo 'Yes';}else{echo "No";} ?></td>
+                                                  <td><?php if(!empty($date)){echo $date;} ?></td>
                                                   <td>
                                                     <div class="btn-group" id="btns<?php echo $i ?>">
                                                       <div class="btn-group">
