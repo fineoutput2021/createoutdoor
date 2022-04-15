@@ -58,6 +58,7 @@
                         // echo "hi";
                       $this->db->select('*');
                       $this->db->from('tbl_order1');
+                      $this->db->order_by('id','desc');
                       // $this->db->where('user_id',$data->user_id);
                       $this->db->where('token_id',$data->token_id);
                       $order_data= $this->db->get()->row();
@@ -104,6 +105,7 @@
                       $this->db->select('*');
           $this->db->from('tbl_cart');
           $this->db->where('token_id',$data->token_id);
+          $this->db->order_by('id','desc');
           $cdata= $this->db->get()->row();
           $date=$cdata->date;
                     }
@@ -111,6 +113,7 @@
                       $this->db->select('*');
                       $this->db->from('tbl_order1');
                       $this->db->where('token_id',$data->token_id);
+                      $this->db->order_by('id','desc');
                       $order_data= $this->db->get()->row();
                       if(!empty($order_data)){
                         $a++;
@@ -144,6 +147,7 @@
                                     $this->db->select('*');
                         $this->db->from('tbl_cart');
                         $this->db->where('token_id',$data->token_id);
+                        $this->db->order_by('id','desc');
                         $cdata= $this->db->get()->row();
                         $date=$cdata->date;
                       }
