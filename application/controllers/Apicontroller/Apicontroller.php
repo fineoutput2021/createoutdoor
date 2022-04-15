@@ -3071,6 +3071,7 @@ $order1_data = array('user_id'=>$user_data->id,
 'total_amount'=>$total,
 'delivery_charge'=>$shipping_charges,
 'payment_status'=>0,
+
 'order_status'=>0,
 'ip' =>$ip,
 'date'=>$cur_date,
@@ -3084,6 +3085,7 @@ $order1_data = array('user_id'=>$user_data->id,
 'phone'=>$phone,
 'txnid'=>$txn_id,
 'final_amount'=>$final_amount,
+'token_id'=>$token
 
 );
 
@@ -3519,6 +3521,106 @@ echo json_encode($res);
 
 
 }
+
+// //----------add adress--------
+// public function add_adress(){
+//
+//     $this->load->helper(array('form', 'url'));
+//   $this->load->library('form_validation');
+//   $this->load->helper('security');
+//   if($this->input->post())
+//   {
+//
+//     $this->form_validation->set_rules('email', 'email', 'valid_email|xss_clean|trim');
+//     $this->form_validation->set_rules('password', 'password', 'xss_clean|trim');
+//     $this->form_validation->set_rules('token', 'token', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('address_email', 'address_email', 'required|valid_email|xss_clean|trim');
+//     $this->form_validation->set_rules('first_name', 'first_name', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('last_name', 'last_name', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('post_code', 'post_code', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('street_address', 'street_address', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('city', 'city', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('state', 'state', 'required|xss_clean|trim');
+//     $this->form_validation->set_rules('phone', 'phone', 'required|xss_clean|trim');
+//
+//     if($this->form_validation->run()== TRUE)
+//     {
+//
+//     $email=$this->input->post('email');
+//     $password=$this->input->post('password');
+//     $token=$this->input->post('token');
+//     $address_email=$this->input->post('address_email');
+//     $first_name=$this->input->post('first_name');
+//     $last_name=$this->input->post('last_name');
+//     $post_code=$this->input->post('post_code');
+//     $street_address=$this->input->post('street_address');
+//     $city=$this->input->post('city');
+//     $state=$this->input->post('state');
+//     $phone=$this->input->post('phone');
+//     $promocode=$this->input->post('promocode');
+//
+//     $ip = $this->input->ip_address();
+//     date_default_timezone_set("Asia/Calcutta");
+//     $cur_date=date("Y-m-d H:i:s");
+//
+//     if(!empty($email)){
+//
+//     $this->db->select('*');
+//     $this->db->from('tbl_users');
+//     $this->db->where('email',$email);
+//     $user_data= $this->db->get()->row();
+//
+//     if(!empty($user_data)){
+//
+//     if($user_data->password==$password){
+//
+//
+//
+//     }else{
+//     header('Access-Control-Allow-Origin: *');
+//     $res = array('message'=>'Wrong Password',
+//     'status'=>201
+//     );
+//
+//     echo json_encode($res);
+//     }
+//     }else{
+//     header('Access-Control-Allow-Origin: *');
+//     $res = array('message'=>'user not found',
+//     'status'=>201
+//     );
+//
+//     echo json_encode($res);
+//
+//     }
+//
+//     }
+//   }else{
+//
+//   header('Access-Control-Allow-Origin: *');
+//   $res = array('message'=>validation_errors(),
+//   'status'=>201
+//   );
+//
+//   echo json_encode($res);
+//
+//
+//   }
+//
+//   }
+//   else{
+//     header('Access-Control-Allow-Origin: *');
+//   $res = array('message'=>"Please insert some data, No data available",
+//   'status'=>201
+//   );
+//
+//   echo json_encode($res);
+//
+//   }
+//
+// }
+//
+
 //----promocode---
 public function apply_promocode(){
 
