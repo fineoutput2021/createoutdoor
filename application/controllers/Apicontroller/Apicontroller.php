@@ -7240,5 +7240,30 @@ redirect($_SERVER['HTTP_REFERER']);
 
 }
 
+//==================== payment validate cronjob ======================
+public function verify_payment(){
+$entityBody = file_get_contents('php://input');
+
+$data_insert = array('body'=>$entityBody
+          );
+
+$last_id=$this->base_model->insert_table("tbl_payment_varify_data",$data_insert,1) ;
+if(!empty($last_id)){
+  header('Access-Control-Allow-Origin: *');
+  $res=array(
+  'message'=>"success",
+  'status'=>200
+  );
+  echo json_encode($res);
+}else{
+  header('Access-Control-Allow-Origin: *');
+  $res=array(
+  'message'=>"fail",
+  'status'=>201
+  );
+  echo json_encode($res);
+}
+
+}
 
 }
