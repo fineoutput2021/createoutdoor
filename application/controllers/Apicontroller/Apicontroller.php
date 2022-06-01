@@ -7242,27 +7242,192 @@ redirect($_SERVER['HTTP_REFERER']);
 
 //==================== payment validate cronjob ======================
 public function verify_payment(){
+
+  //             $this->db->select('*');
+  // $this->db->from('tbl_payment_varify_data');
+  // //$this->db->where('id',$usr);
+  // $data= $this->db->get()->row();
+  // $body = json_decode($data->body);
+  // $event = $body->event;//order.paid
+  // $razor_id = $body->payload->order->entity->id;
+  // $status = $body->payload->order->entity->status;//paid
+  // $paid_amount = $body->payload->order->entity->amount_paid;//paid
+  // print_r($body->payload->order->entity->amount_paid);
 $entityBody = file_get_contents('php://input');
+$body = json_decode($entityBody);
+$event = $body->event;//order.paid
+$status = $body->payload->order->entity->status;//paid
+$razor_id = $body->payload->order->entity->id;
+$paid_amount = $body->payload->order->entity->amount_paid;
+if($event=='order.paid'){
+if($status=='paid'){
 
-$data_insert = array('body'=>$entityBody
-          );
+              $this->db->select('*');
+  $this->db->from('tbl_order1');
+  $this->db->where('razor_id',$razor_id);
+  $order_data= $this->db->get()->row();
 
-$last_id=$this->base_model->insert_table("tbl_payment_varify_data",$data_insert,1) ;
+              $this->db->select('*');
+  $this->db->from('tbl_users');
+  $this->db->where('id',$order_data->user_id);
+  $user_data= $this->db->get()->row();
+
+$online_amount = $paid_amount/100;
+
+
+if($online_amount==$order_data->final_amount){
+// if($order_data->final_amount==$order_data->final_amount){
+$ip = $this->input->ip_address();
+           date_default_timezone_set("Asia/Calcutta");
+           $cur_date=date("Y-m-d H:i:s");
+//-------order 1 update------
+$order1_data = array(
+'payment_status'=>1,
+'order_status'=>1,
+'online_amount'=>$online_amount,
+'ip' =>$ip,
+'date'=>$cur_date,
+);
+
+$this->db->where('razor_id', $razor_id);
+$last_id=$this->db->update('tbl_order1', $order1_data);
+
+
 if(!empty($last_id)){
-  header('Access-Control-Allow-Origin: *');
-  $res=array(
-  'message'=>"success",
-  'status'=>200
-  );
-  echo json_encode($res);
+
+$this->db->select('*');
+$this->db->from('tbl_order2');
+$this->db->where('main_id',$order_data->id);
+$order2_data= $this->db->get();
+// echo $order_data->id;
+// exit;
+///--update_invenory----
+foreach($order2_data->result() as $data) {
+
+$this->db->select('*');
+$this->db->from('tbl_inventory');
+$this->db->where('type_id',$data->type_id);
+$inventory_data= $this->db->get()->row();
+// print_r($inventory_data);
+// exit;
+if(!empty($inventory_data)){
+
+$new_inventory = $inventory_data->quantity - $data->quantity;
+
+$update_data = array(
+'quantity'=>$new_inventory,
+);
+
+$this->db->where('id', $inventory_data->id);
+$last_id2=$this->db->update('tbl_inventory', $update_data);
+
 }else{
-  header('Access-Control-Allow-Origin: *');
-  $res=array(
-  'message'=>"fail",
-  'status'=>201
-  );
-  echo json_encode($res);
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Some Eroor Occured! please try again',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
 }
+}//--end_cart foreach
+
+$zapak=$this->db->delete('tbl_cart', array('user_id' => $user_data->id));
+
+
+$config = Array(
+'protocol' => 'smtp',
+'smtp_host' => SMTP_HOST,
+'smtp_port' => SMTP_PORT,
+'smtp_user' => USER_NAME, // change it to yours
+'smtp_pass' => PASSWORD, // change it to yours
+'mailtype' => 'html',
+'charset' => 'iso-8859-1',
+'wordwrap' => true
+);
+$to=$email;
+$name= $user_data->name;
+$data->name = $name;
+$data->order1_id = $order_data->id;
+$data->date = $order_data->date;
+
+
+$message =$this->load->view('email/ordersuccess',$data,TRUE);
+// print_r($message);
+// exit;
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to($to);// change it to yours
+$this->email->subject('Order Placed');
+$this->email->message($message);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
+
+//---------admin email---------
+
+$message="Order recieved of amount:- Rs.".$online_amount." and order id:- ".$order_data->id." ";
+
+
+$data->name = "admin";
+$data->heading = "New Order Received";
+$data->body = $message;
+
+
+$mail =$this->load->view('email/mail',$data,TRUE);
+
+$this->load->library('email', $config);
+$this->email->set_newline("");
+$this->email->from(EMAIL); // change it to yours
+$this->email->to('order@createspaces.in');// change it to yours
+$this->email->subject('New Order Received');
+$this->email->message($mail);
+if($this->email->send()){
+// echo 'Email sent.';
+}else{
+// show_error($this->email->print_debugger());
+}
+
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'success',
+'status'=>200
+);
+
+echo json_encode($res);
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'some eroor occured! please try again',
+'status'=>201
+);
+
+echo json_encode($res);
+exit;
+
+}
+
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Wrong amount paid! Please contact admin',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+}else{
+header('Access-Control-Allow-Origin: *');
+$res = array('message'=>'Payment Failed',
+'status'=>201
+);
+
+echo json_encode($res);
+}
+}
+
 
 }
 
