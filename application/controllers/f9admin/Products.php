@@ -473,6 +473,8 @@
 
 
                                $last_id=$this->base_model->insert_table("tbl_products", $data_insert, 1) ;
+                               $this->session->set_flashdata('smessage', 'Data inserted successfully');
+                               redirect("dcadmin/products/view_products", "refresh");
 
                                // $inventory_data = array(
           //   'product_id'=> $last_id,
@@ -543,7 +545,7 @@
                                $last_id=$this->db->update('tbl_products', $data_insert);
                            }
                            if ($last_id!=0) {
-                               $this->session->set_flashdata('smessage', 'Data inserted successfully');
+                               $this->session->set_flashdata('smessage', 'Data updated successfully');
                                redirect("dcadmin/products/view_products", "refresh");
                            } else {
                                $this->session->set_flashdata('emessage', 'Sorry error occured');
@@ -595,6 +597,7 @@
                            $zapak=$this->db->update('tbl_products', $data_update);
 
                            if ($zapak!=0) {
+                             $this->session->set_flashdata('smessage', 'Status updated successfully');
                                redirect("dcadmin/products/view_products", "refresh");
                            } else {
                                $this->session->set_flashdata('emessage', 'Sorry error occured');
@@ -615,6 +618,7 @@
                        $zapak=$this->db->update('tbl_products', $data_update);
 
                        if ($zapak!=0) {
+                         $this->session->set_flashdata('smessage', 'Status updated successfully');
                            redirect("dcadmin/products/view_products", "refresh");
                        } else {
                            $this->session->set_flashdata('emessage', 'Sorry error occured');
@@ -651,6 +655,7 @@
                        if ($zapak!=0) {
                            $path = FCPATH .$img;
                            unlink($path);
+                           $this->session->set_flashdata('smessage','Products deleted successfully');
                            redirect("dcadmin/products/view_products", "refresh");
                        } else {
                            $this->session->set_flashdata('emessage', 'Sorry error occured');
