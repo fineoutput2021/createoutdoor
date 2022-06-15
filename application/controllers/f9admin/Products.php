@@ -440,6 +440,43 @@
                            }
                          }
 
+                         $img1='video';
+                         $video = '';
+
+                                     $file_check=($_FILES['video']['error']);
+                                     if($file_check!=4){
+                                   	$image_upload_folder = FCPATH . "assets/uploads/products/";
+                           						if (!file_exists($image_upload_folder))
+                           						{
+                           							mkdir($image_upload_folder, DIR_WRITE_MODE, true);
+                           						}
+                           						$new_file_name="products4".date("Ymdhms");
+                           						$this->upload_config = array(
+                           								'upload_path'   => $image_upload_folder,
+                           								'file_name' => $new_file_name,
+                           								'allowed_types' =>'mp4|mov|webm|ogv',
+                           								'max_size'      => 25000
+                           						);
+                           						$this->upload->initialize($this->upload_config);
+                           						if (!$this->upload->do_upload($img1))
+                           						{
+                           							$upload_error = $this->upload->display_errors();
+                                         $this->session->set_flashdata('emessage',$upload_error);
+                                            redirect($_SERVER['HTTP_REFERER']);
+                           							// echo json_encode($upload_error);
+                           							// echo $upload_error;
+                           						}
+                           						else
+                           						{
+
+                           							$file_info = $this->upload->data();
+
+                           							$videoNAmePath = "assets/uploads/products/".$new_file_name.$file_info['file_ext'];
+                           							$video=$videoNAmePath;
+                           							// echo json_encode($file_info);
+                           						}
+                                     }
+
                            $ip = $this->input->ip_address();
                            date_default_timezone_set("Asia/Calcutta");
                            $cur_date=date("Y-m-d H:i:s");
@@ -456,6 +493,7 @@
   'image1'=>$nnnn3,
   'image2'=>$nnnn4,
   'image3'=>$nnnn5,
+  'video'=>$video,
   'productdescription'=>$productdescription,
   'productspecification'=>$productspecification,
   'leadtime_id'=>$leadtime,
@@ -519,6 +557,11 @@
                                } else {
                                    $n4=$da->image3;
                                }
+                               if (!empty($video)) {
+                                   $n5=$video;
+                               } else {
+                                   $n5=$da->video;
+                               }
 
 
 
@@ -530,6 +573,7 @@
   'image1'=>$n2,
   'image2'=>$n3,
   'image3'=>$n4,
+  'video'=>$n5,
   'productdescription'=>$productdescription,
   'productspecification'=>$productspecification,
   'leadtime_id'=>$leadtime,
@@ -709,8 +753,8 @@
                            $this->session->set_flashdata('smessage', 'Successfully Removed');
                            redirect($_SERVER['HTTP_REFERER']);
                        } else {
-                           echo "Error";
-                           exit;
+                         $this->session->set_flashdata('emessage', 'Sorry error occured');
+                         redirect($_SERVER['HTTP_REFERER']);
                        }
                    }
                    if ($t=="image3") {
@@ -726,9 +770,25 @@
                            $this->session->set_flashdata('smessage', 'Successfully Removed');
                            redirect($_SERVER['HTTP_REFERER']);
                        } else {
-                           $data['e']="Error Occured";
-                           // exit;
-                           $this->load->view('errors/error500admin', $data);
+                         $this->session->set_flashdata('emessage', 'Sorry error occured');
+                         redirect($_SERVER['HTTP_REFERER']);
+                       }
+                   }
+                   if ($t=="video") {
+                       $data_update = array(
+         'video'=>""
+
+         );
+
+                       $this->db->where('id', $id);
+                       $zapak=$this->db->update('tbl_products', $data_update);
+
+                       if ($zapak!=0) {
+                           $this->session->set_flashdata('smessage', 'Successfully Removed');
+                           redirect($_SERVER['HTTP_REFERER']);
+                       } else {
+                         $this->session->set_flashdata('emessage', 'Sorry error occured');
+                         redirect($_SERVER['HTTP_REFERER']);
                        }
                    }
                } else {

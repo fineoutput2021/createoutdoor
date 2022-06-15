@@ -133,6 +133,20 @@ base64_encode($products_data->id) ?>/image3">Remove</a>
 
                     </tr>
                     <tr>
+                      <td> <strong>Video</strong></td>
+                      <td> <input type="file" name="video" class="form-control" placeholder="" value="<?=$products_data->video?>" />
+
+                        <?php if ($products_data->video!="") { ?>
+                        <video autoplay height="100" width="150" controls><source src="<?=base_url().$products_data->video?>" type="video/mp4"></source></video><a href="<?=base_url()?>dcadmin/products/remove_img/<?php echo
+base64_encode($products_data->id) ?>/video">Remove</a>
+                        <?php } else { ?>
+                        Sorry No File Found
+                        <?php } ?>
+                      </td>
+
+
+                    </tr>
+                    <tr>
                       <td> <strong>Product Description</strong> <span style="color:red;">*</span></strong> </td>
                       <!-- <td> <input type="text" name="productdescription"  class="form-control" placeholder="" required value="" />  </td> -->
                       <td>

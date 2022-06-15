@@ -48,6 +48,7 @@
                       <th>image1</th>
                       <th>image2</th>
                       <th>image3</th>
+                      <th>Video</th>
                       <th>Model No.</th>
                       <th>Top Product</th>
                       <th>Product Description</th>
@@ -131,6 +132,13 @@ if(!empty($subcategory_data)){
                         <?php if($data->image3!=""){ ?>
                         <img id="slide_img_path" height=50 width=100 src="<?php echo base_url().$data->image3
         ?>">
+                        <?php }else { ?>
+                        Sorry No File Found
+                        <?php } ?>
+                      </td>
+                      <td>
+                        <?php if($data->video!=""){ ?>
+                      <video autoplay height="100" width="150" controls><source src="<?=base_url().$products_data->video?>" type="video/mp4"></source></video>
                         <?php }else { ?>
                         Sorry No File Found
                         <?php } ?>
