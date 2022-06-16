@@ -4,9 +4,9 @@
       Completed Order
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Completed Order </a></li>
-      <li class="active">View Completed Order</li>
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/Neworder/view_completed_orders"><i class="icon-undo"></i> View Completed Order </a></li>
+      <!-- <li class="active">View Dispatched Order</li> -->
     </ol>
   </section>
   <section class="content">
@@ -98,9 +98,9 @@
 
 
                               ?></td>
-                              <td>Rs.<?php echo $data->total_amount; ?></td>
-                            <td>Rs.<?php echo $data->discount; ?></td>
-                            <td>Rs.<?php echo $data->final_amount; ?></td>
+                              <td>₹<?php echo $data->total_amount; ?></td>
+                            <td><?php echo $data->discount; ?>%</td>
+                            <td>₹<?php echo $data->final_amount; ?></td>
                       <td><?php echo $data->street_address ?></td>
                       <td><?php echo $data->phone  ?></td>
                       <td><?php echo $data->city  ?></td>

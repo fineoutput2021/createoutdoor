@@ -3,7 +3,10 @@
                   <h1>
                  Add New Subcategory
                  </h1>
-
+                 <ol class="breadcrumb">
+                   <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                   <li><a href="<?php echo base_url() ?>dcadmin/subcategory/view_subcategory"><i class="icon-undo"></i> View subcategory </a></li>
+                 </ol>
                </section>
            <section class="content">
            <div class="row">

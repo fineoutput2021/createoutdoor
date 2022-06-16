@@ -135,7 +135,8 @@
 
 
            $last_id=$this->base_model->insert_table("tbl_table_feature",$data_insert,1) ;
-
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/table_feature/view_table_feature","refresh");
            }
            if($typ==2){
 
@@ -160,7 +161,7 @@
              $last_id=$this->db->update('tbl_table_feature', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/table_feature/view_table_feature","refresh");
                               }
                                else
@@ -218,6 +219,7 @@
                        $zapak=$this->db->update('tbl_table_feature', $data_update);
 
                             if($zapak!=0){
+                                 $this->session->set_flashdata('smessage','Status updated successfully');
                             redirect("dcadmin/table_feature/view_table_feature","refresh");
                                     }
                                     else
@@ -236,6 +238,7 @@
                          $zapak=$this->db->update('tbl_table_feature', $data_update);
 
                              if($zapak!=0){
+                                  $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/table_feature/view_table_feature","refresh");
                                      }
                                      else
@@ -284,28 +287,23 @@
  if($zapak!=0){
         // $path = FCPATH .$img;
         //   unlink($path);
+        $this->session->set_flashdata('smessage','Table_feature deleted successfully');
         redirect("dcadmin/table_feature/view_table_feature","refresh");
                 }
                 else
                 {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
+                   $this->session->set_flashdata('emessage','Some unknown error occured');
                    redirect($_SERVER['HTTP_REFERER']);
                 }
             }
             else{
+              $this->session->set_flashdata('emessage','Sorry you dont have permisssion to delete anything');
+              redirect($_SERVER['HTTP_REFERER']);
+            }
+          }
+            else{
              $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
                redirect($_SERVER['HTTP_REFERER']);
             }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+}
+}

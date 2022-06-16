@@ -2,17 +2,22 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Testimonals
+          View Testimonials
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/Testimonals/view_Testimonals"><i class="icon-undo"></i> View Testimonials </a></li>
+          <!-- <li class="active">View Order</li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/Testimonals/add_Testimonals"
-        role="button" style="margin-bottom:12px;"> Add Testimonals</a>
+        role="button" style="margin-bottom:12px;"> Add Testimonials</a>
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Testimonals</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View Testimonials</h3>
         </div>
         <div class="panel panel-default">
 

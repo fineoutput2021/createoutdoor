@@ -4,6 +4,11 @@
         <h1>
           View Category
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/inventory/view_icategory"><i class="fa fa-dashboard"></i> View category </a></li>
+          <!-- <li><a href="<?php echo base_url() ?>dcadmin/inventory/view_isubcategory"><i class="fa fa-dashboard"></i> View Subcategory </a></li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">

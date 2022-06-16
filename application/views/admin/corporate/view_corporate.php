@@ -4,9 +4,9 @@
       Corporate
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Corporate </a></li>
-      <li class="active">View Corporate</li>
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/corporate/view_corporate"><i class="icon-undo"></i> View Corporate </a></li>
+      <!-- <li class="active">View Corporate</li> -->
     </ol>
   </section>
   <section class="content">
@@ -50,11 +50,6 @@
                       <th>image2</th>
                       <th>image3</th>
                       <th>image4</th>
-                      <th>image5</th>
-                      <th>image6</th>
-
-
-
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -96,21 +91,6 @@
                         Sorry No image Found
                         <?php } ?>
                       </td>
-                      <td>
-                        <?php if($data->image5!=""){  ?>
-                        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url()."assets/uploads/customproduct/".$data->image5 ?>">
-                        <?php }else {  ?>
-                        Sorry No image Found
-                        <?php } ?>
-                      </td>
-                      <td>
-                        <?php if($data->image6!=""){  ?>
-                        <img id="slide_img_path" height=50 width=100 src="<?php echo base_url()."assets/uploads/customproduct/".$data->image6 ?>">
-                        <?php }else {  ?>
-                        Sorry No image Found
-                        <?php } ?>
-                      </td>
-
 
                       <td><?php if($data->is_active==1){ ?>
                         <p class="label bg-green">Active</p>

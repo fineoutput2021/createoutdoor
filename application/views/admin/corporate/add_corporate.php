@@ -4,9 +4,9 @@
                                     Add New corporate
                                     </h1>
                                     <ol class="breadcrumb">
-                                     <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                                      <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All corporate </a></li>
-
+                                      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                                      <li><a href="<?php echo base_url() ?>dcadmin/corporate/view_corporate"><i class="icon-undo"></i> View Corporate </a></li>
+                                      <!-- <li class="active">View Corporate</li> -->
                                     </ol>
                                   </section>
                           		<section class="content">

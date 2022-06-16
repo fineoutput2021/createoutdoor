@@ -4,9 +4,9 @@
       Abandon Cart
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All   Abandon Cart </a></li>
-      <li class="active">View   Abandon Cart</li>
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/Abandoncart/view_Abandon_cart"><i class="icon-undo"></i> View Cart </a></li>
+      <!-- <li class="active">View Order</li> -->
     </ol>
   </section>
   <section class="content">

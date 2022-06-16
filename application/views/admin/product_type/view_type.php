@@ -4,12 +4,11 @@
       Type
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Type </a></li>
-      <li class="active">View Type</li>
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/products/view_products"><i class="icon-undo"></i> View Product </a></li>
+      <!-- <li class="active">View Type</li> -->
     </ol>
   </section>
-
   <section class="content">
     <div class="row">
       <div class="col-lg-12">
@@ -73,14 +72,14 @@
                                                              }
 
                                                       ?></td>
-                      <td><?php echo $data->mrp ?></td>
-                      <td><?php echo $data->gst ?></td>
+                      <td>₹<?php echo $data->mrp ?></td>
+                      <td><?php echo $data->gst ?>%</td>
 
-                      <td><?php echo $data->sp ?></td>
-                      <td><?php echo $data->gstprice ?></td>
-                      <td><?php echo $data->spgst ?></td>
-                      <td><?php echo $data->sample_price ?></td>
-                      <td><?php echo $data->weight ?></td>
+                      <td>₹<?php echo $data->sp ?></td>
+                      <td>₹<?php echo $data->gstprice ?></td>
+                      <td>₹<?php echo $data->spgst ?></td>
+                      <td>₹<?php echo $data->sample_price ?></td>
+                      <td><?php echo $data->weight ?>gm</td>
 
 
                       <td><?php if ($data->is_active==1) { ?>

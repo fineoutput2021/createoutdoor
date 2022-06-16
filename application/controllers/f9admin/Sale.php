@@ -130,7 +130,7 @@ $this->load->library('upload');
                               						$this->upload_config = array(
                               								'upload_path'   => $image_upload_folder,
                               								'file_name' => $new_file_name,
-                              								'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                              								'allowed_types' =>'jpg|jpeg|png',
                               								'max_size'      => 25000
                               						);
                               						$this->upload->initialize($this->upload_config);
@@ -138,7 +138,8 @@ $this->load->library('upload');
                               						{
                               							$upload_error = $this->upload->display_errors();
                               							// echo json_encode($upload_error);
-                              							echo $upload_error;
+                                            $this->session->set_flashdata('emessage', $upload_error);
+                                            redirect($_SERVER['HTTP_REFERER']);
                               						}
                               						else
                               						{
@@ -219,7 +220,9 @@ $img2='fileToUpload2';
 
 
                       $last_id=$this->base_model->insert_table("tbl_sale",$data_insert,1) ;
+                      $this->session->set_flashdata('smessage','Data inserted successfully');
 
+                      redirect("dcadmin/Sale/view_sale","refresh");
                       }
                       if($typ==2){
 
@@ -277,9 +280,8 @@ $img2='fileToUpload2';
 
                                           if($last_id!=0){
 
-                                          $this->session->set_flashdata('smessage','Data inserted successfully');
-
-                                          redirect("dcadmin/Sale/view_sale","refresh");
+                                          $this->session->set_flashdata('smessage','Data updated successfully');
+                                        redirect("dcadmin/Sale/view_sale","refresh");
 
                                                   }
 
@@ -344,6 +346,7 @@ $img2='fileToUpload2';
                        $zapak=$this->db->update('tbl_sale', $data_update);
 
                             if($zapak!=0){
+                              $this->session->set_flashdata('smessage','Status updated successfully');
                             redirect("dcadmin/sale/view_sale","refresh");
                                     }
                                     else
@@ -362,6 +365,7 @@ $img2='fileToUpload2';
                          $zapak=$this->db->update('tbl_sale', $data_update);
 
                              if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/sale/view_sale","refresh");
                                      }
                                      else
@@ -408,30 +412,23 @@ $img2='fileToUpload2';
 
  $zapak=$this->db->delete('tbl_sale', array('id' => $id));
  if($zapak!=0){
-        $path = FCPATH .$img;
-          unlink($path);
+        // $path = FCPATH .$img;
+          // unlink($path);
+          $this->session->set_flashdata('smessage','Sale Data deleted successfully');
         redirect("dcadmin/sale/view_sale","refresh");
                 }
                 else
                 {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
-                   redirect($_SERVER['HTTP_REFERER']);
-                }
-            }
-            else{
-             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
-               redirect($_SERVER['HTTP_REFERER']);
-            }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+                 $this->session->set_flashdata('emessage', 'Some unknown error occured');
+           redirect($_SERVER['HTTP_REFERER']);
+               }
+           } else {
+             $this->session->set_flashdata('emessage', 'Sorry You Dont Have Permission To Delete Anything');
+         redirect($_SERVER['HTTP_REFERER']);
+           }
+       } else {
+           $this->session->set_flashdata('emessage', 'Sorry you not a super admin you dont have permission to delete anything');
+           redirect($_SERVER['HTTP_REFERER']);
+       }
+     }
+   }

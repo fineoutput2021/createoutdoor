@@ -42,105 +42,78 @@ function __construct()
 
 		}
 
-// Change Password
+		// Change Password
 
-public function change_pass(){
-
-                 if(!empty($this->session->userdata('admin_data'))){
-
-
-                   $data['user_name']=$this->load->get_var('user_name');
-									  // $this->load->get_var('user_id');
-										$usr_id=$this->session->userdata('admin_id');
-// echo $usr_id;
-                   // echo SITE_NAME;
-                   // echo $this->session->userdata('image');
-                   // echo $this->session->userdata('position');
-                   // exit;
-									 $this->load->helper(array('form', 'url'));
-							 		$this->load->library('form_validation');
-							 		$this->load->helper('security');
-							 		if($this->input->post())
-							 		{
-							 			// print_r($this->input->post());
-							 			// exit;
-							 			$this->form_validation->set_rules('old', 'Old Password', 'required|xss_clean');
-							 			$this->form_validation->set_rules('new', 'New Password', 'required|xss_clean');
-							 			// $this->form_validation->set_rules('college_type', 'University Type', 'required');
-							 			if($this->form_validation->run()== TRUE)
-							 			{
-							 				$old=$this->input->post('old');
-							 				$new=$this->input->post('new');
+			public function change_pass()
+			{
+					if (!empty($this->session->userdata('admin_data'))) {
+							$data['user_name']=$this->load->get_var('user_name');
+							// $this->load->get_var('user_id');
+							$usr_id=$this->session->userdata('admin_id');
+							$this->load->helper(array('form', 'url'));
+							$this->load->library('form_validation');
+							$this->load->helper('security');
+							if ($this->input->post()) {
+									// print_r($this->input->post());
+									// exit;
+									$this->form_validation->set_rules('old', 'Old Password', 'required|xss_clean');
+									$this->form_validation->set_rules('new', 'New Password', 'required|xss_clean');
+									// $this->form_validation->set_rules('college_type', 'University Type', 'required');
+									if ($this->form_validation->run()== true) {
+											$old=$this->input->post('old');
+											$new=$this->input->post('new');
 											$new2=md5($new);
 											$this->db->select('*');
-											 $this->db->from('tbl_team');
-											 $this->db->where('id',$usr_id);
-											 $dsa= $this->db->get();
-											 $da=$dsa->row();
+											$this->db->from('tbl_team');
+											$this->db->where('id', $usr_id);
+											$dsa= $this->db->get();
+											$da=$dsa->row();
 
-$p1=$da->password;
+											$p1=$da->password;
+											// echo $p1."------".$old;die();
+											if (md5($old)==$p1) {
+													$data_update = array(
+																		'password'=>$new2,
+																		);
 
-if($new2==$p1){
+													$this->db->where('id', $usr_id);
+													$zapak=$this->db->update('tbl_team', $data_update);
 
-									$data_update = array(
-									                                    'password'=>$p1,
-
-									                                    );
-
-									                                    $this->db->where('id', $usr_id);
-									                    								$zapak=$this->db->update('tbl_team', $data_update);
-
-if($zapak!=0){
-// redirect("admin/home/view_team","refresh");
-echo "<div class='alert alert-success'>
-  <strong>Success!</strong> Password Changed Successfully
-</div>";
-
-			}
-			else
-			{
-				echo "Error";
-				// exit;
-			}
-
-}
-else{
-	echo "<div class='alert alert-danger'>
-  <strong>Error!</strong> Wrong Password
-</div>";
-}
-
-
-										}
-										else{
+													if ($zapak!=0) {
+															// redirect("admin/home/view_team","refresh");
+															echo "<div class='alert alert-success'>
+		<strong>Success!</strong> Password Changed Successfully
+	</div>";
+													} else {
+															echo "Error";
+															// exit;
+													}
+											} else {
+													echo "<div class='alert alert-danger'>
+		<strong>Error!</strong> Wrong Password
+	</div>";
+											}
+									} else {
 											echo validation_errors();
 											// exit;
-
-										}
-
-
 									}
-									else{
-										echo "No data Entered";
-										// exit;
-									}
+							} else {
+									echo "No data Entered";
+									// exit;
+							}
 
 
 
 
 
 
-                   // $this->load->view('admin/common/header_view',$data);
-                   // $this->load->view('admin/dash');
-                   // $this->load->view('admin/common/footer_view');
-
-               }
-               else{
-
-                   $this->load->view('admin/login/index');
-               }
-
-               }
+							// $this->load->view('admin/common/header_view',$data);
+										 // $this->load->view('admin/dash');
+										 // $this->load->view('admin/common/footer_view');
+					} else {
+							$this->load->view('admin/login/index');
+					}
+			}
 
 
 
@@ -344,10 +317,6 @@ else{
 
 													);
 
-
-
-
-
 					$last_id=$this->base_model->insert_table("tbl_team",$data_insert,1) ;
 
 
@@ -479,7 +448,7 @@ $this->session->set_flashdata('emessage',"Sorry You can't change status of yours
 
              if($zapak!=0){
 							 	$this->session->set_flashdata('smessage','Status successfully Updated');
-             redirect("admin/system/view_team","refresh");
+             redirect("dcadmin/system/view_team","refresh");
                      }
                      else
                      {
@@ -499,7 +468,7 @@ $this->session->set_flashdata('emessage',"Sorry You can't change status of yours
               if($zapak!=0){
 								$this->session->set_flashdata('smessage','Status successfully Updated');
 
-              redirect("admin/system/view_team","refresh");
+              redirect("dcadmin/system/view_team","refresh");
                       }
                       else
                       {

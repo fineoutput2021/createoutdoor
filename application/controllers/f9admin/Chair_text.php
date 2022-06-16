@@ -141,7 +141,8 @@
 
 
            $last_id=$this->base_model->insert_table("tbl_chair_text",$data_insert,1) ;
-
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/chair_text/view_chair_text","refresh");
            }
            if($typ==2){
 
@@ -168,7 +169,7 @@
              $last_id=$this->db->update('tbl_chair_text', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/chair_text/view_chair_text","refresh");
                               }
                                else
@@ -226,6 +227,7 @@
                        $zapak=$this->db->update('tbl_chair_text', $data_update);
 
                             if($zapak!=0){
+$this->session->set_flashdata('smessage','Status updated successfully');
                             redirect("dcadmin/chair_text/view_chair_text","refresh");
                                     }
                                     else
@@ -244,6 +246,7 @@
                          $zapak=$this->db->update('tbl_chair_text', $data_update);
 
                              if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/chair_text/view_chair_text","refresh");
                                      }
                                      else
@@ -284,29 +287,21 @@
 
  $zapak=$this->db->delete('tbl_chair_text', array('id' => $id));
  if($zapak!=0){
-      
+$this->session->set_flashdata('smessage','Chair text deleted successfully');
         redirect("dcadmin/chair_text/view_chair_text","refresh");
                 }
                 else
                 {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
-                   redirect($_SERVER['HTTP_REFERER']);
-                }
-            }
-            else{
-             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
-               redirect($_SERVER['HTTP_REFERER']);
-            }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+                 $this->session->set_flashdata('emessage', 'Some unknown error occured');
+           redirect($_SERVER['HTTP_REFERER']);
+               }
+           } else {
+             $this->session->set_flashdata('emessage', 'Sorry You Dont Have Permission To Delete Anything');
+         redirect($_SERVER['HTTP_REFERER']);
+           }
+       } else {
+           $this->session->set_flashdata('emessage', 'Sorry you not a super admin you dont have permission to delete anything');
+           redirect($_SERVER['HTTP_REFERER']);
+       }
+     }
+}

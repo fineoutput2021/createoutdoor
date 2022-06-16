@@ -3,6 +3,11 @@
     <h1>
       View Products
     </h1>
+    <ol class="breadcrumb">
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <!-- <li><a href="<?php echo base_url() ?>dcadmin/Top_ten/view_top_ten_categories"><i class="icon-undo"></i> View Top Ten Categories </a></li> -->
+      <!-- <li class="active">View Top Ten Categories</li> -->
+    </ol>
   </section>
   <section class="content">
     <div class="row">

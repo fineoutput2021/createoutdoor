@@ -147,6 +147,8 @@
 
 
            $last_id=$this->base_model->insert_table("tbl_promocode",$data_insert,1) ;
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/promocode/view_promocode","refresh");
 
            }
            if($typ==2){
@@ -176,7 +178,7 @@
              $last_id=$this->db->update('tbl_promocode', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/promocode/view_promocode","refresh");
                               }
                                else
@@ -234,6 +236,7 @@
                        $zapak=$this->db->update('tbl_promocode', $data_update);
 
                             if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                             redirect("dcadmin/promocode/view_promocode","refresh");
                                     }
                                     else
@@ -252,6 +255,7 @@
                          $zapak=$this->db->update('tbl_promocode', $data_update);
 
                              if($zapak!=0){
+                                $this->session->set_flashdata('smessage','Data updated successfully');
                              redirect("dcadmin/promocode/view_promocode","refresh");
                                      }
                                      else
@@ -289,10 +293,10 @@
 
                        if($this->load->get_var('position')=="Super Admin"){
 
-                    
+
  $zapak=$this->db->delete('tbl_promocode', array('id' => $id));
  if($zapak!=0){
-
+ $this->session->set_flashdata('smessage','Promocode deleted successfully');
         redirect("dcadmin/promocode/view_promocode","refresh");
                 }
                 else

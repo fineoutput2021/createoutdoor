@@ -2,8 +2,13 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Corporate_banner_image
+          View Corporate Banner Image
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/corporate_banner_image/view_corporate_banner_image"><i class="icon-undo"></i> View Corporate Banner Image</a></li>
+          <!-- <li class="active">View Categories</li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">
@@ -12,7 +17,7 @@
         role="button" style="margin-bottom:12px;"> Add corporate_banner_image</a> -->
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View corporate_banner_image</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View corporate banner image</h3>
         </div>
         <div class="panel panel-default">
 
@@ -113,17 +118,17 @@
         <?php } ?>
         <li><a href="<?php echo base_url() ?>dcadmin/corporate_banner_image/update_corporate_banner_image/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
-        <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
+        <!-- <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li> -->
         </ul>
         </div>
         </div>
 
-        <div style="display:none" id="cnfbox<?php echo $i ?>">
-        <p> Are you sure delete this </p>
+        <!-- <div style="display:none" id="cnfbox<?php echo $i ?>"> -->
+        <!-- <p> Are you sure delete this </p>
         <a href="<?php echo base_url() ?>dcadmin/corporate_banner_image/delete_corporate_banner_image/<?php echo
         base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
         <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
-        </div>
+        </div> -->
         </td>
         </tr>
         <?php $i++; } ?>

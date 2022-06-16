@@ -3,7 +3,11 @@
                   <h1>
                  Add New Chair
                  </h1>
-
+                 <ol class="breadcrumb">
+                   <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                   <li><a href="<?php echo base_url() ?>dcadmin/chair/view_chair"><i class="icon-undo"></i> View chair </a></li>
+                   <!-- <li class="active">View Categories</li> -->
+                 </ol>
                </section>
            <section class="content">
            <div class="row">

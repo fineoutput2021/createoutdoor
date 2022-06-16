@@ -85,6 +85,8 @@
 
 
                                $last_id=$this->base_model->insert_table("tbl_discount_percentage", $data_insert, 1) ;
+                               $this->session->set_flashdata('smessage', 'Data inserted successfully');
+                               redirect("dcadmin/Abandoncart/view_Abandon_cart", "refresh");
                            }
                            if ($typ==2) {
                                $idw=base64_decode($iw);
@@ -105,7 +107,6 @@
 
                            if ($last_id!=0) {
                                $this->session->set_flashdata('smessage', 'Data updated successfully');
-
                                redirect("dcadmin/Abandoncart/view_Abandon_cart", "refresh");
                            } else {
                                $this->session->set_flashdata('emessage', 'Sorry error occured');

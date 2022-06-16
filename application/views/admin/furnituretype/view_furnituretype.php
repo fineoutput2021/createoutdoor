@@ -2,8 +2,13 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Furnituretype
+          View Furniture Type
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/furnituretype/view_furnituretype"><i class="icon-undo"></i> View furniture Type </a></li>
+          <!-- <li class="active">View Categories</li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">

@@ -137,7 +137,8 @@
     						{
     							$upload_error = $this->upload->display_errors();
     							// echo json_encode($upload_error);
-    							echo $upload_error;
+                  $this->session->set_flashdata('emessage', $upload_error);
+                  redirect($_SERVER['HTTP_REFERER']);
     						}
     						else
     						{
@@ -178,7 +179,8 @@
 
 
            $last_id=$this->base_model->insert_table("tbl_Testimonals",$data_insert,1) ;
-
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/Testimonals/view_Testimonals","refresh");
            }
            if($typ==2){
 
@@ -211,7 +213,7 @@ if(!empty($image_file)){
              $last_id=$this->db->update('tbl_Testimonals', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/Testimonals/view_Testimonals","refresh");
                               }
                                else
@@ -269,6 +271,7 @@ if(!empty($image_file)){
                        $zapak=$this->db->update('tbl_Testimonals', $data_update);
 
                             if($zapak!=0){
+                              $this->session->set_flashdata('smessage','Status updated successfully');
                             redirect("dcadmin/Testimonals/view_Testimonals","refresh");
                                     }
                                     else
@@ -287,6 +290,7 @@ if(!empty($image_file)){
                          $zapak=$this->db->update('tbl_Testimonals', $data_update);
 
                              if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/Testimonals/view_Testimonals","refresh");
                                      }
                                      else
@@ -335,28 +339,21 @@ if(!empty($image_file)){
  if($zapak!=0){
         $path = FCPATH .$img;
           unlink($path);
+          $this->session->set_flashdata('smessage','Testimonial deleted successfully');
         redirect("dcadmin/Testimonals/view_Testimonals","refresh");
                 }
                 else
                 {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
-                   redirect($_SERVER['HTTP_REFERER']);
-                }
-            }
-            else{
-             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
-               redirect($_SERVER['HTTP_REFERER']);
-            }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+                 $this->session->set_flashdata('emessage', 'Some unknown error occured');
+           redirect($_SERVER['HTTP_REFERER']);
+               }
+           } else {
+             $this->session->set_flashdata('emessage', 'Sorry You Dont Have Permission To Delete Anything');
+         redirect($_SERVER['HTTP_REFERER']);
+           }
+       } else {
+           $this->session->set_flashdata('emessage', 'Sorry you not a super admin you dont have permission to delete anything');
+           redirect($_SERVER['HTTP_REFERER']);
+       }
+     }
+}

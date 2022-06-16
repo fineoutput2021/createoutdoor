@@ -111,7 +111,8 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img1)) {
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
-echo $upload_error;
+$this->session->set_flashdata('emessage', $upload_error);
+redirect($_SERVER['HTTP_REFERER']);
 } else {
 $file_info = $this->upload->data();
 
@@ -141,7 +142,8 @@ $this->upload->initialize($this->upload_config);
 if (!$this->upload->do_upload($img2)) {
 $upload_error = $this->upload->display_errors();
 // echo json_encode($upload_error);
-echo $upload_error;
+$this->session->set_flashdata('emessage', $upload_error);
+redirect($_SERVER['HTTP_REFERER']);
 } else {
 $file_info = $this->upload->data();
 
@@ -179,6 +181,15 @@ $data_insert = array('name'=>$name,
 
 
 $last_id=$this->base_model->insert_table("tbl_sliderpanel", $data_insert, 1) ;
+
+if ($last_id!=0) {
+$this->session->set_flashdata('smessage', 'Data inserted successfully');
+
+redirect("dcadmin/sliderpanel/view_sliderpanel", "refresh");
+} else {
+$this->session->set_flashdata('emessage', 'Sorry error occured');
+redirect($_SERVER['HTTP_REFERER']);
+}
 }
 if ($typ==2) {
 $idw=base64_decode($iw);
@@ -231,9 +242,8 @@ $this->db->where('id', $idw);
 $last_id=$this->db->update('tbl_sliderpanel', $data_insert);
 }
 
-
 if ($last_id!=0) {
-$this->session->set_flashdata('smessage', 'Data inserted successfully');
+$this->session->set_flashdata('smessage', 'Data updated successfully');
 
 redirect("dcadmin/sliderpanel/view_sliderpanel", "refresh");
 } else {
@@ -274,6 +284,7 @@ $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_sliderpanel', $data_update);
 
 if ($zapak!=0) {
+$this->session->set_flashdata('smessage', 'Status updated successfully');
 redirect("dcadmin/sliderpanel/view_sliderpanel", "refresh");
 } else {
 $this->session->set_flashdata('emessage', 'Sorry error occured');
@@ -290,6 +301,7 @@ $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_sliderpanel', $data_update);
 
 if ($zapak!=0) {
+  $this->session->set_flashdata('smessage', 'Status updated successfully');
 redirect("dcadmin/sliderpanel/view_sliderpanel", "refresh");
 } else {
 $this->session->set_flashdata('emessage', 'Sorry error occured');
@@ -325,19 +337,22 @@ if ($this->load->get_var('position')=="Super Admin") {
 
 $zapak=$this->db->delete('tbl_sliderpanel', array('id' => $id));
 if ($zapak!=0) {
+  $this->session->set_flashdata('smessage', 'Sliderpanel Data deleted successfully');
 // $path = FCPATH .$img;
 //   unlink($path);
+
 redirect("dcadmin/sliderpanel/view_sliderpanel", "refresh");
+} else   {
+   $this->session->set_flashdata('emessage', 'Some unknown error occured');
+redirect($_SERVER['HTTP_REFERER']);
+ }
 } else {
-$this->session->set_flashdata('emessage', 'Sorry error occured');
+$this->session->set_flashdata('emessage', 'Sorry You Dont Have Permission To Delete Anything');
 redirect($_SERVER['HTTP_REFERER']);
 }
 } else {
 $this->session->set_flashdata('emessage', 'Sorry you not a super admin you dont have permission to delete anything');
 redirect($_SERVER['HTTP_REFERER']);
-}
-} else {
-redirect("login/admin_login", "refresh");
 }
 }
 }

@@ -105,10 +105,6 @@
                // exit;
   $this->form_validation->set_rules('filtername', 'filtername', 'required');
 
-
-
-
-
                if($this->form_validation->run()== TRUE)
                {
   $filtername=$this->input->post('filtername');
@@ -135,7 +131,8 @@
 
 
            $last_id=$this->base_model->insert_table("tbl_furnituretype",$data_insert,1) ;
-
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/furnituretype/view_furnituretype","refresh");
            }
            if($typ==2){
 
@@ -160,7 +157,7 @@
              $last_id=$this->db->update('tbl_furnituretype', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/furnituretype/view_furnituretype","refresh");
                               }
                                else
@@ -218,6 +215,7 @@
                        $zapak=$this->db->update('tbl_furnituretype', $data_update);
 
                             if($zapak!=0){
+                              $this->session->set_flashdata('smessage','Status updated successfully');
                             redirect("dcadmin/furnituretype/view_furnituretype","refresh");
                                     }
                                     else
@@ -236,6 +234,7 @@
                          $zapak=$this->db->update('tbl_furnituretype', $data_update);
 
                              if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/furnituretype/view_furnituretype","refresh");
                                      }
                                      else
@@ -284,28 +283,23 @@
  if($zapak!=0){
         // $path = FCPATH .$img;
         //   unlink($path);
+        $this->session->set_flashdata('smessage','Furniture Type deleted successfully');
         redirect("dcadmin/furnituretype/view_furnituretype","refresh");
                 }
                 else
                 {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
+                   $this->session->set_flashdata('emessage','Some unknown error occured');
                    redirect($_SERVER['HTTP_REFERER']);
                 }
             }
             else{
+              $this->session->set_flashdata('emessage','Sorry you dont have permisssion to delete anything');
+              redirect($_SERVER['HTTP_REFERER']);
+            }
+          }
+            else{
              $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
                redirect($_SERVER['HTTP_REFERER']);
             }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+}
+}

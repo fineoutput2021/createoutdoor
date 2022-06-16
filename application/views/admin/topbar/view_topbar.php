@@ -4,11 +4,16 @@
         <h1>
           View Topbar
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/topbar/view_topbar"><i class="icon-undo"></i> View Topbar </a></li>
+          <!-- <li class="active">View Order</li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-          
+
         <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/topbar/add_topbar"
         role="button" style="margin-bottom:12px;"> Add topbar</a>
         <div class="panel panel-default">

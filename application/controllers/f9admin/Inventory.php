@@ -196,7 +196,6 @@ exit;
                               if($last_id!=0){
 
                               $this->session->set_flashdata('smessage','Data inserted successfully');
-
                               redirect("dcadmin/inventory/view_type/$id_id","refresh");
 
                                       }

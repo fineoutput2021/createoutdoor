@@ -4,6 +4,11 @@
         <h1>
           View Promocode
         </h1>
+        <ol class="breadcrumb">
+          <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a href="<?php echo base_url() ?>dcadmin/promocode/view_promocode"<i class="icon-undo"></i> View promocode </a></li>
+          <!-- <li class="active">View Categories</li> -->
+        </ol>
         </section>
         <section class="content">
         <div class="row">
@@ -57,9 +62,9 @@
 
  	 <td><?php echo $data->promocode ?></td>
  	 <td><?php if($data->ptype==1){ echo "One Time";}else{echo "Every Time";} ?></td>
- 	 <td><?php echo $data->giftpercent ?></td>
- 	 <td><?php echo $data->minorder ?></td>
- 	 <td><?php echo $data->max ?></td>
+ 	 <td><?php echo $data->giftpercent ?>%</td>
+ 	 <td>₹<?php echo $data->minorder ?></td>
+ 	 <td>₹<?php echo $data->max ?></td>
 
 
 

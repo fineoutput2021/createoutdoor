@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 
-define('SITE_NAME', 'Create Spaces');
+define('SITE_NAME', 'Create Outdoor');
 define('ADMIN_URL', 'dcadmin');
 
 

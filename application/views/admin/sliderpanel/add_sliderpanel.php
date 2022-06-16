@@ -3,13 +3,14 @@
     <h1>
       Add New Slider panel
     </h1>
-
+    <ol class="breadcrumb">
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/sliderpanel/view_sliderpanel"><i class="icon-undo"></i> view sliderpanel </a></li>
+    </ol>
   </section>
   <section class="content">
     <div class="row">
       <div class="col-lg-12">
-
-
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Add New Slider panel</h3>

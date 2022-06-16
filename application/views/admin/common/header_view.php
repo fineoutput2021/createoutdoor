@@ -17,6 +17,43 @@
     <link href="<?php echo base_url() ?>assets/admin/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url() ?>assets/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
   <style>
+  /* / ==============================Custom theme=========================================== / */
+  .custom_btn{
+    color: white;
+    background-color: hsl(353deg 91% 53%);
+  }
+  .custom_btn:hover{
+    color: white;
+    background-color: black;
+  }
+  .custom_header{
+    color: white;
+    background-color: #6b9cb3 !important;
+  }
+  .custom_header>a:hover{
+    color: #fff;
+    background: hsl(353deg 91% 53%) !important;
+    border-left-color: hsl(353deg 91% 53%);
+  }
+  .custom_header>li>a:hover{
+    color: #fff;
+    background: #262626;
+    border-left-color: hsl(353deg 91% 53%);
+  }
+  .active>a{
+    color: #fff;
+    background: hsl(353deg 91% 53%) !important;
+    border-color: hsl(353deg 91% 53%) !important;
+  }
+.skin-blue .sidebar-menu>li>.treeview-menu{
+    color: white !important;;
+    background-color: #262626;
+  }
+  .skin-blue .sidebar-menu>li>a:hover{
+    color: #fff;
+    background: #262626;
+    border-left-color: hsl(353deg 91% 53%);
+  }
   label{
   	margin:5px;
   }
@@ -155,9 +192,9 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo"><b><? echo SITE_NAME; ?></b></a>
+        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo custom_header"><b><? echo SITE_NAME; ?></b></a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top custom_header" role="navigation">
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -237,11 +274,11 @@
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+      <aside class="main-sidebar custom_header">
         <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+        <section class="sidebar custom_header">
           <!-- Sidebar user panel -->
-          <div class="user-panel">
+          <div class="user-panel custom_header">
             <div class="pull-left image">
             <?
               if(!empty($imgr)){
@@ -262,7 +299,7 @@
             <div class="pull-left info">
               <p> <? print_r($user_name); ?></p>
 
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
             </div>
           </div>
           <!-- search form -->
@@ -277,7 +314,7 @@
           <!-- /.search form -->
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
+          <ul class="sidebar-menu custom_header">
             <li class="header">MAIN NAVIGATION</li>
 
 

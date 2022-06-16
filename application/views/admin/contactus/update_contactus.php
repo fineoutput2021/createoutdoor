@@ -3,7 +3,11 @@
    <h1>
   Update Contactus
   </h1>
-
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="<?php echo base_url() ?>dcadmin/contactus/view_contactus"><i class="icon-undo"></i> View contactus </a></li>
+    <!-- <li class="active">Add New Contactus</li> -->
+  </ol>
 </section>
 <section class="content">
 <div class="row">

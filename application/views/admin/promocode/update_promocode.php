@@ -3,7 +3,11 @@
    <h1>
   Update Promocode
   </h1>
-
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li><a href="<?php echo base_url() ?>dcadmin/promocode/view_promocode"><i class="icon-undo"></i> View promocode </a></li>
+    <!-- <li class="active">Add promocode</li> -->
+  </ol>
 </section>
 <section class="content">
 <div class="row">

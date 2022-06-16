@@ -136,7 +136,7 @@ $img0='home_image';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -145,8 +145,8 @@ $img0='home_image';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -179,7 +179,7 @@ $img1='detail_image_1';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -188,8 +188,8 @@ $img1='detail_image_1';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -222,7 +222,7 @@ $img2='detail_image_2';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -231,8 +231,8 @@ $img2='detail_image_2';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -264,7 +264,8 @@ $img2='detail_image_2';
 
 
            $last_id=$this->base_model->insert_table("tbl_custom_banner_image",$data_insert,1) ;
-
+           $this->session->set_flashdata('smessage','Data inserted successfully');
+           redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
            }
            if($typ==2){
 
@@ -293,7 +294,7 @@ $img0='home_image';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -302,8 +303,8 @@ $img0='home_image';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -336,7 +337,7 @@ $img1='detail_image_1';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -345,8 +346,8 @@ $img1='detail_image_1';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -379,7 +380,7 @@ $img2='detail_image_2';
                      $this->upload_config = array(
                              'upload_path'   => $image_upload_folder,
                              'file_name' => $new_file_name,
-                             'allowed_types' =>'xlsx|csv|xls|pdf|doc|docx|txt|jpg|jpeg|png',
+                             'allowed_types' =>'jpg|jpeg|png',
                              'max_size'      => 25000
                      );
                      $this->upload->initialize($this->upload_config);
@@ -388,8 +389,8 @@ $img2='detail_image_2';
                          $upload_error = $this->upload->display_errors();
                          // echo json_encode($upload_error);
 
-           //$this->session->set_flashdata('emessage',$upload_error);
-             //redirect($_SERVER['HTTP_REFERER']);
+           $this->session->set_flashdata('emessage',$upload_error);
+             redirect($_SERVER['HTTP_REFERER']);
                      }
                      else
                      {
@@ -423,7 +424,7 @@ if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){
              $last_id=$this->db->update('tbl_custom_banner_image', $data_insert);
            }
                        if($last_id!=0){
-                               $this->session->set_flashdata('smessage','Data inserted successfully');
+                               $this->session->set_flashdata('smessage','Data updated successfully');
                                redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                               }
                                else
@@ -481,6 +482,7 @@ if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){
                        $zapak=$this->db->update('tbl_custom_banner_image', $data_update);
 
                             if($zapak!=0){
+                              $this->session->set_flashdata('smessage','Data updated successfully');
                             redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                                     }
                                     else
@@ -499,6 +501,7 @@ if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){
                          $zapak=$this->db->update('tbl_custom_banner_image', $data_update);
 
                              if($zapak!=0){
+                               $this->session->set_flashdata('smessage','Status updated successfully');
                              redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
                                      }
                                      else
@@ -522,47 +525,41 @@ if(!empty($img)) { if(empty($nnnn2)){ $nnnn2 = $img; } }else{ if(empty($nnnn2)){
 
 
 
-               public function delete_custom_banner_image($idd){
-
-                      if(!empty($this->session->userdata('admin_data'))){
-
-                        $data['user_name']=$this->load->get_var('user_name');
-
-                        // echo SITE_NAME;
-                        // echo $this->session->userdata('image');
-                        // echo $this->session->userdata('position');
-                        // exit;
-                        $id=base64_decode($idd);
-
-                       if($this->load->get_var('position')=="Super Admin"){
-
-
-
- $zapak=$this->db->delete('tbl_custom_banner_image', array('id' => $id));
- if($zapak!=0){
-
-        redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
-                }
-                else
-                {
-                   $this->session->set_flashdata('emessage','Sorry error occured');
-                   redirect($_SERVER['HTTP_REFERER']);
-                }
-            }
-            else{
-             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
-               redirect($_SERVER['HTTP_REFERER']);
-            }
-
-
-                            }
-                            else{
-
-                        redirect("login/admin_login","refresh");
-
-                            }
-
-                            }
-                      }
-
-      ?>
+ //               public function delete_custom_banner_image($idd){
+ //
+ //                      if(!empty($this->session->userdata('admin_data'))){
+ //
+ //                        $data['user_name']=$this->load->get_var('user_name');
+ //
+ //                        // echo SITE_NAME;
+ //                        // echo $this->session->userdata('image');
+ //                        // echo $this->session->userdata('position');
+ //                        // exit;
+ //                        $id=base64_decode($idd);
+ //
+ //                       if($this->load->get_var('position')=="Super Admin"){
+ //
+ //
+ //
+ // $zapak=$this->db->delete('tbl_custom_banner_image', array('id' => $id));
+ // if($zapak!=0){
+ //   $this->session->set_flashdata('smessage','Custom Bannner image deleted successfully');
+ //        redirect("dcadmin/custom_banner_image/view_custom_banner_image","refresh");
+ //                }
+ //                else
+ //                {
+ //                   $this->session->set_flashdata('emessage','Some unknown error occured');
+ //                   redirect($_SERVER['HTTP_REFERER']);
+ //                }
+ //            }
+ //            else{
+ //              $this->session->set_flashdata('emessage','Sorry you dont have permisssion to delete anything');
+ //              redirect($_SERVER['HTTP_REFERER']);
+ //            }
+ //          }
+ //            else{
+ //             $this->session->set_flashdata('emessage','Sorry you not a super admin you dont have permission to delete anything');
+ //               redirect($_SERVER['HTTP_REFERER']);
+ //            }
+ // }
+}

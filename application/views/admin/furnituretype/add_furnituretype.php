@@ -3,7 +3,11 @@
                   <h1>
                  Add New Furnituretype
                  </h1>
-
+                 <ol class="breadcrumb">
+                   <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                   <li><a href="<?php echo base_url() ?>dcadmin/furnituretype/view_furnituretype"><i class="icon-undo"></i> View furnituretype </a></li>
+                   <!-- <li class="active">View Categories</li> -->
+                 </ol>
                </section>
            <section class="content">
            <div class="row">
@@ -67,5 +71,3 @@
 
 <script type="text/javascript" src=" <?php echo base_url()  ?>assets/slider/ajaxupload.3.5.js"></script>
      <link href=" <? echo base_url()  ?>assets/cowadmin/css/jqvmap.css" rel='stylesheet' type='text/css' />
-
-       

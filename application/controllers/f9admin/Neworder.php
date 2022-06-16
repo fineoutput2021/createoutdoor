@@ -95,6 +95,7 @@ $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_order1', $data_update);
 
 if($zapak!=0){
+  $this->session->set_flashdata('smessage', 'order Status updated successfully');
 redirect("dcadmin/Neworder/view_accept_order","refresh");
 }
 else
@@ -158,6 +159,7 @@ $this->db->select('*');
 //---------------------
 
 if($zapak!=0){
+  $this->session->set_flashdata('smessage', 'order Status Cancelled successfully');
 redirect("dcadmin/Neworder/view_cancel_orders","refresh");
 }
 else
@@ -202,6 +204,7 @@ $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_order1', $data_update);
 
 if($zapak!=0){
+  $this->session->set_flashdata('smessage', 'order Status updated successfully');
 redirect("dcadmin/Neworder/view_dispatched_orders","refresh");
 }
 else
@@ -246,6 +249,7 @@ $this->db->where('id', $id);
 $zapak=$this->db->update('tbl_order1', $data_update);
 
 if($zapak!=0){
+  $this->session->set_flashdata('smessage', 'order Status updated successfully');
 redirect("dcadmin/Neworder/view_completed_orders","refresh");
 }
 else

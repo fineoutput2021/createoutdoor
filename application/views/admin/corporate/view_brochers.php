@@ -4,12 +4,12 @@
            Brochers
           </h1>
           <ol class="breadcrumb">
-           <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Brochers </a></li>
-            <li class="active">View Brochers</li>
+           <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url() ?>dcadmin/corporate/view_brochers"><i class="icon-undo"></i> View Brochers </a></li>
+            <!-- <li class="active">View Brochers</li> -->
           </ol>
         </section>
-          <section class="content"> 
+          <section class="content">
           <div class="row">
              <div class="col-lg-12">
                  <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/corporate/add_brochers" role="button" style="margin-bottom:12px;"> Add Brochers</a>

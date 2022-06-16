@@ -4,9 +4,9 @@
         Team
           </h1>
           <ol class="breadcrumb">
-           <li><a href="<?php echo base_url() ?>admin/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url() ?>admin/college"><i class="fa fa-dashboard"></i> All Team </a></li>
-            <li class="active">View Team</li>
+           <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo base_url() ?>dcadmin/system/view_team"><i class="fa fa-dashboard"></i> View Team </a></li>
+            <!-- <li class="active">View Team</li> -->
           </ol>
         </section>
 		<section class="content">
@@ -116,9 +116,9 @@
 													  <ul class="dropdown-menu" role="menu">
 
 														<?php if($data->is_active==1){ ?>
-														<li><a href="<?php echo base_url() ?>admin/system/updateteamStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
+														<li><a href="<?php echo base_url() ?>dcadmin/system/updateteamStatus/<?php echo base64_encode($data->id) ?>/inactive">Inactive</a></li>
 														<?php } else { ?>
-														<li><a href="<?php echo base_url() ?>admin/system/updateteamStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
+														<li><a href="<?php echo base_url() ?>dcadmin/system/updateteamStatus/<?php echo base64_encode($data->id) ?>/active">Active</a></li>
 														<?php		}   ?>
 
 														<li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete User</a></li>

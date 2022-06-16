@@ -1,12 +1,11 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      Add New Categories
+      Update Categories
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url() ?>dcadmin/dashboard"><i class="fa fa-dashboard"></i>Home</a></li>
-      <li><a href="<?php echo base_url() ?>dcadmin/category/view_category"><i class="fa fa-dashboard"></i> Categories List</a></li>
-
+      <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i>Dashboard</a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/category/view_category"><i class="icon-undo"></i> Categories List</a></li>
     </ol>
   </section>
   <section class="content">
