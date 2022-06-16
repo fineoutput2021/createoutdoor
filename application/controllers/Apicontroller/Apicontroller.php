@@ -610,6 +610,11 @@ $image4 = base_url().$data->image4;
 }else{
 $image4 = "";
 }
+if(!empty($data->video)){
+$video = base_url().$data->video;
+}else{
+$video = "";
+}
 
 
 $products[] = array(
@@ -623,6 +628,7 @@ $products[] = array(
 'productimage2'=> $image2,
 'productimage3'=> $image3,
 'productimage4'=> $image4,
+'video'=> $video,
 'mrp'=> $data->mrp,
 'model_no'=> $data->modelno,
 'productdescription'=> $data->productdescription,
