@@ -13,7 +13,7 @@
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <!-- <a class="btn btn-info cticket" href="<?php base_url() ?>dcadmin/Subscribe/add_Subscribe"
+        <!-- <a class="btn custom_btn" href="<?php base_url() ?>dcadmin/Subscribe/add_Subscribe"
         role="button" style="margin-bottom:12px;"> Add Subscribe</a> -->
         <div class="panel panel-default">
         <div class="panel-heading">

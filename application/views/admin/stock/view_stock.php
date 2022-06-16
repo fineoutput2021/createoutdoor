@@ -8,7 +8,7 @@
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/stock/add_stock"
+        <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/stock/add_stock"
         role="button" style="margin-bottom:12px;"> Add stock</a>
         <div class="panel panel-default">
         <div class="panel-heading">

@@ -14,7 +14,7 @@
         <div class="row">
         <div class="col-lg-12">
 
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/topbar/add_topbar"
+        <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/topbar/add_topbar"
         role="button" style="margin-bottom:12px;"> Add topbar</a>
         <div class="panel panel-default">
         <div class="panel-heading">

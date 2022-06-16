@@ -1,11 +1,11 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      Update Gallery2
+      Update Gallery
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="<?php echo base_url() ?>dcadmin/gallery2/view_gallery2"><i class="icon-undo"></i> View Gallery2 </a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/gallery2/view_gallery2"><i class="icon-undo"></i> View Gallery </a></li>
       <!-- <li class="active">View Order</li> -->
     </ol>
   </section>
@@ -15,7 +15,7 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Gallery2 </h3>
+            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Gallery </h3>
           </div>
 
           <?php if (!empty($this->session->flashdata('smessage'))) {  ?>

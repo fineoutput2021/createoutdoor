@@ -24,7 +24,7 @@
           if(empty($dsa)){
 
           ?>
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/chair_text/add_chair_text"
+        <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/chair_text/add_chair_text"
         role="button" style="margin-bottom:12px;"> Add chair text</a>
       <? } ?>
         <div class="panel panel-default">

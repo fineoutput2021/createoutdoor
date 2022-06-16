@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                       <td> <strong>link</strong> <span style="color:red;">*</span></strong> </td>
-                      <td> <input type="text" name="link" class="form-control" placeholder="" value="" /> </td>
+                      <td> <input type="url" name="link" class="form-control" placeholder="" value="" /> </td>
                     </tr>
 
 

@@ -13,7 +13,7 @@
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <!-- <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/custom_banner_image/add_custom_banner_image"
+        <!-- <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/custom_banner_image/add_custom_banner_image"
         role="button" style="margin-bottom:12px;"> Add custom_banner_image</a> -->
         <div class="panel panel-default">
         <div class="panel-heading">

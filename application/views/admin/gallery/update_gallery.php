@@ -1,11 +1,11 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-      Update Gallery
+      Update Six Images
     </h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="<?php echo base_url() ?>dcadmin/gallery/view_gallery"><i class="icon-undo"></i> View Gallery </a></li>
+      <li><a href="<?php echo base_url() ?>dcadmin/gallery/view_gallery"><i class="icon-undo"></i> View Six Images </a></li>
       <!-- <li class="active">View Order</li> -->
     </ol>
   </section>
@@ -15,7 +15,7 @@
 
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Gallery </h3>
+            <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Update Six Images </h3>
           </div>
 
           <?php if (!empty($this->session->flashdata('smessage'))) {  ?>
@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                       <td> <strong>Link</strong> <span style="color:red;">*</span></strong> </td>
-                      <td> <input type="text" name="link" class="form-control" placeholder="" required value="<?=$gallery_data->link;?>" /> </td>
+                      <td> <input type="url" name="link" class="form-control" placeholder="" required value="<?=$gallery_data->link;?>" /> </td>
                     </tr>
                     <tr>
                       <td> <strong>Image</strong> <span style="color:red;">*</span></strong> </td>

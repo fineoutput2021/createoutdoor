@@ -13,7 +13,7 @@
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn btn-info cticket" href="<?php echo base_url() ?>dcadmin/table_feature/add_table_feature"
+        <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/table_feature/add_table_feature"
         role="button" style="margin-bottom:12px;"> Add Table Feature</a>
         <div class="panel panel-default">
         <div class="panel-heading">

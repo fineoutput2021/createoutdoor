@@ -20,39 +20,42 @@
   /* / ==============================Custom theme=========================================== / */
   .custom_btn{
     color: white;
-    background-color: hsl(353deg 91% 53%);
+    background-color: #6b9cb3;
   }
   .custom_btn:hover{
     color: white;
-    background-color: black;
+    background-color: #f4956e;
   }
   .custom_header{
-    color: white;
-    background-color: #6b9cb3 !important;
+    color: black;
+    background-color: white !important;
   }
   .custom_header>a:hover{
-    color: #fff;
-    background: hsl(353deg 91% 53%) !important;
-    border-left-color: hsl(353deg 91% 53%);
+    color: white;
+    background: #6b9cb3 !important;
+    border-left-color: #f4956e;
   }
   .custom_header>li>a:hover{
-    color: #fff;
-    background: #262626;
-    border-left-color: hsl(353deg 91% 53%);
+    color: white;
+    background: #6b9cb3;
+    border-left-color: #f4956e;
   }
   .active>a{
-    color: #fff;
-    background: hsl(353deg 91% 53%) !important;
-    border-color: hsl(353deg 91% 53%) !important;
+    color: white;
+    background: #f4956e !important;
+    border-color: #f4956e !important;
   }
 .skin-blue .sidebar-menu>li>.treeview-menu{
     color: white !important;;
     background-color: #262626;
   }
   .skin-blue .sidebar-menu>li>a:hover{
-    color: #fff;
-    background: #262626;
-    border-left-color: hsl(353deg 91% 53%);
+    color: white;
+    background: #6b9cb3 !important;
+    border-left-color: #f4956e;
+  }
+  .main-header .sidebar-toggle:before{
+    color: black;
   }
   label{
   	margin:5px;
@@ -188,15 +191,15 @@
   </style>
   </head>
   <body class="skin-blue">
-    <div class="wrapper">
+    <div class="wrapper" style="background-color: white;">
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo custom_header"><b><? echo SITE_NAME; ?></b></a>
+        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo custom_header"><img src="<?=base_url()?>assets/admin/dist/img/head.png" height="40px"></a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top custom_header" role="navigation">
           <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <a href="#" class="sidebar-toggle custom_header " data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
           <!-- Navbar Right Menu -->
@@ -221,11 +224,11 @@
                   }
                   ?>
 
-                  <span class="hidden-xs">  <? print_r($user_name); ?> </span>
+                  <span class="hidden-xs" style="color: black;">  <? print_r($user_name); ?> </span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
-                  <li class="user-header">
+                  <li class="user-header custom_header">
 <?
                     if(!empty($imgr)){
 ?>
@@ -241,7 +244,7 @@
                     }
                     ?>
 
-                    <p>
+                    <p style="color: black;">
                       <? print_r($user_name); ?>
                       <small> <? print_r($position); ?> </small>
                     </p>
@@ -297,7 +300,7 @@
 
             </div>
             <div class="pull-left info">
-              <p> <? print_r($user_name); ?></p>
+              <p style="color: #a5a5a5;"> <? print_r($user_name); ?></p>
 
               <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
             </div>
@@ -315,7 +318,7 @@
 
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu custom_header">
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header custom_header" style="color: #f4956e; text-align: center">MAIN NAVIGATION</li>
 
 
             <?
@@ -323,11 +326,12 @@
 // exit;
             foreach($sidebar as $sd){
 
-
+              $currentURL = current_url();
+              $urls= base_url().ADMIN_URL."/".$sd['url'];
 
                             ?>
                             <li class="treeview">
-                              <a href="<?
+                              <a style="<?php if($currentURL == $urls){ echo 'background-color:#6b9cb3; color: white; border-left-color: #f4956e;';}?>" href="<?
                               $this->db->select('*');
                               $this->db->from('tbl_admin_sidebar2');
                               $this->db->where('main_id',$sd['id']);
@@ -335,7 +339,7 @@
                               $dawwa=$dsaww->row();
                               if(empty($dawwa)){
                                 echo base_url().ADMIN_URL."/".$sd['url'].'">';?>
-                                <i class="fa fa-files-o"></i>
+                                <i class="fa fa-circle-o"></i>
                                 <span><? echo $sd['name'] ?></span>
                                 <span class="label label-primary pull-right"></span>
                                 </a>
@@ -344,7 +348,7 @@
                               <?
                               }
                               else{
-                                echo '#"> <i class="fa fa-files-o"></i>
+                                echo '#"> <i class="fa fa-circle-o"></i>
                                 <span>'.$sd['name'].'</span>
                                 <span class="label label-primary pull-right"></span>
                               </a>
