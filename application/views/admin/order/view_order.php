@@ -37,7 +37,7 @@
 
                   <div class="panel-body">
                     <div class="box-body table-responsive no-padding">
-                      <table class="table table-bordered table-hover table-striped" id="userTable">
+                      <table class="table table-bordered table-hover table-striped" id="printTable">
                         <thead>
                           <tr>
                             <th>#</th>
@@ -255,12 +255,71 @@
           margin: 5px;
         }
       </style>
+
       <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/jquery.dataTables.js"></script>
       <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
+
+
+      <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+      <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
       <script type="text/javascript">
+        // buttons: [
+        //     'copy', 'csv', 'excel', 'pdf', 'print'
+        // ]
         $(document).ready(function() {
+          $('#printTable').DataTable({
+            responsive: true,
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('offersDataTables', JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                return JSON.parse(localStorage.getItem('offersDataTables'));
+            },
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'copyHtml5',
+                exportOptions: {
+                  columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] //number of columns, excluding # column
+                }
+              },
+              {
+                extend: 'csvHtml5',
+                exportOptions: {
+                  columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                }
+              },
+              {
+                extend: 'excelHtml5',
+                exportOptions: {
+                  columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                }
+              },
+              {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                  columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                }
+              },
+              {
+                extend: 'print',
+                exportOptions: {
+                  columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                }
+              },
+
+            ]
 
 
+          });
           $(document.body).on('click', '.dCnf', function() {
             var i = $(this).attr("mydata");
             console.log(i);
@@ -280,17 +339,5 @@
 
         });
       </script>
-      <script type="text/javascript">
-          $('#userTable').dataTable({
-        responsive: true,
-        "bStateSave": true,
-        "fnStateSave": function (oSettings, oData) {
-            localStorage.setItem('offersDataTables', JSON.stringify(oData));
-        },
-        "fnStateLoad": function (oSettings) {
-            return JSON.parse(localStorage.getItem('offersDataTables'));
-        }
-    });
-          </script>
       <!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
             <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
