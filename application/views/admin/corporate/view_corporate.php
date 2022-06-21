@@ -157,9 +157,14 @@
   $(document).ready(function() {
     $('#userTable').DataTable({
       responsive: true,
-      // bSort: true
-    });
-
+      "bStateSave": true,
+  "fnStateSave": function (oSettings, oData) {
+      localStorage.setItem('offersDataTables', JSON.stringify(oData));
+  },
+  "fnStateLoad": function (oSettings) {
+      return JSON.parse(localStorage.getItem('offersDataTables'));
+  }
+});
     $(document.body).on('click', '.dCnf', function() {
       var i = $(this).attr("mydata");
       console.log(i);

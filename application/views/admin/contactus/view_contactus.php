@@ -2,22 +2,22 @@
         <div class="content-wrapper">
         <section class="content-header">
         <h1>
-          View Contactus
+          Contact us
         </h1>
         <ol class="breadcrumb">
           <li><a href="<?php echo base_url() ?>dcadmin/home"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li><a href="<?php echo base_url() ?>dcadmin/contactus/view_contactus"><i class="icon-undo"></i> View contactus </a></li>
+          <!-- <li><a href="<?php echo base_url() ?>dcadmin/contactus/view_contactus"><i class="icon-undo"></i> View contactus </a></li> -->
           <!-- <li class="active">View Categories</li> -->
         </ol>
         </section>
         <section class="content">
         <div class="row">
         <div class="col-lg-12">
-        <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/contactus/add_contactus"
-        role="button" style="margin-bottom:12px;"> Add Contact Us</a>
+        <!-- <a class="btn custom_btn" href="<?php echo base_url() ?>dcadmin/contactus/add_contactus"
+        role="button" style="margin-bottom:12px;"> Add Contact Us</a> -->
         <div class="panel panel-default">
         <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View contactus</h3>
+        <h3 class="panel-title"><i class="fa fa-money fa-fw"></i>View contact us</h3>
         </div>
         <div class="panel panel-default">
 
@@ -50,8 +50,8 @@
  	 <!-- <th>Complain</th> -->
 
 
-        <th>Status</th>
-        <th>Action</th>
+        <!-- <th>Status</th>
+        <th>Action</th> -->
         </tr>
         </thead>
         <tbody>
@@ -68,7 +68,7 @@
 
 
 
-        <td><?php if($data->is_active==1){ ?>
+        <!-- <td><?php if($data->is_active==1){ ?>
         <p class="label bg-green" >Active</p>
 
         <?php } else { ?>
@@ -76,33 +76,33 @@
 
 
         <?php } ?>
-        </td>
+        </td> -->
         <td>
-        <div class="btn-group" id="btns<?php echo $i ?>">
+        <!-- <div class="btn-group" id="btns<?php echo $i ?>">
         <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         Action <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu">
+        <ul class="dropdown-menu" role="menu"> -->
 
-        <?php if($data->is_active==1){ ?>
+        <!-- <?php if($data->is_active==1){ ?>
         <li><a href="<?php echo base_url() ?>dcadmin/contactus/updatecontactusStatus/<?php echo
         base64_encode($data->id) ?>/inactive">Inactive</a></li>
         <?php } else { ?>
         <li><a href="<?php echo base_url() ?>dcadmin/contactus/updatecontactusStatus/<?php echo
         base64_encode($data->id) ?>/active">Active</a></li>
-        <?php } ?>
-        <li><a href="<?php echo base_url() ?>dcadmin/contactus/update_contactus/<?php echo
+        <?php } ?> -->
+        <!-- <li><a href="<?php echo base_url() ?>dcadmin/contactus/update_contactus/<?php echo
         base64_encode($data->id) ?>">Edit</a></li>
         <li><a href="javascript:;" class="dCnf" mydata="<?php echo $i ?>">Delete</a></li>
         </ul>
-        </div>
+        </div> -->
         </div>
 
-        <div style="display:none" id="cnfbox<?php echo $i ?>">
+        <!-- <div style="display:none" id="cnfbox<?php echo $i ?>">
         <p> Are you sure delete this </p>
         <a href="<?php echo base_url() ?>dcadmin/contactus/delete_contactus/<?php echo
         base64_encode($data->id); ?>" class="btn btn-danger" >Yes</a>
-        <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a>
+        <a href="javasript:;" class="cans btn btn-default" mydatas="<?php echo $i ?>" >No</a> -->
         </div>
         </td>
         </tr>

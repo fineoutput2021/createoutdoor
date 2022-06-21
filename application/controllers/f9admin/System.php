@@ -235,6 +235,10 @@ echo "hiiii";
 						$services=$this->input->post('services');
 $password=$this->input->post('password');
 							$img1='fileToUpload1';
+							if(empty($service) && empty($services)){
+								$this->session->set_flashdata('emessage','select services to proceed');
+								 redirect($_SERVER['HTTP_REFERER']);
+							}
 
 if($service==999){
 	$ser='["999"]';

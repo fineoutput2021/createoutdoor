@@ -147,7 +147,7 @@ Zipcode: <?php echo $zipcode;?><br>
         <!-- <th>HSN Code</th> -->
         <th>Type</th>
         <th>Sample</th>
-        <th>MRP</th>
+        <th>Selling price</th>
         <th>QTY</th>
 
         <th>Total Amount</th>
@@ -188,7 +188,7 @@ echo $product_name= $product_data->productname;
 
         if(!empty($type_data)){
         echo $type_name= $type_data->name;
-         $type_mrp= $type_data->mrp;
+         $type_spgst= $type_data->spgst;
        }
          // $type_gst_percentage= $type_data->gst_percentage;
           // $type_gst_percentage_price= $type_data->gst_percentage_price;
@@ -208,7 +208,7 @@ echo $product_name= $product_data->productname;
         <td ><?if(!empty($data->sample)){ echo "Yes";}else{echo "No";}?></td>
 
         <td ><?php
-        if(empty($data->sample)){ echo "Rs. " .$type_mrp;}else{echo "NA";}?></td>
+        if(empty($data->sample)){ echo "₹" .$type_spgst;}else{echo "NA";}?></td>
         <td ><?php echo $data->quantity;?></td>
         <!-- <td>9%</td>
         <td>CGST</td>
@@ -223,7 +223,7 @@ echo $product_name= $product_data->productname;
         ?>
 
 
-        <td><?php echo "Rs. ".$data->total_amount;?></td>
+        <td><?php echo "₹".$data->total_amount;?></td>
       </tr>
   <?php $i++;} }?>
 

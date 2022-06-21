@@ -54,7 +54,9 @@
 </tr>
   <tr>
 <td> <strong>Gift Percent</strong>  <span style="color:red;">*</span></strong> </td>
-<td> <input type="number" name="giftpercent"  class="form-control" placeholder="" required value="" />  </td>
+<td>
+	<input type="text" min="0" onkeydown="if(event.key==='.'){event.preventDefault();}"  oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" maxlength="2" name="giftpercent" class="form-control" placeholder=""required value="" />
+  </td>
 </tr>
   <tr>
 <td> <strong>Min Order</strong>  <span style="color:red;">*</span></strong> </td>

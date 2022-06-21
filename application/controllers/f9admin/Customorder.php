@@ -24,7 +24,7 @@
                    // echo $this->session->userdata('position');
                    // exit;
                    $this->db->select('*');
-                   $this->db->from('tbl_corporate');
+                   $this->db->from('tbl_customorder');
                    $this->db->order_by('id', 'desc');
                    $data['detail_customorder']= $this->db->get();
 
@@ -252,7 +252,7 @@
                    // echo $this->session->userdata('position');
                    // exit;
                    $id=base64_decode($idd);
-
+// echo $id;die();
                    if ($t=="active") {
                        $data_update = array(
              'is_active'=>1

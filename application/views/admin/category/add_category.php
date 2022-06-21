@@ -48,6 +48,7 @@
                     <tr>
                       <td> <strong>Image</strong> <span style="color:red;">*</span></strong> </td>
                       <td>
+
                         <input type="file" name="image" class="form-control" placeholder="" required value="" />
                       </td>
                     </tr>
@@ -61,7 +62,7 @@
                     <tr>
                       <td> <strong>Sequence</strong> <span style="color:red;">*</span></strong> </td>
                       <td>
-                        <input type="text" name="seq" class="form-control" placeholder="" required value="" />
+                        <input type="number" name="seq" class="form-control" placeholder="" required value="" />
                       </td>
                     </tr>
                     <tr>

@@ -34,8 +34,8 @@
                                <div class="panel panel-default">
 
                             <div class="panel-body">
-                                <div class="">
-                                    <table class="table table-bordered table-hover table-striped" id="userTable">
+                              <div class="box-body table-responsive no-padding">
+                                    <table class="table table-bordered table-hover table-striped" id="teamTable">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -157,31 +157,32 @@ label{
 <script src="<?php echo base_url() ?>assets/admin/plugins/datatables/dataTables.bootstrap.js"></script>
 <script type="text/javascript">
 
- $(document).ready(function(){
-$('#userTable').DataTable({
-         responsive: true,
-         // bSort: true
- });
+$(document).ready(function(){
+$('#teamTable').DataTable({
+responsive: true,
+// bSort: true
+});
 
 $(document.body).on('click', '.dCnf', function() {
- var i=$(this).attr("mydata");
- console.log(i);
+var i=$(this).attr("mydata");
+console.log(i);
 
- $("#btns"+i).hide();
- $("#cnfbox"+i).show();
+$("#btns"+i).hide();
+$("#cnfbox"+i).show();
 
 });
 
- $(document.body).on('click', '.cans', function() {
- var i=$(this).attr("mydatas");
- console.log(i);
+$(document.body).on('click', '.cans', function() {
+var i=$(this).attr("mydatas");
+console.log(i);
 
- $("#btns"+i).show();
- $("#cnfbox"+i).hide();
+$("#btns"+i).show();
+$("#cnfbox"+i).hide();
 })
 
- });
+});
 
- </script>
-<!-- <script type="text/javascript" src="<?php echo base_url() ?>assets/slider/ajaxupload.3.5.js"></script>
-<script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script>	  -->
+</script>
+<!-- <script type="text/javascript" src="<?php echo base_url()
+?>assets/slider/ajaxupload.3.5.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>assets/slider/rs.js"></script> -->

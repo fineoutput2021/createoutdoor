@@ -97,7 +97,7 @@ class Category extends CI_finecontrol
                         $this->upload->initialize($this->upload_config);
                         if (!$this->upload->do_upload($img2)) {
                             $upload_error = $this->upload->display_errors();
-                            echo json_encode($upload_error);
+                            // echo json_encode($upload_error);
                             $this->session->set_flashdata('emessage', $upload_error);
                             redirect($_SERVER['HTTP_REFERER']);
                         } else {
