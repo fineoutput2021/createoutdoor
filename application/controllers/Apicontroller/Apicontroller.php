@@ -660,31 +660,37 @@ $this->db->order_by('id','desc');
 $productslimitdata= $this->db->get();
 $products=[];
 foreach($productslimitdata->result() as $limit) {
-
+$category=json_decode($limit->category);
 //category
-$this->db->select('*');
-$this->db->from('tbl_category');
-$this->db->where('id',$limit->category);
-$this->db->where('is_active',1);
-$cat= $this->db->get()->row();
-if(!empty($cat)){
-$c1=$cat->title;
-}
-else{
-$c1="";
+$cat_del=0;
+foreach ($category as $key) {
+  $this->db->select('*');
+  $this->db->from('tbl_category');
+  $this->db->where('id',$key);
+  $this->db->where('is_active',1);
+  $cat= $this->db->get()->row();
+  if(empty($cat)){
+    $cat_del=1;
+  }else{
+
+  }
 }
 
 
 //subcategory
-$this->db->select('*');
-$this->db->from('tbl_subcategory');
-$this->db->where('id',$limit->subcategory);
-$this->db->where('is_active',1);
-$sub= $this->db->get()->row();
-if(!empty($sub)){
-$s1=$sub->subcategory;
-}else{
-$s1="";
+$subcategory=json_decode($limit->subcategory);
+$sub_del=0;
+foreach ($subcategory as $key2) {
+  $this->db->select('*');
+  $this->db->from('tbl_category');
+  $this->db->where('id',$key2);
+  $this->db->where('is_active',1);
+  $cat= $this->db->get()->row();
+  if(empty($cat)){
+    $sub_del=1;
+  }else{
+
+  }
 }
 
 //type --
@@ -705,14 +711,13 @@ $producttype[]=array(
 );
 
 }
-
-
+if($cat_del==0 && $sub_del==0){
 
 $products[] = array(
 'product_id'=>$limit->id,
 'productname'=> $limit->productname,
-'category'=> $c1,
-'sucategory'=> $s1,
+'category'=> '',
+'sucategory'=> '',
 'productimage'=> base_url().$limit->image,
 'mrp'=> $limit->mrp,
 'productdescription'=> $limit->productdescription,
@@ -721,7 +726,7 @@ $products[] = array(
 // 'inventory'=> $data->inventory
 );
 }
-
+}
 header('Access-Control-Allow-Origin: *');
 $res = array('message'=>"success",
 'status'=>200,
