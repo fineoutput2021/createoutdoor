@@ -682,7 +682,7 @@ $subcategory=json_decode($limit->subcategory);
 $sub_del=0;
 foreach ($subcategory as $key2) {
   $this->db->select('*');
-  $this->db->from('tbl_category');
+  $this->db->from('tbl_subcategory');
   $this->db->where('id',$key2);
   $this->db->where('is_active',1);
   $cat= $this->db->get()->row();
@@ -5663,6 +5663,39 @@ if(!empty($string_check)){
 foreach($search_string->result() as $data){
 // echo $data->id;
 // exit;
+$category=json_decode($data->category);
+//category
+$cat_del=0;
+foreach ($category as $key) {
+  $this->db->select('*');
+  $this->db->from('tbl_category');
+  $this->db->where('id',$key);
+  $this->db->where('is_active',1);
+  $cat= $this->db->get()->row();
+  if(empty($cat)){
+    $cat_del=1;
+  }
+}
+
+
+//subcategory
+$subcategory=json_decode($data->subcategory);
+// print_r($data);die();
+$sub_del=0;
+foreach ($subcategory as $key2) {
+  $this->db->select('*');
+  $this->db->from('tbl_subcategory');
+  $this->db->where('id',$key2);
+  $this->db->where('is_active',1);
+  $cat= $this->db->get()->row();
+  if(empty($cat)){
+    $sub_del=1;
+  }
+}
+if($cat_del==0 && $sub_del==0){
+  // print_r($data);die();
+
+  // echo "hi";die();
 $this->db->select('*');
 $this->db->from('tbl_type');
 $this->db->where('product_id',$data->id);
@@ -5688,7 +5721,7 @@ $search_data[]=array(
 
 );
 
-
+}
 }
 
 
