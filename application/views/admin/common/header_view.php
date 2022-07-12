@@ -22,7 +22,7 @@
         <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     </script>
     <!--end excel ------>
-    
+
   <style>
   /* / ==============================Custom theme=========================================== / */
   .custom_btn{
@@ -202,7 +202,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo custom_header"><img src="<?=base_url()?>assets/admin/dist/img/head.png" height="40px"></a>
+        <a href="<?=base_url().ADMIN_URL ?>/home" class="logo custom_header"><img src="<?=base_url()?>assets/admin/dist/img/head.png" width='65%'></a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top custom_header" role="navigation">
           <!-- Sidebar toggle button-->
@@ -307,7 +307,7 @@
 
             </div>
             <div class="pull-left info">
-              <p style="color: #a5a5a5;"> <? print_r($user_name); ?></p>
+              <p style="color: #000;"> <? print_r($user_name); ?></p>
 
               <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
             </div>
