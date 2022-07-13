@@ -505,7 +505,7 @@
   'top'=>$top,
                      'ip' =>$ip,
                      'added_by' =>$addedby,
-                     'is_active' =>0,
+                     'is_active' =>1,
                      'date'=>$cur_date
                      );
 
