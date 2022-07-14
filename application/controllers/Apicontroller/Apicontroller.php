@@ -6871,6 +6871,40 @@ if(!empty($product_check)){
 $product_data1 = [];
 
 foreach($product_data->result() as $data) {
+  $category=json_decode($data->category);
+  //category
+  $cat_del=0;
+  foreach ($category as $key) {
+    $this->db->select('*');
+    $this->db->from('tbl_category');
+    $this->db->where('id',$key);
+    $this->db->where('is_active',1);
+    $cat= $this->db->get()->row();
+    if(empty($cat)){
+      $cat_del=1;
+    }else{
+
+    }
+  }
+
+
+  //subcategory
+  $subcategory=json_decode($data->subcategory);
+  $sub_del=0;
+  foreach ($subcategory as $key2) {
+    $this->db->select('*');
+    $this->db->from('tbl_subcategory');
+    $this->db->where('id',$key2);
+    $this->db->where('is_active',1);
+    $cat= $this->db->get()->row();
+    if(empty($cat)){
+      $sub_del=1;
+    }else{
+
+    }
+  }
+  if($cat_del==0 && $sub_del==0){
+
 $i=0;
 $sub = json_decode($data->category);
 // if($a==27){
@@ -6938,6 +6972,8 @@ $product_data1[]= array(
 // $a++;
 // echo $a;
 // echo "<br>";
+
+}
 }
 // exit;
 header('Access-Control-Allow-Origin: *');
